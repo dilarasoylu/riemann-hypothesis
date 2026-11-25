@@ -74,22 +74,13 @@ import Development.AbelianVarietyTheory.Proofs.FoundationProofs.OddThetaFunction
 import Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.DifferentiableAtDerivAtZero
 import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IntegralJAndAlgebraicData
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormalizedAreaClassInvariant, Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ConjugateIdealLatticeDiscrOneHomotheticIdeal, Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsIntegralThetaEtaTwelfthPowerConjugates, Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MeanLogCovolumeConjugateLatticesEq, Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsReduced, Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormThetaCharTermLe, Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.IsPeriodLatticeIff, Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.MeanSquareNormalizedThetaTwoTorsion, Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ThetaZeroNorm, Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ThetaZeroMeanLogNormConjugatesOfWeber
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormalizedAreaClassInvariant =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormalizedAreaClassInvariant", "h": "module\n\npublic import Formalism.SharpRestriction.GlobalSchurBounds.StandardLatticesGL3\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.EquidistributedConjugates\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
+namespace GlobalTheory.Proof.ThetaZeroNormGlobalInterpolation
+end GlobalTheory.Proof.ThetaZeroNormGlobalInterpolation
 @[expose] public section
-
 noncomputable section
-
 namespace GlobalTheory.ConjEquidistrib
-
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric
 open scoped nonZeroDivisors Pointwise
-
-
 open GlobalTheory.IndefiniteRowSideFullHecke.EquidistributedConjugates in
 theorem fixesK_conjEmb_iff (D : D7) (M : IntermediateField ℚ ℂ) (ρ : M →ₐ[ℚ] ℂ)
     (hm : ∀ a : D.host.K, D.host.φ₀ (a : D.host.E) ∈ M) :
@@ -151,24 +142,9 @@ theorem fixK_of_fixesK (D : D7) (M : IntermediateField ℚ ℂ) (ρ : M →ₐ[�
   exact h a _ rfl
 
 open GlobalTheory.IndefiniteRowSideFullHecke.EquidistributedConjugates
-
 end GlobalTheory.ConjEquidistrib
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormalizedAreaClassInvariant =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ConjugateIdealLatticeDiscrOneHomotheticIdeal =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ConjugateIdealLatticeDiscrOneHomotheticIdeal", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.SignedLogMeans\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ConjugateCurveDatumLatticeIsCurveLattice\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormalizedAreaClassInvariant\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.UniformizationHolds\nimport Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.PeriodRelations.ConjCls\nimport Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.WeierstrassUniqueness.LatOfDiscrHolds\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.EquidistributedConjugates\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace GlobalTheory.ConjLatticeCore
-
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
-
 theorem conj_lattice_core :
     ∀ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M]
       (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t → ∀ ρ : M →ₐ[ℚ] ℂ,
@@ -212,24 +188,10 @@ theorem conj_lattice_core :
     intro hbot
     rw [Ideal.map_eq_bot_iff_of_injective (GlobalTheory.ConjLattice.conjO D).injective] at hbot
     exact hc hbot
-
 end GlobalTheory.ConjLatticeCore
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ConjugateIdealLatticeDiscrOneHomotheticIdeal =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsIntegralThetaEtaTwelfthPowerConjugates =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsIntegralThetaEtaTwelfthPowerConjugates", "h": "module\n\npublic import Formalism.SharpRestriction.GlobalSchurBounds.GL3Theta\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.SignedLogMeans\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.ThetaConstantWeber\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.PeriodLatticeAgreement\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.CmThetaTaylorCoeffAlgebraicAndConjugate\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsIntegralPeriodElement\nimport Formalism.SharpRestriction.GlobalSchurBounds.StandardLatticesGL3\nimport Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.HalfPeriodWeierstrassValueMemConj\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+section
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
-
-noncomputable section
-
 namespace GlobalTheory.IntegralXCore
-
 theorem exists_integral_theta_ratio : PeriodLatticeAgreement.LatticePeriodEta → ThetaConstantWeber.ThetaWeberStatement → ∀ (D : D7), Formalism.MainNotions.GL3Theta.admJ D → ∀ (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M] (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t → ∃ X : M, X ≠ 0 ∧ IsIntegral ℤ (X : ℂ) ∧ ∀ (ρ : M →ₐ[ℚ] ℂ) (ω₁ τ : ℂ), ω₁ ≠ 0 → 0 < τ.im → JacobiThetaHalfCharacteristic.IsPeriodLattice (lamConj M ρ (lamOf D cc δ)) ω₁ τ → ∀ a b : Fin 2, JacobiThetaHalfCharacteristic.IsEvenChar a b → JacobiThetaHalfCharacteristic.thetaChar a b (t ρ / ω₁) τ = 0 → ‖ρ X‖ = (‖JacobiThetaHalfCharacteristic.thetaChar a b 0 τ‖ / ‖ModularForm.eta τ‖) ^ 12 := by
   intro hL hT D hJ cc δ M _ t hS
   obtain ⟨e, g, hg, hval, hρ⟩ := _root_.GlobalTheory.HalfPeriodValue.halfPeriod_value D cc δ M t hS
@@ -274,24 +236,8 @@ theorem exists_integral_theta_ratio : PeriodLatticeAgreement.LatticePeriodEta �
     rw [map_div₀, map_one, map_pow, hYρ, hX']
     have hs1 : ‖s'‖ = 1 := by rcases hs' with rfl | rfl <;> simp
     rw [norm_mul, hs1, one_mul, norm_pow, norm_div]
-
 end GlobalTheory.IntegralXCore
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsIntegralThetaEtaTwelfthPowerConjugates =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MeanLogCovolumeConjugateLatticesEq =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MeanLogCovolumeConjugateLatticesEq", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.SignedLogMeans\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.ClassMeanPeriods\npublic import Development.AbelianVarietyTheory.Definitions.GlobalTwisting.ExistsPowPrincipalFractionalIdeal\nimport Development.AbelianVarietyTheory.Proofs.FoundationProofs.InducedTypeThetaGenusOnePermutes\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.MeanLogPeriodConjugatesEqChowlaSelberg\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
-
-noncomputable section
-
 namespace GlobalTheory.MeanLogArea
-
 theorem mean_log_area : ∀ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M] (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t → (∑ ρ : M →ₐ[ℚ] ℂ, Real.log (area (lamConj M ρ (lamOf D cc δ)))) / (Module.finrank ℚ M : ℝ) = Real.log Real.pi + ClassMeanPeriods.classMeanValue D := by
   intro D cc δ M _ t hS
   obtain ⟨hcc, hδ, hM, -⟩ := hS
@@ -315,26 +261,9 @@ theorem mean_log_area : ∀ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M 
   unfold ClassMeanPeriods.classMeanValue
   rw [hmean]
   ring
-
 end GlobalTheory.MeanLogArea
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MeanLogCovolumeConjugateLatticesEq =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsReduced =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsReduced", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\npublic import Mathlib.NumberTheory.Modular\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.IdealPeriodLatticeOfCurveDatum\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.CmBaseFieldIntegersAndCurveIdealFacts\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\npublic import Development.AbelianVarietyTheory.Definitions.Jets.CmLatticeCommutatorPairingPowEqOneOfGoodLift\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
-
-noncomputable section
-
 namespace GlobalTheory.IdealLattice
-
 open scoped MatrixGroups UpperHalfPlane
-
 theorem wK_mul_mem (D : D7) (c : Ideal (𝓞 D.host.K)) (x : ℂ) :
     ∀ z ∈ lamOf D c x, ((1 + Complex.I * (Real.sqrt D.host.d : ℂ)) / 2) * z ∈ lamOf D c x := by
   intro z hz
@@ -422,24 +351,13 @@ theorem main : ∀ (D : D7) (c : Ideal (𝓞 D.host.K)), c ≠ ⊥ → ∀ x : �
       exact_mod_cast this
     rw [hci]
     nlinarith
-
 end GlobalTheory.IdealLattice
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsReduced =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormThetaCharTermLe =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormThetaCharTermLe", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+end
+section
 open GlobalTheory.IndefiniteRowSideFullHecke
-
 namespace GlobalTheory.Glob.EvenThetaBound
-
 open Complex
-
 theorem norm_thetaChar_term_le (a b : Fin 2) (τ : ℂ) (hτ : 1 / 2 ≤ τ.im) (n : ℤ) :
     ‖cexp ((Real.pi : ℂ) * I * ((n : ℂ) + ((a : ℕ) : ℂ) / 2) ^ 2 * τ +
       2 * (Real.pi : ℂ) * I * ((n : ℂ) + ((a : ℕ) : ℂ) / 2) * (0 + ((b : ℕ) : ℂ) / 2))‖ ≤
@@ -486,48 +404,18 @@ theorem evenThetaConst_bounded :
       _ ≤ ∑' n : ℤ, Real.exp (-Real.pi * (1 / 2 * (n : ℝ) ^ 2 - 2 * 1 * |(n : ℝ)|)) :=
           hb.tsum_le_tsum (norm_thetaChar_term_le a b τ hτ) hs'
       _ ≤ _ := le_add_of_nonneg_left zero_le_one
-
 end GlobalTheory.Glob.EvenThetaBound
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormThetaCharTermLe =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.IsPeriodLatticeIff =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.IsPeriodLatticeIff", "h": "module\n\npublic import Formalism.SharpRestriction.GlobalSchurBounds.GL3Theta\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.SignedLogMeans\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.ClassMeanPeriods\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.EquidistributedConjugates\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.ThetaConstantWeber\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.PeriodLatticeAgreement\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsIntegralPeriodElement\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExistsReduced\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExplicitPosMeanOfPositivePart\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.NormThetaCharTermLe\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.UniformizationHolds\nimport Formalism.GL3MeanSquares.HookFormulaTorsion.FourFoldOrthogonalSum\nimport Formalism.LocalToGlobal.GlobalTheory.GL3.PLinkThU\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 noncomputable section
-
 namespace GlobalTheory.Theta0MeanProof
-
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
 open scoped nonZeroDivisors
-
 alias lemA := _root_.GlobalTheory.IdealLattice.main
 
-theorem lemB : EquidistributedConjugates.ConjugatesEquidistributed → PeriodLatticeAgreement.LatticePeriodEta →
-    ∀ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M]
-      (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t → ∀ ρ : M →ₐ[ℚ] ℂ,
-      discr (lamConj M ρ (lamOf D cc δ)) = 1 ∧ ∃ c : Ideal (𝓞 D.host.K), c ≠ ⊥ ∧ ∃ x : ℂ, x ≠ 0 ∧
-        lamConj M ρ (lamOf D cc δ) = lamOf D c x := GlobalTheory.ConjLattice.conj_lattice_holds
 
-theorem lemC : EquidistributedConjugates.ConjugatesEquidistributed → PeriodLatticeAgreement.LatticePeriodEta → ThetaConstantWeber.ThetaWeberStatement →
-    ∀ (D : D7), Formalism.MainNotions.GL3Theta.admJ D → ∀ (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ)
-      [FiniteDimensional ℚ M] (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t →
-      ∃ X : M, X ≠ 0 ∧ IsIntegral ℤ (X : ℂ) ∧ ∀ (ρ : M →ₐ[ℚ] ℂ) (ω₁ τ : ℂ), ω₁ ≠ 0 → 0 < τ.im →
-        JacobiThetaHalfCharacteristic.IsPeriodLattice (lamConj M ρ (lamOf D cc δ)) ω₁ τ → ∀ a b : Fin 2, JacobiThetaHalfCharacteristic.IsEvenChar a b →
-        JacobiThetaHalfCharacteristic.thetaChar a b (t ρ / ω₁) τ = 0 →
-        ‖ρ X‖ = (‖JacobiThetaHalfCharacteristic.thetaChar a b 0 τ‖ / ‖ModularForm.eta τ‖) ^ 12 := _root_.GlobalTheory.IntegralX.exists_integral_theta_ratio
 
 alias lemD := _root_.GlobalTheory.Glob.EvenThetaBound.evenThetaConst_bounded
 
-theorem containsData {D : D7} {cc : Ideal (𝓞 D.host.K)} {δ : ℂ} {M : IntermediateField ℚ ℂ}
-    (h : DataIn D (tor0 D cc δ) M) : EquidistributedConjugates.ContainsData D M (lamOf D cc δ) := by
-  refine ⟨fun x => ?_, h.2.1, h.2.2⟩
-  have := h.1 (D.eTau.symm 1) (x : D.host.E)
-  rwa [show (tor0 D cc δ).emb (D.eTau.symm 1) (x : D.host.E) = embT D (D.eTau.symm 1) (x : D.host.E) from rfl,
-    Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.FL.embT_K D _ _ x.2] at this
 
 theorem isPeriodLattice_iff {Λ : AddSubgroup ℂ} {ω₁ τ : ℂ} :
     JacobiThetaHalfCharacteristic.IsPeriodLattice Λ ω₁ τ ↔ Λ = PeriodLatticeAgreement.latt ω₁ τ := by
@@ -572,50 +460,7 @@ theorem log_area {Λ : AddSubgroup ℂ} {ω₁ τ : ℂ} (hP : PeriodLatticeAgre
     Real.log_mul (by norm_num) (by positivity), Real.log_pow, Real.log_pow]
   push_cast; ring
 
-theorem period_pos (hP : PeriodLatticeAgreement.LatticePeriodEta) (D : D7) (c : (Ideal (𝓞 D.host.K))⁰) :
-    0 < ClassMeanPeriods.period D c := by
-  have hc : (c : Ideal (𝓞 D.host.K)) ≠ ⊥ := nonZeroDivisors.coe_ne_zero c
-  obtain ⟨-, ω₁, τ, hω, hτ, hL, -, -⟩ := lemA D c hc 1 one_ne_zero
-  rw [isPeriodLattice_iff] at hL
-  have hA := hP.2.1 ω₁ ⟨τ, hτ⟩ hω
-  have hD := hP.1 ω₁ ⟨τ, hτ⟩ hω
-  change area (PeriodLatticeAgreement.latt ω₁ τ) = ‖ω₁‖ ^ 2 * τ.im at hA
-  change discr (PeriodLatticeAgreement.latt ω₁ τ) = (2 * (Real.pi : ℂ) / ω₁) ^ 12 * ModularForm.eta τ ^ 24 at hD
-  have he : ModularForm.eta τ ≠ 0 := ModularForm.eta_ne_zero hτ
-  have hdn : discr (lamOf D c 1) ≠ 0 := by
-    rw [hL, hD]
-    have : (2 * (Real.pi : ℂ) / ω₁) ≠ 0 := div_ne_zero (mul_ne_zero two_ne_zero (by exact_mod_cast Real.pi_ne_zero)) hω
-    exact mul_ne_zero (pow_ne_zero _ this) (pow_ne_zero _ he)
-  have har : 0 < area (lamOf D c 1) := by
-    rw [hL, hA]; have := norm_pos_iff.2 hω; positivity
-  unfold ClassMeanPeriods.period
-  have := norm_pos_iff.2 hdn
-  have := Real.pi_pos
-  positivity
 
-theorem mean_log_area (hC : ClassMeanPeriods.ClassMean) (hG : EquidistributedConjugates.ConjugatesEquidistributed)
-    (hP : PeriodLatticeAgreement.LatticePeriodEta) (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ)
-    [FiniteDimensional ℚ M] (t : (M →ₐ[ℚ] ℂ) → ℂ) (hS : SignedLogMeans.HidaSetting D cc δ M t) :
-    (∑ ρ : M →ₐ[ℚ] ℂ, Real.log (area (lamConj M ρ (lamOf D cc δ)))) / (Module.finrank ℚ M : ℝ) =
-      Real.log Real.pi + ClassMeanPeriods.classMeanValue D := by
-  obtain ⟨hcc, hδ, hData, -⟩ := hS
-  obtain ⟨r, hr⟩ := EquidistributedConjugates.exists_representatives D
-  rw [(hG D cc δ hcc hδ M (containsData hData)).2.2 r hr]
-  have hCM := ClassMeanPeriods.classMean_iff.1 hC D r hr
-  unfold ClassMeanPeriods.meanLogPeriod at hCM
-  have hh : (0 : ℝ) < (classNumber D.host.K : ℝ) := by exact_mod_cast classNumber_pos D.host.K
-  have e : ∀ C, Real.log (EquidistributedConjugates.normArea D (r C : Ideal (𝓞 D.host.K))) =
-      Real.log Real.pi + Real.log (ClassMeanPeriods.period D (r C)) := by
-    intro C
-    have h1 : EquidistributedConjugates.normArea D (r C : Ideal (𝓞 D.host.K)) = Real.pi * ClassMeanPeriods.period D (r C) := by
-      unfold EquidistributedConjugates.normArea ClassMeanPeriods.period
-      field_simp
-    rw [h1, Real.log_mul Real.pi_ne_zero (period_pos hP D (r C)).ne']
-  simp only [e, Finset.sum_add_distrib, Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
-  rw [add_div, hCM]
-  congr 1
-  rw [show (Fintype.card (ClassGroup (𝓞 D.host.K)) : ℝ) = (classNumber D.host.K : ℝ) from rfl]
-  field_simp
 
 theorem sum_log_nonneg (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M] (X : M) (hX : X ≠ 0)
     (hXi : IsIntegral ℤ (X : ℂ)) : 0 ≤ ∑ ρ : M →ₐ[ℚ] ℂ, Real.log ‖ρ X‖ := by
@@ -743,25 +588,15 @@ theorem mean_bounds_of_conjugate_data (hN : JacobiThetaHalfCharacteristic.NormTh
     rw [div_add' _ _ _ hnpos.ne', div_le_div_iff_of_pos_right hnpos]
     rw [hn]; linarith
 
-theorem core (hN : JacobiThetaHalfCharacteristic.NormTheta0) (hC : ClassMeanPeriods.ClassMean) (hG : EquidistributedConjugates.ConjugatesEquidistributed)
-    (hP : PeriodLatticeAgreement.LatticePeriodEta) (hW : ThetaConstantWeber.ThetaWeberStatement) {C₀ : ℝ} (hC₀ : 0 < C₀)
-    (hth : ∀ (a b : Fin 2) (τ : ℂ), 1 / 2 ≤ τ.im → ‖JacobiThetaHalfCharacteristic.thetaChar a b 0 τ‖ ≤ C₀)
-    (D : D7) (hJ : Formalism.MainNotions.GL3Theta.admJ D) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ)
-    [FiniteDimensional ℚ M] (t : (M →ₐ[ℚ] ℂ) → ℂ) (hS : SignedLogMeans.HidaSetting D cc δ M t) :
-    SignedLogMeans.meanLog M (lamOf D cc δ) t ≤ SignedLogMeans.bound D ∧
-      SignedLogMeans.meanPosLog M (lamOf D cc δ) t ≤
-        SignedLogMeans.meanLog M (lamOf D cc δ) t + ((1 / 4) * Real.log D.host.d + max 0 (2 * Real.log C₀)) := by
-  obtain ⟨X, hX0, hXi, hXρ⟩ := lemC hG hP hW D hJ cc δ M t hS
-  exact mean_bounds_of_conjugate_data hN hP hC₀ hth D M (lamOf D cc δ) t hS.2.2.2
-    (mean_log_area hC hG hP D cc δ M t hS) (lemB hG hP D cc δ M t hS)
-    (fun ρ => ‖ρ X‖) (sum_log_nonneg M X hX0 hXi) hXρ
 
-theorem log_sqrt_le_log_v (D : D7) : Real.log (Real.sqrt D.host.d) ≤ Real.log D.host.v := by
+section
+variable (D : D7)
+theorem log_sqrt_le_log_v : Real.log (Real.sqrt D.host.d) ≤ Real.log D.host.v := by
   have h1 := GlobalTheory.Theta0MeanCompare.two_sqrt_le_rd D
   have h2 := GlobalTheory.Theta0MeanCompare.one_le_sqrt_d D
   exact Real.log_le_log (by linarith) (by unfold Host.v; linarith)
 
-theorem half_le_log_v (D : D7) : 1 / 2 ≤ Real.log D.host.v := by
+theorem half_le_log_v : 1 / 2 ≤ Real.log D.host.v := by
   have h7 : (4 : ℝ) ≤ D.host.d := by
     have := D.host.hyp.2.2.2.1
     exact_mod_cast (by omega : 4 ≤ D.host.d)
@@ -773,7 +608,7 @@ theorem half_le_log_v (D : D7) : 1 / 2 ≤ Real.log D.host.v := by
   have := Real.log_two_gt_d9
   linarith
 
-theorem bound_le_half (D : D7) {L : ℝ} (hL : Real.log D.host.v + |logDerivativeAtOne D| ≤ L) :
+theorem bound_le_half {L : ℝ} (hL : Real.log D.host.v + |logDerivativeAtOne D| ≤ L) :
     SignedLogMeans.bound D ≤ (1 / 2) * L := by
   have h1 := log_sqrt_le_log_v D
   have h2 := le_abs_self (logDerivativeAtOne D)
@@ -781,13 +616,14 @@ theorem bound_le_half (D : D7) {L : ℝ} (hL : Real.log D.host.v + |logDerivativ
   unfold SignedLogMeans.bound
   linarith
 
-theorem log_d_le (D : D7) {L : ℝ} (hL : Real.log D.host.v + |logDerivativeAtOne D| ≤ L) :
+theorem log_d_le {L : ℝ} (hL : Real.log D.host.v + |logDerivativeAtOne D| ≤ L) :
     (1 / 4) * Real.log D.host.d ≤ (1 / 2) * L := by
   have h1 := log_sqrt_le_log_v D
   have h2 := abs_nonneg (logDerivativeAtOne D)
   have h4 : Real.log (Real.sqrt (D.host.d : ℝ)) = (1 / 2) * Real.log D.host.d := by
     rw [Real.log_sqrt (by positivity)]; ring
   linarith
+end
 
 /-- Package uniform signed and positive-part bounds as the theta mean statement. -/
 theorem theta0Mean_of_mean_bounds (C₀ : ℝ)
@@ -814,35 +650,13 @@ theorem theta0Mean_of_mean_bounds (C₀ : ℝ)
     have a3 : 1 / 2 ≤ L := by have := half_le_log_v D; have := abs_nonneg (logDerivativeAtOne D); linarith
     have a4 : C ≤ 2 * C * L := by nlinarith
     linarith
-
-theorem theta0Mean (hN : JacobiThetaHalfCharacteristic.NormTheta0) (hC : ClassMeanPeriods.ClassMean) (hG : EquidistributedConjugates.ConjugatesEquidistributed)
-    (hP : PeriodLatticeAgreement.LatticePeriodEta) (hJ : ∀ D : D7, Formalism.MainNotions.GL3Theta.admJ D) (hW : ThetaConstantWeber.ThetaWeberStatement) :
-    SignedLogMeans.Theta0Mean := by
-  obtain ⟨C₀, hC₀, hth⟩ := lemD
-  exact theta0Mean_of_mean_bounds C₀ fun D cc δ M _ t hS =>
-    core hN hC hG hP hW hC₀ hth D (hJ D) cc δ M t hS
-
 end GlobalTheory.Theta0MeanProof
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.IsPeriodLatticeIff =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.MeanSquareNormalizedThetaTwoTorsion =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.MeanSquareNormalizedThetaTwoTorsion", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.OddThetaNormUnimodularLattice\nimport Development.AbelianVarietyTheory.Proofs.FoundationProofs.AreaBoundedOfDiscrEqOne\nimport Development.AbelianVarietyTheory.Proofs.FoundationProofs.OddThetaFunctionExistenceUniqueness\nimport Development.AbelianVarietyTheory.Proofs.ThetaLawProofs.DifferentiableAtDerivAtZero\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
+section
 open NumberField Classical Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.TaylorLogMetric Formalism.MainNotions.StandardLatticesGL3 GlobalTheory.OddThetaNorm
 open scoped BigOperators UpperHalfPlane Real
 open MeasureTheory
-
-noncomputable section
-
 namespace GlobalTheory.ThetaNullNormSquares
-
 open GlobalTheory.IndefiniteRowSideFullHecke.JacobiThetaHalfCharacteristic (thetaChar IsEvenChar IsPeriodLattice NormTheta0 jacobiTheta₂_half)
-
 theorem normSq1_eq_nrm1Sq (Λ : AddSubgroup ℂ) (G : ℂ → ℂ) :
     GlobalTheory.Glob.IntegralWittCoefficients.normSq1 Λ G = nrm1Sq Λ G := by
   unfold GlobalTheory.Glob.IntegralWittCoefficients.normSq1 nrm1Sq
@@ -1081,41 +895,12 @@ theorem normTheta0 : NormTheta0 := by
     rw [hu, hm, hn]
     push_cast
     ring
-
 end GlobalTheory.ThetaNullNormSquares
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.MeanSquareNormalizedThetaTwoTorsion =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ThetaZeroNorm =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ThetaZeroNorm", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.MeanSquareNormalizedThetaTwoTorsion\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace GlobalTheory.Proof.ThetaZeroNormGlobalInterpolation
-
-end GlobalTheory.Proof.ThetaZeroNormGlobalInterpolation
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ThetaZeroNorm =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ThetaZeroMeanLogNormConjugatesOfWeber =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ThetaZeroMeanLogNormConjugatesOfWeber", "h": "module\n\npublic import Formalism.SharpRestriction.GlobalSchurBounds.GL3Theta\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.SignedLogMeans\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.JacobiThetaHalfCharacteristic\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.ThetaConstantWeber\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.PeriodLatticeAgreement\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ConjugateIdealLatticeDiscrOneHomotheticIdeal\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ExistsIntegralThetaEtaTwelfthPowerConjugates\npublic import Development.AbelianVarietyTheory.BlockTheory.GlobalSignature.ClassMeanPeriods\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.MeanLogCovolumeConjugateLatticesEq\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ExplicitPosMeanOfPositivePart\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.IsPeriodLatticeIff\npublic import Development.AbelianVarietyTheory.Proofs.GlobalInterpolation.ThetaZeroNorm\nimport Development.AbelianVarietyTheory.Proofs.FoundationProofs.InducedTypeThetaGenusOnePermutes\nimport Development.AbelianVarietyTheory.Proofs.FoundationProofs.IntegralJAndAlgebraicData\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
+end
 namespace GlobalTheory.Theta0MeanCore
-
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
 open scoped nonZeroDivisors
 open GlobalTheory.Theta0MeanProof (lemD sum_log_nonneg mean_bounds_of_conjugate_data theta0Mean_of_mean_bounds)
-
 theorem core (hP : PeriodLatticeAgreement.LatticePeriodEta) (hW : ThetaConstantWeber.ThetaWeberStatement) {C₀ : ℝ} (hC₀ : 0 < C₀)
     (hth : ∀ (a b : Fin 2) (τ : ℂ), 1 / 2 ≤ τ.im → ‖JacobiThetaHalfCharacteristic.thetaChar a b 0 τ‖ ≤ C₀)
     (D : D7) (hJ : Formalism.MainNotions.GL3Theta.admJ D) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ)
@@ -1136,9 +921,3 @@ theorem theta0Mean (hP : PeriodLatticeAgreement.LatticePeriodEta) (hW : ThetaCon
   obtain ⟨C₀, hC₀, hth⟩ := lemD
   exact theta0Mean_of_mean_bounds C₀ fun D cc δ M _ t hS =>
     core hP hW hC₀ hth D (hJ D) cc δ M t hS
-
-end GlobalTheory.Theta0MeanCore
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.ThetaZeroMeanLogNormConjugatesOfWeber =====

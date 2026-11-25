@@ -57,7 +57,7 @@ import Mathlib.Topology.Sheaves.Init
 
 noncomputable section
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum MeasureTheory IsDedekindDomain NumberField Matrix
-open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Unf GlobalTheory.SplitWeil GlobalTheory.RootEx GlobalTheory.StepData GlobalTheory.SymChain GlobalTheory.SeeSaw ValuativeRel GlobalTheory.LocMod
+open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.SplitWeil GlobalTheory.RootEx GlobalTheory.StepData GlobalTheory.SymChain GlobalTheory.SeeSaw ValuativeRel GlobalTheory.LocMod
 open scoped TensorProduct
 
 namespace GlobalTheory.LocMod.LevBack
@@ -89,7 +89,9 @@ theorem toEAf_mem_iff (a : AE D) : toEAf D a ∈ Formalism.L2.Herm.intAf D.host.
 theorem finEmb_mul' (x y : EAf D) : finEmb D (x * y) = finEmb D x * finEmb D y := by
   rw [← finEmb_mul, toEAf_finEmb]
 
-theorem pr_finEmb_one {PP : Formalism.L2.DIV.Pl D.host.E} (h : IsIdemAt q.e PP) : q.pr (finEmb D 1) = 1 := by
+section
+variable {PP : Formalism.L2.DIV.Pl D.host.E}
+theorem pr_finEmb_one (h : IsIdemAt q.e PP) : q.pr (finEmb D 1) = 1 := by
   have h1 : IsIdempotentElem (q.pr (finEmb D 1)) := by rw [IsIdempotentElem, ← map_mul, ← finEmb_mul', mul_one]
   refine (IsIdempotentElem.iff_eq_zero_or_one.1 h1).resolve_left fun h0 => ?_
   have h2 : toEAf D q.e = 0 := by
@@ -100,7 +102,7 @@ theorem pr_finEmb_one {PP : Formalism.L2.DIV.Pl D.host.E} (h : IsIdemAt q.e PP) 
   rw [← toEAf_mem_iff, map_mul, h2, zero_mul]
   exact zero_mem _
 
-theorem pr_lt {PP : Formalism.L2.DIV.Pl D.host.E} (h : IsIdemAt q.e PP) (z : 𝓞 D.host.E) :
+theorem pr_lt (h : IsIdemAt q.e PP) (z : 𝓞 D.host.E) :
     z ∈ PP.asIdeal ↔ valuation k (q.pr (incA D (z : D.host.E))) < 1 := by
   by_cases hz : z = 0
   · subst hz; simp
@@ -111,7 +113,7 @@ theorem pr_lt {PP : Formalism.L2.DIV.Pl D.host.E} (h : IsIdemAt q.e PP) (z : �
   rw [map_inv₀, Valuation.mem_integer_iff, map_inv₀, not_le]
   exact one_lt_inv₀ (a := valuation k ((q.pr.comp (incA D)) (z : D.host.E))) (zero_lt_iff.2 ((map_ne_zero _).2 h0))
 
-theorem exists_chart {PP : Formalism.L2.DIV.Pl D.host.E} (h : IsIdemAt q.e PP) : ∃ π : EAf D →+* k, (∀ a, π (toEAf D a) = q.pr a) ∧
+theorem exists_chart (h : IsIdemAt q.e PP) : ∃ π : EAf D →+* k, (∀ a, π (toEAf D a) = q.pr a) ∧
     (∀ z, toEAf D q.e * z ∈ Formalism.L2.Herm.intAf D.host.F D.host.E ↔ π z ∈ 𝒪[k]) ∧
     (∀ s : Formalism.L2.Herm.intAf D.host.F D.host.E, π s ∈ 𝒪[k]) ∧
     ∀ s : Formalism.L2.Herm.intAf D.host.F D.host.E, resS D.host.F PP s = 0 ↔ valuation k (π s) < 1 := by
@@ -162,6 +164,7 @@ theorem exists_chart {PP : Formalism.L2.DIV.Pl D.host.E} (h : IsIdemAt q.e PP) :
     simpa using Valuation.map_add_lt _ h7 h8
   · intro h8
     simpa using Valuation.map_sub_lt _ h8 h7
+end
 
 theorem pr_other {k' : Type} [Field k'] [ValuativeRel k'] [TopologicalSpace k'] [IsNonarchimedeanLocalField k'] (q' : SplitPt D k')
     {P : Finset (Formalism.L2.DIV.Pl D.host.E)} {a : AE D} (ha : IsIdemSum a P) {PP PP' : Formalism.L2.DIV.Pl D.host.E}
@@ -379,22 +382,6 @@ theorem exists_int {k : Type} [Field k] [ValuativeRel k] [TopologicalSpace k] [I
 
 variable {u : D.what₂.Word} {d : Dat D u} {τ : ∀ j h, Matrix (Fin (d.bes j 0 h).L.rank) (Fin d.Lz.rank) D.host.E}
 
-theorem red_at {PP : Formalism.L2.DIV.Pl D.host.E} (G : GAt d τ PP) {j n : ℕ} (hr : D.R.r ≤ n)
-    {e : Ix (Fin D.R.k ⊕ Fin (G.s + 1)) (Fin D.R.t) j ≃ Fin n} (he : IsOrd zPos e) (π : EAf D →+* G.k)
-    (h1 : ∀ a, π (toEAf D a) = G.q.pr a) (h3 : ∀ s : Formalism.L2.Herm.intAf D.host.F D.host.E, π s ∈ 𝒪[G.k])
-    (h4 : ∀ s : Formalism.L2.Herm.intAf D.host.F D.host.E, resS D.host.F PP s = 0 ↔ valuation G.k (π s) < 1)
-    (Y : GL (Fin n) (Formalism.L2.Herm.intAf D.host.F D.host.E))
-    (hy : ∀ a b, ¬ FreeIx G.S.ρ a b → valuation G.k (π (Y.val (e a) (e b)) - (1 : Matrix _ _ G.k) a b) < 1) :
-    Formalism.UG.bc (resS D.host.F PP) Y ∈ blockTri (blkOf D.R.r D.R.t) ∧
-      ∃ x, G.Red x (upperLeftBlock hr (Formalism.UG.bc (resS D.host.F PP) Y)) := by
-  haveI : Nontrivial (kP PP) := Ideal.Quotient.nontrivial_iff.2 PP.isPrime.ne_top
-  have hs := G.hs
-  obtain ⟨c1, x, c2⟩ := red_of_pattern G.S (by unfold Ranks.r; omega) hr he (resS D.host.F PP)
-    (π.comp (Formalism.L2.Herm.intAf D.host.F D.host.E).subtype) h3 h4 Y hy
-  refine ⟨c1, x, fun a b a' b' ha hb z hz => ?_⟩
-  have := c2 a b a' b' ha hb (oToS D.host.F D.host.E z) ((Formalism.L2.DIV.resS_oToS PP z).trans hz)
-  rwa [show (π.comp (Formalism.L2.Herm.intAf D.host.F D.host.E).subtype) (oToS D.host.F D.host.E z) =
-    (ofSplit G.q).pr (z : D.host.E) from h1 (incA D (z : D.host.E))] at this
 
 end Glob
 

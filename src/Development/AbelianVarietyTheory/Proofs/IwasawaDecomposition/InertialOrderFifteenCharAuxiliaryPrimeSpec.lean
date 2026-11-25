@@ -128,14 +128,17 @@ theorem norm_le_one_of_compact {Γ K : Type} [Group Γ] [TopologicalSpace Γ] [C
 def AlmostIn {K : Type} [Field K] (ε : K →+* ℂ) (χ : HChar E) : Prop :=
   ∀ᶠ v in Filter.cofinite, ∃ y, ε y = ((χ.val v : ℂˣ) : ℂ)
 
-theorem AlmostIn.mul {K : Type} [Field K] {ε : K →+* ℂ} {χ χ' : HChar E} (h : AlmostIn ε χ) (h' : AlmostIn ε χ') :
+section
+variable {K : Type} [Field K] {ε : K →+* ℂ}
+theorem AlmostIn.mul {χ χ' : HChar E} (h : AlmostIn ε χ) (h' : AlmostIn ε χ') :
     AlmostIn ε (χ * χ') := by
   filter_upwards [h, h'] with v ⟨y, hy⟩ ⟨y', hy'⟩
   exact ⟨y * y', by rw [map_mul, hy, hy', HChar.val_mul, Units.val_mul]⟩
 
-theorem AlmostIn.inv {K : Type} [Field K] {ε : K →+* ℂ} {χ : HChar E} (h : AlmostIn ε χ) : AlmostIn ε χ⁻¹ := by
+theorem AlmostIn.inv {χ : HChar E} (h : AlmostIn ε χ) : AlmostIn ε χ⁻¹ := by
   filter_upwards [h] with v ⟨y, hy⟩
   exact ⟨y⁻¹, by rw [map_inv₀, hy, HChar.val_inv, Units.val_inv_eq_inv_val]⟩
+end
 
 theorem unr_ae (χ : HChar E) : ∀ᶠ v in Filter.cofinite, χ.UnrAt v := (GlobalTheory.Mem.UnrAe.unr_ae_and_level E χ).1
 
@@ -413,82 +416,29 @@ def ToricHeckeQuotientCharacter : Prop :=
       ∀ P, P ∉ S0 → ∀ A : ValuationSubring Ω, IsPlaceOver A P → ∀ σ : G H.E Ω, IsFrob (F := H.E) A (normV P) σ →
         Xv P = ((lamG σ : O'ˣ) : O')
 
-def LocalisationCharacterSpec : Prop :=
-  ∀ (l : ℕ) [Fact l.Prime] (O : Type) [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [Algebra ℤ_[l] O]
-    [Module.Finite ℤ_[l] O] [TopologicalSpace O] [IsTopologicalRing O], IsAdic (IsLocalRing.maximalIdeal O) →
-    ∀ (κ : FractionRing O →+* Qbar l),
-    (∀ z : ℤ_[l], κ (algebraMap O (FractionRing O) (algebraMap ℤ_[l] O z)) = algebraMap ℚ_[l] (Qbar l) (z : ℚ_[l])) →
-    ∀ (ι : Qbar l ≃+* ℂ),
-    ∀ (K : Type) [Field K] (ε : K →+* ℂ) (f : K →+* FractionRing O), (∀ x, ι (κ (f x)) = ε x) →
-    ∀ (j : Fin R.m) (Q : Finset (PlE H)) (ψ : HChar H.E), IsPsi (H := H) l Q ψ →
-    (∀ v ∈ Q, (∀ k, v ∉ placesOver H.E (H.g k)) ∧ v ∉ placesOver H.E (if l = H.pde then H.pde' else H.pde)) →
-    (C.mu0 j).ValuesIn 0 ε → C.eta.ValuesIn (1 / 2) ε → (delAt H C l).ValuesIn 0 ε → ψ.ValuesIn 0 ε →
-    ∃ (chi : ℕ → (G H.E Ω →* Oˣ)) (psiL : G H.E Ω →* Oˣ),
-      (∃ n, IsGal art κ ι (block (C.mu0 j * (delAt H C l * ψ)) C.eta R.r) n (chi 1)) ∧ IsGal art κ ι ψ 0 psiL ∧
-      (∀ c, Continuous (fun g => ((chi c g : Oˣ) : O))) ∧
-      (∀ c : ℕ, chi c = chi 1 * ((Units.map (algebraMap ℤ_[l] O).toMonoidHom).comp
-        (cycZ (F := H.E) (Ω := Ω) l)) ^ (-((c : ℤ) - 1))) ∧
-      (∀ v ∈ Q, ∀ A : ValuationSubring Ω, IsPlaceOver A v → ∃ g ∈ Ine (F := H.E) A, chi 1 g ≠ 1) ∧
-      (∀ g, ∃ n : ℕ, psiL g ^ (l ^ n) = 1) ∧ IsOpen (psiL.ker : Set (G H.E Ω)) ∧ AntiHom cc psiL ∧
-      RamExactly psiL ↑Q ∧
-      (∀ v, v ∈ placesOver H.E l → ∀ A : ValuationSubring Ω, IsPlaceOver A v → ∀ σ ∈ Dec (F := H.E) A, psiL σ = 1) ∧
-      ∀ w, w ∉ placesOver H.E l → (∀ k, w ∉ placesOver H.E (H.g k)) →
-        w ∉ placesOver H.E (if l = H.pde then H.pde' else H.pde) → w ∉ Q →
-        (C.mu0 j * (delAt H C l * ψ) * C.eta⁻¹).UnrAt w ∧
-        ∀ (B : ValuationSubring Ω) (σ : G H.E Ω), IsPlaceOver (F := H.E) B w → IsFrob (F := H.E) B (normV w) σ →
-          (((C.mu0 j * (delAt H C l * ψ) * C.eta⁻¹).val w)⁻¹ : ℂˣ).1 *
-              ((normV w : ℕ) : ℂ) ^ (((((R.t : ℝ) - 1) / 2 + (1 - (R.nV : ℝ)) / 2 : ℝ)) : ℂ) =
-            ι (κ (algebraMap O (FractionRing O) ((chi 1 σ : Oˣ) : O)))
 
-def LocalisationTwistCharacterCompat : Prop :=
-  ∀ (l₀ : ℕ) [Fact l₀.Prime] (O₀ : Type) [CommRing O₀] [IsDomain O₀] [IsDiscreteValuationRing O₀] [Algebra ℤ_[l₀] O₀]
-    [Module.Finite ℤ_[l₀] O₀] [TopologicalSpace O₀] [IsTopologicalRing O₀], IsAdic (IsLocalRing.maximalIdeal O₀) →
-    ∀ (κ₀ : FractionRing O₀ →+* Qbar l₀),
-    (∀ z : ℤ_[l₀], κ₀ (algebraMap O₀ (FractionRing O₀) (algebraMap ℤ_[l₀] O₀ z)) = algebraMap ℚ_[l₀] (Qbar l₀) (z : ℚ_[l₀])) →
-    ∀ (ι₀ : Qbar l₀ ≃+* ℂ),
-    ∀ (l : ℕ) [Fact l.Prime] (O : Type) [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [Algebra ℤ_[l] O]
-    [Module.Finite ℤ_[l] O] [TopologicalSpace O] [IsTopologicalRing O], IsAdic (IsLocalRing.maximalIdeal O) →
-    ∀ (κ : FractionRing O →+* Qbar l),
-    (∀ z : ℤ_[l], κ (algebraMap O (FractionRing O) (algebraMap ℤ_[l] O z)) = algebraMap ℚ_[l] (Qbar l) (z : ℚ_[l])) →
-    ∀ (ι : Qbar l ≃+* ℂ),
-    l₀ = l → ∀ (K : Type) [Field K] (ε : K →+* ℂ) (f₀ : K →+* FractionRing O₀) (f : K →+* FractionRing O),
-    (∀ x, ι₀ (κ₀ (f₀ x)) = ε x) → (∀ x, ι (κ (f x)) = ε x) → ∀ t : O₀ →+* O,
-    (∀ (x : K) (y : O₀), algebraMap O₀ (FractionRing O₀) y = f₀ x → f x = algebraMap O (FractionRing O) (t y)) →
-    ∀ (j : Fin R.m) (ψ : HChar H.E), (C.mu0 j).ValuesIn 0 ε → C.eta.ValuesIn (1 / 2) ε → (delAt H C l₀).ValuesIn 0 ε →
-    ∀ (n₀ n n' : (H.E →+* ℂ) → ℤ) (chi1 : G H.E Ω →* O₀ˣ) (chi psiL : G H.E Ω →* Oˣ),
-    IsGal art κ₀ ι₀ (block (C.mu0 j * delAt H C l₀) C.eta R.r) n₀ chi1 →
-    IsGal art κ ι (block (C.mu0 j * (delAt H C l * ψ)) C.eta R.r) n chi → IsGal art κ ι ψ n' psiL →
-    chi = (Units.map t.toMonoidHom).comp chi1 * psiL
 
-def TameInertiaGeneratorCharacterSpec : Prop :=
-  ∀ (k : Fin 2) (w : PlE H), C.P.Div k w → ∀ A : ValuationSubring Ω, IsPlaceOver A w → ∀ tg : G H.E Ω, TameGenAt A tg →
-    ∀ teich : Fb (H.g k) (H.g_prime k) →* ℂ, (∀ x y, x ≠ 0 → y ≠ 0 → teich x = teich y → x = y) →
-    haveI : Fact (H.g k).Prime := ⟨H.g_prime k⟩
-    ∃ γ : (ZMod (H.g k))ˣ, Subgroup.zpowers γ = ⊤ ∧
-      ∀ (l : ℕ) [Fact l.Prime], l ≠ H.g k → ∀ (O : Type) [CommRing O] [IsDomain O] [TopologicalSpace O]
-        (κ : FractionRing O →+* Qbar l) (ι : Qbar l ≃+* ℂ) (j : Fin R.m) (ξ : HChar H.E), ξ.UnrAt w →
-        ∀ (n : (H.E →+* ℂ) → ℤ) (chi : G H.E Ω →* Oˣ), IsGal art κ ι (block (C.mu0 j * ξ) C.eta R.r) n chi →
-        ι (κ (algebraMap O (FractionRing O) ((chi tg : Oˣ) : O))) =
-          teich (algebraMap (ZMod (H.g k)) (Formalism.CyclotomicNorms.Fbar (H.g k))
-            (((γ ^ (2 * (j.1 + 1)))⁻¹ : (ZMod (H.g k))ˣ) : ZMod (H.g k)))
 
 end Statements
 
 section Host
 
-theorem notMem_of_ne {E : Type} [Field E] [NumberField E] {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (h : p ≠ q)
+section
+variable {E : Type} [Field E] [NumberField E]
+theorem notMem_of_ne {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (h : p ≠ q)
     {v : HeightOneSpectrum (𝓞 E)} (hv : ((p : ℕ) : 𝓞 E) ∈ v.asIdeal) : ((q : ℕ) : 𝓞 E) ∉ v.asIdeal := fun hv' => by
   obtain ⟨s, t, hst⟩ : IsCoprime (p : 𝓞 E) (q : 𝓞 E) := Nat.Coprime.cast ((Nat.coprime_primes hp hq).2 h)
   apply v.isPrime.ne_top
   rw [Ideal.eq_top_iff_one, ← hst]
   exact v.asIdeal.add_mem (v.asIdeal.mul_mem_left _ hv) (v.asIdeal.mul_mem_left _ hv')
 
-theorem absNorm_eq_pow {E : Type} [Field E] [NumberField E] {p : ℕ} (hp : p.Prime)
+theorem absNorm_eq_pow {p : ℕ} (hp : p.Prime)
     {v : HeightOneSpectrum (𝓞 E)} (hv : ((p : ℕ) : 𝓞 E) ∈ v.asIdeal) : ∃ a, Ideal.absNorm v.asIdeal = p ^ a := by
   have h := Ideal.absNorm_dvd_absNorm_of_le ((Ideal.span_singleton_le_iff_mem _).2 hv)
   rw [Ideal.absNorm_span_natCast] at h
   obtain ⟨a, -, ha⟩ := (Nat.dvd_prime_pow hp).1 h
   exact ⟨a, ha⟩
+end
 
 theorem card_eq_of_pow_iff {O : Type} [CommRing O] [IsDomain O] (T : Subgroup Oˣ) {m : ℕ} (hm : m ≠ 0)
     (h : ∀ n : ℕ, (∀ t ∈ T, t ^ n = 1) ↔ m ∣ n) : Nat.card T = m := by

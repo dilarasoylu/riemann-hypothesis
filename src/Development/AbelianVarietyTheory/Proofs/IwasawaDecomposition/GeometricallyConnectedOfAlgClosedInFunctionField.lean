@@ -45,9 +45,9 @@ open scoped TensorProduct
 
 namespace GlobalTheory.GeomConnFn
 
-theorem isConnected_preimage {F : Type} [Field F] [CharZero F] {X : Scheme.{0}} [IsIntegral X] (p : X ⟶ Sp F)
-    [LocallyOfFiniteType p]
-    (h : ∀ a : X.functionField, (∃ P : Polynomial F, P ≠ 0 ∧ P.eval₂ (GlobalTheory.Cartier.constFn p) a = 0) →
+section
+variable {F : Type} [Field F] [CharZero F] {X : Scheme.{0}} [IsIntegral X] (p : X ⟶ Sp F) [LocallyOfFiniteType p]
+theorem isConnected_preimage (h : ∀ a : X.functionField, (∃ P : Polynomial F, P ≠ 0 ∧ P.eval₂ (GlobalTheory.Cartier.constFn p) a = 0) →
       a ∈ (GlobalTheory.Cartier.constFn p).range)
     (K : Type) [Field K] [Algebra F K] (U : X.Opens) (hU : IsAffineOpen U) (hx : genericPoint X ∈ U) :
     _root_.IsConnected
@@ -79,9 +79,7 @@ theorem isConnected_preimage {F : Type} [Field F] [CharZero F] {X : Scheme.{0}} 
   rw [← hU.range_fromSpec, ← Scheme.Pullback.range_snd]
   exact isConnected_range (Scheme.Hom.continuous _)
 
-theorem geometricallyConnected_of_locallyOfFiniteType {F : Type} [Field F] [CharZero F] {X : Scheme.{0}}
-    [IsIntegral X] (p : X ⟶ Sp F) [LocallyOfFiniteType p]
-    (h : ∀ a : X.functionField, (∃ P : Polynomial F, P ≠ 0 ∧ P.eval₂ (GlobalTheory.Cartier.constFn p) a = 0) →
+theorem geometricallyConnected_of_locallyOfFiniteType (h : ∀ a : X.functionField, (∃ P : Polynomial F, P ≠ 0 ∧ P.eval₂ (GlobalTheory.Cartier.constFn p) a = 0) →
       a ∈ (GlobalTheory.Cartier.constFn p).range) : GeometricallyConnected p := by
   refine ⟨geometrically_iff_of_commRing_of_isClosedUnderIsomorphisms.2 fun K _ _ => ?_⟩
   have : Surjective (Spec.map (CommRingCat.ofHom (algebraMap F K))) :=
@@ -94,5 +92,6 @@ theorem geometricallyConnected_of_locallyOfFiniteType {F : Type} [Field F] [Char
   refine ⟨_, Set.subset_univ _, ?_, hy, (isConnected_preimage p h K U hU hg).isPreconnected⟩
   rw [Set.mem_preimage, hx₀]
   exact hg
+end
 
 end GlobalTheory.GeomConnFn

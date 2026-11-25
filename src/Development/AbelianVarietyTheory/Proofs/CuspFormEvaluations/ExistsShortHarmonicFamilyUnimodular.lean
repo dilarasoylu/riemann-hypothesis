@@ -72,18 +72,12 @@ import Std.Tactic.BVDecide.Normalize.Prop
 import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.TraceHermNondegenerate
 import Mathlib.Algebra.Order.Star.Real
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsMinorProdEqSmulColActBasePoly, Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.SpanGridPerpVecEqOrbitSpanOfLe, Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyFewColumnsLinear, Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.LogShortFamilyNumbersLe, Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyUnimodular
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsMinorProdEqSmulColActBasePoly =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsMinorProdEqSmulColActBasePoly", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.IsWeightedHomogeneousOfMemOrbitSpan\nimport Mathlib.Algebra.Module.StablyFree.Basic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\npublic import Mathlib.LinearAlgebra.Matrix.Rank\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Coalgebra.IsFrobenius\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.HopfAlgebra.Basic\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.LinearAlgebra.Matrix.DotProduct\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open MvPolynomial Matrix Module
-
+section
+open MvPolynomial Matrix
+section
+open Module
 namespace GlobalTheory.Harm
-
 section LinearAlgebra
 
 variable {K V V' W ι : Type*} [Field K] [AddCommGroup V] [Module K V] [AddCommGroup V']
@@ -328,26 +322,26 @@ theorem IsPerp.exists_minorProd_eq_smul [Fintype κ] (hpq : p + q ≤ Fintype.ca
 
 variable (h : p + q ≤ n) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ)
 
-theorem exists_colAct_basePoly_eq {ε : T → Fin p → Fin n → K} {φ : T → Fin q → Fin n → K}
-    (hε : ∀ t, LinearIndependent K (ε t)) (hφ : ∀ t, LinearIndependent K (φ t))
+section
+variable {ε : T → Fin p → Fin n → K} {φ : T → Fin q → Fin n → K}
+theorem exists_colAct_basePoly_eq (hε : ∀ t, LinearIndependent K (ε t)) (hφ : ∀ t, LinearIndependent K (φ t))
     (hp : IsPerp ε φ) :
     ∃ g : T → GL (Fin n) K, colAct K T p q (Fin n) g (basePoly K h c c') = minorProd c c' ε φ :=
   exists_colAct_minorProd_eq c c' (fun _ => linearIndependent_baseCovec h) hε
     (fun _ => linearIndependent_baseVec h) hφ (isPerp_base K T h) hp
 
-theorem exists_minorProd_eq_smul_colAct_basePoly {ε : T → Fin p → Fin n → K}
-    {φ : T → Fin q → Fin n → K} (hp : IsPerp ε φ) :
+theorem exists_minorProd_eq_smul_colAct_basePoly (hp : IsPerp ε φ) :
     ∃ (r : K) (g : T → GL (Fin n) K),
       minorProd c c' ε φ = r • colAct K T p q (Fin n) g (basePoly K h c c') := by
   obtain ⟨r, ε', φ', h1, h2, h3, h4⟩ := hp.exists_minorProd_eq_smul (by simpa using h) c c'
   obtain ⟨g, hg⟩ := exists_colAct_basePoly_eq h c c' h1 h2 h3
   exact ⟨r, g, by rw [h4, hg]⟩
 
-theorem minorProd_mem_orbitSpan {ε : T → Fin p → Fin n → K} {φ : T → Fin q → Fin n → K}
-    (hp : IsPerp ε φ) : minorProd c c' ε φ ∈ orbitSpan K h c c' := by
+theorem minorProd_mem_orbitSpan (hp : IsPerp ε φ) : minorProd c c' ε φ ∈ orbitSpan K h c c' := by
   obtain ⟨r, g, e⟩ := exists_minorProd_eq_smul_colAct_basePoly h c c' hp
   rw [e]
   exact Submodule.smul_mem _ _ (colAct_basePoly_mem h c c' g)
+end
 
 theorem linearIndependent_covecAct {R ι : Type*} [CommRing R] [Fintype κ] [DecidableEq κ]
     (g : GL κ R) {ε : ι → κ → R} (hε : LinearIndependent R ε) :
@@ -385,23 +379,13 @@ theorem orbitSpan_eq_span_linearIndependent :
   rw [orbitSpan, range_colAct_basePoly]
 
 end Span
-
 end GlobalTheory.Harm
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsMinorProdEqSmulColActBasePoly =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.SpanGridPerpVecEqOrbitSpanOfLe =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.SpanGridPerpVecEqOrbitSpanOfLe", "h": "module\n\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.PerpVecPerpSt\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.Signature\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.IsWeightedHomogeneousOfMemOrbitSpan\npublic import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.EqZeroOfEvalGridEqZeroOfTotalDegreeLe\npublic import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsMinorProdEqSmulColActBasePoly\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.TaylorDiscriminants.DiscriminantEstimates.DiscriminantTheorems.FormPartialDerivatives\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MvPolynomial Matrix NumberField
+end
+section
+open NumberField
 open ReciprocityTheory.ChartRestriction.G.TB (perpVec hMat)
 open ReciprocityTheory.ChartRestriction.G.FD (cc)
-
 namespace GlobalTheory.Harm
-
 section Perp
 
 variable {R S : Type} [CommRing R] [CommRing S] {p n : ℕ}
@@ -551,15 +535,14 @@ theorem map_coordProd (f : R →+* S) (c : T → Fin p → ℕ) (c' : T → Fin 
 
 variable {K : Type} [Field K]
 
-theorem coordProd_mem_orbitSpan (hpq : p + q ≤ n) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ)
-    (w w' : T → ι → Fin n → K) (x : (Fin p ⊕ Fin p ⊕ Fin q) × ι → K) :
+section
+variable (hpq : p + q ≤ n) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ) (w w' : T → ι → Fin n → K)
+theorem coordProd_mem_orbitSpan (x : (Fin p ⊕ Fin p ⊕ Fin q) × ι → K) :
     coordProd c c' w w' x ∈ orbitSpan K hpq c c' :=
   minorProd_mem_orbitSpan hpq c c' fun _ a _ => by
     rw [dotProduct_comm]; exact perpendicular_vector_exists K _ p (dotPairing K n) _ _ _ a
 
-theorem span_range_coordProd (hpq : p + q ≤ n) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ)
-    (w w' : T → ι → Fin n → K)
-    (hw : ∀ y y' : T → Fin n → K, ∃ x : ι → K,
+theorem span_range_coordProd (hw : ∀ y y' : T → Fin n → K, ∃ x : ι → K,
       (∀ t k, ∑ i, x i * w t i k = y t k) ∧ ∀ t k, ∑ i, x i * w' t i k = y' t k) :
     Submodule.span K (Set.range (coordProd c c' w w')) = orbitSpan K hpq c c' := by
   apply le_antisymm
@@ -586,6 +569,7 @@ theorem span_range_coordProd (hpq : p + q ≤ n) (c : T → Fin p → ℕ) (c' :
     rw [dotPairing_apply, dotProduct_comm]; exact hperp t a b
   rw [hM, det_one, one_smul] at this
   exact this
+end
 
 theorem span_grid_coordProd [CharZero K] (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ)
     (w w' : T → ι → Fin n → K) {dg : ℕ} (hdg : (2 * p + 1) * typeDegree c c' ≤ dg) :
@@ -668,8 +652,9 @@ section CM
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {K : Type} [Field K] [CharZero K]
   {T : Type*} [Fintype T] {ι : Type} [Fintype ι] {p q n : ℕ}
 
-theorem span_grid_perpVec_eq_orbitSpan_of_le (τ : T → E →+* K)
-    (hτ : Function.Injective fun s : T × Bool => fun x : E => τ s.1 (if s.2 then cc x else x))
+section
+variable (τ : T → E →+* K)
+theorem span_grid_perpVec_eq_orbitSpan_of_le (hτ : Function.Injective fun s : T × Bool => fun x : E => τ s.1 (if s.2 then cc x else x))
     (hpq : p + q ≤ n) (h : (Fin n → E) →ₗ[E] ((Fin n → E) → E))
     (hh : ∀ x y, h x y = ∑ k, x k * cc (y k)) (v : ι → Fin n → E)
     (hv : Submodule.span ℚ (Set.range v) = ⊤) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ) {dg : ℕ}
@@ -719,8 +704,7 @@ theorem span_grid_perpVec_eq_orbitSpan_of_le (τ : T → E →+* K)
     funext j
     obtain ⟨a | a | b, i⟩ := j <;> rfl
 
-theorem span_grid_perpVec_eq_orbitSpan (τ : T → E →+* K)
-    (hτ : Function.Injective fun s : T × Bool => fun x : E => τ s.1 (if s.2 then cc x else x))
+theorem span_grid_perpVec_eq_orbitSpan (hτ : Function.Injective fun s : T × Bool => fun x : E => τ s.1 (if s.2 then cc x else x))
     (hpq : p + q ≤ n) (h : (Fin n → E) →ₗ[E] ((Fin n → E) → E))
     (hh : ∀ x y, h x y = ∑ k, x k * cc (y k)) (v : ι → Fin n → E)
     (hv : Submodule.span ℚ (Set.range v) = ⊤) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ) {dg : ℕ}
@@ -733,26 +717,17 @@ theorem span_grid_perpVec_eq_orbitSpan (τ : T → E →+* K)
       orbitSpan K hpq c c' :=
   span_grid_perpVec_eq_orbitSpan_of_le τ hτ hpq h hh v hv c c'
     ((Nat.mul_le_mul_right _ (by omega)).trans hdg)
+end
 
 end CM
-
 end GlobalTheory.Harm
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.SpanGridPerpVecEqOrbitSpanOfLe =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyFewColumnsLinear =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyFewColumnsLinear", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.SumFinsuppAntidiagProdPowDivMultiFactorial\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.PushLettersIntCastOfIsHomogeneous\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.FundamentalDomainPointBound\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyLinear\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.L1NormRowBlockLeadingMinorProductLe\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.RowHighestLeSpanColWordComplex\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.SpanGridPerpVecEqOrbitSpanOfLe\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.TraceHermNondegenerate\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+end
+section
 open NumberField ReciprocityTheory.ChartRestriction.G.FD
 open ReciprocityTheory.ChartRestriction.G.TB (perpVec)
-
 namespace GlobalTheory.Harm
-
 open GlobalTheory.MvPoly GlobalTheory.GridSize
-
 section
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {n : ℕ}
@@ -908,118 +883,13 @@ theorem exists_short_harmonic_family_few_columns (hfg : Λ.FG)
       Finset.prod_const, Finset.card_univ, Fintype.card_fin, hdg]
     ring
 
-private theorem det_mem_subalgebra_of_entries_mem' {A B : Type*} [CommRing A] [CommRing B] [Algebra A B]
-    (S : Subalgebra A B) {m : ℕ} (M : Matrix (Fin m) (Fin m) B) (hM : ∀ i j, M i j ∈ S) :
-    M.det ∈ S := by
-  rw [Matrix.det_apply]
-  refine Subalgebra.sum_mem _ fun σ _ => ?_
-  rw [Units.smul_def]
-  exact zsmul_mem (Subalgebra.prod_mem _ fun i _ => hM _ _) _
 
-private theorem minorProd_mem_Ha_of_herm_orthogonal {K : Type} [Field K] {T : Type*} [Fintype T] {p q : ℕ}
-    (τ : T → E →+* K) (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ) (e : Fin p → Fin n → E)
-    (f : Fin q → Fin n → E) (he : ∀ a, e a ∈ Λ) (hf : ∀ b, f b ∈ Λ)
-    (hef : ∀ a b, herm 1 (e a) (f b) = 0) :
-    minorProd c c' (fun t a k => τ t (e a k)) (fun t b k => τ t (cc (f b k))) ∈ Ha τ c c' Λ := by
-  unfold Ha
-  refine Submodule.mem_inf.mpr ⟨?_, ?_⟩
-  · rw [Submodule.restrictScalars_mem]
-    apply minorProd_mem_rowHighest
-    intro t a b
-    have := congrArg (τ t) (hef a b)
 
-    rw [herm_one_eq_sum, map_sum, map_zero] at this
-    simpa [dotProduct, map_mul] using this
-  · change minorProd c c' _ _ ∈ symO p q τ Λ
-    unfold symO minorProd
-    refine Subalgebra.prod_mem _ fun t _ => Subalgebra.mul_mem _
-      (Subalgebra.prod_mem _ fun i _ => Subalgebra.pow_mem _ ?_ _)
-      (Subalgebra.prod_mem _ fun i _ => Subalgebra.pow_mem _ ?_ _)
-    · unfold xMinor
-      exact det_mem_subalgebra_of_entries_mem' _ _ fun a b => Algebra.subset_adjoin (Or.inl ⟨t, _, e _, he _, rfl⟩)
-    · unfold yMinor
-      exact det_mem_subalgebra_of_entries_mem' _ _ fun a b => Algebra.subset_adjoin (Or.inr ⟨t, _, f _, hf _, rfl⟩)
-
-theorem exists_short_harmonic_family_few_columns_linear (hfg : Λ.FG)
-    (hint : ∀ x ∈ Λ, ∀ y ∈ Λ, IsIntegral ℤ (herm 1 x y))
-    (hdual : ∀ x, (∀ y ∈ Λ, IsIntegral ℤ (herm 1 x y)) → x ∈ Λ)
-    {p q : ℕ} (hn : p + q ≤ n) {T : Type*} [Fintype T] (c : T → Fin p → ℕ)
-    (c' : T → Fin q → ℕ) (ha : 1 ≤ typeDegree c c') :
-    ∃ S : Finset ((Fin p → Fin n → E) × (Fin q → Fin n → E)),
-      (∀ s ∈ S, (∀ a, s.1 a ∈ Λ) ∧ (∀ b, s.2 b ∈ Λ) ∧ ∀ a b, herm 1 (s.1 a) (s.2 b) = 0) ∧
-      (∀ (K : Type) [Field K] (τ : T → E →+* K), ∀ s ∈ S,
-        (minorProd c c' (fun t a k => τ t (s.1 a k)) fun t b k => τ t (cc (s.2 b k))) ∈
-          Ha τ c c' Λ) ∧
-      (∀ (K : Type) [Field K] [CharZero K] (τ : T → E →+* K),
-        (Function.Injective fun s : T × Bool => fun x : E => τ s.1 (if s.2 then cc x else x)) →
-        Submodule.span K ((fun s : (Fin p → Fin n → E) × (Fin q → Fin n → E) =>
-          minorProd c c' (fun t a k => τ t (s.1 a k)) fun t b k => τ t (cc (s.2 b k))) '' S) =
-          rowHighest K c c') ∧
-      (∀ (τ : T → E →+* ℂ), ∀ s ∈ S,
-        l1Norm (minorProd c c' (fun t a k => τ t (s.1 a k)) fun t b k => τ t (cc (s.2 b k))) ≤
-          (((p + q : ℕ) : ℝ) * Real.sqrt n * (((p + q) + 1).factorial * ((2 * fdeg E * n) *
-            ((2 * (p + q : ℕ) + 1) * typeDegree c c') *
-            (2 * (fdeg E : ℝ) ^ ((3 : ℝ) / 2) * n ^ 2 * rdE E)) ^ (2 * (p + q) + 1))) ^
-            typeDegree c c') ∧
-      S.card ≤ ((2 * (p + q) + 1) * typeDegree c c' + 1) ^ (2 * fdeg E * n * (2 * p + q)) := by
-  classical
-  obtain ⟨hfg', hint', hdual'⟩ := conjLattice_selfDual hfg hint hdual
-  obtain ⟨S', hS'1, hS'2, hS'3, hS'4⟩ :=
-    exists_short_harmonic_family_few_columns (Λ := conjLattice Λ) hfg' hint' hdual' hn c c' ha
-  let cj : (Fin p → Fin n → E) × (Fin q → Fin n → E) → (Fin p → Fin n → E) × (Fin q → Fin n → E) :=
-    fun s => (fun a => conjVec E n (s.1 a), fun b => conjVec E n (s.2 b))
-  have hcc : ∀ x : E, cc (cc x) = x := fun x => by
-    have := congrFun (conjVec_conjVec (E := E) (n := 1) (fun _ => x)) 0
-    simpa only [conjVec_apply] using this
-  have hpoly : ∀ (K : Type) [Field K] (τ : T → E →+* K) (s : (Fin p → Fin n → E) × (Fin q → Fin n → E)),
-      minorProd c c' (fun t a k => τ t ((cj s).1 a k)) (fun t b k => τ t (cc ((cj s).2 b k))) =
-        minorProd c c' (fun t a k => τ t (cc (s.1 a k))) (fun t b k => τ t (s.2 b k)) := by
-    intro K _ τ s
-    simp only [cj, conjVec_apply, hcc]
-  have hmem : ∀ s ∈ S', (∀ a, (cj s).1 a ∈ Λ) ∧ (∀ b, (cj s).2 b ∈ Λ) ∧
-      ∀ a b, herm 1 ((cj s).1 a) ((cj s).2 b) = 0 := by
-    intro s hs
-    obtain ⟨h1, h2, h3⟩ := hS'1 s hs
-    refine ⟨fun a => mem_conjLattice.mp (h1 a), fun b => mem_conjLattice.mp (h2 b), fun a b => ?_⟩
-    simp only [cj]
-    rw [herm_conjVec]
-    exact h3 a b
-  refine ⟨S'.image cj, ?_, ?_, ?_, ?_, ?_⟩
-  · intro s hs
-    obtain ⟨s', hs', rfl⟩ := Finset.mem_image.mp hs
-    exact hmem s' hs'
-  · intro K _ τ s hs
-    obtain ⟨s', hs', rfl⟩ := Finset.mem_image.mp hs
-    obtain ⟨h1, h2, h3⟩ := hmem s' hs'
-    exact minorProd_mem_Ha_of_herm_orthogonal τ c c' _ _ h1 h2 h3
-  · intro K _ _ τ hτ
-    rw [← hS'2 K τ hτ, Finset.coe_image, ← Set.image_comp]
-    exact congrArg _ (Set.image_congr fun s _ => hpoly K τ s)
-  · intro τ s hs
-    obtain ⟨s', hs', rfl⟩ := Finset.mem_image.mp hs
-    rw [hpoly ℂ τ s']
-    exact hS'3 τ s' hs'
-  · exact Finset.card_image_le.trans hS'4
 
 end
-
-theorem short_harmonic_family_few_columns : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (n : ℕ) (Λ : Submodule (𝓞 E) (Fin n → E)), Λ.FG → (∀ x ∈ Λ, ∀ y ∈ Λ, IsIntegral ℤ (herm 1 x y)) → (∀ x, (∀ y ∈ Λ, IsIntegral ℤ (herm 1 x y)) → x ∈ Λ) → ∀ (p q : ℕ), p + q ≤ n → ∀ (T : Type) [Fintype T] (c : T → Fin p → ℕ) (c' : T → Fin q → ℕ), 1 ≤ typeDegree c c' → ∃ S : Finset ((Fin p → Fin n → E) × (Fin q → Fin n → E)), (∀ (K : Type) [Field K] (τ : T → E →+* K), ∀ s ∈ S, (minorProd c c' (fun t a k => τ t (s.1 a k)) fun t b k => τ t (cc (s.2 b k))) ∈ Ha τ c c' Λ) ∧ (∀ (K : Type) [Field K] [CharZero K] (τ : T → E →+* K), (Function.Injective fun s : T × Bool => fun x : E => τ s.1 (if s.2 then cc x else x)) → Submodule.span K ((fun s : (Fin p → Fin n → E) × (Fin q → Fin n → E) => minorProd c c' (fun t a k => τ t (s.1 a k)) fun t b k => τ t (cc (s.2 b k))) '' S) = rowHighest K c c') ∧ (∀ (τ : T → E →+* ℂ), ∀ s ∈ S, l1Norm (minorProd c c' (fun t a k => τ t (s.1 a k)) fun t b k => τ t (cc (s.2 b k))) ≤ (((p + q : ℕ) : ℝ) * Real.sqrt n * (((p + q) + 1).factorial * ((2 * fdeg E * n) * ((2 * (p + q : ℕ) + 1) * typeDegree c c') * (2 * (fdeg E : ℝ) ^ ((3 : ℝ) / 2) * n ^ 2 * rdE E)) ^ (2 * (p + q) + 1))) ^ typeDegree c c') ∧ S.card ≤ ((2 * (p + q) + 1) * typeDegree c c' + 1) ^ (2 * fdeg E * n * (2 * p + q)) := by
-  intro E _ _ _ n Λ hfg hint hdual p q hn T _ c c' ha
-  obtain ⟨S, -, h2, h3, h4, h5⟩ := exists_short_harmonic_family_few_columns_linear hfg hint hdual hn c c' ha
-  exact ⟨S, h2, h3, h4, h5⟩
-
 end GlobalTheory.Harm
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyFewColumnsLinear =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.LogShortFamilyNumbersLe =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.LogShortFamilyNumbersLe", "h": "module\n\npublic import Mathlib.Analysis.SpecialFunctions.Pow.Real\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 namespace GlobalTheory
-
 theorem log_shortFamilyNumbers_le : ∀ (N n a f : ℕ) (rd L : ℝ), 1 ≤ N → N ≤ n → 1 ≤ a → 1 ≤ f → 1 ≤ rd → 2 ≤ L → Real.log rd ≤ 2 * L → Real.log f ≤ 2 * L → Real.log (1 + a) ≤ 2 * L → Real.log n ≤ L → Real.log (((N : ℝ) * Real.sqrt n * ((N + 1).factorial * ((2 * f * n) * ((2 * N + 1) * a) * (2 * (f : ℝ) ^ ((3 : ℝ) / 2) * n ^ 2 * rd)) ^ (2 * N + 1))) ^ a) ≤ 140 * N * L * a := by
   intro N n a f rd L hN hNn ha hf hrd hL h1 h2 h3 h4
   have hN' : (1 : ℝ) ≤ N := by exact_mod_cast hN
@@ -1078,23 +948,10 @@ theorem log_shortFamilyNumbers_le : ∀ (N n a f : ℕ) (rd L : ℝ), 1 ≤ N �
   push_cast at hlog
   calc _ ≤ (a : ℝ) * (140 * N * L) := by gcongr
     _ = _ := by ring
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.LogShortFamilyNumbersLe =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyUnimodular =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyUnimodular", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.ThShort\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.SumFinsuppAntidiagProdPowDivMultiFactorial\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.FundamentalDomainPointBound\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyFewColumnsLinear\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyLinear\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.LogShortFamilyNumbersLe\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ThetaLetterEquivConjugate\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Std.Tactic.BVDecide.Normalize.Prop\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.IsWeightedHomogeneousOfMemOrbitSpan\npublic import Development.AbelianVarietyTheory.Definitions.ThetaValues.ExistsMemRowHighestTotalDegreeEqTwo\n\n"}
-section -- clump:auto
-@[expose] public section
-
 open NumberField ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj
-
 namespace GlobalTheory.Harm
-
 open MvPolynomial
-
 section SlopeTestRemainingChoices
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E]
@@ -1134,10 +991,12 @@ theorem not_inPsi_and_conjugate (H : Host E) (τ : E →+* ℂ) :
   have hd : (0 : ℝ) < H.d := by exact_mod_cast H.d_prime.pos
   nlinarith [mul_self_nonneg H.rt0.re]
 
-private theorem coe_embF {H : Host E} {l : Level H} (c : Coeff l) (τ : E →+* ℂ) (x : E) :
+section
+variable {H : Host E} {l : Level H}
+private theorem coe_embF (c : Coeff l) (τ : E →+* ℂ) (x : E) :
     ((embF c τ x : c.F) : ℂ) = τ x := rfl
 
-theorem injective_embF_inPsi {H : Host E} {l : Level H} (c : Coeff l) :
+theorem injective_embF_inPsi (c : Coeff l) :
     Function.Injective fun s : {τ : E →+* ℂ // InPsi H τ} × Bool =>
       fun x : E => embF c s.1.1 (if s.2 then FD.cc x else x) := by
   rintro ⟨⟨τ, hτ⟩, b⟩ ⟨⟨τ', hτ'⟩, b'⟩ h
@@ -1163,6 +1022,7 @@ theorem injective_embF_inPsi {H : Host E} {l : Level H} (c : Coeff l) :
     have h2 := (ComplexEmbedding.involutive_conjugate E).injective hf
     subst h2
     rfl
+end
 
 theorem sum_norm_coeff_eq_l1Norm {K σ σ' : Type} [Field K] (e : σ ≃ σ') (f : K →+* ℂ)
     (Q : MvPolynomial σ K) :
@@ -1356,8 +1216,3 @@ theorem exists_short_harmL_family : ∀ (E : Type) [Field E] [NumberField E] [Is
       | simp
   · calc _ ≤ S0.card := Finset.card_image_le
       _ ≤ _ := by rw [← hdeg]; exact hcard
-
-end GlobalTheory.Harm
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortHarmonicFamilyUnimodular =====

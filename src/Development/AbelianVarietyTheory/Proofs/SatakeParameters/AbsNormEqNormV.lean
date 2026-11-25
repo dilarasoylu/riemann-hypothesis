@@ -52,17 +52,16 @@ import ReciprocityTheory.NeutralLocalFields.LocalFieldComparison.HCFFromRecipA
 noncomputable section
 
 open NumberField IsDedekindDomain Neutral.B1 Formalism.L2.Host Formalism.ConjugateSelfDual ReciprocityTheory.Gal Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.MainNotions.N
-open ReciprocityTheory.Neutral.Bridge.HCFR
-open GlobalTheory.CuspRep GlobalTheory.WeilDeligne GlobalTheory.Pst GlobalTheory.LocLanglands GlobalTheory.HeckeGal GlobalTheory.LocGL GlobalTheory.GalOfCusp
+open GlobalTheory.CuspRep GlobalTheory.Pst GlobalTheory.LocGL
 
 namespace GlobalTheory.LiftAbsPow
 
-open GlobalTheory.CuspRep.InfType
 
 variable {K M : Type} [Field K] [NumberField K] [Field M] [NumberField M]
 
-theorem v_map_eq_one {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (𝓞 M)}
-    (i : v.adicCompletion K ≃+* w.adicCompletion M) (hi : Continuous i) {x : v.adicCompletion K}
+section
+variable {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (𝓞 M)} (i : v.adicCompletion K ≃+* w.adicCompletion M)
+theorem v_map_eq_one (hi : Continuous i) {x : v.adicCompletion K}
     (hx : Valued.v x = 1) : Valued.v (i x) = 1 := by
   have hx0 : x ≠ 0 := by rintro rfl; simp at hx
   have h0 : Valued.v (i x) ≠ 0 := by simpa using hx0
@@ -74,8 +73,7 @@ theorem v_map_eq_one {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (�
     _ ≤ Valued.v (i x) * 1 := mul_le_mul' le_rfl h2
     _ = Valued.v (i x) := mul_one _
 
-theorem v_map_unif {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (𝓞 M)}
-    (i : v.adicCompletion K ≃+* w.adicCompletion M) (hi : Continuous i) {p : v.adicCompletion K}
+theorem v_map_unif (hi : Continuous i) {p : v.adicCompletion K}
     (hp : Valued.v p = WithZero.exp (-1)) : Valued.v (i p) = WithZero.exp (-1) := by
   have hp0 : p ≠ 0 := by rintro rfl; rw [map_zero] at hp; exact WithZero.exp_ne_zero hp.symm
   have hlt : Valued.v (i p) < 1 := (GlobalTheory.TypeBlockFix.v_map_lt_one_iff v w i hi p).2 (by
@@ -98,8 +96,7 @@ theorem v_map_unif {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (𝓞
   rw [← hq']
   exact key _ (by rw [hq', ← WithZero.exp_zero, WithZero.exp_lt_exp]; omega)
 
-theorem v_map_eq {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (𝓞 M)}
-    (i : v.adicCompletion K ≃+* w.adicCompletion M) (hi : Continuous i) (x : v.adicCompletion K) :
+theorem v_map_eq (hi : Continuous i) (x : v.adicCompletion K) :
     Valued.v (i x) = Valued.v x := by
   rcases eq_or_ne x 0 with rfl | hx
   · simp
@@ -119,6 +116,7 @@ theorem v_map_eq {v : HeightOneSpectrum (𝓞 K)} {w : HeightOneSpectrum (𝓞 M
   rw [e]
   simp only [map_mul, map_inv₀, map_zpow₀]
   rw [v_map_eq_one i hi hu, hu, v_map_unif i hi hp, hp]
+end
 
 theorem card_residue (v : HeightOneSpectrum (𝓞 K)) :
     Nat.card (IsLocalRing.ResidueField (v.adicCompletionIntegers K)) = Ideal.absNorm v.asIdeal := by
@@ -147,7 +145,6 @@ end GlobalTheory.LiftAbsPow
 
 namespace GlobalTheory.LiftAbsPow
 
-open GlobalTheory.CuspRep.InfType GlobalTheory.HeckeGal.Model
 
 variable {K M : Type} [Field K] [NumberField K] [Field M] [NumberField M]
 
@@ -155,7 +152,6 @@ end GlobalTheory.LiftAbsPow
 
 namespace GlobalTheory.LiftAbsPow
 
-open GlobalTheory.CuspRep.InfType GlobalTheory.HeckeGal.Model
 
 theorem absNorm_eq_normV {F : Type} [Field F] [NumberField F] (v : HeightOneSpectrum (𝓞 F)) :
     Ideal.absNorm v.asIdeal = normV v := by

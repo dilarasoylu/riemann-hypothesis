@@ -76,9 +76,9 @@ namespace GlobalTheory.AvgMid
 
 open scoped ContDiff
 
-theorem contDiff_mean {K R : Type} [TopologicalSpace K] [CompactSpace K] [MeasurableSpace K] [BorelSpace K]
-    [NormedAddCommGroup R] [NormedSpace ℝ R] [FiniteDimensional ℝ R] (μ : Measure K) [IsFiniteMeasure μ]
-    (Q : (K → R → ℂ) → Prop) (hc : ∀ F, Q F → Continuous fun p : K × R => F p.1 p.2)
+section
+variable {K R : Type} [TopologicalSpace K] [CompactSpace K] [MeasurableSpace K] [BorelSpace K] [NormedAddCommGroup R] [NormedSpace ℝ R] [FiniteDimensional ℝ R] (μ : Measure K) [IsFiniteMeasure μ]
+theorem contDiff_mean (Q : (K → R → ℂ) → Prop) (hc : ∀ F, Q F → Continuous fun p : K × R => F p.1 p.2)
     (hd : ∀ F, Q F → ∀ k, Differentiable ℝ (F k)) (hq : ∀ F, Q F → ∀ u, Q fun k x => fderiv ℝ (F k) x u) :
     ∀ F, Q F → ContDiff ℝ ∞ fun x => ∫ k, F k x ∂μ := by
   have hF' : ∀ F, Q F → Continuous fun p : K × R => fderiv ℝ (F p.1) p.2 := fun F h =>
@@ -114,9 +114,7 @@ theorem contDiff_mean {K R : Type} [TopologicalSpace K] [CompactSpace K] [Measur
       exact ih _ (hq F h u)
   exact fun F h => contDiff_infty.2 fun n => key n F h
 
-theorem contDiff_mean_span {K R : Type} [TopologicalSpace K] [CompactSpace K] [MeasurableSpace K] [BorelSpace K]
-    [NormedAddCommGroup R] [NormedSpace ℝ R] [FiniteDimensional ℝ R] (μ : Measure K) [IsFiniteMeasure μ]
-    (G : Set (K → R → ℂ)) (hG : ∀ F ∈ G, (Continuous fun q : K × R => F q.1 q.2) ∧ (∀ k, Differentiable ℝ (F k)) ∧
+theorem contDiff_mean_span (G : Set (K → R → ℂ)) (hG : ∀ F ∈ G, (Continuous fun q : K × R => F q.1 q.2) ∧ (∀ k, Differentiable ℝ (F k)) ∧
       ∀ u, (fun k x => fderiv ℝ (F k) x u) ∈ Submodule.span ℂ G) :
     ∀ F ∈ G, ContDiff ℝ ∞ fun x => ∫ k, F k x ∂μ := by
   have key : ∀ F ∈ Submodule.span ℂ G, (Continuous fun q : K × R => F q.1 q.2) ∧ (∀ k, Differentiable ℝ (F k)) ∧
@@ -141,6 +139,7 @@ theorem contDiff_mean_span {K R : Type} [TopologicalSpace K] [CompactSpace K] [M
       rw [this]; exact Submodule.smul_mem _ c (h.2.2 u)
   exact fun F hF => contDiff_mean μ (fun F => F ∈ Submodule.span ℂ G) (fun F h => (key F h).1) (fun F h => (key F h).2.1)
     (fun F h => (key F h).2.2) _ (Submodule.subset_span hF)
+end
 
 variable {D : D7} {ψ : AddChar (AF D.host.F) ℂ}
 

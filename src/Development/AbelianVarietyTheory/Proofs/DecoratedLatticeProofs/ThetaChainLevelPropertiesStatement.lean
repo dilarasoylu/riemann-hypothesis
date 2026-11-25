@@ -40,10 +40,5 @@ import Mathlib.Topology.Sheaves.Init
 
 @[expose] public section
 
-open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.MainNotions.S MeasureTheory IsDedekindDomain NumberField Matrix
-open Formalism.L2.Theta Formalism.L2.DIV Formalism.IndefR Formalism.IndefR.Links Formalism.IndefR.Mult Formalism.IndefR.Datum
-open scoped TensorProduct InnerProductSpace ComplexConjugate
-open GlobalTheory.ChainOnto
 
-theorem _root_.GlobalTheory.T.thetaChain_level_properties : ∀ D : D7, LevFacts D := by
-  first | exact @GlobalTheory.ChainOnto.LevelFacts.levFacts
+abbrev _root_.GlobalTheory.T.thetaChain_level_properties := @_root_.GlobalTheory.ChainOnto.LevelFacts.levFacts

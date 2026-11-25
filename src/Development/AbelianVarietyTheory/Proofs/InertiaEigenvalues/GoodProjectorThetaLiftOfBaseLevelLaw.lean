@@ -53,7 +53,7 @@ public import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.ToUn
 
 @[expose] public section
 
-open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.L2.DIV Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links IsDedekindDomain NumberField Formalism.ConjugateSelfDual ReciprocityTheory.Gal GlobalTheory.ExportSeries GlobalTheory.SeriesTie GlobalTheory.TwInputs GlobalTheory.TwSys GlobalTheory.TwAll GlobalTheory.SupLaw GlobalTheory.LiftLeaf
+open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.L2.DIV Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links IsDedekindDomain NumberField Formalism.ConjugateSelfDual ReciprocityTheory.Gal GlobalTheory.ExportSeries GlobalTheory.SeriesTie GlobalTheory.TwInputs
 open Formalism.MainNotions.IntegralHeckeForms (TwOK ClsQ HkIdx V0 Fm0 FullRk SgJ BasisOf)
 open scoped TensorProduct
 
@@ -125,7 +125,6 @@ theorem exists_alg_core (hC : GlobalTheory.Hk3.Core R F) (i : Fin D.R.m) (t : T)
 end GlobalTheory.ProjLiftLaw
 
 namespace GlobalTheory.ProjLiftLaw
-open Formalism.IndefR.Links GlobalTheory.IndefiniteRowSideFullHecke.CommutingRationalGroups
 
 theorem parLev_congr {F' E' LL : Type} [Field F'] [NumberField F'] [Field E'] [NumberField E'] [StarRing E'] [Algebra F' E']
     [CommRing LL] {n : ℕ} (hc : CMData F' E') (J : Matrix (Fin n) (Fin n) E') (β : GL (Fin n) (E' ⊗[F'] Af F'))
@@ -159,7 +158,6 @@ theorem levJ_le_Q (D : D7) (X : RealSide D) (E : IntegralHeckeForms.XD D) (Y : S
 end GlobalTheory.ProjLiftLaw
 
 namespace GlobalTheory.ProjLiftLaw
-open Formalism.IndefR.Links GlobalTheory.IndefiniteRowSideFullHecke.CommutingRationalGroups
 
 theorem flagLevelTwistedTranslation_finsetSum {G W ι : Type} [Group G] [NormedAddCommGroup W] [InnerProductSpace ℂ W] {Q : Subgroup G} (ch : Q →* ℂˣ)
     (q : Q) (s : Finset ι) (a : ι → ℂ) (f : ι → G → W) :
@@ -174,8 +172,9 @@ theorem flagLevelTwistedTranslation_smul {G W : Type} [Group G] [NormedAddCommGr
   simp only [Bridge.g0Act, Pi.smul_apply]
   exact smul_comm _ _ _
 
-theorem twistedTranslation_classCombination_eigen {H W G : Type} [Group H] [NormedAddCommGroup W] [InnerProductSpace ℂ W] [Group G] [Fintype G]
-    {Q : Subgroup H} (ch : Q →* ℂˣ) (red : Q →* G) (f : H → W)
+section
+variable {H W G : Type} [Group H] [NormedAddCommGroup W] [InnerProductSpace ℂ W] [Group G] [Fintype G] {Q : Subgroup H}
+theorem twistedTranslation_classCombination_eigen (ch : Q →* ℂˣ) (red : Q →* G) (f : H → W)
     (hker : ∀ j : Q, red j = 1 → Bridge.g0Act ch j f = f)
     (c : G → ℂ) (hc : ∀ u g, c (u * g * u⁻¹) = c g) (κ : G → Q) (hκ : ∀ g, red (κ g) = g)
     (k : Q) (a : ℂ) (hk : Bridge.g0Act ch k f = a • f) :
@@ -193,8 +192,7 @@ theorem twistedTranslation_classCombination_eigen {H W G : Type} [Group H] [Norm
   congr 1
   exact Fintype.sum_equiv (MulAut.conj (red k)).toEquiv _ _ (fun g => by simp [hc])
 
-theorem law_of_comb {H W G : Type} [Group H] [NormedAddCommGroup W] [InnerProductSpace ℂ W] [Group G] [Fintype G]
-    {Q : Subgroup H} (ch : Q →* ℂˣ) (red : Q →* G) (f f' : H → W)
+theorem law_of_comb (ch : Q →* ℂˣ) (red : Q →* G) (f f' : H → W)
     (hker : ∀ j : Q, red j = 1 → Bridge.g0Act ch j f = f)
     (c : G → ℂ) (hc : ∀ u g, c (u * g * u⁻¹) = c g) (κ : G → Q) (hκ : ∀ g, red (κ g) = g)
     (hf' : f' = ∑ g, c g • Bridge.g0Act ch (κ g) f) (k : H) (hkQ : k ∈ Q) (lam : ℂ)
@@ -209,6 +207,7 @@ theorem law_of_comb {H W G : Type} [Group H] [NormedAddCommGroup W] [InnerProduc
   simp only [Bridge.g0Act, Pi.smul_apply] at e3
   rw [mul_smul] at e3
   exact smul_right_injective _ (Units.ne_zero _) e3
+end
 
 variable {D : D7} {G : Type} [Group G] [Fintype G] {Pl0 T : Type} {A : FamIn D.what₂.LL G Pl0 T D.R.m}
   {Ks : Type} [Field Ks] [NumberField Ks] [Algebra Ks D.what₂.LL] {R : RealDat D A Ks} {F : Face D A}
@@ -228,7 +227,6 @@ theorem eC_conj (hC : GlobalTheory.Hk3.Core R F) (u g : G) :
 end GlobalTheory.ProjLiftLaw
 
 namespace GlobalTheory.ProjLiftLaw
-open Formalism.IndefR.Links GlobalTheory.IndefiniteRowSideFullHecke.CommutingRationalGroups
 
 theorem twistedTranslation_fixes_adelicForm_of_mem_level {G Γ W : Type} [Group G] [Group Γ] {ι : Γ →* G} [NormedAddCommGroup W] [InnerProductSpace ℂ W]
     {ρ : Γ →* Module.End ℂ W} {Q J : Subgroup G} (ch : Q →* ℂˣ) (χ : J →* ℂˣ) (hJ : J ≤ Q)
@@ -272,7 +270,6 @@ theorem thG_apply_eq (hC : GlobalTheory.Hk3.Core R F) (i : Fin D.R.m) (t : T) (�
 end GlobalTheory.ProjLiftLaw
 
 namespace GlobalTheory.ProjLiftLaw
-open Formalism.IndefR.Links GlobalTheory.IndefiniteRowSideFullHecke.CommutingRationalGroups
 
 theorem projLift_law : ∀ (D : D7) (X : RealSide D) (E : IntegralHeckeForms.XD D) (Y : SerSide X E) (i : D.ntw.Tw) (j : Fin D.R.m) (b : Bool) (t : X.T),
     X.R.xi t = (Y.Z.ρ.B i j b).de.chi → X.R.Q t = (Y.Z.ρ.B i j b).de.Q → ∀ y : (X.R.HV j t).H,

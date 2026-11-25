@@ -52,38 +52,20 @@ import Mathlib.Tactic.Linter.HaveILetI
 import Mathlib.Tactic.Linter.Style
 import Development.AbelianVarietyTheory.Definitions.UpperBounds.PhRec
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.GenericRegularity.CurveLocOfCountQAt, Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.FractionToIntegralSectionSmulEq
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.CurveLocOfCountQAt =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GenericRegularity.CurveLocOfCountQAt", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveLocInst\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveInstSt\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveOpen\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.BirationalOfFormRatiosFullTrdeg\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.Gaps.EtaleWeightGaps ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj
-
+open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.Gaps.EtaleWeightGaps
+section
+open ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj
 namespace GlobalTheory
-
 theorem curveLoc_of_countQAt : ∀ (D : D7) (T : Top D) (h : LawsP T) (j : ℕ) (hj : InR D j) (hG : GenFrEx (T.Q.Xo j) T.Q.c), ∀ (hT : GenFromTest (T.Q.Xo j) T.Q.c hG), CountQAtSt h j hj hG hT → ∀ ka wL wF G S g0 la, CurveHyp h j hj hG ka wL wF G S g0 → ∀ Z (r : RZs (recPlus h j hj) la G.N (Om Z) (formsEvR j hG hT Z) G.w), ∃ a p : ↥(Frac0 (recPlus h j hj) la G.w), (∀ Q : Ideal ↥(Frac0 (recPlus h j hj) la G.w), Q.IsPrime → Jid (recPlus h j hj) la G.w ≤ Q → RingHom.ker (phiI h j hj hG hT la G Z) ≤ Q → p ∉ Q) ∧ phiI h j hj hG hT la G Z p * r = phiI h j hj hG hT la G Z a := by
   intro D T h j hj hG hT hQ ka wL wF G S g0 la hH Z r
   exact CurveLoc.loc_of_bir (recPlus h j hj) la G.N G.w (formsEvR j hG hT Z)
     (birAt_of h j hj hG hT G ((_root_.GlobalTheory.Reg.birSt_of_ratios_trdeg D T h j hj hG ka wL wF G).2 hH.2.1) Z)
     (hQ ka wL wF G S g0 la hH Z) r
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.CurveLocOfCountQAt =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.FractionToIntegralSectionSmulEq =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.FractionToIntegralSectionSmulEq", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveAsm\npublic import Formalism.LocalToGlobal.ProjectiveLattices.TieUpC\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveInstSt\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveOpen\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.BirationalOfFormRatiosFullTrdeg\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.CompSplitRecord\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveLocInst\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.CountQAtStGenericSectionPrimes\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.CurveLocOfCountQAt\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.CurveModelExistsAllPrimesAllPoints\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.CuspEqZeroOfGenericValues\npublic import Formalism.LocalToGlobal.ProjectiveLattices.CurveSec\nimport Formalism.LocalToGlobal.ProjectiveLattices.CompFin\nimport Formalism.LocalToGlobal.ProjectiveLattices.CurveInj\nimport Formalism.LocalToGlobal.ProjectiveLattices.LocalUnitReduction.IsUnitMkOfForallPrime\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Development.AbelianVarietyTheory.Definitions.UpperBounds.PhRec\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.Gaps.EtaleWeightGaps Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.BigRec
-
+end
+open Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.BigRec
 namespace GlobalTheory.SectionProduct
-
 section Abstract
 
 variable {K Fr : Type} [Field K] [CommRing Fr] [Algebra K Fr] (J : Ideal Fr)
@@ -199,7 +181,9 @@ theorem fractionToIntegralSection_smul_eq (b : ↥(Frac0 X la G.w)) (m : Section
 
 
 
-theorem lwZ_mem (Ω : Type) [CommRing Ω] [Algebra B.KO Ω] (gF : X.Forms →ₐ[B.KO] Ω) (z : ↥(HK X la G.w wF))
+section
+variable (Ω : Type) [CommRing Ω] [Algebra B.KO Ω] (gF : X.Forms →ₐ[B.KO] Ω)
+theorem lwZ_mem (z : ↥(HK X la G.w wF))
     (hz : z ∈ Jid X la G.w • (⊤ : Submodule ↥(Frac0 X la G.w) ↥(HK X la G.w wF))) :
     lwZ X la G.N Ω gF G.w (z : Lw X la G.w) ∈ Ideal.map (phiZ X la G.N Ω gF G.w) (Jid X la G.w) := by
   refine Submodule.smul_induction_on hz (fun r hr n _ => ?_) (fun x y hx hy => ?_)
@@ -212,7 +196,7 @@ theorem lwZ_mem (Ω : Type) [CommRing Ω] [Algebra B.KO Ω] (gF : X.Forms →ₐ
 
 
 
-theorem ratio_eq (Ω : Type) [CommRing Ω] [Algebra B.KO Ω] (gF : X.Forms →ₐ[B.KO] Ω) (g0 F : B.Cusp j wF)
+theorem ratio_eq (g0 F : B.Cusp j wF)
     (b : ↥(Frac0 X la G.w)) (hb : b • resF G la g0 = resF G la F) :
     Ideal.Quotient.mk (Ideal.map (phiZ X la G.N Ω gF G.w) (Jid X la G.w)) (phiZ X la G.N Ω gF G.w b) *
       Ideal.Quotient.mk (Ideal.map (phiZ X la G.N Ω gF G.w) (Jid X la G.w))
@@ -233,6 +217,7 @@ theorem ratio_eq (Ω : Type) [CommRing Ω] [Algebra B.KO Ω] (gF : X.Forms →�
   rw [e, map_sub, map_mul] at h1
   rw [← map_mul]
   exact Ideal.Quotient.eq.2 h1
+end
 
 
 
@@ -292,8 +277,3 @@ theorem tieS : ∀ (D : D7) (T : Top D) (h : LawsP T) (j : ℕ) (hj : InR D j) (
   exact tie_of (recPlus h j hj) G la (fun Z : Comp (T.Q.Xo j) T.Q.c => Om Z) (fun Z => formsEvR j hG hT Z) g0
     (curveInj h j hj hG hT hV G la) (hone_of h j hj hG hT hC ka wL wF G S g0 la hH)
     (GlobalTheory.curveLoc_of_countQAt D T h j hj hG hT (_root_.GlobalTheory.SecCount.countQAtSt D T h j hj hG hT) ka wL wF G S g0 la hH) M.isGen hB
-
-end GlobalTheory.SectionProduct
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.FractionToIntegralSectionSmulEq =====

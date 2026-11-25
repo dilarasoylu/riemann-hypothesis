@@ -65,23 +65,13 @@ import Mathlib.Topology.Sheaves.Init
 import Std.Tactic.BVDecide.Normalize.Prop
 import Formalism.SharpRestriction.Divisibility.GeneratorPowers.CIndSt
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsShortBasisAdaptedOfSubsetSpan, Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedBasisIntegralPartOfLinearIndependen, Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedIntegralBasisHarmonicPolynomials
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsShortBasisAdaptedOfSubsetSpan =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsShortBasisAdaptedOfSubsetSpan", "h": "module\n\npublic import Mathlib.Analysis.InnerProductSpace.Orthogonal\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.ExistsLinearIndependentNormLeSuccMin\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Presheaf\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open Module Submodule
+section
 open scoped InnerProductSpace
-
 namespace GlobalTheory
-
 variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
-
 theorem exists_add_orthogonal_norm_sq_le (W : Submodule ℝ E) (u : E) :
     ∃ p ∈ W, ∃ q ∈ Wᗮ, u = p + q ∧ ‖q‖ ^ 2 ≤ ‖u‖ ^ 2 := by
   obtain ⟨p, hp, q, hq, h⟩ := W.exists_add_mem_mem_orthogonal u
@@ -117,8 +107,9 @@ theorem exists_mem_span_int_norm_sub_sq_le_sum {ι : Type*} (v : ι → E) (s : 
       linarith
     nlinarith [mul_le_mul h1 hle (sq_nonneg _) (by norm_num : (0 : ℝ) ≤ 1 / 4)]
 
-theorem exists_short_generator_inf_span_insert (L : Submodule ℤ E) [DiscreteTopology L]
-    {ι : Type*} (v : ι → E) (s : Finset ι) (hv : ∀ i ∈ s, v i ∈ L) {u : E} (huL : u ∈ L)
+section
+variable (L : Submodule ℤ E) [DiscreteTopology L]
+theorem exists_short_generator_inf_span_insert {ι : Type*} (v : ι → E) (s : Finset ι) (hv : ∀ i ∈ s, v i ∈ L) {u : E} (huL : u ∈ L)
     (hu : u ∉ span ℝ (v '' s)) :
     ∃ b : E, L ⊓ (span ℝ (insert u (v '' s))).restrictScalars ℤ =
         span ℤ {b} ⊔ L ⊓ (span ℝ (v '' s)).restrictScalars ℤ ∧
@@ -181,8 +172,9 @@ theorem exists_short_generator_inf_span_insert (L : Submodule ℤ E) [DiscreteTo
     exact ⟨hbL, mem_span_insert.2 ⟨_, _, hy₀, rfl⟩⟩
   · exact inf_le_inf_left _ fun x hx => span_mono (Set.subset_insert _ _) hx
 
-theorem exists_short_family_adapted (L : Submodule ℤ E) [DiscreteTopology L] {n : ℕ}
-    {v : Fin n → E} (hv : LinearIndependent ℝ v) (hL : ∀ i, v i ∈ L) :
+section
+variable {n : ℕ} {v : Fin n → E}
+theorem exists_short_family_adapted (hv : LinearIndependent ℝ v) (hL : ∀ i, v i ∈ L) :
     ∃ b : Fin n → E, LinearIndependent ℝ b ∧
       (∀ s : ℕ, span ℤ (b '' {i : Fin n | (i : ℕ) < s}) =
         L ⊓ (span ℝ (v '' {i : Fin n | (i : ℕ) < s})).restrictScalars ℤ) ∧
@@ -218,8 +210,7 @@ theorem exists_short_family_adapted (L : Submodule ℤ E) [DiscreteTopology L] {
       exact span_subset_span ℤ ℝ _ (h.ge ⟨hL i, subset_span ⟨i, rfl⟩⟩)
   rw [linearIndependent_iff_card_eq_finrank_span, Set.finrank, hsp, finrank_span_eq_card hv]
 
-theorem exists_short_basis_adapted_of_subset_span (L : Submodule ℤ E) [DiscreteTopology L] {n : ℕ}
-    {v : Fin n → E} (hv : LinearIndependent ℝ v) (hL : ∀ i, v i ∈ L)
+theorem exists_short_basis_adapted_of_subset_span (hv : LinearIndependent ℝ v) (hL : ∀ i, v i ∈ L)
     (hspan : (L : Set E) ⊆ span ℝ (Set.range v)) :
     ∃ b : Basis (Fin n) ℤ L,
       (∀ s : ℕ, span ℤ ((fun i => (b i : E)) '' {i : Fin n | (i : ℕ) < s}) =
@@ -235,6 +226,8 @@ theorem exists_short_basis_adapted_of_subset_span (L : Submodule ℤ E) [Discret
   refine ⟨(Basis.span hbZ).map (LinearEquiv.ofEq _ _ h), ?_, ?_⟩
   · simpa only [hc] using hflag
   · simpa only [hc] using hn
+end
+end
 
 
 omit [InnerProductSpace ℝ E] [FiniteDimensional ℝ E] in
@@ -247,24 +240,11 @@ theorem norm_sq_add_sum_Iio_le {n : ℕ} {v : Fin n → E} {i : Fin n} {r : ℝ}
   rw [Fin.card_Iio, nsmul_eq_mul] at h1
   have h2 := pow_le_pow_left₀ (norm_nonneg _) (h i le_rfl) 2
   linarith
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsShortBasisAdaptedOfSubsetSpan =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedBasisIntegralPartOfLinearIndependen =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedBasisIntegralPartOfLinearIndependen", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.SumFinsuppAntidiagProdPowDivMultiFactorial\npublic import Mathlib.Analysis.CStarAlgebra.Classes\npublic import Mathlib.NumberTheory.NumberField.InfinitePlace.Embeddings\npublic import Development.AbelianVarietyTheory.Proofs.CovolumeBounds.ExistsShortBasisAdaptedOfSubsetSpan\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\npublic import Mathlib.NumberTheory.NumberField.House\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open Module Submodule MvPolynomial NumberField
-
+end
+section
+open MvPolynomial NumberField
 namespace GlobalTheory
-
 theorem exists_short_basis_of_ratSpan {V E ι : Type*} [AddCommGroup V] [Module ℚ V]
     [NormedAddCommGroup E] [InnerProductSpace ℝ E] [FiniteDimensional ℝ E]
     (H : Submodule ℤ V) (φ : V →+ E) {ε : ℝ} (hε : 0 < ε)
@@ -348,17 +328,19 @@ variable {K σ : Type*} [Field K]
 def integralPart (W : Submodule K (MvPolynomial σ K)) : Submodule ℤ (MvPolynomial σ K) :=
   W.restrictScalars ℤ ⊓ coeffsIn σ (integralClosure ℤ K).toSubmodule
 
-theorem mem_integralPart {W : Submodule K (MvPolynomial σ K)} {P : MvPolynomial σ K} :
+section
+variable {W : Submodule K (MvPolynomial σ K)}
+theorem mem_integralPart {P : MvPolynomial σ K} :
     P ∈ integralPart W ↔ P ∈ W ∧ ∀ α, IsIntegral ℤ (P.coeff α) := Iff.rfl
 
-theorem smul_mem_integralPart {W : Submodule K (MvPolynomial σ K)} (c : 𝓞 K)
+theorem smul_mem_integralPart (c : 𝓞 K)
     {P : MvPolynomial σ K} (hP : P ∈ integralPart W) : c • P ∈ integralPart W :=
   ⟨W.smul_mem (c : K) hP.1, fun α => by
     change IsIntegral ℤ (AddMonoidAlgebra.coeff ((c : K) • P) α)
     rw [MvPolynomial.coeff_smul, smul_eq_mul]
     exact c.isIntegral_coe.mul (hP.2 α)⟩
 
-theorem span_ringOfIntegers_basis_integralPart {W : Submodule K (MvPolynomial σ K)} {ι : Type*}
+theorem span_ringOfIntegers_basis_integralPart {ι : Type*}
     (b : Basis ι ℤ (integralPart W)) :
     (span (𝓞 K) (Set.range fun i => (b i : MvPolynomial σ K))).restrictScalars ℤ =
       integralPart W := by
@@ -372,6 +354,7 @@ theorem span_ringOfIntegers_basis_integralPart {W : Submodule K (MvPolynomial σ
   · have h4 := Submodule.mem_map_of_mem (f := (integralPart W).subtype) (b.mem_span ⟨P, hP⟩)
     rw [Submodule.map_span, ← Set.range_comp] at h4
     exact span_subset_span ℤ (𝓞 K) _ h4
+end
 
 variable [NumberField K] [Fintype σ]
 
@@ -503,24 +486,12 @@ theorem exists_reduced_basis_integralPart {κ : Type*}
   exact_mod_cast choose_add_le_one_add_pow _ _
 
 end MvPoly
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedBasisIntegralPartOfLinearIndependen =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedIntegralBasisHarmonicPolynomials =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedIntegralBasisHarmonicPolynomials", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ThetaValues.GamAt\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.FundamentalDomainPointBound\npublic import Development.AbelianVarietyTheory.Definitions.ThetaMetrics.SumFinsuppAntidiagProdPowDivMultiFactorial\npublic import Formalism.LocalToGlobal.ProjectiveLattices.ThProps\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedBasisIntegralPartOfLinearIndependen\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsShortIndependentIntegers\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.HarmAMemSpanShort\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Formalism.SharpRestriction.Divisibility.GeneratorPowers.CIndSt\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+end
 open NumberField ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj Formalism.MainNotions.ModuliIntegralCharts.H1 GlobalTheory.RunIn
-
 namespace GlobalTheory.HarmBasis
-
 open MvPolynomial
-
 theorem mem_HHa_of_mem_span {T : Type} {r : T → ℕ} {n : ℕ} {k : Type} [Field k] {cc : T → T} {isX : T → Prop}
     {a : T → ℕ → ℕ} {S : Set (MvPolynomial (Letter T r n) k)} (hS : S ⊆ HHa r n k cc isX a)
     {P : MvPolynomial (Letter T r n) k} (hP : P ∈ Submodule.span k S) : P ∈ HHa r n k cc isX a := by
@@ -662,8 +633,3 @@ theorem exists_reduced_basis_harmA : ∀ (E : Type) [Field E] [NumberField E] [I
     congr 1
     push_cast
     ring
-
-end GlobalTheory.HarmBasis
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsReducedIntegralBasisHarmonicPolynomials =====

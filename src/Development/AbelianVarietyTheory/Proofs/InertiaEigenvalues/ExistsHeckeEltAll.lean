@@ -28,7 +28,7 @@ namespace GlobalTheory.HkSupComm
 
 section Keep
 
-open Formalism.L2.NTheta GlobalTheory.HeckeParts GlobalTheory.HeckeSupSt
+open GlobalTheory.HeckeParts
 
 variable {D : D7} {G : Type} [Group G] [Fintype G] {Pl0 T0 : Type} {A : FamIn D.what₂.LL G Pl0 T0 D.R.m}
 
@@ -241,9 +241,9 @@ theorem mk_smul (i : D.ntw.Tw) (b : Bool) (i' : Fin D.R.m) (k : ℕ) (P : PlE D.
 
 end
 
-theorem commG (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : Type)
-    (A3 : FamIn3 D.what₂.LL G Pl0 I0 (List ℕ) T0 D.R.m) (T : CoreJ D) [Algebra T.Q.c.F D.what₂.LL] (R : RealDat3 D A3 T.Q.c.F)
-    (cG : Formalism.L2.DIV.G0 R.Pg D.R.r ≃* G0g D.nd) (S : RatDat D.ntw) (Y : NExpRealS R cG S) (H : NExpRealH R cG S Y)
+section
+variable (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : Type) (A3 : FamIn3 D.what₂.LL G Pl0 I0 (List ℕ) T0 D.R.m) (T : CoreJ D) [Algebra T.Q.c.F D.what₂.LL] (R : RealDat3 D A3 T.Q.c.F) (cG : Formalism.L2.DIV.G0 R.Pg D.R.r ≃* G0g D.nd) (S : RatDat D.ntw) (Y : NExpRealS R cG S)
+theorem commG (H : NExpRealH R cG S Y)
     (hLev : R.toLevCh.Is A3.A.μ0) (hAll : R.AllPlaces)
     (hSup : ∀ i, GlobalTheory.IndefiniteRowSideFullHecke.LatticesOverBalls.HkSupAt T R.toRealDat i) (hRd : GlobalTheory.ExportPin.Reads R cG S Y H.hL) :
     GlobalTheory.LiftLeaf.CommG D := by
@@ -265,9 +265,7 @@ theorem commG (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : Type)
   rw [Y.act, H.hkEq i _ b h1 h2 k P _ hS0 hsp hkr, H.hkEq i _ b h1 h2 k P _ hS0 hsp hkr, Y.act, map_smul,
     hkFR_act S i _ b (H.hL _) (H.hs _ h1 h2) k P (Y.rho _ h1 h2) (Y.chi _ h1 h2) hc]
 
-theorem eF_hkF_mem_bsup (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : Type)
-    (A3 : FamIn3 D.what₂.LL G Pl0 I0 (List ℕ) T0 D.R.m) (T : CoreJ D) [Algebra T.Q.c.F D.what₂.LL] (R : RealDat3 D A3 T.Q.c.F)
-    (cG : Formalism.L2.DIV.G0 R.Pg D.R.r ≃* G0g D.nd) (S : RatDat D.ntw) (Y : NExpRealS R cG S) (H : NExpRealH R cG S Y)
+theorem eF_hkF_mem_bsup (H : NExpRealH R cG S Y)
     (hLev : R.toLevCh.Is A3.A.μ0) (hAll : R.AllPlaces) (hMK : ∀ i, (R.FW i).MKFull)
     (hSup : ∀ i, GlobalTheory.IndefiniteRowSideFullHecke.LatticesOverBalls.HkSupAt T R.toRealDat i) (hRd : GlobalTheory.ExportPin.Reads R cG S Y H.hL)
     (hU : ∀ i b P, P ∉ D.ntw.S0 i → Formalism.BasicNotions.IsSplitPl D.host P →
@@ -290,9 +288,7 @@ theorem eF_hkF_mem_bsup (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : T
   exact Submodule.smul_mem _ _ (hkFR_bsup S i _ b (H.hL _) (H.hs _ h1 h2) k P
     (fun x hx => mk_smul Y H i b i' k P (hMK i') (hK i i' k P hsp hS0 hkr) x hx) _ hf)
 
-theorem supHk_commG (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : Type)
-    (A3 : FamIn3 D.what₂.LL G Pl0 I0 (List ℕ) T0 D.R.m) (T : CoreJ D) [Algebra T.Q.c.F D.what₂.LL] (R : RealDat3 D A3 T.Q.c.F)
-    (cG : Formalism.L2.DIV.G0 R.Pg D.R.r ≃* G0g D.nd) (S : RatDat D.ntw) (Y : NExpRealS R cG S) (H : NExpRealH R cG S Y)
+theorem supHk_commG (H : NExpRealH R cG S Y)
     (hB : ∀ i j b (h1 : 1 ≤ j) (h2 : j ≤ D.R.m) (x : D.nexp.Fm i j b),
       x ∈ D.nexp.Bsup i j b ↔ Y.eF i j b h1 h2 x ∈ Bsup S i j b)
     (hLev : R.toLevCh.Is A3.A.μ0) (hAll : R.AllPlaces) (hMK : ∀ i, (R.FW i).MKFull)
@@ -306,5 +302,6 @@ theorem supHk_commG (D : D7) (G : Type) [Group G] [Fintype G] (Pl0 I0 T0 : Type)
   obtain ⟨_, hkr, hsp, hS0⟩ := hk
   exact (hB i j b h1 h2 _).2 (eF_hkF_mem_bsup D G Pl0 I0 T0 A3 T R cG S Y H hLev hAll hMK hSup hRd hU i j b h1 h2 k P hS0 hsp hkr f
     ((hB i j b h1 h2 f).1 hf))
+end
 
 end GlobalTheory.HkSupComm

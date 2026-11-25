@@ -51,21 +51,12 @@ import Mathlib.Topology.Sheaves.Init
 import Mathlib.Tactic.Linter.HaveILetI
 import Mathlib.Tactic.Linter.Style
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousSmulSemi, Development.AbelianVarietyTheory.Proofs.TwistedOperators.WeilLineGoodModelAction
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousSmulSemi =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousSmulSemi", "h": "module\n\nimport Development.WeilBound.ThetaLifts.LocalTheory.ArchimedeanBumps.SliceAn\npublic import Development.AbelianVarietyTheory.PublishedTheorems.TwistedTraceFormula.MetaplecticRepresentation\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\npublic import Mathlib.Analysis.Normed.Module.DoubleDual\npublic import Mathlib.Analysis.Normed.Operator.BanachSteinhaus\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
+noncomputable section
+section
 open scoped SchwartzMap
 open GlobalTheory.Published.Metaplectic
-
-noncomputable section
-
 namespace GlobalTheory.DiffDecay
-
 section Weak
 
 variable {E : Type} [AddCommGroup E] [Module ℂ E]
@@ -90,98 +81,10 @@ section Tame
 
 variable {E : Type} [AddCommGroup E] [Module ℂ E] [TopologicalSpace E] {W : Type} [SeminormedAddCommGroup W]
 
-def Tame (R : W → E →ₗ[ℂ] E) : Prop :=
-  ∀ p : Seminorm ℂ E, Continuous p → ∃ (q : Seminorm ℂ E) (M : ℕ), Continuous q ∧
-    ∀ w f, p (R w f - f) ≤ ‖w‖ * (1 + ‖w‖) ^ M * q f
 
-theorem continuous_smul_semi (c : ℝ) (q : Seminorm ℂ E) (hq : Continuous q) :
-    ∃ q' : Seminorm ℂ E, Continuous q' ∧ ∀ f, q' f = |c| * q f :=
-  ⟨(‖c‖₊ : NNReal) • q, (continuous_const.mul hq : Continuous fun f => |c| * q f), fun _ => rfl⟩
 
-theorem Tame.growth {R : W → E →ₗ[ℂ] E} (h : Tame R) (p : Seminorm ℂ E) (hp : Continuous p) :
-    ∃ (q : Seminorm ℂ E) (M : ℕ), Continuous q ∧ ∀ w f, p (R w f) ≤ (1 + ‖w‖) ^ M * q f := by
-  obtain ⟨q, M, hq, hb⟩ := h p hp
-  refine ⟨p + q, M + 1, (hp.add hq : Continuous fun f => p f + q f), fun w f => ?_⟩
-  have h1 : p (R w f) ≤ p (R w f - f) + p f := by
-    simpa using map_add_le_add p (R w f - f) f
-  have h2 := hb w f
-  have h3 : 1 ≤ (1 + ‖w‖) ^ M := one_le_pow₀ (by linarith [norm_nonneg w])
-  have hp0 := apply_nonneg p f
-  have hq0 := apply_nonneg q f
-  have hw := norm_nonneg w
-  rw [Seminorm.add_apply, pow_succ]
-  nlinarith [mul_nonneg hw hp0, mul_nonneg (mul_nonneg hw hp0) (sub_nonneg.2 h3), mul_nonneg hp0 (sub_nonneg.2 h3),
-    mul_nonneg hq0 (sub_nonneg.2 h3)]
 
-theorem Tame.iter {R : W → E →ₗ[ℂ] E} (h : Tame R) (j : ℕ) (p : Seminorm ℂ E) (hp : Continuous p) :
-    ∃ q : Seminorm ℂ E, Continuous q ∧ ∀ u, ‖u‖ ≤ 1 → ∀ f, p (((R u - 1) ^ j) f) ≤ ‖u‖ ^ j * q f := by
-  induction j with
-  | zero => exact ⟨p, hp, fun u _ f => by simp⟩
-  | succ j ih =>
-    obtain ⟨q, hq, hb⟩ := ih
-    obtain ⟨q₁, M, hq₁, hb₁⟩ := h q hq
-    obtain ⟨q₂, hq₂, e₂⟩ := continuous_smul_semi (2 ^ M) q₁ hq₁
-    refine ⟨q₂, hq₂, fun u hu f => ?_⟩
-    rw [pow_succ, Module.End.mul_apply]
-    refine (hb u hu _).trans ?_
-    rw [pow_succ, mul_assoc, e₂, abs_of_nonneg (by positivity)]
-    gcongr
-    rw [LinearMap.sub_apply, Module.End.one_apply, ← mul_assoc]
-    refine (hb₁ u f).trans ?_
-    gcongr
-    linarith
 
-theorem Tame.decay {R : W → E →ₗ[ℂ] E} (h : Tame R) (p : Seminorm ℂ E) (hp : Continuous p) (A C : ℝ) (N : ℕ) :
-    ∃ q : Seminorm ℂ E, Continuous q ∧ ∀ (s : W) (r : ℝ), 0 ≤ r → ‖s‖ ≤ A * r →
-      (0 < r → ∃ u, ‖u‖ * r ≤ C ∧ ∀ f, p (R s (R u f + f)) = 0) → ∀ f, p (R s f) ≤ q f * (1 + r) ^ (-(N : ℝ)) := by
-  obtain ⟨q₁, M, hq₁, hb₁⟩ := h.growth p hp
-  obtain ⟨q₂, hq₂, hb₂⟩ := h.iter (M + N) q₁ hq₁
-  set r₀ := max C 1 with hr₀
-  obtain ⟨q₃, hq₃, e₃⟩ := continuous_smul_semi ((1 + |A|) ^ M * (1 + r₀) ^ (M + N)) q₁ hq₁
-  obtain ⟨q₄, hq₄, e₄⟩ := continuous_smul_semi ((1 + |A|) ^ M * (2 * r₀) ^ (M + N)) q₂ hq₂
-  have hr1 : 1 ≤ r₀ := le_max_right _ _
-  refine ⟨q₃ + q₄, (hq₃.add hq₄ : Continuous fun f => q₃ f + q₄ f), fun s r hr hs hu f => ?_⟩
-  have hs' : 1 + ‖s‖ ≤ (1 + |A|) * (1 + r) := by
-    nlinarith [le_abs_self A, abs_nonneg A, mul_le_mul_of_nonneg_right (le_abs_self A) hr]
-  have hpow : (1 + ‖s‖) ^ M ≤ (1 + |A|) ^ M * (1 + r) ^ M := by
-    rw [← mul_pow]; gcongr
-  rw [Real.rpow_neg (by linarith), Real.rpow_natCast, ← div_eq_mul_inv, le_div_iff₀ (by positivity), Seminorm.add_apply]
-  have h3 := apply_nonneg q₃ f
-  have h4 := apply_nonneg q₄ f
-  rcases le_or_gt r r₀ with hrr | hrr
-  · refine le_trans ?_ (le_add_of_nonneg_right h4)
-    rw [e₃, abs_of_nonneg (by positivity)]
-    calc p (R s f) * (1 + r) ^ N ≤ ((1 + |A|) ^ M * (1 + r) ^ M * q₁ f) * (1 + r) ^ N := by
-          gcongr; exact (hb₁ s f).trans (by gcongr)
-      _ = (1 + |A|) ^ M * (1 + r) ^ (M + N) * q₁ f := by ring
-      _ ≤ _ := by gcongr
-  · refine le_trans ?_ (le_add_of_nonneg_left h3)
-    obtain ⟨u, huC, hu0⟩ := hu (by linarith)
-    have hC : C ≤ r₀ := le_max_left _ _
-    have hu1 : ‖u‖ ≤ 1 := by
-      by_contra hcon
-      nlinarith [not_le.1 hcon]
-    have hstep : ∀ g, p (R s g) ≤ p (R s ((R u - 1) g)) := fun g => by
-      have e1 : (2 : ℂ) • R s g = R s (R u g + g) - R s ((R u - 1) g) := by
-        rw [← map_sub, ← map_smul, LinearMap.sub_apply, Module.End.one_apply, two_smul]; congr 1; abel
-      have e2 := map_sub_le_add p (R s (R u g + g)) (R s ((R u - 1) g))
-      rw [← e1, map_smul_eq_mul, hu0] at e2
-      have := apply_nonneg p (R s g)
-      simp only [Complex.norm_ofNat] at e2
-      linarith
-    have hit : ∀ j : ℕ, p (R s f) ≤ p (R s (((R u - 1) ^ j) f)) := fun j => by
-      induction j with
-      | zero => simp
-      | succ j ih => rw [pow_succ', Module.End.mul_apply]; exact ih.trans (hstep _)
-    have hur : ‖u‖ * (1 + r) ≤ 2 * r₀ := by nlinarith
-    rw [e₄, abs_of_nonneg (by positivity)]
-    calc p (R s f) * (1 + r) ^ N ≤ ((1 + |A|) ^ M * (1 + r) ^ M * (‖u‖ ^ (M + N) * q₂ f)) * (1 + r) ^ N := by
-          gcongr
-          refine (hit (M + N)).trans ((hb₁ s _).trans ?_)
-          gcongr
-          exact hb₂ u hu1 f
-      _ = (1 + |A|) ^ M * (‖u‖ * (1 + r)) ^ (M + N) * q₂ f := by rw [mul_pow ‖u‖]; ring
-      _ ≤ _ := by gcongr
 
 end Tame
 
@@ -232,27 +135,11 @@ theorem tame_heisOp
       _ ≤ _ := by gcongr; omega
 
 end Heis
-
 end GlobalTheory.DiffDecay
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousSmulSemi =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.WeilLineGoodModelAction =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.WeilLineGoodModelAction", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ContinuousSmulSemi\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.SchwartzMapBarrelledSpace\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Module.DoubleDual\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes NumberField
-open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.WeilM Filter Topology
+open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes NumberField GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels GlobalTheory.WeilM Filter Topology
 open scoped SchwartzMap GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels Classical
-
-noncomputable section
-
 namespace GlobalTheory.ArchJointCont
-
 theorem continuous_of_weak {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] [FiniteDimensional ℝ V]
     (A : 𝓢(V, ℂ) →ₗ[ℂ] 𝓢(V, ℂ)) (h : ∀ T : 𝓢(V, ℂ) →L[ℂ] ℂ, Continuous fun f => T (A f)) : Continuous A := by
   haveI : BarrelledSpace ℂ 𝓢(V, ℂ) := GlobalTheory.schwartzMap_barrelledSpace V
@@ -317,9 +204,3 @@ theorem exists_adm (F : Type) [Field F] [NumberField F] {κ : Type} [Fintype κ]
   refine ⟨T₂ ∘ₗ sl, fun g _ => ⟨g 0 • T, fun f => ?_⟩, fun f g => ?_⟩
   · simp [hsl, hT₂f]
   · simp [hsl, hT₂f]
-
-end GlobalTheory.ArchJointCont
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.WeilLineGoodModelAction =====

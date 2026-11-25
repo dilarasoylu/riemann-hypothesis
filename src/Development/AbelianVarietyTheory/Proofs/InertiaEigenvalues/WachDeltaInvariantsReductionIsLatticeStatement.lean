@@ -42,19 +42,11 @@ import Mathlib.Tactic.NormNum.RealSqrt
 import Mathlib.Tactic.ReduceModChar
 import Mathlib.Topology.Sheaves.Init
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLattice, Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLatticeStatement
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLattice =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLattice", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.JSmul\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Saturated\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.GammaActionReduction\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
 namespace GlobalTheory.Present.RedLat
 open scoped LaurentSeries PowerSeries
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions GlobalTheory.PhiGam GlobalTheory.AdmLoc GlobalTheory.Models
-
 section General
 variable {G : Type} [Group G] [TopologicalSpace G] {Qp K₀ K : Type} [Field Qp] [Field K₀] [Field K]
     [Algebra Qp K₀] [Algebra Qp K] [Algebra K₀ K] [IsScalarTower Qp K₀ K]
@@ -90,14 +82,16 @@ theorem sum_del {M : Type} [AddCommMonoid M] (f : W.Gam → M) {d : W.Gam} (hd :
 
 alias γD_smulA := _root_.GlobalTheory.WachTie.MatF.γD_smulA
 
-theorem trace_mem (T : LocLat G Qp LL O) (x : W.DD T) : ∑ δ ∈ W.DelF, W.γD T δ x ∈ DΔ W T := by
+section
+variable (T : LocLat G Qp LL O)
+theorem trace_mem (x : W.DD T) : ∑ δ ∈ W.DelF, W.γD T δ x ∈ DΔ W T := by
   intro d hd
 
   rw [map_sum]
   simp_rw [← W.γD_mul]
   exact sum_del W (fun δ => W.γD T δ x) hd
 
-theorem smul_mem_DΔ (T : LocLat G Qp LL O) {a : LetA O n₀} (ha : ∀ i, ∀ δ ∈ W.DelF, W.γ₀ δ (a i) = a i)
+theorem smul_mem_DΔ {a : LetA O n₀} (ha : ∀ i, ∀ δ ∈ W.DelF, W.γ₀ δ (a i) = a i)
     {x : W.DD T} (hx : x ∈ DΔ W T) : a • x ∈ DΔ W T := by
   intro d hd
   rw [γD_smulA, hx d hd]
@@ -105,7 +99,7 @@ theorem smul_mem_DΔ (T : LocLat G Qp LL O) {a : LetA O n₀} (ha : ∀ i, ∀ �
   funext i
   exact ha i d hd
 
-theorem approx (T : LocLat G Qp LL O) (hT : IsCrys PD T.ρ) (x : W.DD T) :
+theorem approx (hT : IsCrys PD T.ρ) (x : W.DD T) :
     ∃ (m : ℕ) (y z : W.DD T), y ∈ W.N T ∧ ((letπ : LetA O n₀) ^ m) • x = y + PD.p • z := by
   refine (W.N_base T hT).inductionOn x ?_ ?_ ?_
   · intro y
@@ -136,6 +130,7 @@ theorem approx (T : LocLat G Qp LL O) (hT : IsCrys PD T.ρ) (x : W.DD T) :
     rw [pow_add, pow_add, mul_smul, mul_smul, h, h']
     simp only [smul_add, smul_comm _ PD.p]
     abel
+end
 
 theorem exists_norm : ∃ u u' : O⟦X⟧, (∀ δ ∈ W.DelF, W.γ₀ δ u = u) ∧ u = u' * PowerSeries.X ∧
     PowerSeries.map (algebraMap O k) u ≠ 0 := by
@@ -255,8 +250,9 @@ theorem exists_lat {l n : ℕ} {R : RingPG k l} {F : DFun R n G} {ι : k⸨X⸩ 
   rw [hj']
   exact Submodule.smul_mem _ _ (Submodule.subset_span hy₁)
 
-theorem card_ne_zero {l : ℕ} [Fact l.Prime] [CharP k l]
-    (e : {δ // δ ∈ W.DelF} ≃ {z : ℤ_[l] // z ^ (l - 1) = 1}) : ((W.DelF.card : ℕ) : k) ≠ 0 := by
+section
+variable {l : ℕ} [Fact l.Prime] [CharP k l]
+theorem card_ne_zero (e : {δ // δ ∈ W.DelF} ≃ {z : ℤ_[l] // z ^ (l - 1) = 1}) : ((W.DelF.card : ℕ) : k) ≠ 0 := by
   classical
   have hl : 2 ≤ l := (Fact.out : l.Prime).two_le
   have hpos : 0 < W.DelF.card := Finset.card_pos.2 ⟨1, one_mem_del W⟩
@@ -275,7 +271,7 @@ theorem card_ne_zero {l : ℕ} [Fact l.Prime] [CharP k l]
   have := Nat.le_of_dvd hpos h
   omega
 
-theorem red_lift {l : ℕ} [Fact l.Prime] [CharP k l] {R : RingPG k l} {ι : k⸨X⸩ →ₐ[k] k⸨X⸩}
+theorem red_lift {R : RingPG k l} {ι : k⸨X⸩ →ₐ[k] k⸨X⸩}
     (hι : GlobalTheory.IndefiniteRowSideFullHecke.OnePlusPowerCharacters.IsCyclotomic R ι) (hs : Function.Surjective (algebraMap O k))
     (e : {δ // δ ∈ W.DelF} ≃ {z : ℤ_[l] // z ^ (l - 1) = 1})
     (he : ∀ δ a, PowerSeries.map (algebraMap O k) (W.γ₀ δ.1 a) =
@@ -312,6 +308,7 @@ theorem red_lift {l : ℕ} [Fact l.Prime] [CharP k l] {R : RingPG k l} {ι : k�
           hinv _ (e ⟨δ, hδ⟩).2, PowerSeries.smul_eq_C_mul]
       rw [Finset.sum_congr rfl h1, Finset.sum_const, ← Nat.cast_smul_eq_nsmul k, smul_smul,
         mul_inv_cancel₀ (card_ne_zero W e), one_smul]
+end
 
 end General
 
@@ -332,21 +329,5 @@ theorem GlobalTheory.Present.RedLat.red_isLat : ∀ {l : ℕ} [Fact l.Prime] {P 
   choose N hN hL using GlobalTheory.Present.RedLat.exists_lat (S.W H) p h1 h2
     (GlobalTheory.Present.RedLat.card_ne_zero (S.W H) e) hp hQ.1 T A q hq hT.1
   exact ⟨N, hN, hL⟩
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLattice =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLatticeStatement =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLatticeStatement", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.JSmul\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.Saturated\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLattice\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open GlobalTheory.PhiGam GlobalTheory.AdmLoc GlobalTheory.Models GlobalTheory.TopSteps GlobalTheory.Present Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc
-open scoped LaurentSeries PowerSeries
-
-theorem _root_.GlobalTheory.T.wachDeltaInvariants_reduction_isLattice : ∀ {l : ℕ} [Fact l.Prime] {P : LocPrime l} (H : LocHW l P) (S : TopSit P) (k : Type) [Field k] [Algebra S.O k] [CharP k l], S.IsRes k → ∀ {R : RingPG k l} (ι : k⸨X⸩ →ₐ[k] k⸨X⸩) (F : DFun R S.n S.G) (τ : ZMod S.n → ZMod (Module.finrank ℚ_[l] ↥(K0 S.K))) (γ : (S.W H).Gam) (p : Pres (S.W H) F ι τ γ), GlobalTheory.IndefiniteRowSideFullHecke.OnePlusPowerCharacters.IsCyclotomic R ι → (∀ i, (S.W H).emb (τ i) = S.emb i) → ((S.W H).χΓ γ : S.O) = 1 + (l : S.O) → GlobalTheory.WachUse.QN (S.W H) → ∀ (T : LocLat S.G ℚ_[l] ↥S.LL.1 S.O) (A : Ob k S.G) q (U : ZMod S.n → Multiset ℤ), Onto T A q → KerIs S.Γ.lam q → CrysWith (P.PD S.K) S.emb T.ρ U → ∃ N : Lats k S.n A.m, (∀ i y, y ∈ N i ↔ ∃ x : ↥(DΔ (S.W H) T), (x : (S.W H).DD T) ∈ (S.W H).N T ∧ p.j T A q i x = y) ∧ ∀ i, IsLat (N i) := by
-  first | exact @GlobalTheory.Present.RedLat.red_isLat
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachDeltaInvariantsReductionIsLatticeStatement =====
+end
+abbrev _root_.GlobalTheory.T.wachDeltaInvariants_reduction_isLattice := @_root_.GlobalTheory.Present.RedLat.red_isLat

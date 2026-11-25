@@ -43,7 +43,7 @@ import Mathlib.Tactic.ReduceModChar
 
 @[expose] public section
 
-open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.N Formalism.ConjugateSelfDual ReciprocityTheory.Gal ReciprocityTheory.Aut Formalism.AUTREP Formalism.L2 Formalism.L2.Host Formalism.L2.NT NumberField IsDedekindDomain Polynomial GlobalTheory.HeightCounting GlobalTheory.RowTie GlobalTheory.SplitRead GlobalTheory.NPin
+open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.N Formalism.ConjugateSelfDual ReciprocityTheory.Gal ReciprocityTheory.Aut Formalism.AUTREP Formalism.L2 Formalism.L2.Host NumberField IsDedekindDomain Polynomial GlobalTheory.HeightCounting GlobalTheory.SplitRead GlobalTheory.NPin
 
 noncomputable section
 
@@ -96,13 +96,16 @@ def Good (φ : TauV →ₗ[ℂ] (WO V W → ℂ)) : Prop :=
   (∀ F g, IntegrableOn (fun h => thetaKO om h g (φ (fV F h))) 𝓕V νV) ∧
     ∀ F y, IntegrableOn (fun g => star (yv y g) * thIn om fV νV 𝓕V φ F g) 𝓕W νW
 
-theorem thetaKO_add (h : Formalism.L2.Theta.GA D V) (g : Formalism.L2.Theta.GA D W) (f f' : WO V W → ℂ) :
+section
+variable (h : Formalism.L2.Theta.GA D V) (g : Formalism.L2.Theta.GA D W)
+theorem thetaKO_add (f f' : WO V W → ℂ) :
     thetaKO om h g (f + f') = thetaKO om h g f + thetaKO om h g f' := by
   simp [thetaKO, map_add (f := _)]
 
-theorem thetaKO_smul (h : Formalism.L2.Theta.GA D V) (g : Formalism.L2.Theta.GA D W) (c : ℂ) (f : WO V W → ℂ) :
+theorem thetaKO_smul (c : ℂ) (f : WO V W → ℂ) :
     thetaKO om h g (c • f) = c * thetaKO om h g f := by
   simp [thetaKO, map_smul]
+end
 
 theorem thIn_add {φ φ' : TauV →ₗ[ℂ] (WO V W → ℂ)} (hφ : Good om fV yv νV 𝓕V νW 𝓕W φ)
     (hφ' : Good om fV yv νV 𝓕V νW 𝓕W φ') (F : Fm) (g : Formalism.L2.Theta.GA D W) :
@@ -338,50 +341,13 @@ def kUnit {D : D7} {V : Formalism.BasicNotions.TH.HSp D} {S : D.what₂.Tau → 
 
 variable {hL : GlobalTheory.Published.LocalLanglandsGL} {D : D7} {P : Pin hL D} {X : GlobalTheory.NJoin.RealAt D P.cf P.C P.tp}
 
-def eWloc (A : GlobalTheory.NJoin.Agree X P.M P.rep) (i : D.nd.Loc) (j : Fin D.R.m) (hj : j.1 + 1 = D.nd.j i)
-    (hμ : Formalism.IndefR.RecTie.Used0 D (D.nd.mu i)) : (X.R.cV j).W ≃ₗ[ℂ] (P.M.loc i).wt.W := by
-  have key : ∀ (k : ℕ) (hk : j.1 + 1 = k) (p1 : 1 ≤ k) (p2 : k ≤ D.R.m),
-      (X.R.cV j).W ≃ₗ[ℂ] (P.M (D.nd.mu i) k p1 p2).wt.W := by
-    rintro k rfl p1 p2
-    exact A.eW _ hμ j
-  exact key _ hj _ _
 
-def fV (A : GlobalTheory.NJoin.Agree X P.M P.rep) (i : D.nd.Loc) (j : Fin D.R.m) (hj : j.1 + 1 = D.nd.j i)
-    (hμ : Formalism.IndefR.RecTie.Used0 D (D.nd.mu i)) :
-    ↥(NG.AFall D.host.E D.R.nV (P.M.loc i).wt.ρ) →ₗ[ℂ] (Formalism.L2.Theta.GA D (Vc D j) → (X.R.cV j).W) :=
-  (X.R.cV j).ext ∘ₗ
-    { toFun := fun F k => (eWloc A i j hj hμ).symm
-        ((F : GAf D.host.E D.R.nV → (P.M.loc i).wt.W) (A.a j * preF (A.PV j) k))
-      map_add' := fun F F' => by funext k; simp
-      map_smul' := fun c F => by funext k; simp }
 
-def eC {j : Fin D.R.m} {j' : ℕ} {hj : j.1 + 1 = j'} {Y : RowMod D P.rep j'} (hc : GlobalTheory.NJoin.IsCanon X j hj Y) :
-    Y.A →ₗ[ℂ] Formalism.IndefR.Mult.MMap (X.R.MW j (sg0 D X.A)) :=
-  Classical.choose hc
 
-def cC {j : Fin D.R.m} {j' : ℕ} {hj : j.1 + 1 = j'} {Y : RowMod D P.rep j'} (hc : GlobalTheory.NJoin.IsCanon X j hj Y) : ℝ :=
-  Classical.choose (Classical.choose_spec hc)
 
-def yv {j : Fin D.R.m} {j' : ℕ} {hj : j.1 + 1 = j'} {Y : RowMod D P.rep j'} (hc : GlobalTheory.NJoin.IsCanon X j hj Y) :
-    ↥Y.C →ₗ[ℂ] (Formalism.L2.Theta.GA D (Wc D j) → ℂ) :=
-  LinearMap.applyₗ (PiTensorProduct.map (fun τ => (lowT (X.R.MW j (sg0 D X.A)) τ).subtype)
-      (kUnit (X.R.MW j (sg0 D X.A)))) ∘ₗ
-    (PiTensorProduct.lift : Formalism.IndefR.Mult.MMap (X.R.MW j (sg0 D X.A)) ≃ₗ[ℂ] _).toLinearMap ∘ₗ eC hc ∘ₗ Y.C.subtype
 
-def omStd (A : GlobalTheory.NJoin.Agree X P.M P.rep) (j : Fin D.R.m) (t : X.T) :
-    GAf D.host.E D.R.nV × GAf D.host.E D.R.r →* Module.End ℂ (WO (Vc D j) (Wc D j) → ℂ) :=
-  (X.R.ωP j t).comp ((A.PV j).ψ.prodMap (X.PW j).ψ)
 
-def OmI (A : GlobalTheory.NJoin.Agree X P.M P.rep) (i : D.nd.Loc) (j : Fin D.R.m) (hj : j.1 + 1 = D.nd.j i)
-    {Y : RowMod D P.rep (D.nd.j i)} (hc : GlobalTheory.NJoin.IsCanon X j hj Y) (hμ : Formalism.IndefR.RecTie.Used0 D (D.nd.mu i)) :
-    Submodule ℂ ((X.R.cV j).W →ₗ[ℂ] (WO (Vc D j) (Wc D j) → ℂ)) :=
-  OmSub (X.R.ωP j (X.tupT (D.nd.mu i))) (fV A i j hj hμ) (yv hc) (X.R.νV j (X.tupT (D.nd.mu i)))
-    (X.R.fdV j (X.tupT (D.nd.mu i))) (X.R.νW j) (X.R.fdW j) X.R.ψ
-    (omStd A j (X.tupT (D.nd.mu i)))
 
-def phi0 (j : Fin D.R.m) (t : X.T) : (X.R.cV j).W →ₗ[ℂ] (WO (Vc D j) (Wc D j) → ℂ) :=
-  pureTensorO X.R.ψ X.R.θ (Vc D j) (Wc D j) (fun _ => 1) (cart (X.R.MW j (sg0 D X.A))) (X.R.BV j)
-    (onb (X.R.MW j (sg0 D X.A))) (X.R.vP j t) ∘ₗ X.R.ioP j (kUnit (X.R.MW j (sg0 D X.A)))
 
 end GlobalTheory.ThetaTri
 
@@ -478,11 +444,6 @@ open MeasureTheory Formalism.IndefR.Datum Formalism.IndefR.Links GlobalTheory.Th
 
 variable {hL : GlobalTheory.Published.LocalLanglandsGL} {D : D7} {P : Pin hL D} {X : GlobalTheory.NJoin.RealAt D P.cf P.C P.tp}
 
-def lamL (A : GlobalTheory.NJoin.Agree X P.M P.rep) (i : D.nd.Loc) (j : Fin D.R.m) (hj : j.1 + 1 = D.nd.j i)
-    {Y : RowMod D P.rep (D.nd.j i)} (hc : GlobalTheory.NJoin.IsCanon X j hj Y) (hμ : Formalism.IndefR.RecTie.Used0 D (D.nd.mu i)) :
-    ↥(OmI A i j hj hc hμ) →ₗ[ℂ] ↥(NG.AFall D.host.E D.R.nV (P.M.loc i).wt.ρ) →ₗ[ℂ] ↥Y.C →ₗ⋆[ℂ] ℂ :=
-  lam (X.R.ωP j (X.tupT (D.nd.mu i))) (fV A i j hj hμ) (yv hc) (X.R.νV j (X.tupT (D.nd.mu i)))
-    (X.R.fdV j (X.tupT (D.nd.mu i))) (X.R.νW j) (X.R.fdW j) (cC hc : ℂ) X.R.ψ (omStd A j (X.tupT (D.nd.mu i)))
 
 end GlobalTheory.ThetaTri
 

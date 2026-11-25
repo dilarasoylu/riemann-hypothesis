@@ -59,22 +59,12 @@ import Std.Tactic.BVDecide.Normalize.Prop
 import Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.NStageTrivialCharacterCoeffEqAlt
 import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ValApplySubLtOne
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LevelLeConjugateSplit, Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsTwoReadings
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LevelLeConjugateSplit =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LevelLeConjugateSplit", "h": "module\n\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ValIotaLeOfMem\npublic import Mathlib.NumberTheory.NumberField.CMField\nimport Development.AbelianVarietyTheory.Proofs.DivisorProofs.FinPartEqOneOfLevel\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HeckeCharUnramifiedInverseSplitPair\nimport Development.AbelianVarietyTheory.Proofs.DivisorProofs.SplitsInCMFieldTwoPrimesDegreeOne\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
+section
 open NumberField IsDedekindDomain GlobalTheory.CMVal GlobalTheory.CMVal.Euler GlobalTheory.CMVal.Euler.SplitPair
-
 namespace GlobalTheory.LamTie.ConjLevel
-
 variable {E : Type} [Field E] [NumberField E]
-
 theorem exists_cong_one [IsCMField E] {v : HeightOneSpectrum (OF E)} (hs : Splits v) {P : HeightOneSpectrum (𝓞 E)}
     (hP : Over P v) (z : P.adicCompletion E) (hz : Valued.v z ≤ 1) :
     ∃ a : OF E, Valued.v (iota a P - z) ≤ WithZero.exp (-((1 : ℕ) : ℤ)) := by
@@ -115,23 +105,9 @@ theorem exists_cong [IsCMField E] {v : HeightOneSpectrum (OF E)} (hs : Splits v)
     rw [← WithZero.exp_add]
     congr 1
     push_cast; ring
-
-
 end GlobalTheory.LamTie.ConjLevel
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LevelLeConjugateSplit =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsTwoReadings =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsTwoReadings", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.IsAuxiliaryHeckeCharacter\npublic import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.UniversalAnticyclotomicCharacterLaws\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.HeckeCharUnramifiedInverseSplitPair\nimport Development.AbelianVarietyTheory.Proofs.DivisorProofs.SplitsInCMFieldTwoPrimesDegreeOne\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ConductorExponentAtPlaces\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IsValueTiedOfIsToricElt\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LevelLeConjugateSplit\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.SplitsInCMFieldPlaceBelowOfCompletelySplit\npublic import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.HeckeCharacterUnramifiedAeAndExistsLevel\npublic import Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.InertialOrderFifteenCharAuxiliaryPrimeSpec\nimport Development.AbelianVarietyTheory.Proofs.IwasawaDecomposition.ValuedPowSubOneLtOne\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Development.AbelianVarietyTheory.Definitions.AutomorphicMembership.NStageTrivialCharacterCoeffEqAlt\nimport Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ValApplySubLtOne\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
+end
 namespace GlobalTheory.LamTie.TrueList
-
 section Local
 
 open NumberField IsDedekindDomain GlobalTheory.CMVal GlobalTheory.CMVal.Euler GlobalTheory.CMVal.Euler.SplitPair GlobalTheory.LamTie.ConjLevel
@@ -260,7 +236,9 @@ theorem chi_teich {Z : LamDat D} (hZ : Z.Ok) (a : Fin D.R.m) {w w' : HeightOneSp
   exact teichTriv_of_split (hZ.aux a).triv (SplitBelow.splits_below_of_absNorm _ p h1 h2 h3 w hw) (e ▸ over_below w')
     (over_below w) h1 (h3 w' hw') (h3 w hw) h
 
-theorem exists_reading (X : NTw D.R D.host D.what₂ D.LL0 N) (i : X.Tw) (e : FractionRing (X.O0 i) →+* Qbar (X.l i))
+section
+variable (X : NTw D.R D.host D.what₂ D.LL0 N) (i : X.Tw)
+theorem exists_reading (e : FractionRing (X.O0 i) →+* Qbar (X.l i))
     (ι : Qbar (X.l i) ≃+* ℂ) (he : ∀ z : ℤ_[X.l i], e (algebraMap (X.O0 i) _ (algebraMap ℤ_[X.l i] (X.O0 i) z)) =
       algebraMap ℚ_[X.l i] (Qbar (X.l i)) (z : ℚ_[X.l i])) :
     ∃ ι' : ℂ →+* Kbar X i, ∀ b x, atSide X b ι' (sideIso ι b (e x)) = toBar X i x := by
@@ -287,7 +265,7 @@ theorem exists_reading (X : NTw D.R D.host D.what₂ D.LL0 N) (i : X.Tw) (e : Fr
     rw [Complex.conj_conj, ι.symm_apply_apply]
   · exact congrArg J (ι.symm_apply_apply _)
 
-theorem xv_mul_val (X : NTw D.R D.host D.what₂ D.LL0 N) (i : X.Tw) {e : FractionRing (X.O0 i) →+* Qbar (X.l i)}
+theorem xv_mul_val {e : FractionRing (X.O0 i) →+* Qbar (X.l i)}
     {ι : Qbar (X.l i) ≃+* ℂ} {ι' : ℂ →+* Kbar X i} (hι : ∀ x, ι' (ι (e x)) = toBar X i x)
     {art : Ideles D.host.E →* Gab D.host.E N.Om} (ha : IsGlobalArtin art) {χ : Formalism.L2.Host.HChar D.host.E}
     {n : (D.host.E →+* ℂ) → ℤ} {r : G D.host.E N.Om →* (X.O0 i)ˣ} (hr : IsGal art e ι χ n r) {lam : X.abelian₂ i}
@@ -299,15 +277,10 @@ theorem xv_mul_val (X : NTw D.R D.host D.what₂ D.LL0 N) (i : X.Tw) {e : Fracti
   rw [map_inv₀, toQ, RingHom.comp_apply, hι, toBar_algebraMap] at h3
   rw [X.Xv_def i lam P hP σ hσ, hG]
   exact (congrArg (· * _) h3).trans (inv_mul_cancel₀ ((map_ne_zero _).2 (Units.ne_zero _)))
+end
 
 abbrev Idx (R : Ranks) : Type := Fin R.m × Fin R.m × {s : ℕ // 1 ≤ s ∧ s ≤ BlochKatoReduction.Gen.NFun R + 1} × Bool
 
 instance (n : ℕ) : Fintype {s : ℕ // 1 ≤ s ∧ s ≤ n} := Fintype.subtype (Finset.Icc 1 n) fun _ => Finset.mem_Icc
 
 end Global
-
-end GlobalTheory.LamTie.TrueList
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsTwoReadings =====

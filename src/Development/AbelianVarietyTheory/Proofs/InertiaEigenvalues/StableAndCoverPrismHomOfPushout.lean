@@ -44,7 +44,7 @@ import Mathlib.Topology.Sheaves.Init
 
 @[expose] public section
 
-open Formalism Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.WeaklyAdmissibleFiltrations TensorProduct PowerSeries GlobalTheory.Prism GlobalTheory.BKReal GlobalTheory.Per GlobalTheory.BSP
+open Formalism Formalism.BasicNotions Formalism.BasicNotions.Loc TensorProduct PowerSeries GlobalTheory.Prism GlobalTheory.BKReal GlobalTheory.Per GlobalTheory.BSP
 open scoped Formalism.Per NNReal
 
 noncomputable section
@@ -60,9 +60,6 @@ alias hom_ext := _root_.GlobalTheory.Prism.Hom.ext'
 theorem comp_assoc {P₁ P₂ P₃ P₄ : Obj l R} (c : Hom P₃ P₄) (b : Hom P₂ P₃) (a : Hom P₁ P₂) :
     (c.comp b).comp a = c.comp (b.comp a) := hom_ext rfl
 
-theorem qmap_comp {P₁ P₂ P₃ : Obj l R} (g : Hom P₂ P₃) (f : Hom P₁ P₂) (m : ℕ) :
-    qmap (g.comp f) m = (qmap g m).comp (qmap f m) :=
-  Ideal.Quotient.ringHom_ext (RingHom.ext fun _ => rfl)
 
 theorem of_isPushout {P : ∀ {A B : Type} [CommRing A] [CommRing B], (A →+* B) → Prop}
     (hP : RingHom.IsStableUnderBaseChange @P)
@@ -81,14 +78,15 @@ namespace GlobalTheory.BSP.CoverBC
 
 variable {l : ℕ} {R : Type} [CommRing R]
 
-theorem flat_of_isPO {B C B' C' : Obj l R} {h : Hom B C} {k : Hom B B'} {k' : Hom C C'} {h' : Hom B' C'}
-    (H : IsPO h k k' h') (hf : ∀ m : ℕ, (qmap h m).Flat) (m : ℕ) : (qmap h' m).Flat :=
+section
+variable {B C B' C' : Obj l R} {h : Hom B C} {k : Hom B B'} {k' : Hom C C'} {h' : Hom B' C'}
+theorem flat_of_isPO (H : IsPO h k k' h') (hf : ∀ m : ℕ, (qmap h m).Flat) (m : ℕ) : (qmap h' m).Flat :=
   of_isPushout RingHom.Flat.isStableUnderBaseChange (H.po m) (hf m)
 
-theorem faithfullyFlat_of_isPO {B C B' C' : Obj l R} {h : Hom B C} {k : Hom B B'} {k' : Hom C C'}
-    {h' : Hom B' C'} (H : IsPO h k k' h') (hf : ∀ m : ℕ, (qmap h m).FaithfullyFlat) (m : ℕ) :
+theorem faithfullyFlat_of_isPO (H : IsPO h k k' h') (hf : ∀ m : ℕ, (qmap h m).FaithfullyFlat) (m : ℕ) :
     (qmap h' m).FaithfullyFlat :=
   of_isPushout RingHom.FaithfullyFlat.isStableUnderBaseChange (H.po m) (hf m)
+end
 
 end GlobalTheory.BSP.CoverBC
 

@@ -55,22 +55,14 @@ import Mathlib.Tactic.Polynomial.Basic
 import Mathlib.Tactic.ReduceModChar
 import Development.AbelianVarietyTheory.Proofs.ModuliProofs.LeISupInfPreimage
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.ModuliProofs.ConstFnCompSpMap, Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsSymmOfKsCoc
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.ModuliProofs.ConstFnCompSpMap =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.ModuliProofs.ConstFnCompSpMap", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ModuliSpaces.IsInvDer\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.AlgebraicGeometry.Modules.Sheaf\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.PiTensorProduct\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Development.AbelianVarietyTheory.Proofs.ModuliProofs.LeISupInfPreimage\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField
-open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor
+noncomputable section
+open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor
 open scoped CategoryTheory.Obj TensorProduct ContDiff
 open GlobalTheory.KS
-noncomputable section
 namespace GlobalTheory.KS.Sym
+section
 variable {X X₂ Y Z : Scheme.{0}}
-
 theorem app_eq_pbT (f : Z ⟶ Y) (W : Y.Opens) (s : Γ(Y, W)) : (f.app W).hom s = pbT f s (f ⁻¹ᵁ W) := by
   unfold pbT
   rw [dite_eq_left le_rfl]
@@ -469,25 +461,7 @@ theorem dl_diff {g : ℕ} {m : Y ⟶ X} {D : R → K}
   rw [rsT_pbT_of_le_of_le_preimage p _ hO3 (fun x hx => hT hx.2), rsT_pbT_of_le_of_le_preimage n _ hO3 hN, rsT_pbT_of_le_of_le_preimage n _ hO3 hN,
     pbT_pbT n m (O₀ := L.U i ⊓ L.U j) (O₁ := m ⁻¹ᵁ L.U i ⊓ m ⁻¹ᵁ L.U j) (fun x hx => hx) hNO, rsT_natCast_of_le _ hO3]
   linear_combination (pbT p (θ a) O * (ε * pbT n (φ a i j) O)) * hinv
-
-end GlobalTheory.KS.Sym
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.ModuliProofs.ConstFnCompSpMap =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsSymmOfKsCoc =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsSymmOfKsCoc", "h": "module\n\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ConstFnCompSpMap\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ExtensionDescent.SecBaseChangeAnySt\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.CechPrimitive\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsDerOfIsPushout\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsIsSymmOfSquare\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsSquareOfIsGrpPullback\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.IsLieCombZero\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.LogDerivativePrincipalPolarisationIndependent\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.AlgebraicGeometry.Modules.Sheaf\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField
-open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor
-open scoped CategoryTheory.Obj TensorProduct ContDiff
-open GlobalTheory.KS
-noncomputable section
-namespace GlobalTheory.KS.Sym
-
 private lemma pbT_rsT_eq_pbT_of_le_preimage {Y Z : Scheme.{0}} (n : Z ⟶ Y) {O₀ T : Y.Opens} (s : Γ(Y, O₀)) (hT : T ≤ O₀)
     {O : Z.Opens} (hO : O ≤ n ⁻¹ᵁ T) : pbT n (rsT s T) O = pbT n s O := by
   rw [← pbT_id s T, pbT_pbT n (𝟙 Y) (le_trans hT (le_of_eq rfl)) hO, Category.comp_id]
@@ -805,9 +779,3 @@ theorem exists_symm_of_ksCoc : Out.Laws → Out.Laws2 → (∀ (S : Scheme.{0}) 
   exact exists_isSymm_of_square K P₀.A.left (P₀.A ⊗ P₀.A).left P₀.A.hom (fst P₀.A P₀.A).left (snd P₀.A P₀.A).left
     L.ι (fun i => m ⁻¹ᵁ L.U i) g θ φ hsep hpull (fun i => haff _ (hU i)) hdl.2 _ _ k e e'
     (Primitive.iSup_triple hcov _ _ _) hk he he' hki hkj
-
-end GlobalTheory.KS.Sym
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.ModuliProofs.ExistsSymmOfKsCoc =====

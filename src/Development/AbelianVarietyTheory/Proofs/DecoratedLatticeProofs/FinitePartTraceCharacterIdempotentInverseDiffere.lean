@@ -56,18 +56,11 @@ import Formalism.LocalToGlobal.ProjectiveLattices.HostInt
 import Mathlib.Tactic.ReduceModChar
 import Development.AbelianVarietyTheory.Definitions.LatticeFrames.JointSmooth
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealGeneratedByOneAlmostEverywhere, Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealLocalGeneratorAtBasePrime, Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FinitePartTraceCharacterIdempotentInverseDiffere
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealGeneratedByOneAlmostEverywhere =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealGeneratedByOneAlmostEverywhere", "h": "module\n\npublic import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.RingTheory.DedekindDomain.Factorization\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open Formalism.BasicNotions IsDedekindDomain NumberField
-
+open Formalism.BasicNotions
+section
+open IsDedekindDomain NumberField
 namespace GlobalTheory.IdeleGen
-
 theorem exists_nat_mem_mul_integral {E : Type} [Field E] [NumberField E]
     (I : FractionalIdeal (nonZeroDivisors (𝓞 E)) E) (hI : I ≠ 0) :
     ∃ N : ℕ, N ≠ 0 ∧ (N : E) ∈ I ∧ ∀ b ∈ I, ∃ o : 𝓞 E, (N : E) * b = (o : E) := by
@@ -135,21 +128,8 @@ theorem aeGen : ∀ (D : D7) (I : FractionalIdeal (nonZeroDivisors (𝓞 D.host.
     rw [this]; exact hNI
   · have : (((N : 𝓞 D.host.F) : D.host.F) : D.host.E) = (N : D.host.E) := by push_cast; rfl
     rw [this]; exact hNb
-
 end GlobalTheory.IdeleGen
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealGeneratedByOneAlmostEverywhere =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealLocalGeneratorAtBasePrime =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealLocalGeneratorAtBasePrime", "h": "module\n\npublic import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.RingTheory.DedekindDomain.Factorization\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Formalism.BasicNotions IsDedekindDomain NumberField
-
 namespace GlobalTheory.LocGen
-
 theorem exists_gen_mul_of_isIntegral {R S : Type*} [CommRing R] [CommRing S] [IsDedekindDomain S] [Algebra R S]
     [Algebra.IsIntegral R S] (hinj : Function.Injective (algebraMap R S)) (p : Ideal R) [p.IsPrime] (hp : p ≠ ⊥)
     (J : Ideal S) (hJ : J ≠ ⊥) :
@@ -243,29 +223,14 @@ theorem fracIdeal_locGen : ∀ (D : D7) (I : FractionalIdeal (nonZeroDivisors (�
       _ = _ := by ring
 
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealLocalGeneratorAtBasePrime =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FinitePartTraceCharacterIdempotentInverseDiffere =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FinitePartTraceCharacterIdempotentInverseDiffere", "h": "module\n\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.StandardCharacterConductorAlmostAll\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.HomLatticeCompletionSelfAnnihilatorAtPlaces\npublic import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealGeneratedByOneAlmostEverywhere\npublic import Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FractionalIdealLocalGeneratorAtBasePrime\npublic import Formalism.SharpRestriction.GlobalSchurBounds.Joints\nimport Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.AddCharTrivialIntegralFiniteAdeleMul\nimport Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.SelfDualLatticePairingDual\nimport Formalism.LocalRingCardinality.SpanPowerMembership.ExampleLayerExistsGenerators\nimport Formalism.LocalRingCardinality.SpanPowerMembership.LocAtA\nimport Formalism.LocalToGlobal.IndefiniteReal.FinitePlaces.FactPrincipalDatum\nimport Formalism.LocalToGlobal.ProjectiveLattices.HostInt\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Development.AbelianVarietyTheory.Definitions.LatticeFrames.JointSmooth\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum MeasureTheory Matrix ValuativeRel IsLocalRing GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Unf GlobalTheory.LatPair GlobalTheory.SplitWeil GlobalTheory.SeeSaw GlobalTheory.FinPl
-open IsDedekindDomain NumberField
+end
+open Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum MeasureTheory Matrix ValuativeRel IsLocalRing GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Unf GlobalTheory.LatPair GlobalTheory.SplitWeil GlobalTheory.SeeSaw GlobalTheory.FinPl IsDedekindDomain NumberField
 open scoped TensorProduct
-
 noncomputable section
 open Classical
-
-
 namespace GlobalTheory.IdeleAA
-
 open GlobalTheory.SelfDualAt (cP indP evalV_indP algebraMap_placeIdempotent_mul cA_alg)
-
 variable {D : D7}
-
 abbrev ex (x : Pl D) : AE D := algebraMap (AF D.host.F) (AE D) (cP (· = x))
 
 theorem indicatorAdele_singleton_mul_singleton (x v : Pl D) : indP (D := D) (· = v) * indP (· = x) = if v = x then indP (· = x) else 0 := by
@@ -302,13 +267,15 @@ theorem sum_mul_ex (S : Finset (Pl D)) (f : Pl D → D.host.E) (hf : ∀ v ∉ S
 
 def alpha (S : Finset (Pl D)) (a : Pl D → D.host.E) : AE D := 1 + ∑ v ∈ S, ex v * incA D (a v - 1)
 
-theorem alpha_mul_ex (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ S, a v = 1) (x : Pl D) :
+section
+variable (S : Finset (Pl D)) (a : Pl D → D.host.E)
+theorem alpha_mul_ex (ha : ∀ v ∉ S, a v = 1) (x : Pl D) :
     alpha S a * ex x = ex x * incA D (a x) := by
   rw [alpha, add_mul, one_mul, sum_mul_ex S (fun v => a v - 1) (fun v hv => by simp [ha v hv]), map_sub, map_one,
     mul_sub, mul_one]
   ring
 
-theorem alpha_mul_inv (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ S, a v = 1) (h0 : ∀ v, a v ≠ 0) :
+theorem alpha_mul_inv (ha : ∀ v ∉ S, a v = 1) (h0 : ∀ v, a v ≠ 0) :
     alpha S a * alpha S (fun v => (a v)⁻¹) = 1 := by
   have ha' : ∀ v ∉ S, (fun v => (a v)⁻¹) v = 1 := fun v hv => by simp [ha v hv]
   have key : ∀ v ∈ S, ex v * incA D (a v - 1) * alpha S (fun v => (a v)⁻¹) =
@@ -322,6 +289,7 @@ theorem alpha_mul_inv (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v �
     have : (a v)⁻¹ - 1 + (a v - 1) * (a v)⁻¹ = 0 := by rw [sub_mul, mul_inv_cancel₀ (h0 v)]; ring
     rw [this, map_zero, mul_zero]
   rw [Finset.sum_congr rfl h2, Finset.sum_const_zero, add_zero]
+end
 
 theorem cA_incA (t : D.host.E) : cA D (incA D t) = incA D (D.host.conj t) := by
   change (1 : AF D.host.F) ⊗ₜ[D.host.F] D.sp.cm.sig t = _
@@ -352,25 +320,27 @@ theorem evalV_inv_mem (x : Pl D) (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) :
 
 def gam (x : Pl D) (c : 𝓞 D.host.F) : Af D.host.F := algebraMap D.host.F (Af D.host.F) ((c : D.host.F))⁻¹ * indP (· = x)
 
-theorem gam_int (x : Pl D) (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) : gam x c ∈ intAf D.host.F := by
+section
+variable (x : Pl D)
+theorem gam_int (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) : gam x c ∈ intAf D.host.F := by
   intro w
   rw [gam, map_mul, evalV_indP]
   split_ifs with h
   · subst h; rw [mul_one]; exact evalV_inv_mem w c hc
   · rw [mul_zero]; exact zero_mem _
 
-theorem gam_supp (x : Pl D) (c : 𝓞 D.host.F) : ∀ w, ¬ (w = x) → evalV D.host.F w (gam x c) = 0 := by
+theorem gam_supp (c : 𝓞 D.host.F) : ∀ w, ¬ (w = x) → evalV D.host.F w (gam x c) = 0 := by
   intro w hw
   rw [gam, map_mul, evalV_indP, if_neg hw, mul_zero]
 
-theorem coe_ne_zero (x : Pl D) (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) : ((c : D.host.F) : D.host.E) ≠ 0 := by
+theorem coe_ne_zero (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) : ((c : D.host.F) : D.host.E) ≠ 0 := by
   intro h
   apply hc
   have : (c : D.host.F) = 0 := by exact_mod_cast h
   have : c = 0 := by exact_mod_cast this
   rw [this]; exact zero_mem _
 
-theorem ex_scale (x : Pl D) (c : 𝓞 D.host.F) (e : D.host.E) :
+theorem ex_scale (c : 𝓞 D.host.F) (e : D.host.E) :
     ex x * incA D (((c : D.host.F) : D.host.E)⁻¹ * e) = pairA D.host.F 0 (gam x c) ⊗ₜ[D.host.F] e := by
   rw [ex, ← tmul_eq]
   have h1 : ((c : D.host.F) : D.host.E)⁻¹ * e = ((c : D.host.F))⁻¹ • e := by
@@ -382,6 +352,7 @@ theorem ex_scale (x : Pl D) (c : 𝓞 D.host.F) (e : D.host.E) :
     exact smul_zero _
   · show ((c : D.host.F))⁻¹ • indP (D := D) (· = x) = gam x c
     rw [gam, Algebra.smul_def]
+end
 
 theorem pair_supp (x : Pl D) (γ : Af D.host.F) (hγ : ∀ w, ¬ (w = x) → evalV D.host.F w γ = 0) :
     cP (D := D) (· = x) * pairA D.host.F 0 γ = pairA D.host.F 0 γ := by
@@ -415,7 +386,9 @@ theorem indicatorAdele_mul_eq_self (x : Pl D) (γ : Af D.host.F) (hγ : ∀ w, �
   · rw [one_mul]
   · rw [hγ w h, mul_zero]
 
-theorem pair_scale (x : Pl D) (c : 𝓞 D.host.F) (γ : Af D.host.F) (hγ : ∀ w, ¬ (w = x) → evalV D.host.F w γ = 0)
+section
+variable (x : Pl D)
+theorem pair_scale (c : 𝓞 D.host.F) (γ : Af D.host.F) (hγ : ∀ w, ¬ (w = x) → evalV D.host.F w γ = 0)
     (e : D.host.E) :
     pairA D.host.F 0 γ ⊗ₜ[D.host.F] (((c : D.host.F) : D.host.E)⁻¹ * e) =
       pairA D.host.F 0 (gam x c * γ) ⊗ₜ[D.host.F] e := by
@@ -429,13 +402,14 @@ theorem pair_scale (x : Pl D) (c : 𝓞 D.host.F) (γ : Af D.host.F) (hγ : ∀ 
   · show ((c : D.host.F))⁻¹ • γ = gam x c * γ
     rw [gam, mul_assoc, indicatorAdele_mul_eq_self x γ hγ, Algebra.smul_def]
 
-theorem gam_mul_int (x : Pl D) (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) {γ : Af D.host.F} (hγ : γ ∈ intAf D.host.F) :
+theorem gam_mul_int (c : 𝓞 D.host.F) (hc : c ∉ x.asIdeal) {γ : Af D.host.F} (hγ : γ ∈ intAf D.host.F) :
     gam x c * γ ∈ intAf D.host.F := GlobalTheory.LatVac.mul_mem_intAf (gam_int x c hc) hγ
 
-theorem gam_mul_supp (x : Pl D) (c : 𝓞 D.host.F) (γ : Af D.host.F) :
+theorem gam_mul_supp (c : 𝓞 D.host.F) (γ : Af D.host.F) :
     ∀ w, ¬ (w = x) → evalV D.host.F w (gam x c * γ) = 0 := by
   intro w hw
   rw [map_mul, gam_supp x c w hw, zero_mul]
+end
 
 theorem smul_latMul (S' : HSp D) (L : Lat S') (x : Pl D) (𝔞 𝔞' : Set D.host.E) (ρ : AE D) (t : D.host.E)
     (hρ : ρ * ex x = ex x * incA D t)
@@ -507,7 +481,9 @@ theorem mul_mem_dual {d : D.host.E} (hd : d ∈ Dual D) (o : 𝓞 D.host.E) : d 
   have h := FractionalIdeal.mem_coe.1 (Submodule.smul_mem _ o (FractionalIdeal.mem_coe.2 hd))
   rwa [Algebra.smul_def, mul_comm] at h
 
-theorem chi_tmul_dual {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) {γ : Af D.host.F}
+section
+variable {ψ : AddChar (AF D.host.F) ℂ}
+theorem chi_tmul_dual (hψ : IsStdChar D ψ (-1)) {γ : Af D.host.F}
     (hγ : γ ∈ intAf D.host.F) {d : D.host.E} (hd : d ∈ Dual D) : chi ψ (γ ⊗ₜ[D.host.F] d) = 1 := by
   rw [chi, GlobalTheory.LatVac.trace_tmul]
   refine GlobalTheory.IntDense.addChar_eq_one_of_integral D.host.F ψ hψ.1.1 _ (fun a => ?_) _ hγ
@@ -519,7 +495,7 @@ theorem chi_tmul_dual {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1
   rw [← hn, Algebra.smul_def, mul_comm]
   rfl
 
-theorem chi_dual {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) {γ : Af D.host.F}
+theorem chi_dual (hψ : IsStdChar D ψ (-1)) {γ : Af D.host.F}
     (hγ : γ ∈ intAf D.host.F) {d : D.host.E} (hd : d ∈ Dual D) {w : Af D.host.F ⊗[D.host.F] D.host.E}
     (hw : w ∈ intAE D) : chi ψ ((γ ⊗ₜ[D.host.F] d) * w) = 1 := by
   induction hw using AddSubgroup.closure_induction with
@@ -533,6 +509,7 @@ theorem chi_dual {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) {�
     have h := chi_add ψ (γ ⊗ₜ[D.host.F] d * x) (γ ⊗ₜ[D.host.F] d * -x)
     rw [← mul_add, add_neg_cancel, mul_zero, chi_zero, hx, one_mul] at h
     exact h.symm
+end
 
 theorem conj_F (c : 𝓞 D.host.F) : D.host.conj ((c : D.host.F) : D.host.E) = ((c : D.host.F) : D.host.E) := by
   rw [← Formalism.MainNotions.GlobalTheoryTheory.jnt_sig_eq_conj]
@@ -609,7 +586,9 @@ theorem cA_mul_ex (ρ : AE D) (x : Pl D) (t : D.host.E) (h : ρ * ex x = ex x * 
   calc cA D ρ * ex x = cA D (ρ * ex x) := by rw [map_mul, ← e]
     _ = ex x * incA D (D.host.conj t) := by rw [h, map_mul, ← e, cA_incA]
 
-theorem B_mul_ex (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ S, a v = 1) (x : Pl D) :
+section
+variable (S : Finset (Pl D)) (a : Pl D → D.host.E)
+theorem B_mul_ex (ha : ∀ v ∉ S, a v = 1) (x : Pl D) :
     incA D D.host.xi0⁻¹ * alpha S (fun v => (a v)⁻¹) * cA D (alpha S (fun v => (a v)⁻¹)) * ex x =
       ex x * incA D (D.host.xi0⁻¹ * (a x)⁻¹ * (D.host.conj (a x))⁻¹) := by
   have ha' : ∀ v ∉ S, (fun v => (a v)⁻¹) v = 1 := fun v hv => by simp [ha v hv]
@@ -619,7 +598,7 @@ theorem B_mul_ex (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ S, 
   rw [mul_assoc, h2, ← mul_assoc, mul_assoc (incA D _), h1, map_mul, map_mul]
   ring
 
-theorem Binv_mul_ex (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ S, a v = 1) (x : Pl D) :
+theorem Binv_mul_ex (ha : ∀ v ∉ S, a v = 1) (x : Pl D) :
     incA D D.host.xi0 * alpha S a * cA D (alpha S a) * ex x =
       ex x * incA D (D.host.xi0 * a x * D.host.conj (a x)) := by
   have h1 := alpha_mul_ex S _ ha x
@@ -627,13 +606,14 @@ theorem Binv_mul_ex (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ 
   rw [mul_assoc, h2, ← mul_assoc, mul_assoc (incA D _), h1, map_mul, map_mul]
   ring
 
-theorem Binv_mul_B (S : Finset (Pl D)) (a : Pl D → D.host.E) (ha : ∀ v ∉ S, a v = 1) (h0 : ∀ v, a v ≠ 0) :
+theorem Binv_mul_B (ha : ∀ v ∉ S, a v = 1) (h0 : ∀ v, a v ≠ 0) :
     (incA D D.host.xi0 * alpha S a * cA D (alpha S a)) *
       (incA D D.host.xi0⁻¹ * alpha S (fun v => (a v)⁻¹) * cA D (alpha S (fun v => (a v)⁻¹))) = 1 := by
   have hxi := Formalism.L2.Pj.cmHost_imaginaryGenerator_ne_zero Formalism.IndefR.Fin.factPrincipalDatum D
   calc _ = incA D (D.host.xi0 * D.host.xi0⁻¹) * (alpha S a * alpha S (fun v => (a v)⁻¹)) *
         cA D (alpha S a * alpha S (fun v => (a v)⁻¹)) := by rw [map_mul, map_mul]; ring
     _ = 1 := by rw [mul_inv_cancel₀ hxi, alpha_mul_inv S a ha h0, map_one, map_one, one_mul, one_mul]
+end
 
 theorem mul_of_ex (ρ : AE D) (x : Pl D) (t : D.host.E) (h : ρ * ex x = ex x * incA D t) {z : AE D}
     (hz : z ∈ idAt D (· = x)) : ρ * z = ex x * incA D t * z := by
@@ -676,13 +656,15 @@ theorem finPart_ex (x : Pl D) (c : 𝓞 D.host.F) (hc0 : ((c : D.host.F) : D.hos
   conv_lhs => rw [h]
   rw [ex_scale, GlobalTheory.LatVac.finPart_pair]
 
-theorem finitePartTraceCharacter_idempotent_inverseDifferent {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) (x : Pl D) (c : 𝓞 D.host.F)
+section
+variable {ψ : AddChar (AF D.host.F) ℂ}
+theorem finitePartTraceCharacter_idempotent_inverseDifferent (hψ : IsStdChar D ψ (-1)) (x : Pl D) (c : 𝓞 D.host.F)
     (hc : c ∉ x.asIdeal) (t : D.host.E) (ht : ((c : D.host.F) : D.host.E) * t ∈ Dual D) (w : AE D)
     (hw : finPart D w ∈ intAE D) : chi ψ (finPart D (ex x * incA D t * w)) = 1 := by
   rw [(finPart D).map_mul, finPart_ex x c (coe_ne_zero x c hc)]
   exact chi_dual hψ (gam_int x _ hc) ht hw
 
-theorem cond_iff {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) (S : Finset (Pl D)) (a : Pl D → D.host.E)
+theorem cond_iff (hψ : IsStdChar D ψ (-1)) (S : Finset (Pl D)) (a : Pl D → D.host.E)
     (ha : ∀ v ∉ S, a v = 1) (h0 : ∀ v, a v ≠ 0)
     (hgen : ∀ v, ∃ c : 𝓞 D.host.F, c ∉ v.asIdeal ∧ ((c : D.host.F) : D.host.E) * a v ∈ D.host.AA ∧
       ∀ b ∈ D.host.AA, ∃ o : 𝓞 D.host.E, ((c : D.host.F) : D.host.E) * b = a v * (o : D.host.E))
@@ -728,6 +710,7 @@ theorem cond_iff {ψ : AddChar (AF D.host.F) ℂ} (hψ : IsStdChar D ψ (-1)) (S
       exact assoc4 _ _ s o (Binv_mul_B S a ha h0)
     rw [psiE_eq_chi ψ (hinf' _), hso, mul_of_ex _ x _ (Binv_mul_ex S a ha x) hw.1]
     exact finitePartTraceCharacter_idempotent_inverseDifferent hψ x (c * c) hC _ (by rw [coeC]; exact claimC' (a x) c hca) _ hw.2
+end
 
 end GlobalTheory.IdeleAA
 
@@ -761,6 +744,3 @@ theorem exists_idele_AA : ∀ (D : D7) (ψ : AddChar (AF D.host.F) ℂ), IsStdCh
 end GlobalTheory.IdeleAA
 
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DecoratedLatticeProofs.FinitePartTraceCharacterIdempotentInverseDiffere =====

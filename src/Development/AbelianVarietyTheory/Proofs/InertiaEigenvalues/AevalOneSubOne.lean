@@ -58,21 +58,12 @@ import Mathlib.Topology.Sheaves.Init
 import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IsPlaceOverMoveValCc
 import Std.Tactic.BVDecide.Normalize.Prop
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IndexSpanMatrixEqValDet, Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.AevalOneSubOne
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IndexSpanMatrixEqValDet =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IndexSpanMatrixEqValDet", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.IntegralHeckeForms\npublic import Development.AbelianVarietyTheory.Proofs.CoherentCohomologyProofs.LengthCommensurableSpanSpanOfDetNeZero\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LenRBaseChangeSubquotient\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.LengthCommensurableOfIsLatIn\npublic import Development.AbelianVarietyTheory.Proofs.ModuliProofs.DvdTraceOfBalancedTensor\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\npublic import Mathlib.Combinatorics.Nullstellensatz\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Coalgebra.IsFrobenius\nimport Mathlib.RingTheory.Etale.Weakly\nimport Mathlib.RingTheory.Finiteness.ModuleFinitePresentation\nimport Mathlib.RingTheory.HopfAlgebra.Basic\npublic import Mathlib.RingTheory.MvPolynomial.Groebner\nimport Mathlib.RingTheory.PiTensorProduct\nimport Mathlib.RingTheory.PicardGroup\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.TotallySplit\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
+section
 open Formalism.MainNotions.IntegralHeckeForms Formalism.MainNotions.BlochKatoReduction.Gen
 open scoped TensorProduct
-
 namespace GlobalTheory.TwistDet
-
 theorem nonempty_monomialOrder (σ : Type) [Finite σ] : Nonempty (MonomialOrder.{0, 0} σ) := by
   let : LinearOrder σ := WellOrderingRel.isWellOrder.linearOrder
   exact ⟨MonomialOrder.degLex⟩
@@ -316,19 +307,21 @@ theorem sIdx_span_of_smul_eq {O : Type} [CommRing O] [IsDomain O] [IsDiscreteVal
   have e4 := (GlobalTheory.sIdx_add_and_mono O W l V _ _ _ hV hL1 hL2).1
   linarith
 
-theorem baseChange_span_range {O O' : Type} [CommRing O] [CommRing O'] [Algebra O O'] {W ι : Type}
+section
+variable {O O' : Type} [CommRing O]
+theorem baseChange_span_range [CommRing O'] [Algebra O O'] {W ι : Type}
     [AddCommGroup W] [Module O W] (v : ι → W) :
     (Submodule.span O (Set.range v)).baseChange O' = Submodule.span O' (Set.range fun a => (1 : O') ⊗ₜ[O] v a) := by
   rw [Submodule.baseChange_span, ← Set.range_comp]
   rfl
 
-theorem linearIndependent_one_tmul {O O' : Type} [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [CommRing O']
+theorem linearIndependent_one_tmul [IsDomain O] [IsDiscreteValuationRing O] [CommRing O']
     [IsDomain O'] [Algebra O O'] (hinj : Function.Injective (algebraMap O O')) {W ι : Type} [AddCommGroup W]
     [Module O W] {v : ι → W} (hv : LinearIndependent O v) : LinearIndependent O' fun a => (1 : O') ⊗ₜ[O] v a := by
   have : FaithfulSMul O O' := (faithfulSMul_iff_algebraMap_injective O O').2 hinj
   exact Module.Flat.linearIndependent_one_tmul hv
 
-theorem sIdx_le_of_coords {O O' : Type} [CommRing O] [IsDomain O] [IsDiscreteValuationRing O] [CommRing O']
+theorem sIdx_le_of_coords [IsDomain O] [IsDiscreteValuationRing O] [CommRing O']
     [IsDomain O'] [IsDiscreteValuationRing O'] [Algebra O O'] [IsLocalHom (algebraMap O O')]
     (hinj : Function.Injective (algebraMap O O')) {W : Type} [AddCommGroup W] [Module O W] (l : ℕ) {n : ℕ}
     {bs th : Fin n → W} {x : O} {m₀ : Matrix (Fin n) (Fin n) O} {m : Matrix (Fin n) (Fin n) O'}
@@ -372,6 +365,7 @@ theorem sIdx_le_of_coords {O O' : Type} [CommRing O] [IsDomain O] [IsDiscreteVal
   rw [hxd', n2] at e6
   rw [baseChange_span_range]
   linarith
+end
 
 
 open IsLocalRing in
@@ -509,7 +503,9 @@ def IsChi {V ι A : Type} [Fintype ι] [CommGroup A] {n : ℕ} (P : ι → V) (Q
     (χ : Multiplicative (↥Q → ZMod n) →* A) : Prop :=
   ∀ x : ↥Q → ZMod n, χ (Multiplicative.ofAdd x) = ∏ q, if h : P q ∈ Q then u q ^ (x ⟨P q, h⟩).val else 1
 
-theorem exists_isChi {V ι A : Type} [Fintype ι] [CommGroup A] {n : ℕ} [NeZero n] (P : ι → V) (Q : Finset V)
+section
+variable {V ι A : Type} [Fintype ι] [CommGroup A] {n : ℕ}
+theorem exists_isChi [NeZero n] (P : ι → V) (Q : Finset V)
     (u : ι → A) (hu : ∀ q, u q ^ n = 1) : ∃ χ : Multiplicative (↥Q → ZMod n) →* A, IsChi P Q u χ := by
   classical
   refine ⟨MonoidHom.mk' (fun x => ∏ q, if h : P q ∈ Q then u q ^ (Multiplicative.toAdd x ⟨P q, h⟩).val else 1)
@@ -520,9 +516,10 @@ theorem exists_isChi {V ι A : Type} [Fintype ι] [CommGroup A] {n : ℕ} [NeZer
   · rw [toAdd_mul, Pi.add_apply, ZMod.val_add, ← pow_eq_pow_mod _ (hu q), pow_add]
   · rw [one_mul]
 
-theorem IsChi.unique {V ι A : Type} [Fintype ι] [CommGroup A] {n : ℕ} {P : ι → V} {Q : Finset V} {u : ι → A}
+theorem IsChi.unique {P : ι → V} {Q : Finset V} {u : ι → A}
     {χ χ' : Multiplicative (↥Q → ZMod n) →* A} (h : IsChi P Q u χ) (h' : IsChi P Q u χ') : χ = χ' :=
   MonoidHom.ext fun x => (h x.toAdd).trans (h' x.toAdd).symm
+end
 
 
 open MvPolynomial in
@@ -567,26 +564,11 @@ theorem exists_coords {O W V ι : Type} [CommRing O] [AddCommGroup W] [Module O 
       hp O' u χ h, Submodule.subtype_apply, ← hv, TensorProduct.tmul_sum]
     refine Finset.sum_congr rfl fun c _ => ?_
     rw [map_smul, TensorProduct.smul_tmul', smul_eq_mul, mul_one, TensorProduct.smul_tmul]
-
 end GlobalTheory.TwistDet
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IndexSpanMatrixEqValDet =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.AevalOneSubOne =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.AevalOneSubOne", "h": "module\n\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IndexSpanMatrixEqValDet\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsSubgroupIsUnit\nimport Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IsPlaceOverMoveValCc\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.PicardGroup\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 open NumberField IsDedekindDomain Formalism.ConjugateSelfDual ReciprocityTheory.Gal Formalism.BasicNotions Formalism.MainNotions.BlochKatoReduction.Gen GlobalTheory.TwSys Formalism.MainNotions.IntegralHeckeForms
 open scoped TensorProduct
-
 namespace GlobalTheory.TwistDet
-
 def polyMat {O S : Type} [CommRing O] [CommRing S] {n : ℕ} (r : ℕ) (t : ℕ → Matrix (Fin n) (Fin n) O) (f : O →+* S)
     (y : S) : Matrix (Fin n) (Fin n) S :=
   1 + ∑ m ∈ Finset.Icc 1 r, y ^ m • (t m).map f
@@ -652,8 +634,9 @@ theorem exists_coord {Ball : Submodule (X.O i) (Y.Fm i j b)}
   rw [algebraMap_smul, ← (A.baseChange (X.Ok i k)).map_smul_of_tower, ← map_smul, ← specU_rTensor]
   exact this
 
-theorem pqF_basis {P : PlE D.host} {t : ℕ → Matrix (Fin n) (Fin n) (X.O i)}
-    (ht : ∀ m ∈ Finset.Icc 1 D.R.r, ∀ a, hkO Y i j b m P (bs a) = ∑ c, t m c a • bs c) (k : ℕ) (y : X.Ok i k)
+section
+variable {P : PlE D.host} {t : ℕ → Matrix (Fin n) (Fin n) (X.O i)}
+theorem pqF_basis (ht : ∀ m ∈ Finset.Icc 1 D.R.r, ∀ a, hkO Y i j b m P (bs a) = ∑ c, t m c a • bs c) (k : ℕ) (y : X.Ok i k)
     (a : Fin n) : PqF Y i j b k P y ((1 : X.Ok i k) ⊗ₜ[X.O i] bs a) =
       ∑ c, polyMat D.R.r (fun m => hcoef i P m • t m) (algebraMap _ _) y c a • (1 : X.Ok i k) ⊗ₜ[X.O i] bs c := by
   simp only [PqF, polyMat, LinearMap.add_apply, Module.End.one_apply, LinearMap.sum_apply, LinearMap.smul_apply,
@@ -671,8 +654,7 @@ theorem pqF_basis {P : PlE D.host} {t : ℕ → Matrix (Fin n) (Fin n) (X.O i)}
       map_natCast]
     ring
 
-theorem Coord.step {P : PlE D.host} {t : ℕ → Matrix (Fin n) (Fin n) (X.O i)}
-    (ht : ∀ m ∈ Finset.Icc 1 D.R.r, ∀ a, hkO Y i j b m P (bs a) = ∑ c, t m c a • bs c)
+theorem Coord.step (ht : ∀ m ∈ Finset.Icc 1 D.R.r, ∀ a, hkO Y i j b m P (bs a) = ∑ c, t m c a • bs c)
     (hA : ∀ m ∈ Finset.Icc 1 D.R.r, A ∘ₗ hkO Y i j b m P = hkO Y i j b m P ∘ₗ A)
     {Q Q' : Finset (PlE D.host)} {M k : ℕ} {χ : Multiplicative (DelQM D.host (X.l i) Q M) →* (X.Ok i k)ˣ}
     {χ' : Multiplicative (DelQM D.host (X.l i) Q' M) →* (X.Ok i k)ˣ} {y : X.Ok i k}
@@ -694,6 +676,7 @@ theorem Coord.step {P : PlE D.host} {t : ℕ → Matrix (Fin n) (Fin n) (X.O i)}
   simp only [map_smul, pqF_basis ht, Finset.smul_sum, smul_smul, Matrix.mul_apply, Finset.sum_smul]
   rw [Finset.sum_comm]
   simp only [mul_comm]
+end
 
 
 open Classical in
@@ -1041,10 +1024,3 @@ theorem propABCD_of_rel : ∀ (D : Formalism.BasicNotions.D7) (N : NData D.R D.h
         exact Submodule.subset_span ⟨e a, he a, rfl⟩) hm₀ hd₀ (hmQ k u χ hχ') hne hT fun a => hw _ (he a)
     rw [hB, hthr] at h1
     exact h1
-
-end GlobalTheory.TwistDet
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.AevalOneSubOne =====

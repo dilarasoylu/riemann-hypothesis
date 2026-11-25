@@ -48,7 +48,7 @@ import Std.Tactic.BVDecide.Normalize.Prop
 @[expose] public section
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.L2.DIV
-open IsDedekindDomain NumberField MeasureTheory GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.StdFrames GlobalTheory.RowClaim GlobalTheory.FlipRun
+open IsDedekindDomain NumberField MeasureTheory GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.StdFrames GlobalTheory.FlipRun
 
 noncomputable section
 
@@ -72,21 +72,26 @@ theorem onGrid_comp {m : ℕ} {t : T} {X Y Z : Node} {p : Path T X Y} {q : Path 
   rcases List.mem_append.1 ha with h | h
   exacts [hp a h, hq a h]
 
-theorem onGrid_routeSmall {m : ℕ} (t : T) {i j : ℕ} (hi : i < m) (hj : j < m) : OnGrid m t (routeSmall t i j) := by
+section
+variable {m : ℕ} (t : T) {i j : ℕ}
+theorem onGrid_routeSmall (hi : i < m) (hj : j < m) : OnGrid m t (routeSmall t i j) := by
   intro a ha
   simp only [Path.arrows, List.nil_append, List.cons_append, List.mem_cons, List.not_mem_nil, or_false] at ha
   rcases ha with rfl | rfl
   · exact Or.inr ⟨i, j, hi.le, hj, rfl⟩
   · exact Or.inl ⟨i, j, hi, hj.le, rfl⟩
 
-theorem onGrid_routeBig {m : ℕ} (t : T) {i j : ℕ} (hi : i < m) (hj : j < m) : OnGrid m t (routeBig t i j) := by
+theorem onGrid_routeBig (hi : i < m) (hj : j < m) : OnGrid m t (routeBig t i j) := by
   intro a ha
   simp only [Path.arrows, List.nil_append, List.cons_append, List.mem_cons, List.not_mem_nil, or_false] at ha
   rcases ha with rfl | rfl
   · exact Or.inl ⟨i, j + 1, hi, hj, rfl⟩
   · exact Or.inr ⟨i + 1, j, hi, hj, rfl⟩
+end
 
-theorem tensE_add (W : G.Weil) {X Y : Node} (p : Path T X Y) (Q : PolE G →₀ ℂ) (τ τ' : TotT G p) :
+section
+variable (W : G.Weil) {X Y : Node} (p : Path T X Y) (Q : PolE G →₀ ℂ)
+theorem tensE_add (τ τ' : TotT G p) :
     tensE W p Q (τ + τ') = tensE W p Q τ + tensE W p Q τ' := by
   unfold tensE tensT
   rw [← Finsupp.sum_add]
@@ -94,16 +99,17 @@ theorem tensE_add (W : G.Weil) {X Y : Node} (p : Path T X Y) (Q : PolE G →₀ 
   refine Finsupp.sum_add_index' (fun _ => by simp) fun d a b => ?_
   rw [mul_add, Finsupp.single_add]
 
-theorem tensE_zero (W : G.Weil) {X Y : Node} (p : Path T X Y) (Q : PolE G →₀ ℂ) : tensE W p Q 0 = 0 := by
+theorem tensE_zero : tensE W p Q 0 = 0 := by
   unfold tensE tensT
   simp
 
-theorem tensE_sum (W : G.Weil) {X Y : Node} (p : Path T X Y) (Q : PolE G →₀ ℂ) {ι : Type} (s : Finset ι) (f : ι → TotT G p) :
+theorem tensE_sum {ι : Type} (s : Finset ι) (f : ι → TotT G p) :
     tensE W p Q (∑ κ ∈ s, f κ) = ∑ κ ∈ s, tensE W p Q (f κ) := by
   classical
   induction s using Finset.induction_on with
   | empty => simp [tensE_zero]
   | insert a s ha ih => rw [Finset.sum_insert ha, Finset.sum_insert ha, tensE_add, ih]
+end
 
 theorem liftT_sum (W : G.Weil) (M : Vol G) {X Y : Node} (p : Path T X Y) {ι : Type} (s : Finset ι) (f : ι → TotT G p) (F : Fn G X) :
     liftT W M p (∑ κ ∈ s, f κ) F = ∑ κ ∈ s, liftT W M p (f κ) F := by
@@ -115,7 +121,9 @@ theorem liftT_sum (W : G.Weil) (M : Vol G) {X Y : Node} (p : Path T X Y) {ι : T
 abbrev latA (G : GridData L sc) (a : Arrow T) : AddSubgroup (WO (G.pS a.pair) (G.pT a.pair)) :=
   latO (G.pS a.pair) (G.pT a.pair) (G.latS a.pair : Set _) (G.latT a.pair : Set _) fun _ => True
 
-theorem arrow_data {W : G.Weil} (ρ : RealMatch W) {μ₀ : T} (hL : L.Is μ₀) {t : T} {a : Arrow T} (ha : IsGridArrow D.R.m t a) :
+section
+variable {W : G.Weil} (ρ : RealMatch W) {μ₀ : T}
+theorem arrow_data (hL : L.Is μ₀) {t : T} {a : Arrow T} (ha : IsGridArrow D.R.m t a) :
     IsSelfDualC (G.pS a.pair) (G.latS a.pair) ∧ IsSelfDualC (G.pT a.pair) (G.latT a.pair) ∧ W.IsVac a.pair (vacOf ρ a) := by
   rcases ha with ⟨i, j, hi, hj, rfl⟩ | ⟨i, j, hi, hj, rfl⟩
   · exact ⟨isSelfDualC_neg (node_isV G hL (X := .grid (i + 1) j) ⟨hi, hj⟩).sd, (node_isV G hL (X := .grid i j) ⟨hi.le, hj⟩).sd,
@@ -123,7 +131,7 @@ theorem arrow_data {W : G.Weil} (ρ : RealMatch W) {μ₀ : T} (hL : L.Is μ₀)
   · exact ⟨(node_isV G hL (X := .grid i j) ⟨hi, hj.le⟩).sd, (node_isV G hL (X := .grid i (j + 1)) ⟨hi, hj⟩).sd,
       ρ.vT_is t i j hi hj⟩
 
-theorem exists_arrowModel {W : G.Weil} (ρ : RealMatch W) {μ₀ : T} (hL : L.Is μ₀) {t : T} {e : AE D}
+theorem exists_arrowModel (hL : L.Is μ₀) {t : T} {e : AE D}
     (he : IsIdemSum e (locPl G t)) {a : Arrow T} (ha : IsGridArrow D.R.m t a) :
     ∃ Tm : Sch G a →ₗ[ℂ] Sch G a,
       (∀ φ f, IsLocVec W a.pair e (vacOf ρ a) φ f ↔ IsSBHalf e (latA G a) φ ∧ f = Tm φ) ∧
@@ -144,28 +152,17 @@ theorem exists_arrowModel {W : G.Weil} (ρ : RealMatch W) {μ₀ : T} (hL : L.Is
   · by_contra h'
     exact GlobalTheory.PlaceModelInj.placeModel_ne_zero D W.ψ _ _ _ _ e _ φ Tm W.ψ_std hS hT hm he.2 hi hTm hf hφ h' h
   · exact GlobalTheory.SchrTheta.isTheta_placeModel D W.ψ W.ψ_std _ _ _ _ hS hT e hm hi _ hv.2.theta Tm hTm φ hφ
+end
 
-theorem OnGrid.init {m : ℕ} {t : T} {X : Node} {a : Arrow T} {p : Path T X a.src} (h : OnGrid m t (.snoc a p)) : OnGrid m t p :=
+section
+variable {m : ℕ} {t : T} {X : Node} {a : Arrow T} {p : Path T X a.src}
+theorem OnGrid.init (h : OnGrid m t (.snoc a p)) : OnGrid m t p :=
   fun b hb => h b (List.mem_append_left [a] hb)
 
-theorem OnGrid.last {m : ℕ} {t : T} {X : Node} {a : Arrow T} {p : Path T X a.src} (h : OnGrid m t (.snoc a p)) :
+theorem OnGrid.last (h : OnGrid m t (.snoc a p)) :
     IsGridArrow m t a := h a (List.mem_append_right p.arrows (List.mem_singleton_self a))
+end
 
-theorem vecAll_unique {W : G.Weil} (ρ : RealMatch W) {μ₀ : T} (hL : L.Is μ₀) {t : T} {e : AE D}
-    (he : IsIdemSum e (locPl G t)) {X : Node} : ∀ {Y : Node} (p : Path T X Y), OnGrid D.R.m t p → ∀ (φ φ' d : PureT G p),
-      VecAll ρ e p φ d → VecAll ρ e p φ' d → φ = φ'
-  | _, .nil, _, _, _, _, _, _ => rfl
-  | _, .snoc a p, hg, φ, φ', d, h, h' => by
-    have ha : IsGridArrow D.R.m t a := OnGrid.last hg
-    rcases exists_arrowModel ρ hL he ha with ⟨Tm, hmodel, hinj, -⟩
-    change VecAll ρ e p φ.1 d.1 ∧ IsLocVec W a.pair e (vacOf ρ a) φ.2 d.2 at h
-    change VecAll ρ e p φ'.1 d.1 ∧ IsLocVec W a.pair e (vacOf ρ a) φ'.2 d.2 at h'
-    have haModel : IsSBHalf e (latA G a) φ.2 ∧ d.2 = Tm φ.2 := (hmodel _ _).mp h.2
-    have hbModel : IsSBHalf e (latA G a) φ'.2 ∧ d.2 = Tm φ'.2 := (hmodel _ _).mp h'.2
-    refine Prod.ext (vecAll_unique ρ hL he p (OnGrid.init hg) φ.1 φ'.1 d.1 h.1 h'.1)
-      (sub_eq_zero.1 (hinj _ ?_ ?_))
-    · exact (LocTensor.sbSpace e (latA G a)).sub_mem haModel.1 hbModel.1
-    · rw [map_sub, ← haModel.2, ← hbModel.2, sub_self]
 
 theorem vecAll_append {W : G.Weil} (ρ : RealMatch W) (e : AE D) {X Y : Node} (p : Path T X Y) (φ d : PureT G p) :
     ∀ {Z : Node} (q : Path T Y Z) (φ' d' : PureT G q),
@@ -192,13 +189,6 @@ theorem halfAll_append (e : AE D) {X Y : Node} (p : Path T X Y) (x : ArgT G p) :
     rw [halfAll_append e p x q y.1, and_assoc]
     rfl
 
-theorem exists_append {S : Arrow T → Type} {X Y : Node} (p : Path T X Y) :
-    ∀ {Z : Node} (q : Path T Y Z) (z : (p.comp q).Fam S), ∃ (x : p.Fam S) (y : q.Fam S), z = x.append y
-  | _, .nil, z => ⟨z, (), rfl⟩
-  | _, .snoc a q, z => by
-    have ih := exists_append (S := S) p q (show (p.comp q).Fam S from z.1)
-    rcases ih with ⟨x, y, h⟩
-    exact ⟨x, (y, z.2), Prod.ext h rfl⟩
 
 theorem edges_comp {X Y Z : Node} (p : Path T X Y) (q : Path T Y Z) : edges (p.comp q) = edges p ++ edges q := by
   rw [edges, arrows_comp_eq, List.map_append]; rfl
@@ -206,42 +196,6 @@ theorem edges_comp {X Y Z : Node} (p : Path T X Y) (q : Path T Y Z) : edges (p.c
 theorem edges_snoc {X : Node} (a : Arrow T) (p : Path T X a.src) : edges (.snoc a p) = edges p ++ [edgeOf a] := by
   simp [edges, Path.arrows]
 
-theorem edges_bound {m : ℕ} {t : T} {i j : ℕ} : ∀ {Y : Node} (p : Path T (.grid i j) Y), OnGrid m t p →
-    ∃ i' j', Y = .grid i' j' ∧ i ≤ i' ∧ j' ≤ j ∧ (edges p).Nodup ∧
-      ∀ b ∈ edges p, i ≤ b.src.1 ∧ b.tgt.1 ≤ i' ∧ j' ≤ b.tgt.2 ∧ b.src.2 ≤ j
-  | _, .nil, _ => ⟨i, j, rfl, le_rfl, le_rfl, List.nodup_nil, fun _ h => absurd h List.not_mem_nil⟩
-  | _, .snoc a p, hg => by
-    have hp : OnGrid m t p := OnGrid.init hg
-    have ih := edges_bound (m := m) (t := t) p hp
-    rcases ih with ⟨i', j', h1, h2, h3, h4, h5⟩
-    rw [edges_snoc]
-    rcases OnGrid.last hg with ⟨k, l, -, -, rfl⟩ | ⟨k, l, -, -, rfl⟩
-    · change Node.grid k l = Node.grid i' j' at h1
-      simp only [Node.grid.injEq] at h1
-      rcases h1 with ⟨hk, hl⟩
-      subst i' j'
-      refine ⟨k + 1, l, rfl, by omega, h3, List.nodup_append.2 ⟨h4, List.nodup_singleton _, fun b hb c hc e => ?_⟩, fun b hb => ?_⟩
-      · have he : b = edgeOf (.right k l : Arrow T) := e.trans (List.mem_singleton.1 hc)
-        rw [he] at hb
-        have ht := (h5 _ hb).2.1
-        simp [edgeOf] at ht
-      · rcases List.mem_append.1 hb with hb | hb
-        · have := h5 b hb; omega
-        · rw [List.mem_singleton.1 hb]
-          simp only [edgeOf]; omega
-    · change Node.grid k (l + 1) = Node.grid i' j' at h1
-      simp only [Node.grid.injEq] at h1
-      rcases h1 with ⟨hk, hl⟩
-      subst i' j'
-      refine ⟨k, l, rfl, h2, by omega, List.nodup_append.2 ⟨h4, List.nodup_singleton _, fun b hb c hc e => ?_⟩, fun b hb => ?_⟩
-      · have he : b = edgeOf (.down t k l) := e.trans (List.mem_singleton.1 hc)
-        rw [he] at hb
-        have ht := (h5 _ hb).2.2.1
-        simp [edgeOf] at ht
-      · rcases List.mem_append.1 hb with hb | hb
-        · have := h5 b hb; omega
-        · rw [List.mem_singleton.1 hb]
-          simp only [edgeOf]; omega
 
 theorem pathArgs_of_notMem (B : Frames G) (t : T) (w : Pl D.host.E) {X : Node} :
     ∀ {Y : Node} (p : Path T X Y) (x : ArgT G p) (b), b ∉ edges p → pathArgs B t w p x b = 0

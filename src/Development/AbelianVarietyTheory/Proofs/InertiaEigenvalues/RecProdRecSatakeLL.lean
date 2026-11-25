@@ -47,7 +47,7 @@ import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.IsSplitAtOfIsS
 noncomputable section
 
 open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.N Formalism.ConjugateSelfDual ReciprocityTheory.Gal
-open GlobalTheory.PRep GlobalTheory.SmGL GlobalTheory.LocGL GlobalTheory.WeilDeligne GlobalTheory.LocLanglands GlobalTheory.CuspRep GlobalTheory.DefiniteBC
+open GlobalTheory.SmGL GlobalTheory.LocGL GlobalTheory.WeilDeligne GlobalTheory.CuspRep GlobalTheory.DefiniteBC
 
 namespace GlobalTheory.RecLaws
 
@@ -57,8 +57,6 @@ variable {E Ω : Type} [Field E] [NumberField E] [Field Ω] [Algebra E Ω] [IsAl
   {A : ValuationSubring Ω} {w : HeightOneSpectrum (𝓞 E)} {h : IsPlaceOver A w}
   {rc : IrrGL (k := w.adicCompletion E) → WD h}
 
-abbrev clsOf {n : ℕ} (σ : SmIrr (GL (Fin n) (w.adicCompletion E))) : IrrGL (k := w.adicCompletion E) :=
-  cls (ParLaws.toRep σ)
 
 end Core
 
@@ -72,20 +70,6 @@ variable {E Ω : Type} [Field E] [NumberField E] [Field Ω] [Algebra E Ω] [IsAl
   {A : ValuationSubring Ω} {w : HeightOneSpectrum (𝓞 E)} {h : IsPlaceOver A w}
   {rc : IrrGL (k := w.adicCompletion E) → WD h}
 
-theorem rec_hasSatGL (H : IsRec h rc) {n : ℕ} (σ : SmIrr (GL (Fin n) (w.adicCompletion E))) (S : Multiset ℂˣ)
-    (hS : GlobalTheory.LFun.HasSatGL w σ.ρ S) :
-    (rc (clsOf σ)).unr ∧ (rc (clsOf σ)).frobEig = S.map fun z => ((z⁻¹ : ℂˣ) : ℂ) := by
-  have hsph : IsSpherical (ParLaws.toRep σ).ρ := by
-    have := hS.1
-    unfold IsSpherical IsSphericalFor
-    rw [GlobalTheory.SmGL.SphCompletion.KO_completion w n]
-    exact this
-  have hu : (rc (clsOf σ)).unr := (ParLaws.unr_iff H _).2 hsph
-  obtain ⟨α, hα⟩ := ParLaws.exists_hasSatake_of_unr H hu
-  have e : S = Finset.univ.val.map α := hS.unique (_root_.GlobalTheory.LFun.SatBridge.hasSatGL_of_hasSatake E w n _ σ.ρ α hα)
-  refine ⟨hu, ?_⟩
-  rw [clsOf, ParLaws.rec_eq_diag H hα, WD.frobEig_diag, e, Multiset.map_map]
-  rfl
 
 end Core2
 

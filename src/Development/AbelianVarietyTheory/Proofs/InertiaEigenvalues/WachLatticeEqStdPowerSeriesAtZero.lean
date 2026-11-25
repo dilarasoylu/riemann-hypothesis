@@ -53,27 +53,19 @@ import Std.Tactic.BVDecide.Normalize.Prop
 import Mathlib.Algebra.Order.Star.Int
 import Mathlib.Tactic.Linter.HaveILetI
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionLatticeFullDescends, Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachLatticeEqStdPowerSeriesAtZero
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionLatticeFullDescends =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionLatticeFullDescends", "h": "module\n\npublic import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.NotFullBot\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\npublic import Mathlib.RingTheory.PowerSeries.Inverse\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.UnramifiedSubfieldLeCyclotomicExt\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc TensorProduct GlobalTheory.NL
-
 namespace GlobalTheory.NL.FullDown
-
 section Series
 
 variable {L M : Type} [Field L] [AddCommGroup M] [Module L M]
 
 def Bd (u : ℤ → M) : Prop := ∃ m : ℤ, ∀ k < m, u k = 0
 
-theorem conv_finite (e : PowerSeries L) {u : ℤ → M} (hu : Bd u) (k : ℤ) :
+section
+variable (e : PowerSeries L) {u : ℤ → M}
+theorem conv_finite (hu : Bd u) (k : ℤ) :
     (Function.support fun j : ℕ => PowerSeries.coeff j e • u (k - (j : ℤ))).Finite := by
   obtain ⟨m, hm⟩ := hu
   refine (Set.finite_le_nat (k - m).toNat).subset fun j hj => ?_
@@ -83,7 +75,7 @@ theorem conv_finite (e : PowerSeries L) {u : ℤ → M} (hu : Bd u) (k : ℤ) :
   have : k - (j : ℤ) < m := by omega
   simp [hm _ this]
 
-theorem conv_eq_sum (e : PowerSeries L) {u : ℤ → M} {m : ℤ} (hm : ∀ k < m, u k = 0) (k : ℤ) (N : ℕ)
+theorem conv_eq_sum {m : ℤ} (hm : ∀ k < m, u k = 0) (k : ℤ) (N : ℕ)
     (hN : k - m < N) :
     conv e u k = ∑ j ∈ Finset.range N, PowerSeries.coeff j e • u (k - (j : ℤ)) := by
   unfold conv
@@ -95,18 +87,19 @@ theorem conv_eq_sum (e : PowerSeries L) {u : ℤ → M} {m : ℤ} (hm : ∀ k < 
   have : k - (j : ℤ) < m := by omega
   simp [hm _ this]
 
-theorem conv_low (e : PowerSeries L) {u : ℤ → M} {m : ℤ} (hm : ∀ k < m, u k = 0) :
+theorem conv_low {m : ℤ} (hm : ∀ k < m, u k = 0) :
     ∀ k < m, conv e u k = 0 := by
   intro k hk
   apply finsum_eq_zero_of_forall_eq_zero
   intro j
   rw [hm _ (by omega), smul_zero]
 
-theorem conv_mem (e : PowerSeries L) {u : ℤ → M} (hu : Bd u) (D : Submodule L M) (hD : ∀ k, u k ∈ D)
+theorem conv_mem (hu : Bd u) (D : Submodule L M) (hD : ∀ k, u k ∈ D)
     (k : ℤ) : conv e u k ∈ D := by
   unfold conv
   rw [finsum_eq_sum _ (conv_finite e hu k)]
   exact D.sum_mem fun j _ => D.smul_mem _ (hD _)
+end
 
 theorem conv_X_pow (a : ℕ) (u : ℤ → M) (k : ℤ) :
     conv ((PowerSeries.X : PowerSeries L) ^ a) u k = u (k - a) := by
@@ -150,22 +143,25 @@ theorem conv_mul (a b : PowerSeries L) {u : ℤ → M} (hu : Bd u) :
   apply hp
   rw [hm _ (by push_cast; omega), smul_zero]
 
-theorem conv_add (e : PowerSeries L) {u w : ℤ → M} (hu : Bd u) (hw : Bd w) :
+section
+variable (e : PowerSeries L)
+theorem conv_add {u w : ℤ → M} (hu : Bd u) (hw : Bd w) :
     conv e (u + w) = conv e u + conv e w := by
   funext k
   simp only [conv, Pi.add_apply, smul_add]
   exact finsum_add_distrib (conv_finite e hu k) (conv_finite e hw k)
 
-theorem conv_smul (e : PowerSeries L) (c : L) {u : ℤ → M} (hu : Bd u) :
+theorem conv_smul (c : L) {u : ℤ → M} (hu : Bd u) :
     conv e (c • u) = c • conv e u := by
   funext k
   simp only [conv, Pi.smul_apply]
   rw [smul_finsum' c (conv_finite e hu k)]
   exact finsum_congr fun j => smul_comm _ _ _
 
-theorem conv_zero (e : PowerSeries L) : conv e (0 : ℤ → M) = 0 := by
+theorem conv_zero : conv e (0 : ℤ → M) = 0 := by
   funext k
   simp [conv]
+end
 
 theorem Bd.conv {u : ℤ → M} (hu : Bd u) (e : PowerSeries L) : Bd (conv e u) :=
   let ⟨m, hm⟩ := hu
@@ -446,24 +442,8 @@ theorem full_down : ∀ (loc : LocTheory) (locA : ∀ (l : ℕ) [Fact l.Prime], 
   have e : ζ ^ ((loc l).PD K).p = ζ ^ l := by rw [hp]
   rw [e] at this
   exact this
-
 end GlobalTheory.NL.FullDown
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionLatticeFullDescends =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachLatticeEqStdPowerSeriesAtZero =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachLatticeEqStdPowerSeriesAtZero", "h": "module\n\npublic import Formalism.LocalRingCardinality.RhoDetPrimeEqMuTildeMulChiPow\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.NotFullBot\npublic import Development.AbelianVarietyTheory.Definitions.NonGaloisDescent.UnramifiedSubfieldLeCyclotomicExt\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.ExistsIsPtPrimitiveRoot\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.PadicNormZpowSubOnePadicValInt\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.T2SpaceLocLatV\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionLatticeFullDescends\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionLatticeGradedOfLevelLe\npublic import Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachExpansionsSpanFullLattice\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc TensorProduct GlobalTheory.NL
-
-noncomputable section
-
 namespace GlobalTheory.NL.AtZero
-
 section Series
 
 variable {L M ι : Type} [Field L] [AddCommGroup M] [Module L M]
@@ -689,9 +669,3 @@ theorem lat_one_std : ∀ (loc : LocTheory) (locA : ∀ (l : ℕ) [Fact l.Prime]
     ((C.C K s LL h).tie.levB_supp T i 1) hex
   exact std_of_lower (ex C h T i 1) _ (fun x k => (C.C K s LL h).tie.levB_mem T i 1 x k) m₀ hm₀
     (lower C h T hT i) hF hG
-
-end GlobalTheory.NL.AtZero
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.InertiaEigenvalues.WachLatticeEqStdPowerSeriesAtZero =====

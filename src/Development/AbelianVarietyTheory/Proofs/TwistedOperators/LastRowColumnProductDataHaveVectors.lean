@@ -58,9 +58,8 @@ import Development.AbelianVarietyTheory.Proofs.TwistedOperators.RowBesZeroE
 @[expose] public section
 
 open Formalism.BasicNotions Formalism.BasicNotions.TH Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.MainNotions.StandardLattice Formalism.L2.Theta Formalism.IndefR Formalism.IndefR.Datum Formalism.IndefR.Links Formalism.L2.DIV
-open IsDedekindDomain NumberField MeasureTheory Matrix GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.RowTest GlobalTheory.StdFrames GlobalTheory.RowClaim
-open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Grow GlobalTheory.RowUnf GlobalTheory.RowChain GlobalTheory.SeeSaw GlobalTheory.RowVal GlobalTheory.RowReal
-open GlobalTheory.FlipRun
+open IsDedekindDomain NumberField MeasureTheory Matrix GlobalTheory.ChiGrid GlobalTheory.FunObj GlobalTheory.StdFrames GlobalTheory.RowClaim
+open GlobalTheory.MixModel GlobalTheory.MixPer GlobalTheory.Grow GlobalTheory.SeeSaw GlobalTheory.RowVal
 open Classical
 
 namespace GlobalTheory.VecsLast

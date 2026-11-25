@@ -43,10 +43,5 @@ import Mathlib.Tactic.NormNum.RealSqrt
 
 @[expose] public section
 
-open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj AlgebraicGeometry TensorProduct Matrix
-open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ ReciprocityTheory.ChartRestriction.G.Pdiv.ChartF ReciprocityTheory.ChartRestriction.G.Pdiv.AvDefs
-open ReciprocityTheory.PGsh ReciprocityTheory.PGsh.Up ReciprocityTheory.PGsh.Be2 GlobalTheory.ChF
-open ReciprocityTheory.ChartRestriction.G.Chart (sp spMap)
 
-theorem _root_.GlobalTheory.T.hodgeTate_datum_hypotheses_period_tower : ∀ (p : ℕ) [Fact p.Prime] {C : Type} [Field C] [IsAlgClosed C] [CharZero C] {v : Valuation C NNReal} (O : Type) [CommRing O] [Algebra O C] [Fact ¬IsUnit (p : O)] [IsAdicComplete (Ideal.span {(p : O)}) O] (hv : v.Integers O) (ε : PreTilt O p) (hε : IsPrimitiveRoot (((frobeniusEquiv (PreTilt O p) p).symm ε).untilt) p) [Algebra ℤ_[p] O] (OE : Type) [CommRing OE] [StarRing OE], HodgeTateSetting p v O (ℤ_[p] ⊗[ℤ] OE) (sigE p OE) (show O from (Ainf.ainfTowerL p O hv ε hε).c) := by
-  first | exact @GlobalTheory.ChF.hodgeTateSetting_ainfTower_of_isPrimitiveRoot
+abbrev _root_.GlobalTheory.T.hodgeTate_datum_hypotheses_period_tower := @_root_.GlobalTheory.ChF.hodgeTateSetting_ainfTower_of_isPrimitiveRoot

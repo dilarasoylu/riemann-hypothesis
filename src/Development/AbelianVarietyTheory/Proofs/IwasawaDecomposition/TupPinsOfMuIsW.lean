@@ -129,7 +129,9 @@ open scoped nonZeroDivisors IntermediateField
 
 namespace GlobalTheory.Mem.HD.TupPin
 
-theorem isTwist_types (B : Base) (f : Fr B.toPre) (T : TwDat B) :
+section
+variable (B : Base) (f : Fr B.toPre) (T : TwDat B)
+theorem isTwist_types :
     ∀ ξ ∈ T.set f, Chr.IsTwist B.host (Set.range B.host.g) ξ := by
   have a1 : Chr.IsTwist B.host (Set.range B.host.g) f.del := Chr.isTwist_of_isDelta B.host.pde_prime
     (GlobalTheory.HostSplit.split_of_one_mod B.R B.host _ B.host.pde_prime B.pde_cond.1).1
@@ -149,7 +151,7 @@ theorem isTwist_types (B : Base) (f : Fr B.toPre) (T : TwDat B) :
     split_ifs
     exacts [a2.mul_twist a3, a1.mul_twist a3]
 
-theorem xiTw_unr (B : Base) (f : Fr B.toPre) (T : TwDat B) (w : B.places.Pl) (v : HeightOneSpectrum (𝓞 B.host.E))
+theorem xiTw_unr (w : B.places.Pl) (v : HeightOneSpectrum (𝓞 B.host.E))
     (hv : OverP B.host (B.places.resChar w) v) : (T.xiTw f w).UnrAt v := by
   have hψ : (T.psi w).UnrAt v := fun x _ => (T.psi_is w).atl v hv x
   unfold TwDat.xiTw
@@ -159,6 +161,7 @@ theorem xiTw_unr (B : Base) (f : Fr B.toPre) (T : TwDat B) (w : B.places.Pl) (v 
     exact Examples₂.PlacesToy.prime_mem_unique v B.host.pde_prime B.host.pde'_prime hv hn
   · exact (f.isDel.unr v fun hn => h
       (Examples₂.PlacesToy.prime_mem_unique v (B.places.resChar_prime w) B.host.pde_prime hv hn)).mul hψ
+end
 
 end GlobalTheory.Mem.HD.TupPin
 end -- clump:auto
@@ -181,26 +184,7 @@ def plLEquiv (p : ℕ) [Fact p.Prime] :
       {w : D.what₂.places.Pl // D.what₂.places.resChar w = p} :=
   (D.plEq.subtypeEquiv (fun w => resChar_eq_iff D p w)).symm
 
-theorem plEq_plLEquiv (p : ℕ) [Fact p.Prime]
-    (v : {v : HeightOneSpectrum (𝓞 D.what₂.LL) // ((p : ℕ) : 𝓞 D.what₂.LL) ∈ v.asIdeal}) :
-    D.plEq (plLEquiv D p v).1 = v.1 := D.plEq.apply_symm_apply v.1
 
-theorem wtLog_eq (p : ℕ) [hp : Fact p.Prime]
-    (v : {v : HeightOneSpectrum (𝓞 D.what₂.LL) // ((p : ℕ) : 𝓞 D.what₂.LL) ∈ v.asIdeal}) :
-    (eWL D.what₂.LL v.1 : ℝ) * Real.log (Ideal.absNorm v.1.asIdeal : ℝ) /
-        (Real.log (p : ℝ) * (Module.finrank ℚ D.what₂.LL : ℝ)) =
-      (D.what₂.places.ramIdx (plLEquiv D p v).1 : ℝ) *
-        (padicValNat p (Ideal.absNorm (D.plEq (plLEquiv D p v).1).asIdeal) : ℝ) /
-        (Module.finrank ℚ D.what₂.LL : ℝ) := by
-  rw [D.ram_eq, plEq_plLEquiv]
-  have := v.1.isPrime
-  have : v.1.asIdeal.LiesOver (Ideal.span {(p : ℤ)}) := liesOver_of_mem _ v.2
-  rw [Ideal.absNorm_eq_pow_inertiaDeg' (p := p) _ hp.out, Nat.padicValNat_def, Nat.multiplicity_prime_pow]
-  have hlog : Real.log (p : ℝ) ≠ 0 := (Real.log_pos (by exact_mod_cast hp.out.one_lt)).ne'
-  have h0 : (Module.finrank ℚ D.what₂.LL : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr Module.finrank_pos.ne'
-  push_cast
-  rw [Real.log_pow]
-  field_simp
 
 end Formalism.BasicNotions.Examples₂.PlOver
 end

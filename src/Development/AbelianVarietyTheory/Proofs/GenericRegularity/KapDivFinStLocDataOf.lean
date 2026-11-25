@@ -116,19 +116,11 @@ import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.Valuati
 import Development.AbelianVarietyTheory.Definitions.RegularCharts.BaseNorm
 import Development.AbelianVarietyTheory.Definitions.RegularCharts.Reframe
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteNormDiscreteNeZeroOfIsDedekindDomain, Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAdmissible, Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteVerticalGaussValuations, Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAndDensityAndAemeasurable, Development.AbelianVarietyTheory.Proofs.GenericRegularity.DivFinOfTrdeg, Development.AbelianVarietyTheory.Proofs.GenericRegularity.ContDiffEvalFun, Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsContinuousOnEmbeddings, Development.AbelianVarietyTheory.Proofs.GenericRegularity.KapDivFinStLocDataOf
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteNormDiscreteNeZeroOfIsDedekindDomain =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteNormDiscreteNeZeroOfIsDedekindDomain", "h": "module\n\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.TheoremA\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.Valuation.LocalSubring\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.AlgebraMapOLInjective\npublic import Mathlib.RingTheory.Adjoin.Polynomial.Transcendental\npublic import Mathlib.RingTheory.DedekindDomain.Factorization\n\n"}
-section -- clump:auto
 @[expose] public section
-
+section
 open NumberField ReciprocityTheory.ChartRestriction.G.T0
 open scoped TensorProduct
-
 namespace GlobalTheory
-
 theorem finite_normDiscrete_ne_zero_of_isDedekindDomain {S L : Type*} [CommRing S]
     [IsDedekindDomain S] [Field L] [Algebra S L] [IsFractionRing S L] (g : L) (hg : g ≠ 0) :
     {w : AddValuation L (WithTop ℤ) |
@@ -231,30 +223,14 @@ theorem finite_zeros_poles_of_trdeg_one :
   change 0 ≤ w (b : Ω)
   rw [← hy]
   exact y.2
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteNormDiscreteNeZeroOfIsDedekindDomain =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAdmissible =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAdmissible", "h": "module\n\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.NormOrderStatement\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.PicardGroup\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.Valuation.LocalSubring\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.IsUnitOfValEqZero\npublic import ReciprocityTheory.SemistableReduction.IntegralClosureRankAndResidueTrdegLe\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField ReciprocityTheory.ChartRestriction.G.T0
-open scoped TensorProduct
-
 namespace GlobalTheory
-
 namespace AdmissibleFiniteSupport
-
 variable {K : Type} [Field K] [NumberField K] {ι : Type} [Fintype ι]
   {Ω : ι → Type} [∀ c, Field (Ω c)] [∀ c, Algebra K (Ω c)]
   {WT : Type} [AddCommGroup WT]
   {A : ι → Type} [∀ c, CommRing (A c)] [∀ c, Algebra (Ω c) (A c)] [∀ c, Algebra K (A c)]
   [∀ c, Algebra (𝓞 K) (A c)]
-
 end AdmissibleFiniteSupport
 
 open NumberField in
@@ -576,24 +552,9 @@ theorem _root_.GlobalTheory.finite_support_admissible :
   · exact Or.inl ⟨hv, hva⟩
 
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAdmissible =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteVerticalGaussValuations =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteVerticalGaussValuations", "h": "module\n\npublic import Mathlib.Algebra.AffineMonoid.Basic\npublic import Mathlib.RingTheory.DiscreteValuationRing.Basic\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.TheoremA\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.DedekindDomain.Instances\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.PicardGroup\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.Valuation.LocalSubring\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.AlgebraMapOLInjective\npublic import ReciprocityTheory.SemistableReduction.AlgAll\npublic import Mathlib.RingTheory.DedekindDomain.Dvr\npublic import Mathlib.RingTheory.DedekindDomain.Factorization\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField ReciprocityTheory.ChartRestriction.G.T0
-open scoped TensorProduct
-
 namespace GlobalTheory
-
 namespace VerticalGauss
-
 open IsLocalRing IsDedekindDomain
-
 noncomputable def extPrime {K : Type} [Field K] [NumberField K] (σ : Type)
     (la : HeightOneSpectrum (𝓞 K)) : Ideal (MvPolynomial σ (𝓞 K)) :=
   la.asIdeal.map MvPolynomial.C
@@ -659,7 +620,9 @@ theorem isDVR {K : Type} [Field K] [NumberField K] (σ : Type) [Finite σ]
   change Ideal.map φ (Ideal.span {g}) = Ideal.span {φ g}
   rw [Ideal.map_span, Set.image_singleton]
 
-theorem injective_of_dvr {R Ω : Type} [CommRing R] [IsDomain R] [Field Ω] (φ : R →+* Ω)
+section
+variable {R Ω : Type} [CommRing R]
+theorem injective_of_dvr [IsDomain R] [Field Ω] (φ : R →+* Ω)
     (P : Ideal R) [P.IsPrime] [IsDiscreteValuationRing (Localization.AtPrime P)]
     (hker : ∀ r, φ r = 0 → r ∈ P) (a : R) (ha : a ∈ P) (ha0 : φ a ≠ 0) :
     Function.Injective φ := by
@@ -686,7 +649,7 @@ theorem injective_of_dvr {R Ω : Type} [CommRing R] [IsDomain R] [Field Ω] (φ 
   rw [← hψ, hn, map_mul, map_pow] at hr
   exact mul_ne_zero (u.isUnit.map ψ).ne_zero (pow_ne_zero _ hϖ0) hr
 
-theorem nonneg_of_isIntegral {R Ω : Type} [CommRing R] [Field Ω] [Algebra R Ω]
+theorem nonneg_of_isIntegral [Field Ω] [Algebra R Ω]
     (w : AddValuation Ω (WithTop ℤ)) (h : ∀ r, 0 ≤ w (algebraMap R Ω r)) {b : Ω}
     (hb : IsIntegral R b) : 0 ≤ w b := by
   letI : Algebra R (vRing w) := ((algebraMap R Ω).codRestrict (vRing w) h).toAlgebra
@@ -696,7 +659,7 @@ theorem nonneg_of_isIntegral {R Ω : Type} [CommRing R] [Field Ω] [Algebra R Ω
   rw [← hy]
   exact y.2
 
-theorem finite_places {R Ω : Type} [CommRing R] [IsDomain R] [Field Ω] [CharZero Ω] [Algebra R Ω]
+theorem finite_places [IsDomain R] [Field Ω] [CharZero Ω] [Algebra R Ω]
     [Algebra (FractionRing R) Ω] [IsScalarTower R (FractionRing R) Ω]
     [FiniteDimensional (FractionRing R) Ω]
     (P : Ideal R) [P.IsPrime] [IsDiscreteValuationRing (Localization.AtPrime P)] :
@@ -724,6 +687,7 @@ theorem finite_places {R Ω : Type} [CommRing R] [IsDomain R] [Field Ω] [CharZe
   refine hfin.subset ?_
   rintro v ⟨h1, h2⟩
   exact ⟨h1, (ValPl.placesOver_iff_loc P v).1 h2⟩
+end
 
 end VerticalGauss
 
@@ -828,48 +792,25 @@ theorem finite_vertical_gauss_valuations : ∀ (K Ω : Type) [Field K] [NumberFi
   rw [← AddValuation.map_mul, mul_inv_cancel₀ hg, AddValuation.map_one]
 
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteVerticalGaussValuations =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAndDensityAndAemeasurable =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAndDensityAndAemeasurable", "h": "module\n\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.NormOrderStatement\npublic import Mathlib.RingTheory.Kaehler.Basic\npublic import Development.AbelianVarietyTheory.Proofs.AlgebraicCurves.AlgebraicIndependentFreeVar\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.AeEvalCircleMapNeZero\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.AemeasurableFinsumSection\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.DenseMvPolynomialEvalNeZero\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.ExistsEmbeddingsOverInjective\npublic import Mathlib.Algebra.Polynomial.Basic\npublic import Mathlib.Analysis.CStarAlgebra.Classes\npublic import Mathlib.MeasureTheory.Constructions.BorelSpace.Complex\npublic import Mathlib.Algebra.Polynomial.Degree.Defs\npublic import Mathlib.Basic.Complex.Basic\npublic import Mathlib.Algebra.BigOperators.Fin\npublic import Mathlib.Algebra.Polynomial.Degree.Operations\npublic import Mathlib.Algebra.Polynomial.Monic\npublic import Mathlib.Algebra.Polynomial.Roots\npublic import Mathlib.FieldTheory.IsAlgClosed.Basic\npublic import Mathlib.Data.Fin.Tuple.Sort\npublic import Mathlib.MeasureTheory.Constructions.BorelSpace.Order\npublic import Mathlib.MeasureTheory.Constructions.Polish.Basic\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteNormDiscreteNeZeroOfIsDedekindDomain\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAdmissible\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteVerticalGaussValuations\npublic import Mathlib.FieldTheory.Separable\npublic import Mathlib.RingTheory.Henselian\npublic import Mathlib.RingTheory.RegularLocalRing.Defs\npublic import Mathlib.RingTheory.SimpleRing.Principal\npublic import Mathlib.Topology.Algebra.MvPolynomial\npublic import Mathlib.Algebra.CharP.Algebra\npublic import Mathlib.FieldTheory.PrimitiveElement\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField ReciprocityTheory.ChartRestriction.G.T0
-open scoped TensorProduct
-
 namespace GlobalTheory
-
 theorem finite_support_and_finite_ord :
     ∀ (K : Type) [Field K] [NumberField K] (ι : Type) [Fintype ι] (Ω : ι → Type) [∀ c, Field (Ω c)] [∀ c, Algebra K (Ω c)] (WT : Type) [AddCommGroup WT] (A : ι → Type) [∀ c, CommRing (A c)] [∀ c, Algebra (Ω c) (A c)] [∀ c, Algebra K (A c)] [∀ c, Algebra (𝓞 K) (A c)] (𝒜 : (c : ι) → WT → Submodule (Ω c) (A c)) (d : Data K ι Ω WT A), ∀ c : ι, 1 ≤ d.D → (⊤ : IntermediateField K (Ω c)).FG → Algebra.trdeg K (Ω c) = d.D → (∀ G, Module.finrank (Ω c) (𝒜 c G) = 1) → (∀ j, d.w j c ∈ 𝒜 c d.wL) → d.w (d.jc c) c ≠ 0 → ReciprocityTheory.ChartRestriction.G.AR.Up.TrdegD d c → (∀ g : Ω c, g ≠ 0 → {v | d.admitted c v ∧ v g ≠ 0}.Finite) ∧ ∀ (G : WT) (e : A c) (S : Finset (Ω c)), e ∈ 𝒜 c G → e ≠ 0 → (∀ v, d.admitted c v → ∀ a : Ω c, a ≠ 0 → ((d.ord c v G (a • e) : ℤ) : WithTop ℤ) = v a + (d.ord c v G e : WithTop ℤ)) → (∀ v, d.admitted c v → (∀ s ∈ S, 0 ≤ v s) → d.ord c v G e = 0) → ∀ f ∈ 𝒜 c G, f ≠ 0 → {v | d.admitted c v ∧ d.ord c v G f ≠ 0}.Finite :=
   finite_support_admissible finite_vertical_gauss_valuations finite_zeros_poles_of_trdeg_one
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAndDensityAndAemeasurable =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.DivFinOfTrdeg =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GenericRegularity.DivFinOfTrdeg", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.DivFinOfLawA3\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.NormOrderStatement\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.KapFgTrdeg\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.FiniteSupportAndDensityAndAemeasurable\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.PicardGroup\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.TotallySplit\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Development.AbelianVarietyTheory.Definitions.RegularCharts.ModelAt\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField IsDedekindDomain
-open ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj GlobalTheory.Reg
-
+end
+section
+open AlgebraicGeometry CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj NumberField IsDedekindDomain ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Semi ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj GlobalTheory.Reg
 namespace GlobalTheory.Reg
-
-private theorem fg_lemma {F K : Type} [Field F] [Field K] [Algebra F K] (σ : Type) [Finite σ]
-    (h : (⊤ : IntermediateField F K).FG) :
+section
+variable {F K : Type} [Field F] [Field K] [Algebra F K] (σ : Type) [Finite σ]
+private theorem fg_lemma (h : (⊤ : IntermediateField F K).FG) :
     (⊤ : IntermediateField F (FractionRing (MvPolynomial σ K))).FG := by
   rw [IntermediateField.fg_top_iff] at h ⊢
   haveI : Algebra.EssFiniteType K (FractionRing (MvPolynomial σ K)) :=
     Algebra.EssFiniteType.comp K (MvPolynomial σ K) _
   exact Algebra.EssFiniteType.comp F K _
 
-private theorem trdeg_fractionRing_mvPolynomial {F K : Type} [Field F] [Field K] [Algebra F K] (σ : Type) [Finite σ] (n : ℕ)
+private theorem trdeg_fractionRing_mvPolynomial (n : ℕ)
     (h : Algebra.trdeg F K = n) :
     Algebra.trdeg F (FractionRing (MvPolynomial σ K)) = (n + Nat.card σ : ℕ) := by
   have h1 : Algebra.trdeg (MvPolynomial σ K) (FractionRing (MvPolynomial σ K)) = 0 :=
@@ -878,6 +819,7 @@ private theorem trdeg_fractionRing_mvPolynomial {F K : Type} [Field F] [Field K]
   rw [h1, add_zero, MvPolynomial.trdeg_of_isDomain, Cardinal.lift_id] at h2
   have h3 := trdeg_add_eq (A := FractionRing (MvPolynomial σ K)) F K
   rw [← h3, h, ← h2, Nat.cast_add, Nat.cast_card]
+end
 
 theorem divFin_of_trdeg : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : Host E) (Dw : Datum H) (l : Level H) (Xo : Moduli Dw l) (c : Coeff l), ∀ [Fintype (Comp Xo c)] (d : ReciprocityTheory.ChartRestriction.G.T0.Data c.F (Comp Xo c) (fun Z => Om Z) (WTZ E) (fun Z => AC Z)), 1 ≤ d.D → d.D = Dw.dim + Nat.card (FlagVar Dw) → (∀ Z j, d.w j Z ∈ AG Z d.wL) → (∀ Z, d.w (d.jc Z) Z ≠ 0) → (∀ Z, ReciprocityTheory.ChartRestriction.G.AR.Up.TrdegD d Z) → DivFin d := by
   intro E _ _ _ H Dw l Xo c _ d hD hdim hw hjc htr Z r hr
@@ -889,21 +831,11 @@ theorem divFin_of_trdeg : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E]
     finrank_span_singleton (AddMonoidAlgebra.single_ne_zero.mpr one_ne_zero)
   exact (GlobalTheory.finite_support_and_finite_ord c.F (Comp Xo c) (fun Z => Om Z) (WTZ E)
     (fun Z => AC Z) (fun Z G => AG Z G) d Z hD hFG hT hrk (hw Z) (hjc Z) (htr Z)).1 r hr
-
 end GlobalTheory.Reg
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.DivFinOfTrdeg =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.ContDiffEvalFun =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GenericRegularity.ContDiffEvalFun", "h": "module\n\npublic import Mathlib.Algebra.MvPolynomial.Eval\npublic import Mathlib.Algebra.Polynomial.Derivative\npublic import Mathlib.Analysis.CStarAlgebra.Classes\npublic import Mathlib.Analysis.Calculus.ContDiff.Defs\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\npublic import Mathlib.Analysis.Calculus.ImplicitFunction.ProdDomain\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.Algebra.Polynomial.Eval.Degree\npublic import Mathlib.Analysis.Calculus.ContDiff.Basic\npublic import Mathlib.Analysis.Calculus.ContDiff.Comp\npublic import Mathlib.Analysis.Calculus.ContDiff.Operations\npublic import Mathlib.Analysis.Calculus.ContDiff.RCLike\npublic import Mathlib.Analysis.Calculus.Deriv.Polynomial\npublic import Mathlib.Analysis.Calculus.Implicit\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+section
 open Filter Topology
-
 namespace GlobalTheory.SmoothPolynomialEvaluation
-
 noncomputable def evalFun {d : ℕ} (p : Polynomial (MvPolynomial (Fin d) ℂ)) (v : (Fin d → ℂ) × ℂ) : ℂ :=
   Polynomial.eval v.2 (Polynomial.map (MvPolynomial.eval v.1) p)
 
@@ -972,31 +904,21 @@ theorem main : ∀ {d : ℕ} (p : Polynomial (MvPolynomial (Fin d) ℂ)) (x₀ :
     filter_upwards [this] with x hx
     simpa only [HasStrictFDerivAt.implicitFunctionOfProdDomain_def,
       ImplicitFunctionData.implicitFunction_apply, evalFun] using hx.trans h0
-
 end GlobalTheory.SmoothPolynomialEvaluation
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.ContDiffEvalFun =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsContinuousOnEmbeddings =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsContinuousOnEmbeddings", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.NrmContPf\npublic import Mathlib.RingTheory.Henselian\npublic import Mathlib.RingTheory.RegularLocalRing.Defs\npublic import Mathlib.Topology.Separation.CompletelyRegular\npublic import Development.AbelianVarietyTheory.Proofs.AlgebraicCurves.AlgebraicIndependentFreeVar\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.ContDiffEvalFun\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.AeEvalCircleMapNeZero\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.AemeasurableFinsumSection\npublic import Development.AbelianVarietyTheory.Proofs.HeightProofs.ExistsLinearIndependentDIffTrdegAdjoinEq\npublic import Development.AbelianVarietyTheory.Proofs.ToricGeometry.IntegralAndRationalOfPolynomialGrowth\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.MeasureTheory.Measure.RegularityCompacts\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Topology.Algebra.MvPolynomial\nimport Mathlib.Topology.UniformSpace.Uniformizable\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.CastAddNeNatAdd\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.ValuationResidueLemmas\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Development.AbelianVarietyTheory.Definitions.RegularCharts.ModelAt\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+section
 namespace GlobalTheory
-
 namespace SectionLocal
-
 open Filter Topology
-
-theorem exists_continuousOn_root {d : ℕ} (p : Polynomial (MvPolynomial (Fin d) ℂ))
-    (x₀ : Fin d → ℂ) (a : ℂ) (ha : (p.map (MvPolynomial.eval x₀)).eval a = 0)
+section
+variable {d : ℕ} (p : Polynomial (MvPolynomial (Fin d) ℂ))
+theorem exists_continuousOn_root (x₀ : Fin d → ℂ) (a : ℂ) (ha : (p.map (MvPolynomial.eval x₀)).eval a = 0)
     (ha' : (p.map (MvPolynomial.eval x₀)).derivative.eval a ≠ 0) :
     ∃ y : (Fin d → ℂ) → ℂ, y x₀ = a ∧ (∃ s ∈ 𝓝 x₀, ContinuousOn y s) ∧
       ∀ᶠ x in 𝓝 x₀, (p.map (MvPolynomial.eval x)).eval (y x) = 0 :=
   _root_.GlobalTheory.SmoothPolynomialEvaluation.main p x₀ a ha ha'
 
-theorem exists_continuousOn_roots {d : ℕ} (p : Polynomial (MvPolynomial (Fin d) ℂ)) (hp : p.Monic)
+theorem exists_continuousOn_roots (hp : p.Monic)
     (x₀ : Fin d → ℂ) (hs : (p.map (MvPolynomial.eval x₀)).Separable) :
     ∃ (y : Fin p.natDegree → (Fin d → ℂ) → ℂ) (V : Set (Fin d → ℂ)), V ∈ 𝓝 x₀ ∧
       (∀ i, ContinuousOn (y i) V) ∧
@@ -1038,6 +960,7 @@ theorem exists_continuousOn_roots {d : ℕ} (p : Polynomial (MvPolynomial (Fin d
     simpa using this
   · rintro ⟨i, rfl⟩
     exact h2 i
+end
 
 
 open Polynomial in
@@ -1290,19 +1213,9 @@ theorem stLoc_of_trdeg : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] 
     (fun j => evC h Z (wR j) / evC h Z (wR (jc Z))) (div_self (hw Z)) (hfg Z) (htr Z) (hw' Z) sg
 
 end GlobalTheory.Reg
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsContinuousOnEmbeddings =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.KapDivFinStLocDataOf =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.GenericRegularity.KapDivFinStLocDataOf", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.NrmContPf\npublic import Formalism.LocalToGlobal.ProjectiveLattices.DivFinOfLawA3\npublic import Formalism.LocalToGlobal.ProjectiveLattices.FnTrdegOf\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.DivFinOfTrdeg\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsContinuousOnEmbeddings\nimport Development.AbelianVarietyTheory.Proofs.GenericRegularity.KapFgTrdeg\nimport Development.AbelianVarietyTheory.Proofs.HeightProofs.ExistsLinearIndependentDIffTrdegAdjoinEq\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.HeightTheory.ValuationResidueLemmas\nimport Development.AbelianVarietyTheory.Definitions.RegularCharts.BaseNorm\nimport Development.AbelianVarietyTheory.Definitions.RegularCharts.Reframe\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 open NumberField IsDedekindDomain ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Geo.Tor Formalism.L2.Pj GlobalTheory.FrameNorm GlobalTheory.Reg
-
 namespace GlobalTheory.Reg
-
 theorem kap_divFin_stLoc_dataOf : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (H : ReciprocityTheory.ChartRestriction.G.Geo.Tor.Host E) (Dw : Datum H) (l : Level H) (Xo : Moduli Dw l) (c : Coeff l), ∀ [Fintype (Comp Xo c)] (h : GenFrEx Xo c) (δ : ∀ Z : Comp Xo c, AddValuation (Om Z) (WithTop ℤ) → Ix Dw → ℤ) (fn : ∀ σ : c.F →+* ℂ, FrPt Xo c (CAt σ) → Ix Dw → ℝ) (yP : ∀ Z : Comp Xo c, ∀ P : Om Z →+* ℂ, FrPt Xo c (CAt (sgOf P))) (Dd N T i g0 : ℕ) (cc : ℝ) (uL uF uka ude uet uta1 uta2 : WtR E) (wR : Fin (N + 1) → Rul Xo c) (jc : Comp Xo c → Fin (N + 1)) (np : ℕ) (thpR : Fin np → Rul Xo c) (n0 : ℕ) (th0R : Fin n0 → Rul Xo c) (uF0 : WtR E) (nk : ℕ) (thkR : Fin nk → Rul Xo c) (MR : Set (Rul Xo c)) (etR ta1R ta2R : Rul Xo c) (nu : HeightOneSpectrum (𝓞 c.F) → ℝ) (ip : (c.F →+* ℂ) → (∀ Z : Comp Xo c, AC Z) → (∀ Z : Comp Xo c, AC Z) → ℂ) (wsize : WTZ E → ℝ) (DF PN PQ tableDegreeThreeBase PP0' Pd Gc PI4 Pet tableLineDegreeFive tableLineDegreeTwo Prw PO f r : ℝ), 1 ≤ Dd → Dd = Dw.dim + Nat.card (FlagVar Dw) → (∀ Z, evC h Z (wR (jc Z)) ≠ 0) → A1Bigness (dataOf h δ fn yP Dd N T i g0 cc uL uF uka ude uet uta1 uta2 wR jc np thpR n0 th0R uF0 nk thkR MR etR ta1R ta2R nu ip wsize DF PN PQ tableDegreeThreeBase PP0' Pd Gc PI4 Pet tableLineDegreeFive tableLineDegreeTwo Prw PO f r) → KapFG Xo c ∧ KapTrdeg Xo c Dw.dim ∧ DivFin (dataOf h δ fn yP Dd N T i g0 cc uL uF uka ude uet uta1 uta2 wR jc np thpR n0 th0R uF0 nk thkR MR etR ta1R ta2R nu ip wsize DF PN PQ tableDegreeThreeBase PP0' Pd Gc PI4 Pet tableLineDegreeFive tableLineDegreeTwo Prw PO f r) ∧ STLoc h Dd N uL wR jc := by
   intro E _ _ _ H Dw l Xo c _ h δ fn yP Dd N T i g0 cc uL uF uka ude uet uta1 uta2 wR jc np thpR n0 th0R uF0 nk thkR MR etR ta1R ta2R nu ip wsize DF PN PQ tableDegreeThreeBase PP0' Pd Gc PI4 Pet tableLineDegreeFive tableLineDegreeTwo Prw PO f r hD hDd hjc hA
   obtain ⟨hfg, htr⟩ := kap_fg_trdeg E H Dw l Xo c
@@ -1325,9 +1238,3 @@ theorem kap_divFin_stLoc_dataOf : ∀ (E : Type) [Field E] [NumberField E] [IsCM
       simp [div_mul_cancel₀ _ (hjc Z)]
     rw [key] at hZ
     exact hZ
-
-
-end GlobalTheory.Reg
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.GenericRegularity.KapDivFinStLocDataOf =====

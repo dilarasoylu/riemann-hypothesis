@@ -67,18 +67,10 @@ import Mathlib.RingTheory.WittVector.IsPoly
 import Mathlib.Tactic.ENatToNat
 import Mathlib.Tactic.ReduceModChar
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalFixedFieldMapOfFiniteIndex, Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalLev
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalFixedFieldMapOfFiniteIndex =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalFixedFieldMapOfFiniteIndex", "h": "module\n\npublic import Mathlib.FieldTheory.Galois.Basic\npublic import Mathlib.Order.CompletePartialOrder\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
 @[expose] public section
-
+section
 open Polynomial IntermediateField
-
 namespace GlobalTheory
-
 theorem isSeparable_and_natDegree_le_of_fixed {F E : Type} [Field F] [Field E] [Algebra F E]
     (G : Type) [Group G] (act : G →* (E ≃ₐ[F] E)) (N : Subgroup G) [N.FiniteIndex]
     (hG : ∀ x : E, (∀ g, act g x = x) → x ∈ (⊥ : IntermediateField F E))
@@ -198,25 +190,13 @@ theorem finiteDimensional_fixedField_map_of_finiteIndex : ∀ {F E : Type} [Fiel
   haveI : FiniteDimensional F F⟮x⟯ := adjoin.finiteDimensional (key x hxL).1
   exact Module.Finite.of_injective (IntermediateField.inclusion hLx).toLinearMap
     (IntermediateField.inclusion_injective hLx)
-
 end GlobalTheory
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalFixedFieldMapOfFiniteIndex =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalLev =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalLev", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.Foundations.HahnPowOrderLeadingCoeff\npublic import Development.AbelianVarietyTheory.Definitions.Foundations.SiegelNeZeroIff\npublic import Development.AbelianVarietyTheory.Definitions.Foundations.ExpUpper\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ConstOfSlTwoIntInvariantBoundedUpperHalfPlane\npublic import Mathlib.FieldTheory.Galois.Basic\npublic import Mathlib.Order.CompletePartialOrder\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalFixedFieldMapOfFiniteIndex\npublic import Mathlib.Algebra.Order.Ring.Rat\npublic import Mathlib.RingTheory.HahnSeries.Multiplication\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.HahnSeriesPowOfLeadingQInv\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ModularTowerFunctionSlTwoIntInvariant\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.ModularTowerFunctionTendstoConstTermExponential\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.QuotientIntegralHolomorphic\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.SiegelUnitQExpansionCoefficients\npublic import Development.AbelianVarietyTheory.Proofs.FoundationProofs.UpperHalfPlaneCodiscreteGermIdentityAndUnits\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Rat\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 noncomputable section
 open scoped MatrixGroups
 open GlobalTheory.KZ
-
 namespace GlobalTheory.K4.LevFin
-
 variable {Ω : Type} [Field Ω] [Algebra ℚ Ω] {ε : Ω →+* ℂ}
-
 theorem exists_im_gt {S : Set ℂ} (hS : S ∈ Filter.codiscreteWithin Hs) (y : ℝ) : ∃ z ∈ S, y < z.im := by
   set Y := max y 0 + 1 with hY
   set w : ℂ := Complex.I * Y
@@ -236,7 +216,9 @@ theorem exists_im_gt {S : Set ℂ} (hS : S ∈ Filter.codiscreteWithin Hs) (y : 
   · exact ⟨z, h, by linarith⟩
   · exact absurd (show 0 < z.im by linarith) h
 
-theorem exponent_int (X : Tower Ω ε) (h : X.K) (hT : X.sl (ofSL ModularGroup.T) h = h) (r : ℚ)
+section
+variable (X : Tower Ω ε)
+theorem exponent_int (h : X.K) (hT : X.sl (ofSL ModularGroup.T) h = h) (r : ℚ)
     (hr : (X.exp h).coeff r ≠ 0) : ∃ m : ℤ, r = m := by
   obtain ⟨φ, C, hφ, hsum⟩ := X.an_exp h
   have hmob : ∀ z : ℂ, mob (ofSL ModularGroup.T) z = z + 1 := by
@@ -288,7 +270,7 @@ theorem exponent_int (X : Tower Ω ε) (h : X.K) (hT : X.sl (ofSL ModularGroup.T
     rw [hn]; ring
   exact_mod_cast h3
 
-theorem eq_const_of_nonneg (X : Tower Ω ε) (h : X.K) (hinv : ∀ γ : SL(2, ℤ), X.sl (ofSL γ) h = h)
+theorem eq_const_of_nonneg (h : X.K) (hinv : ∀ γ : SL(2, ℤ), X.sl (ofSL γ) h = h)
     (φ : ℂ → ℂ) (hd : DifferentiableOn ℂ φ Hs) (ha : X.an h = (φ : Mero))
     (hneg : ∀ r : ℚ, r < 0 → (X.exp h).coeff r = 0) :
     h = algebraMap Ω X.K ((X.exp h).coeff 0) := by
@@ -341,7 +323,7 @@ theorem eq_const_of_nonneg (X : Tower Ω ε) (h : X.K) (hinv : ∀ γ : SL(2, �
   rw [ha, X.an_c]
   exact SiegelModel.germ_eq_of_eqOn fun z hz => by rw [hc z hz, hca]
 
-theorem mem_adjoin_j (X : Tower Ω ε) : ∀ h : X.K,
+theorem mem_adjoin_j : ∀ h : X.K,
     (∀ γ : SL(2, ℤ), X.sl (ofSL γ) h = h) → (∃ φ : ℂ → ℂ, DifferentiableOn ℂ φ Hs ∧ X.an h = (φ : Mero)) →
     h ∈ Algebra.adjoin Ω {X.jK} := by
   obtain ⟨ψ, hψa, hψ⟩ := X.j_hol
@@ -401,7 +383,7 @@ theorem mem_adjoin_j (X : Tower Ω ε) : ∀ h : X.K,
   have := Nat.le_ceil (-(X.exp h).order)
   linarith
 
-theorem hol_of_mem_adjoin (X : Tower Ω ε) (b : X.K) (hb : b ∈ Algebra.adjoin Ω {X.jK}) :
+theorem hol_of_mem_adjoin (b : X.K) (hb : b ∈ Algebra.adjoin Ω {X.jK}) :
     ∃ φ : ℂ → ℂ, DifferentiableOn ℂ φ Hs ∧ X.an b = (φ : Mero) := by
   induction hb using Algebra.adjoin_induction with
   | mem x hx =>
@@ -418,7 +400,7 @@ theorem hol_of_mem_adjoin (X : Tower Ω ε) (b : X.K) (hb : b ∈ Algebra.adjoin
     obtain ⟨b, hb, hb'⟩ := hy
     exact ⟨a * b, ha.mul hb, by rw [map_mul, ha', hb']; rfl⟩
 
-theorem hol_of_isIntegral (X : Tower Ω ε) (y : X.K) (hy : IsIntegral (Algebra.adjoin Ω {X.jK}) y) :
+theorem hol_of_isIntegral (y : X.K) (hy : IsIntegral (Algebra.adjoin Ω {X.jK}) y) :
     ∃ φ : ℂ → ℂ, DifferentiableOn ℂ φ Hs ∧ X.an y = (φ : Mero) := by
   have hcongr := @SiegelModel.germ_eq_of_eqOn
   have hid := GlobalTheory.FN.germ_main.2.1
@@ -481,13 +463,13 @@ theorem hol_of_isIntegral (X : Tower Ω ε) (y : X.K) (hy : IsIntegral (Algebra.
   rw [e] at hab
   exact hbu.mul_right_cancel hab
 
-theorem sl_aeval (X : Tower Ω ε) (γ : SL(2, ℤ)) (P : Polynomial Ω) :
+theorem sl_aeval (γ : SL(2, ℤ)) (P : Polynomial Ω) :
     X.sl (ofSL γ) (Polynomial.aeval X.jK P) = Polynomial.aeval X.jK P := by
   have := Polynomial.aeval_algHom_apply (X.sl (ofSL γ)) X.jK P
   rw [X.j_inv] at this
   exact this.symm
 
-theorem exists_eq_div (X : Tower Ω ε) (f : X.K) (hf : ∀ γ : SL(2, ℤ), X.sl (ofSL γ) f = f) :
+theorem exists_eq_div (f : X.K) (hf : ∀ γ : SL(2, ℤ), X.sl (ofSL γ) f = f) :
     ∃ P Q : Polynomial Ω, f = Polynomial.aeval X.jK P / Polynomial.aeval X.jK Q := by
   obtain ⟨p, hp0, hpi⟩ := (IntermediateField.isAlgebraic_adjoin_iff.1 (X.alg_j f)).exists_integral_multiple
   have hpf : p • f = (p : X.K) * f := rfl
@@ -504,6 +486,7 @@ theorem exists_eq_div (X : Tower Ω ε) (f : X.K) (hf : ∀ γ : SL(2, ℤ), X.s
   refine ⟨P, Q, ?_⟩
   rw [hP, hQ]
   field_simp
+end
 
 end GlobalTheory.K4.LevFin
 
@@ -559,7 +542,3 @@ theorem finiteDimensional_lev : ∀ (Ω : Type) [Field Ω] [Algebra ℚ Ω] (ε 
     (congrArg (fun x : IntermediateField.fixedField (Γ'.map act) => (x : X.K)) h))
 
 end GlobalTheory.K4
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.FoundationProofs.FiniteDimensionalLev =====

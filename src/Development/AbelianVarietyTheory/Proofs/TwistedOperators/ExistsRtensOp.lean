@@ -49,7 +49,6 @@ open Formalism.IndefR Formalism.IndefR.Links Formalism.IndefR.Mult Formalism.Ind
 open GlobalTheory.Grid GlobalTheory.Doubling GlobalTheory.ChainFr GlobalTheory.IndefiniteRowSideFullHecke.MatchingAdjoints
 open scoped TensorProduct ComplexConjugate
 
-open GlobalTheory.SquareComm
 open scoped GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels
 
 namespace GlobalTheory.TripleAssembly

@@ -56,18 +56,20 @@ noncomputable section
 
 namespace GlobalTheory.ConjLattice
 
-open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
+open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.IndefiniteRowSideFullHecke
 
 abbrev cj : ℂ →+ ℂ := (starRingEnd ℂ).toAddMonoidHom
 
 theorem cj_apply (z : ℂ) : cj z = starRingEnd ℂ z := rfl
 
-theorem map_cj_map_cj (Λ : AddSubgroup ℂ) : (Λ.map cj).map cj = Λ := by
+section
+variable (Λ : AddSubgroup ℂ)
+theorem map_cj_map_cj : (Λ.map cj).map cj = Λ := by
   rw [AddSubgroup.map_map]
   have : cj.comp cj = AddMonoidHom.id ℂ := by ext z; simp
   rw [this, AddSubgroup.map_id]
 
-theorem eisG_map_cj (Λ : AddSubgroup ℂ) (k : ℕ) :
+theorem eisG_map_cj (k : ℕ) :
     eisG (Λ.map cj) k = starRingEnd ℂ (eisG Λ k) := by
   unfold eisG
   let e : {w : ℂ // w ∈ Λ ∧ w ≠ 0} ≃ {w : ℂ // w ∈ Λ.map cj ∧ w ≠ 0} :=
@@ -84,15 +86,16 @@ theorem eisG_map_cj (Λ : AddSubgroup ℂ) (k : ℕ) :
   show (1 : ℂ) / (starRingEnd ℂ (w : ℂ)) ^ (2 * k) = starRingEnd ℂ (1 / (w : ℂ) ^ (2 * k))
   simp [map_pow]
 
-theorem eisenstein_g_two_map_conj (Λ : AddSubgroup ℂ) : g2 (Λ.map cj) = starRingEnd ℂ (g2 Λ) := by
+theorem eisenstein_g_two_map_conj : g2 (Λ.map cj) = starRingEnd ℂ (g2 Λ) := by
   unfold g2; rw [eisG_map_cj, map_mul, map_ofNat]
 
-theorem eisenstein_g_three_map_conj (Λ : AddSubgroup ℂ) : g3 (Λ.map cj) = starRingEnd ℂ (g3 Λ) := by
+theorem eisenstein_g_three_map_conj : g3 (Λ.map cj) = starRingEnd ℂ (g3 Λ) := by
   unfold g3; rw [eisG_map_cj, map_mul, map_ofNat]
 
-theorem discr_map_cj (Λ : AddSubgroup ℂ) :
+theorem discr_map_cj :
     Formalism.MainNotions.TaylorLogMetric.discr (Λ.map cj) = starRingEnd ℂ (Formalism.MainNotions.TaylorLogMetric.discr Λ) := by
   unfold Formalism.MainNotions.TaylorLogMetric.discr; rw [eisenstein_g_two_map_conj, eisenstein_g_three_map_conj, map_sub, map_mul, map_pow, map_pow, map_ofNat]
+end
 
 theorem lamConj_spec (hU : Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.Uniformization) (M : IntermediateField ℚ ℂ)
     (ρ : M →ₐ[ℚ] ℂ) (Λ : AddSubgroup ℂ) (h2 : g2 Λ ∈ M) (h3 : g3 Λ ∈ M) (h1 : Formalism.MainNotions.TaylorLogMetric.discr Λ = 1) :
@@ -151,7 +154,7 @@ end GlobalTheory.ConjLattice
 
 namespace GlobalTheory.ConjLattice
 
-open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
+open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.IndefiniteRowSideFullHecke
 
 theorem containsData {D : D7} {cc : Ideal (𝓞 D.host.K)} {δ : ℂ} {M : IntermediateField ℚ ℂ}
     (h : DataIn D (tor0 D cc δ) M) : EquidistributedConjugates.ContainsData D M (lamOf D cc δ) := by
@@ -160,45 +163,12 @@ theorem containsData {D : D7} {cc : Ideal (𝓞 D.host.K)} {δ : ℂ} {M : Inter
   rwa [show (tor0 D cc δ).emb (D.eTau.symm 1) (x : D.host.E) = embT D (D.eTau.symm 1) (x : D.host.E) from rfl,
     Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.FL.embT_K D _ _ x.2] at this
 
-theorem conj_lattice : Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.Uniformization →
-    EquidistributedConjugates.ConjugatesEquidistributed → PeriodLatticeAgreement.LatticePeriodEta →
-    ∀ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M]
-      (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t → ∀ ρ : M →ₐ[ℚ] ℂ,
-      Formalism.MainNotions.TaylorLogMetric.discr (lamConj M ρ (lamOf D cc δ)) = 1 ∧ ∃ c : Ideal (𝓞 D.host.K), c ≠ ⊥ ∧ ∃ x : ℂ, x ≠ 0 ∧
-        lamConj M ρ (lamOf D cc δ) = lamOf D c x := by
-  intro hU hCE _ D cc δ M _ t hS ρ
-  obtain ⟨hcc, hδ, hM, -⟩ := hS
-  have h1 : Formalism.MainNotions.TaylorLogMetric.discr (lamOf D cc δ) = 1 := Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.B5.br_discr_lamOf D cc hcc δ hδ
-  have h2 : g2 (lamOf D cc δ) ∈ M := hM.2.1
-  have h3 : g3 (lamOf D cc δ) ∈ M := hM.2.2
-  have hsp := fun ρ' => lamConj_spec hU M ρ' (lamOf D cc δ) h2 h3 h1
-  refine ⟨(hsp ρ).2.2, ?_⟩
-  obtain ⟨⟨c, hcH, -⟩, hC2, -⟩ := hCE D cc δ hcc hδ M (containsData hM)
-  by_cases hρ : EquidistributedConjugates.FixesK D M ρ
-  · obtain ⟨x, hx, hxe⟩ := hcH ⟨ρ, hρ⟩
-    exact ⟨_, nonZeroDivisors.coe_ne_zero _, x, hx, hxe⟩
-  · obtain ⟨hρ', -⟩ := hC2 ρ hρ
-    obtain ⟨x, hx, hxe⟩ := hcH ⟨EquidistributedConjugates.conjEmb M ρ, hρ'⟩
-    have hUI : Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.B5.UniqInv :=
-      Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.B5.uniqInv_of_lat Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.B5.latOfDiscr_holds hU
-    have hmap : (lamConj M ρ (lamOf D cc δ)).map cj = lamConj M (EquidistributedConjugates.conjEmb M ρ) (lamOf D cc δ) := by
-      apply hUI
-      · rw [discr_map_cj, (hsp ρ).2.2, map_one]; exact one_ne_zero
-      · rw [eisenstein_g_two_map_conj, (hsp ρ).1, (hsp _).1]; exact (EquidistributedConjugates.conjEmb_apply _ _ _).symm
-      · rw [eisenstein_g_three_map_conj, (hsp ρ).2.1, (hsp _).2.1]; exact (EquidistributedConjugates.conjEmb_apply _ _ _).symm
-    have hback : lamConj M ρ (lamOf D cc δ) = (lamConj M (EquidistributedConjugates.conjEmb M ρ) (lamOf D cc δ)).map cj := by
-      rw [← hmap, map_cj_map_cj]
-    refine ⟨(c ⟨EquidistributedConjugates.conjEmb M ρ, hρ'⟩ : Ideal (𝓞 D.host.K)).map (conjO D), ?_, starRingEnd ℂ x,
-      (map_ne_zero _).2 hx, by rw [hback, hxe, lamOf_map_cj]⟩
-    intro hbot
-    rw [Ideal.map_eq_bot_iff_of_injective (conjO D).injective] at hbot
-    exact nonZeroDivisors.coe_ne_zero _ hbot
 
 end GlobalTheory.ConjLattice
 
 namespace GlobalTheory.ConjLattice
 
-open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.Glob.IntegralWittCoefficients GlobalTheory.IndefiniteRowSideFullHecke
+open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric GlobalTheory.IndefiniteRowSideFullHecke
 
 theorem uniformization_holds : Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.Uniformization := by
   intro a b h
@@ -208,11 +178,5 @@ theorem uniformization_holds : Formalism.L2.GlobalTheoryTheory.IntegralLatticeDe
   obtain ⟨e2, e3, hΔ, -⟩ := GlobalTheory.LatticeInvariants.invariants_dictionary L L.lattice.toAddSubgroup (fun _ => Iff.rfl)
   exact ⟨_, Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.B5.latOfDiscr_holds _ hΔ, e2.trans h2, e3.trans h3⟩
 
-theorem conj_lattice_holds : EquidistributedConjugates.ConjugatesEquidistributed → PeriodLatticeAgreement.LatticePeriodEta →
-    ∀ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (M : IntermediateField ℚ ℂ) [FiniteDimensional ℚ M]
-      (t : (M →ₐ[ℚ] ℂ) → ℂ), SignedLogMeans.HidaSetting D cc δ M t → ∀ ρ : M →ₐ[ℚ] ℂ,
-      discr (lamConj M ρ (lamOf D cc δ)) = 1 ∧ ∃ c : Ideal (𝓞 D.host.K), c ≠ ⊥ ∧ ∃ x : ℂ, x ≠ 0 ∧
-        lamConj M ρ (lamOf D cc δ) = lamOf D c x :=
-  conj_lattice uniformization_holds
 
 end GlobalTheory.ConjLattice

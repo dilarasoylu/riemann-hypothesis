@@ -56,20 +56,10 @@ import Mathlib.Tactic.ENatToNat
 import Mathlib.Tactic.Linter.Style
 import Mathlib.Tactic.Polynomial.Basic
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsOpenSubgroupsIntegers, Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsIntLevelSchwartzBruhatFiniteAdelic, Development.AbelianVarietyTheory.Proofs.TwistedOperators.StandardCharSeparatesIntegralFiniteAdeles, Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsTrigPolynomialAnnihilatingAdelicSchwartz
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsOpenSubgroupsIntegers =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsOpenSubgroupsIntegers", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff\npublic import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.GenusMassVolumes\npublic import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsNatMulIntegralMatricesSubsetOpenAddSubgrou\nimport Formalism.PeriodIntegrals.UnitaryGroupMassFormula.UnipotentApproximation.AddDense\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open NumberField IsDedekindDomain
-
 noncomputable section
-
+open NumberField IsDedekindDomain
 namespace GlobalTheory.SBBox
-
 theorem exists_nhds_zero_add_eq {X : Type} [TopologicalSpace X] [AddCommGroup X] [IsTopologicalAddGroup X] {Y : Type}
     [Zero Y] {g : X → Y} (hg : IsLocallyConstant g) (hc : HasCompactSupport g) :
     ∃ N ∈ nhds (0 : X), ∀ y, ∀ u ∈ N, g (y + u) = g y := by
@@ -120,92 +110,20 @@ theorem exists_nhds_zero_add_eq {X : Type} [TopologicalSpace X] [AddCommGroup X]
 
 variable {F : Type} [Field F] [NumberField F]
 
-def ballR (r : 𝓞 F) (v : HeightOneSpectrum (𝓞 F)) : AddSubgroup (v.adicCompletion F) :=
-  Valued.v.leAddSubgroup (v.intValuation r)
 
-theorem mem_ballR {r : 𝓞 F} {v : HeightOneSpectrum (𝓞 F)} {x : v.adicCompletion F} :
-    x ∈ ballR r v ↔ Valued.v x ≤ v.intValuation r := Iff.rfl
 
-theorem isOpen_ballR {r : 𝓞 F} (hr : r ≠ 0) (v : HeightOneSpectrum (𝓞 F)) :
-    IsOpen (ballR r v : Set (v.adicCompletion F)) := by
-  set c : v.adicCompletion F := algebraMap F (v.adicCompletion F) (algebraMap (𝓞 F) F r)
-  have hcv : Valued.v c = v.intValuation r := ReciprocityTheory.ChartRestriction.G.Lib.AdeleIntA.val_R v r
-  have hc : c ≠ 0 := by
-    intro h
-    rw [h, map_zero] at hcv
-    exact (v.intValuation_ne_zero r hr) hcv.symm
-  have e : (ballR r v : Set (v.adicCompletion F)) =
-      (fun x => x / c) ⁻¹' (v.adicCompletionIntegers F : Set (v.adicCompletion F)) := by
-    ext x
-    change Valued.v x ≤ v.intValuation r ↔ Valued.v (x / c) ≤ 1
-    rw [map_div₀, ← hcv, div_le_one₀ (zero_lt_iff.2 ((Valuation.ne_zero_iff _).2 hc))]
-  rw [e]
-  exact (Valued.isOpen_valuationSubring _).preimage (continuous_id.div_const c)
 
-theorem ballR_subset (r : 𝓞 F) (v : HeightOneSpectrum (𝓞 F)) :
-    (ballR r v : Set (v.adicCompletion F)) ⊆ v.adicCompletionIntegers F := fun x hx => by
-  rw [SetLike.mem_coe, HeightOneSpectrum.mem_adicCompletionIntegers]
-  exact (mem_ballR.1 hx).trans (v.intValuation_le_one r)
 
-theorem eventually_ballR_eq {r : 𝓞 F} (hr : r ≠ 0) :
-    ∀ᶠ v in Filter.cofinite, (ballR r v : Set (v.adicCompletion F)) = v.adicCompletionIntegers F := by
-  have h : (Ideal.span {r} : Ideal (𝓞 F)) ≠ 0 := by
-    rw [Ne, Ideal.zero_eq_bot, Ideal.span_singleton_eq_bot]; exact hr
-  refine Filter.eventually_cofinite.2 ((Ideal.finite_factors h).subset fun v hv => ?_)
-  simp only [Set.mem_setOf_eq] at hv ⊢
-  rw [← HeightOneSpectrum.intValuation_lt_one_iff_dvd]
-  refine lt_of_le_of_ne (v.intValuation_le_one r) fun h1 => hv ?_
-  ext x
-  rw [SetLike.mem_coe, SetLike.mem_coe, mem_ballR, h1, HeightOneSpectrum.mem_adicCompletionIntegers]
 
 end GlobalTheory.SBBox
 
 namespace GlobalTheory.SBBox
 
-theorem exists_box_invariant : ∀ (F : Type) [Field F] [NumberField F] (κ : Type) [Fintype κ] (g : (κ → FiniteAdeleRing (𝓞 F) F) → ℂ),
-    g ∈ GlobalTheory.WeilM.SB (κ → FiniteAdeleRing (𝓞 F) F) →
-    ∃ B : ∀ v : IsDedekindDomain.HeightOneSpectrum (𝓞 F), AddSubgroup (v.adicCompletion F),
-      (∀ v, IsOpen (B v : Set (v.adicCompletion F))) ∧
-      (∀ v, (B v : Set (v.adicCompletion F)) ⊆ v.adicCompletionIntegers F) ∧
-      (∀ᶠ v in Filter.cofinite, (B v : Set (v.adicCompletion F)) = v.adicCompletionIntegers F) ∧
-      ∀ y u : κ → FiniteAdeleRing (𝓞 F) F, (∀ i v, Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes.evalV F v (u i) ∈ B v) → g (y + u) = g y := by
-  intro F _ _ κ _ g hg
-  classical
-  obtain ⟨N, hN, hNg⟩ := exists_nhds_zero_add_eq hg.1 hg.2
-  rw [nhds_pi, Filter.mem_pi] at hN
-  obtain ⟨I, -, t, ht, hIt⟩ := hN
-  have hr : ∀ i, ∃ r : 𝓞 F, r ≠ 0 ∧ ∀ y : FiniteAdeleRing (𝓞 F) F,
-      (∀ v : HeightOneSpectrum (𝓞 F), Valued.v (y v) ≤ v.intValuation r) → y ∈ t i :=
-    fun i => GlobalTheory.OpenSubAdele.exists_small_of_mem_nhds (ht i)
-  choose r hr0 hrt using hr
-  set R : 𝓞 F := ∏ i, r i
-  have hR0 : R ≠ 0 := Finset.prod_ne_zero_iff.2 fun i _ => hr0 i
-  have hle : ∀ i (v : HeightOneSpectrum (𝓞 F)), v.intValuation R ≤ v.intValuation (r i) := by
-    intro i v
-    obtain ⟨c, hc⟩ := Finset.dvd_prod_of_mem r (Finset.mem_univ i)
-    rw [show R = r i * c from hc, map_mul]
-    exact mul_le_of_le_one_right' (v.intValuation_le_one c)
-  refine ⟨ballR R, isOpen_ballR hR0, ballR_subset R, eventually_ballR_eq hR0, fun y u hu => ?_⟩
-  refine hNg y u (hIt fun i _ => hrt i (u i) fun v => ?_)
-  exact (mem_ballR.1 (hu i v)).trans (hle i v)
 
 end GlobalTheory.SBBox
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsOpenSubgroupsIntegers =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsIntLevelSchwartzBruhatFiniteAdelic =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsIntLevelSchwartzBruhatFiniteAdelic", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.ExistsOpenSubgroupsIntegers\npublic import GroundTheory.GlobalFields.TateThesis.AdelicCharDual\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
-
-noncomputable section
-
+section
+open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
 namespace GlobalTheory.SBLevel
-
 theorem exists_int_level : ∀ {F : Type} [Field F] [NumberField F] {κ : Type} [Fintype κ]
     (g : (κ → FiniteAdeleRing (𝓞 F) F) → ℂ), g ∈ GlobalTheory.WeilM.SB (κ → FiniteAdeleRing (𝓞 F) F) →
     ∃ d : 𝓞 F, d ≠ 0 ∧ ∀ x u : κ → FiniteAdeleRing (𝓞 F) F,
@@ -230,25 +148,16 @@ theorem exists_int_level : ∀ {F : Type} [Field F] [NumberField F] {κ : Type} 
     rw [this, map_one, one_mul]
   rw [he] at hmem
   exact Set.mem_iInter.1 hmem i
-
 end GlobalTheory.SBLevel
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsIntLevelSchwartzBruhatFiniteAdelic =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.StandardCharSeparatesIntegralFiniteAdeles =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.StandardCharSeparatesIntegralFiniteAdeles", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels\npublic import Development.AbelianVarietyTheory.Proofs.AdelicLatticeProofs.AddCharTrivialIntegralFiniteAdeleMul\npublic import Development.AbelianVarietyTheory.Proofs.DivisorProofs.StandardAdelicCharacterNontrivialAtPlaces\nimport Development.AbelianVarietyTheory.Proofs.UnitaryExistence.FiniteAdeleStrongApproximationModNat\npublic import GroundTheory.GlobalFields.TateThesis.AdelicChar\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import GroundTheory.GlobalFields.Adele.Approximation\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+end
+section
 open NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
-
 namespace GlobalTheory.StdCharSep
-
 variable {F : Type} [Field F] [NumberField F]
-
-theorem trace_int_of_psi {ψ : AddChar (AF F) ℂ} (hψ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (x : F)
+section
+variable {ψ : AddChar (AF F) ℂ}
+theorem trace_int_of_psi (hψ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (x : F)
     (h : ψ (pairA F 0 (algebraMap F (Af F) x)) = 1) : ∃ z : ℤ, Algebra.trace ℚ F x = z := by
   rw [GlobalTheory.PsiNontriv.isStd_fin_rat hψ, Complex.exp_eq_one_iff] at h
   obtain ⟨n, hn⟩ := h
@@ -260,17 +169,18 @@ theorem trace_int_of_psi {ψ : AddChar (AF F) ℂ} (hψ : GlobalTheory.Indefinit
     exact mul_right_cancel₀ hne hn
   exact_mod_cast h2
 
-theorem psi_of_trace_int {ψ : AddChar (AF F) ℂ} (hψ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (x : F)
+theorem psi_of_trace_int (hψ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (x : F)
     (h : ∃ z : ℤ, Algebra.trace ℚ F x = z) : ψ (pairA F 0 (algebraMap F (Af F) x)) = 1 := by
   obtain ⟨z, hz⟩ := h
   rw [GlobalTheory.PsiNontriv.isStd_fin_rat hψ, hz, Complex.exp_eq_one_iff]
   exact ⟨z, by push_cast; ring⟩
 
-theorem psi_int_mul {ψ : AddChar (AF F) ℂ} (hψ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (s : F)
+theorem psi_int_mul (hψ : GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels.IsStd ψ) (s : F)
     (hs : ∀ a : 𝓞 F, ∃ z : ℤ, Algebra.trace ℚ F ((a : F) * s) = z)
     (w : Af F) (hw : ∀ v : HeightOneSpectrum (𝓞 F), w v ∈ v.adicCompletionIntegers F) :
     ψ (pairA F 0 (w * algebraMap F (Af F) s)) = 1 :=
   GlobalTheory.IntDense.addChar_eq_one_of_integral F ψ hψ.1 s (fun a => psi_of_trace_int hψ _ (hs a)) w hw
+end
 
 theorem mem_of_dual (k : F) (h : ∀ s : F, (∀ a : 𝓞 F, ∃ z : ℤ, Algebra.trace ℚ F ((a : F) * s) = z) →
     ∃ z : ℤ, Algebra.trace ℚ F (k * s) = z) : ∃ c : 𝓞 F, algebraMap (𝓞 F) F c = k := by
@@ -319,39 +229,13 @@ theorem exists_sep : ∀ {F : Type} [Field F] [NumberField F] (ψ : AddChar (AF 
   show ((k : F) : v.adicCompletion F) ∈ v.adicCompletionIntegers F
   rw [← ho]
   exact GroundTheory.Global.coe_algebraMap_mem_adicCompletionIntegers v o
-
 end GlobalTheory.StdCharSep
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.StandardCharSeparatesIntegralFiniteAdeles =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsTrigPolynomialAnnihilatingAdelicSchwartz =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsTrigPolynomialAnnihilatingAdelicSchwartz", "h": "module\n\npublic import Development.AbelianVarietyTheory.BlockTheory.DivisorBase.WeilTensorModels\npublic import GroundTheory.GlobalFields.Adele.Approximation\npublic import Development.AbelianVarietyTheory.Definitions.Divisors.HilbertNinetyQuotientHomEqIff\npublic import Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsIntLevelSchwartzBruhatFiniteAdelic\npublic import Development.AbelianVarietyTheory.Proofs.TwistedOperators.StandardCharSeparatesIntegralFiniteAdeles\nimport GroundTheory.GlobalFields.TateThesis.AdelicChar\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+noncomputable section
 open GlobalTheory.IndefiniteRowSideFullHecke.WeilTensorModels NumberField IsDedekindDomain Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes GlobalTheory.WeilM GlobalTheory.AdelicU GlobalTheory.LFun
 open scoped Matrix
-
-noncomputable section
-
 namespace GlobalTheory.FinTrig
-
-theorem inv_level : ∀ {F : Type} [Field F] [NumberField F] {κ : Type} [Fintype κ]
-    (g : (κ → FiniteAdeleRing (𝓞 F) F) → ℂ), g ∈ SB (κ → FiniteAdeleRing (𝓞 F) F) →
-    ∃ d : 𝓞 F, d ≠ 0 ∧ ∀ x u : κ → FiniteAdeleRing (𝓞 F) F,
-      (∀ i, ∀ v : HeightOneSpectrum (𝓞 F),
-        (algebraMap F (FiniteAdeleRing (𝓞 F) F) ((d : F)⁻¹) * u i) v ∈ v.adicCompletionIntegers F) →
-      g (x + u) = g x := _root_.GlobalTheory.SBLevel.exists_int_level
-
-theorem sep_char : ∀ {F : Type} [Field F] [NumberField F] (ψ : AddChar (AF F) ℂ), IsStd ψ →
-    ∀ b : FiniteAdeleRing (𝓞 F) F, ¬ (∀ v : HeightOneSpectrum (𝓞 F), b v ∈ v.adicCompletionIntegers F) →
-    ∃ s : F, ψ (((0 : InfiniteAdeleRing F), b * algebraMap F (FiniteAdeleRing (𝓞 F) F) s) : AF F) ≠ 1 ∧
-      ∀ w : FiniteAdeleRing (𝓞 F) F, (∀ v : HeightOneSpectrum (𝓞 F), w v ∈ v.adicCompletionIntegers F) →
-        ψ (((0 : InfiniteAdeleRing F), w * algebraMap F (FiniteAdeleRing (𝓞 F) F) s) : AF F) = 1 := _root_.GlobalTheory.StdCharSep.exists_sep
-
 variable {F : Type} [Field F] [NumberField F] {κ : Type} [Fintype κ]
-
 def Lev (d : 𝓞 F) (u : κ → FiniteAdeleRing (𝓞 F) F) : Prop :=
   ∀ i, algebraMap F (FiniteAdeleRing (𝓞 F) F) ((d : F)⁻¹) * u i ∈
     GroundTheory.Global.integralFiniteAdeles (𝓞 F) F
@@ -439,16 +323,18 @@ theorem add_mem_adelicVectorsZeroArchimedean {q q' : κ → AF F} (h : q ∈ Q0)
 
 theorem zero_mem_adelicVectorsZeroArchimedean : (0 : κ → AF F) ∈ Q0 := fun i => map_zero (InfiniteAdeleRing.ringEquiv_mixedSpace F)
 
-theorem chi_zero (ψ : AddChar (AF F) ℂ) : chi ψ (0 : κ → AF F) = 1 := by
+section
+variable (ψ : AddChar (AF F) ℂ)
+theorem chi_zero : chi ψ (0 : κ → AF F) = 1 := by
   funext x; simp [chi]
 
-theorem chi_mem (ψ : AddChar (AF F) ℂ) {q : κ → AF F} (hq : q ∈ Q0) : chi ψ q ∈ TP ψ :=
+theorem chi_mem {q : κ → AF F} (hq : q ∈ Q0) : chi ψ q ∈ TP ψ :=
   Submodule.subset_span ⟨q, hq, rfl⟩
 
-theorem one_mem_TP (ψ : AddChar (AF F) ℂ) : (1 : (κ → AF F) → ℂ) ∈ TP ψ := by
+theorem one_mem_TP : (1 : (κ → AF F) → ℂ) ∈ TP ψ := by
   rw [← chi_zero ψ]; exact chi_mem ψ zero_mem_adelicVectorsZeroArchimedean
 
-theorem mul_mem_TP (ψ : AddChar (AF F) ℂ) {f g : (κ → AF F) → ℂ} (hf : f ∈ TP ψ) (hg : g ∈ TP ψ) :
+theorem mul_mem_TP {f g : (κ → AF F) → ℂ} (hf : f ∈ TP ψ) (hg : g ∈ TP ψ) :
     f * g ∈ TP ψ := by
   have hle : TP ψ * TP ψ ≤ TP (κ := κ) ψ := by
     rw [TP, Submodule.span_mul_span]
@@ -457,11 +343,11 @@ theorem mul_mem_TP (ψ : AddChar (AF F) ℂ) {f g : (κ → AF F) → ℂ} (hf :
     exact ⟨q + q', add_mem_adelicVectorsZeroArchimedean hq hq', (chi_mul ψ q q').symm⟩
   exact hle (Submodule.mul_mem_mul hf hg)
 
-theorem prod_mem_TP (ψ : AddChar (AF F) ℂ) {ι : Type} (t : Finset ι) (f : ι → (κ → AF F) → ℂ)
+theorem prod_mem_TP {ι : Type} (t : Finset ι) (f : ι → (κ → AF F) → ℂ)
     (h : ∀ a ∈ t, f a ∈ TP ψ) : (∏ a ∈ t, f a) ∈ TP ψ :=
   Finset.prod_induction f (· ∈ TP ψ) (fun _ _ => mul_mem_TP ψ) (one_mem_TP ψ) h
 
-theorem exists_of_mem_TP (ψ : AddChar (AF F) ℂ) {P : (κ → AF F) → ℂ} (h : P ∈ TP ψ) :
+theorem exists_of_mem_TP {P : (κ → AF F) → ℂ} (h : P ∈ TP ψ) :
     ∃ (s : Finset (κ → AF F)) (c : (κ → AF F) → ℂ), (∀ q ∈ s, ∀ i, evI F (q i) = 0) ∧
       ∀ x, P x = ∑ q ∈ s, c q * ψ (x ⬝ᵥ q) := by
   rw [TP, Finsupp.mem_span_image_iff_linearCombination] at h
@@ -469,6 +355,7 @@ theorem exists_of_mem_TP (ψ : AddChar (AF F) ℂ) {P : (κ → AF F) → ℂ} (
   refine ⟨l.support, l, fun q hq => (Finsupp.mem_supported ℂ l).1 hl hq, fun x => ?_⟩
   rw [Finsupp.linearCombination_apply, Finsupp.sum, Finset.sum_apply]
   rfl
+end
 
 def vecFin (u : κ → FiniteAdeleRing (𝓞 F) F) : κ → AF F := fun i => ((0 : InfiniteAdeleRing F), u i)
 
@@ -570,9 +457,3 @@ theorem loc_chars : ∀ {F : Type} [Field F] [NumberField F] {κ : Type} [Fintyp
         rw [e, vecFin_add, add_dotProduct, AddChar.map_add_eq_mul, hq2 a (htC a hat) _ hxa, one_mul, sub_self,
           mul_zero]
     · rw [h0 x hxT, mul_zero]
-
-end GlobalTheory.FinTrig
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TwistedOperators.ExistsTrigPolynomialAnnihilatingAdelicSchwartz =====

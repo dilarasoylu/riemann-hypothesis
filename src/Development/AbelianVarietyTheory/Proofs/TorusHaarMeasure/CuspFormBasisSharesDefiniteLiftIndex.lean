@@ -93,21 +93,12 @@ import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.Uppe
 import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.BoundedSectionAlgebra
 import Std.Tactic.BVDecide.Normalize.Prop
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ReadingsCuspAndIndependent, Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CurvatureMarginsDefiniteCase, Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.RunWeightDominantAndGapsDefiniteCase, Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ThetaArchimedeanDataDefiniteModelsNonempty, Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CuspFormBasisSharesDefiniteLiftIndex
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ReadingsCuspAndIndependent =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ReadingsCuspAndIndependent", "h": "module\n\npublic import Formalism.LocalToGlobal.ProjectiveLattices.TieUpA\npublic import Development.AbelianVarietyTheory.Proofs.SiegelThetaTransformation.CuspFormFrameReadingsLinearIndependent\npublic import Formalism.LocalToGlobal.ProjectiveLattices.RosatiLatticeNorms.LinkFD\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.SiegelSpaceAlgebraHolds\nimport Development.AbelianVarietyTheory.Definitions.ArchimedeanThetaValues.ModelsAt\nimport Development.AbelianVarietyTheory.Definitions.ThetaValues.Generic\nimport Formalism.LocalToGlobal.ProjectiveLattices.ArchimedeanQuadraticData.FinitePlaceArcs.BeSumStatement\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open NumberField IsDedekindDomain ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.FD Formalism.L2.Pj Formalism.L2.Pj.QAt Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.BasicNotions GlobalTheory.ArcCM GlobalTheory.Shares
-
+section
+open NumberField
+section
+open IsDedekindDomain ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.FD Formalism.L2.Pj Formalism.L2.Pj.QAt Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.BasicNotions GlobalTheory.ArcCM GlobalTheory.Shares
 namespace GlobalTheory.ArcRead
-
-
-
-
 theorem readings_cusp_and_independent :
     ∀ (D : D7) (T : Top D) (h : LawsP T) (j : ℕ), InR D j → TieReadSt h j := by
   intro D T h j hj
@@ -116,22 +107,12 @@ theorem readings_cusp_and_independent :
   have hhol : rdU (T.U j T.σ₀) F.1 ∈ holSub (T.U j T.σ₀).X (laU (T.U j T.σ₀) (wtA u) u.n) :=
     ((mem_cusp _ _ _ _ _ F.1).1 hFC).2 T.σ₀ T.good_σ₀
   exact Formalism.L2.Pj.abelian₂.holSub_SS siegelSpaceAlgebra_holds (T.U j T.σ₀).X (laU (T.U j T.σ₀) (wtA u) u.n) hhol k
-
 end GlobalTheory.ArcRead
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ReadingsCuspAndIndependent =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CurvatureMarginsDefiniteCase =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CurvatureMarginsDefiniteCase", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ThetaValues.Generic\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CurvAndMarginClosed\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.PoincarePointwiseStatement\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.InterpStatementPfH\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.RhGradStatementPfB\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField ReciprocityTheory.ChartRestriction.G.FD ReciprocityTheory.ChartRestriction.G.AR ReciprocityTheory.ChartRestriction.G.AR.Inst ReciprocityTheory.ChartRestriction.G.AR.Up ReciprocityTheory.L2DbarEstimates MeasureTheory Topology GlobalTheory.Shares
+end
+section
+open ReciprocityTheory.ChartRestriction.G.FD ReciprocityTheory.ChartRestriction.G.AR ReciprocityTheory.ChartRestriction.G.AR.Inst ReciprocityTheory.ChartRestriction.G.AR.Up ReciprocityTheory.L2DbarEstimates MeasureTheory Topology GlobalTheory.Shares
 open scoped ContDiff ENNReal Matrix
-
 namespace GlobalTheory.Shares
-
 theorem margins_of_definite : ∀ (E : Type) [Field E] [NumberField E] [IsCMField E] (r : ℕ) (X : Data E r) (Xa : ArchInM X), X.p0 = 0 → Nonempty X.Ψ → (∀ x, Xa.ps0 x = 0) → IsStrictDom X Xa.L → (∀ τ (a b : Fin r), a ≤ b → (Xa.Fp - kapW X - nd X • Xa.L) τ b ≤ (Xa.Fp - kapW X - nd X • Xa.L) τ a) → Margins X Xa := by
   intro E _ _ _ r X Xa h0 _ hps _ hgap
   have hA : ∀ (m : ℝ) x0, IsOrth X x0 → ∀ z ∈ OmF X x0, ∀ ξ : Fin (nd X) → ℂ,
@@ -157,22 +138,11 @@ theorem margins_of_definite : ∀ (E : Type) [Field E] [NumberField E] [IsCMFiel
     exact hA _ x0 ho z hz ξ
   · exact (hA _ x0 ho z hz ξ).trans
       (sub_le_self _ (mul_nonneg (Nat.cast_nonneg _) (hB x0 ho z hz ξ)))
-
 end GlobalTheory.Shares
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CurvatureMarginsDefiniteCase =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.RunWeightDominantAndGapsDefiniteCase =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.RunWeightDominantAndGapsDefiniteCase", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.ThetaValues.Generic\npublic import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.AdmissibleModuleIffLatticeQuotients\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ComponentModelWeightDimensionDictionary\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.RunWeightDom\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.Gaps Formalism.MainNotions.Gaps.EtaleWeightGaps Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.FD ReciprocityTheory.ChartRestriction.G.AR.Inst ReciprocityTheory.ChartRestriction.G.AR.Up GlobalTheory.RunIn GlobalTheory.Shares
-
+end
+section
+open IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.Gaps Formalism.MainNotions.Gaps.EtaleWeightGaps Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.FD ReciprocityTheory.ChartRestriction.G.AR.Inst ReciprocityTheory.ChartRestriction.G.AR.Up GlobalTheory.RunIn GlobalTheory.Shares
 namespace GlobalTheory.RunWeightDomDef
-
-
 open GlobalTheory.RunWeightDom in
 theorem run_weight_dom_definite : ∀ (D : D7) (T : Top D) (h : LawsP T) (j : ℕ) (hj : InR D j) (large₂ : SizeData₂ D) (H : KHyp) (C2 A2 CR CT : ℝ) (ka wL wF : WeightFamilies.Wt D j) (Tn nP nW : ℕ) (h0 : ℝ), FamilyHypotheses.HypPage large₂ (recPJ h j hj) H C2 A2 CR CT ka wL wF Tn nP nW h0 → j = D.R.m → 8 ≤ D.R.r → ∀ k : (T.U j T.σ₀).Comp, ((T.U j T.σ₀).X k).p0 = 0 ∧ IsStrictDom ((T.U j T.σ₀).X k) (laR T j wL k) ∧ ∀ (τ : ((T.U j T.σ₀).X k).Ψ) (a b : Fin D.R.r), (b : ℕ) = a + 1 → (laR T j wF k - kapW ((T.U j T.σ₀).X k) - WeightFamilies.dimY D j • laR T j wL k) τ b + 2 * (laR T j wL k τ a - laR T j wL k τ b) ≤ (laR T j wF k - kapW ((T.U j T.σ₀).X k) - WeightFamilies.dimY D j • laR T j wL k) τ a := by
   intro D T h j hj large₂ H C2 A2 CR CT ka wL wF Tn nP nW h0 hP hjm _ k
@@ -216,30 +186,22 @@ theorem run_weight_dom_definite : ∀ (D : D7) (T : Top D) (h : LawsP T) (j : �
   · obtain ⟨-, -, k3, -, -⟩ := key τ
     simp only [Pi.sub_apply, nsmul_eq_mul, ReciprocityTheory.ChartRestriction.G.AR.Inst.kapW]
     exact k3 a b hab (by omega)
-
 end GlobalTheory.RunWeightDomDef
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.RunWeightDominantAndGapsDefiniteCase =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ThetaArchimedeanDataDefiniteModelsNonempty =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ThetaArchimedeanDataDefiniteModelsNonempty", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.HeightFunctions.GrowthConstantBoundGcR\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ValAtAlgebraMap\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.ExistsCuspFormNonzeroEveryComponent\npublic import Development.AbelianVarietyTheory.Proofs.GenericRegularity.GenFrExAndGenFromTest\npublic import Development.AbelianVarietyTheory.Definitions.ThetaValues.Generic\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CurvatureMarginsDefiniteCase\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ExistsCompactOfDefinite\npublic import Formalism.SharpRestriction.GenusPolyhedralBounds.RelativeIndexClassSets.AdmissibleModuleIffLatticeQuotients\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.RunWeightDominantAndGapsDefiniteCase\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.TranscendenceDegreeRatiosCuspFormsComponents\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.BigStatementPfB\npublic import ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.UpDivStatementPfD\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ComponentModelWeightDimensionDictionary\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.MemSpanCuspReadingsIffComponents\nimport Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.BasePsiLeviLowerBound\nimport Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.PoincarePointwiseStatement\nimport Formalism.LocalToGlobal.ProjectiveLattices.ESecPfA\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.ArakelovInstances.FirstMinimumInvariantContinuousPos\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.ArakelovInstances.PointwiseNormInvarianceHolds\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.RhGradStatementPfB\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.CoefficientConvolutionOfSubCoefficients\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.DIV.Cons Formalism.MainNotions.Gaps Formalism.MainNotions.Gaps.EtaleWeightGaps Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.RunJoin
-
+end
+end
 noncomputable section
-
+section
+open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.DIV.Cons Formalism.MainNotions.Gaps Formalism.MainNotions.Gaps.EtaleWeightGaps Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G ReciprocityTheory.ChartRestriction.G.Geo.Tor GlobalTheory.RunJoin
 namespace GlobalTheory.ArchDefinite
-
 section Model
 
 open ReciprocityTheory.ChartRestriction.G.FD ReciprocityTheory.ChartRestriction.G.AR.Inst ReciprocityTheory.ChartRestriction.G.AR.Up
 
 variable {E : Type} [Field E] [NumberField E] [IsCMField E] {r : ℕ}
 
-theorem exists_pos_le_firstMinimum_definiteForm (X : Data E r) (hr : 0 < r) (hp : X.p0 = 0) :
+section
+variable (X : Data E r)
+theorem exists_pos_le_firstMinimum_definiteForm (hr : 0 < r) (hp : X.p0 = 0) :
     ∃ ε : ℝ, 0 < ε ∧ ∀ x ∈ X.dom, ε ≤ X.la1 x := by
   obtain ⟨C, hCc, hCd, hcov⟩ := GlobalTheory.DefiniteFrames.exists_compact_of_definite E r X (Or.inl hp)
   rcases C.eq_empty_or_nonempty with hCe | hCne
@@ -254,7 +216,7 @@ theorem exists_pos_le_firstMinimum_definiteForm (X : Data E r) (hr : 0 < r) (hp 
     have hle : X.la1 y ≤ X.la1 (lact γ (rmul x b)) := isMinOn_iff.mp hmin _ hmem
     rwa [ReciprocityTheory.ChartRestriction.G.AR.Inst.firstMinimum_biinvariant X hγ hx hb] at hle
 
-private theorem pnorm_pos_of_ne_zero' (X : Data E r) (la : Wt X.Ψ r) (P : Frame X.Ψ r → ℂ) {x : Frame X.Ψ r}
+private theorem pnorm_pos_of_ne_zero' (la : Wt X.Ψ r) (P : Frame X.Ψ r → ℂ) {x : Frame X.Ψ r}
     (hx : x ∈ X.dom) (h : P x ≠ 0) : 0 < X.pnorm la P x := by
   have hd : ∀ (τ : X.Ψ) (i : Fin (r + 1)), dmin X.Gm x τ i ≠ 0 := by
     intro τ i h0
@@ -265,7 +227,7 @@ private theorem pnorm_pos_of_ne_zero' (X : Data E r) (la : Wt X.Ψ r) (P : Frame
   refine mul_pos (norm_pos_iff.mpr h) (Finset.prod_pos fun τ _ => Finset.prod_pos fun i _ => ?_)
   exact Real.rpow_pos_of_pos (norm_pos_iff.mpr (div_ne_zero (hd τ _) (hd τ _))) _
 
-theorem exists_le_sum_sq (X : Data E r) (hp : X.p0 = 0) (la : Wt X.Ψ r) {N : ℕ}
+theorem exists_le_sum_sq (hp : X.p0 = 0) (la : Wt X.Ψ r) {N : ℕ}
     (P : Fin N → Frame X.Ψ r → ℂ) (hP : ∀ i, X.IsSec la (P i)) (hz : ∀ x ∈ X.dom, ∃ i, P i x ≠ 0) :
     ∃ c : ℝ, 0 < c ∧ ∀ x ∈ X.dom, c ≤ ∑ i, X.pnorm la (P i) x ^ 2 := by
   obtain ⟨C, hCc, hCd, hcov⟩ := GlobalTheory.DefiniteFrames.exists_compact_of_definite E r X (Or.inl hp)
@@ -295,6 +257,7 @@ theorem exists_le_sum_sq (X : Data E r) (hp : X.p0 = 0) (la : Wt X.Ψ r) {N : �
     obtain ⟨γ, hγ, b, hb, hmem⟩ := hcov x hx
     have hle := isMinOn_iff.mp hmin _ hmem
     rwa [hinv x hx γ hγ b hb] at hle
+end
 
 private theorem antitone_of_succ_le_torus_haar_measure {r : ℕ} (f : Fin r → ℤ) (hf : ∀ a b : Fin r, (b : ℕ) = a + 1 → f b ≤ f a) :
     ∀ a b : Fin r, a ≤ b → f b ≤ f a := by
@@ -307,7 +270,9 @@ private theorem antitone_of_succ_le_torus_haar_measure {r : ℕ} (f : Fin r → 
     intro hb
     exact (hf ⟨n, by omega⟩ ⟨n + 1, hb⟩ rfl).trans (ih (by omega))
 
-private theorem exists_injective_leviM_eq_sum_weight_sq (X : Data E r) (hp : X.p0 = 0) (x0 : Frame X.Ψ r) (z : ReciprocityTheory.L2DbarEstimates.V (nd X))
+section
+variable (X : Data E r)
+private theorem exists_injective_leviM_eq_sum_weight_sq (hp : X.p0 = 0) (x0 : Frame X.Ψ r) (z : ReciprocityTheory.L2DbarEstimates.V (nd X))
     (hz : cpt X x0 z ∈ X.dom) :
     ∃ D : (Fin (nd X) → ℂ) →ₗ[ℂ] (Fin (nd X) → ℂ), Function.Injective D ∧ ∀ (la : Wt X.Ψ r) ξ,
       leviM X (phla X la) x0 z ξ = ∑ e : Ent X,
@@ -320,7 +285,7 @@ private theorem exists_injective_leviM_eq_sum_weight_sq (X : Data E r) (hp : X.p
   refine Finset.sum_congr rfl fun e _ => ?_
   simp [sgn, hp]
 
-private theorem leviM_pos_of_isStrictDom (X : Data E r) (hp : X.p0 = 0) (la : Wt X.Ψ r) (hla : IsStrictDom X la)
+private theorem leviM_pos_of_isStrictDom (hp : X.p0 = 0) (la : Wt X.Ψ r) (hla : IsStrictDom X la)
     (x0 : Frame X.Ψ r) (hx0 : x0 ∈ X.dom) (z : ReciprocityTheory.L2DbarEstimates.V (nd X)) (hz : cpt X x0 z ∈ X.dom) (ξ : Fin (nd X) → ℂ)
     (hξ : ξ ≠ 0) : 0 < leviM X (phla X la) x0 z ξ := by
   obtain ⟨D, hD, hl⟩ := exists_injective_leviM_eq_sum_weight_sq X hp x0 z hz
@@ -346,7 +311,7 @@ private theorem leviM_pos_of_isStrictDom (X : Data E r) (hp : X.p0 = 0) (la : Wt
     exact pow_pos (norm_pos_iff.mpr hm') 2
   exact mul_pos h1 h2
 
-theorem exists_archInM (X : Data E r) (hr : 0 < r) (hp : X.p0 = 0) (hΨ : Nonempty X.Ψ) (L F : Wt X.Ψ r) (T N : ℕ)
+theorem exists_archInM (hr : 0 < r) (hp : X.p0 = 0) (hΨ : Nonempty X.Ψ) (L F : Wt X.Ψ r) (T N : ℕ)
     (hn : 2 ≤ nd X) (hT : 11 * nd X ^ 2 ≤ T) (hL : IsStrictDom X L)
     (hgap : ∀ (τ : X.Ψ) (a b : Fin r), (b : ℕ) = a + 1 →
       (F - kapW X - nd X • L) τ b + 2 * (L τ a - L τ b) ≤ (F - kapW X - nd X • L) τ a)
@@ -483,6 +448,7 @@ theorem exists_archInM (X : Data E r) (hr : 0 < r) (hp : X.p0 = 0) (hΨ : Nonemp
         exact mul_le_mul_of_nonneg_right h' (by positivity)⟩ }
   refine ⟨Xa, rfl, k0, rfl, rfl, rfl, rfl, fun a => rfl, by norm_num [Xa], fun x => one_mul _, ?_⟩
   exact _root_.GlobalTheory.Shares.margins_of_definite E r X Xa hp hΨ (fun _ => rfl) hL hA
+end
 
 end Model
 
@@ -562,24 +528,10 @@ theorem archAt_nonempty_of_definite : ∀ (D : D7) (T : Top D) (h : LawsP T) (EX
     refine Fin.cases ?_ (fun b => ?_) a
     · simp only [Fin.cons_zero]; rw [pow_one, het k, map_pow]; rfl
     · simp only [Fin.cons_succ]; rw [hw k, map_pow]; rfl
-
 end GlobalTheory.ArchDefinite
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ThetaArchimedeanDataDefiniteModelsNonempty =====
-
--- ===== clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CuspFormBasisSharesDefiniteLiftIndex =====
--- clump-header: {"m": "Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CuspFormBasisSharesDefiniteLiftIndex", "h": "module\n\npublic import Development.AbelianVarietyTheory.Definitions.HeightFunctions.GrowthConstantBoundGcR\npublic import Development.AbelianVarietyTheory.Definitions.ThetaValues.Generic\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ArchimedeanFlatDecompositionIndexing\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.CuspFormVanishingAtPointsMulPowMemSpan\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.CuspFormVanishingLowCoeffMemLeadingAddDeepSpan\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsAlgIndependentCoeffsFlatDatum\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsBaseEmbeddingReadingForms\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ExistsValueBasisInSpanningForms\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.FinrankLowerBoundCuspFormVanishingLowCoeff\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.InBasisIffPointValuesLinearIndependentSpan\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.InContainMROfAnFacts\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.LeadingProductsIndependentModuloDeepProducts\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.NonemptyHeightOneSpectrumRingOfIntegers\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.PointsInterpolationGenericSections\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ShareRdOfInBasis\npublic import Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ShareRhoROfAnFacts\npublic import Development.AbelianVarietyTheory.Proofs.ThetaShiftProofs.ReadingsCuspAndIndependent\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CuspReadingsSpanModelFormsShiftedWeights\npublic import Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ThetaArchimedeanDataDefiniteModelsNonempty\npublic import Formalism.LocalToGlobal.ProjectiveLattices.OneCusp\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.ComponentModelWeightDimensionDictionary\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.GenericSectionsPolynomialDictionary\nimport Development.AbelianVarietyTheory.Proofs.CuspFormEvaluations.MemSpanCuspReadingsIffComponents\nimport Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ExistsIndepForms\nimport Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.ExistsLtMulOfLt\nimport Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.FirstMinimumInvariantContinuousPosOnFrames\nimport Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.NmatZeroMemBor\nimport Formalism.LocalRingCardinality.HeightBoundGeFourthPowerRank\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.ArakelovVolumes.UpperBounds.KronHolPsiStatementHolds\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.BoundedSectionAlgebra\nimport ReciprocityTheory.ReductiveGroups.ArithmeticGeometry.FundamentalDomains.SiegelSpaceAlgebraHolds\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
+end
 namespace GlobalTheory.SharesDefinite
-
 open NumberField IsDedekindDomain Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.WeightAlgebra Formalism.MainNotions.Gaps Formalism.MainNotions.Gaps.EtaleWeightGaps Formalism.L2.Pj ReciprocityTheory.ChartRestriction.G.Geo.Tor ReciprocityTheory.ChartRestriction.G.FD ReciprocityTheory.ChartRestriction.G.AR.Inst ReciprocityTheory.ChartRestriction.G.AR.Up GlobalTheory.RunIn GlobalTheory.Shares
-
 section Lower
 
 open GlobalTheory.LowerBound
@@ -825,9 +777,3 @@ theorem sharesDef : GlobalTheory.RunJoin.SharesDefSt := by
   obtain ⟨R, t, δ, xs, hg, hF⟩ := exists_anFacts_definite D T h _ hj (SecNorm.sup _) G₀.N wL wF G₀.w Tn 7 _ 1 hp A hOn hM
   obtain ⟨hg', hF'⟩ := anFacts_back (recPJ h D.R.m hj) _ _ (SecNorm.sup _) R G₀.w t Tn 7 _ xs hg hF
   exact sharesAt_of_anFacts _ G₀ S Tn _ _ t xs hg' hF' rfl (two_le_dimY hj) hT hL hsh Sh hSh
-
-end GlobalTheory.SharesDefinite
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Development.AbelianVarietyTheory.Proofs.TorusHaarMeasure.CuspFormBasisSharesDefiniteLiftIndex =====
