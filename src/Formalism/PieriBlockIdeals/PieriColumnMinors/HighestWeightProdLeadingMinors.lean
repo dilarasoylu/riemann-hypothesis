@@ -23,20 +23,10 @@ import Mathlib.Algebra.Order.Star.Int
 import Mathlib.Algebra.Ring.IsFormallyReal
 import Mathlib.Tactic.TypeStar
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PieriBlockIdeals.LastGradedOfGradedAlone, Formalism.PieriBlockIdeals.PieriColumnMinors.HighestWeightProdLeadingMinors
-
--- ===== clump member: Formalism.PieriBlockIdeals.LastGradedOfGradedAlone =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.LastGradedOfGradedAlone", "h": "module\n\npublic import Formalism.PieriBlockIdeals.BranchingBoundLastGradedOneRow\npublic import Mathlib.LinearAlgebra.Matrix.Adjugate\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 open MvPolynomial
-
 namespace Formalism.CohomologicalDescent.LD
-
 open Formalism.GradedWeylDivisibility
-
 def dualWt {r : ℕ} (M : ℕ) (κ : Fin r → ℕ) : Fin r → ℕ := fun a => M - κ (Fin.rev a)
 
 def DualWtSpec : Prop :=
@@ -91,23 +81,7 @@ def CofCof : Prop :=
 def ExpDualOfLattices : Prop := NablaDual → WeylDual → DualWeight → CofCof → ExpDual
 
 def LastGradedOfGradedAlone : Prop := LemmaDGraded → LemmaDLastGraded
-
-end Formalism.CohomologicalDescent.LD
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.LastGradedOfGradedAlone =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.HighestWeightProdLeadingMinors =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.HighestWeightProdLeadingMinors", "h": "module\n\npublic import Formalism.PieriBlockIdeals.LastGradedOfGradedAlone\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.HighestWeightShiftEqDetMul\npublic import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LBidetMinor\npublic import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LGradedLemmas\npublic import Mathlib.LinearAlgebra.Matrix.Transvection\nimport Formalism.GradedWeylDivisibility.DualWeylDominanceOf\nimport Formalism.GradedWeylDivisibility.FinalC\nimport Formalism.GradedWeylDivisibility.FockSpaceTableaux.HWRaise\nimport Formalism.GradedWeylDivisibility.FockSpaceTableaux.LBidetLemmas\nimport Formalism.GradedWeylDivisibility.FockSpaceTableaux.LBidetdomLemmas\npublic import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LDrowLemmas\npublic import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LEhwLemmas\nimport Formalism.GradedWeylDivisibility.FockSpaceTableaux.LHwrowLemmas\npublic import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LRowdivLemmas\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.LastGradedImpliesOneBlock\nimport Formalism.PieriBlockIdeals.PieriColumnMinors.ProdInitialMinorsMemDetSpan\nimport Mathlib.Algebra.AffineMonoid.Basic\nimport Mathlib.Algebra.AffineMonoid.UniqueSums\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Algebra.Ring.IsFormallyReal\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MvPolynomial
-
-namespace Formalism.CohomologicalDescent.LD
-
-open Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LA
-
+open Formalism.CohomologicalDescent.LA
 theorem dualWtSpec : DualWtSpec := by
   intro r M κ
   refine ⟨fun h => ?_, fun a => Nat.sub_le _ _, fun h a b hab => ?_⟩
@@ -385,17 +359,20 @@ def finSumEquivOfAddEq {r s t : ℕ} (h : s + t = r) : Fin s ⊕ Fin t ≃ Fin r
   ((Equiv.sumCongr Fin.revPerm (Equiv.refl (Fin t))).trans (Equiv.sumComm _ _)).trans
     (finSumFinEquiv.trans (finCongr (by omega)))
 
-theorem ld3Gam_inl {r s t : ℕ} (h : s + t = r) (q : Fin s) :
+section
+variable {r s t : ℕ} (h : s + t = r)
+theorem ld3Gam_inl (q : Fin s) :
     finSumEquivOfAddEq h (Sum.inl q) = Fin.rev (Fin.castLE (by omega) q) := by
   apply Fin.ext
   have := q.isLt
   simp [finSumEquivOfAddEq]
   omega
 
-theorem ld3Gam_inr {r s t : ℕ} (h : s + t = r) (q : Fin t) :
+theorem ld3Gam_inr (q : Fin t) :
     finSumEquivOfAddEq h (Sum.inr q) = Fin.castLE (by omega) q := by
   apply Fin.ext
   simp [finSumEquivOfAddEq]
+end
 
 theorem gen_det_eq_det (r : ℕ) : genDet r = genericDet ℤ r := rfl
 
@@ -460,7 +437,9 @@ theorem cofactor_leading_minor {r s t : ℕ} (h : s + t = r) (hs : s ≤ r) (ht 
   rw [e1, e2, Fintype.card_fin, Matrix.det_submatrix_equiv_self] at J
   exact J
 
-theorem cofactor_bideterminant {r K : ℕ} (sz : Fin K → ℕ) (hsz : ∀ k, sz k ≤ r) (I : ∀ k, Fin (sz k) → Fin r) :
+section
+variable {r K : ℕ} (sz : Fin K → ℕ)
+theorem cofactor_bideterminant (hsz : ∀ k, sz k ≤ r) (I : ∀ k, Fin (sz k) → Fin r) :
     ∃ g ∈ dualWeyl ℤ r r (∑ k, initW r (r - sz k)),
       genericDet ℤ r ^ K * cofMap r (bideterminant ℤ sz hsz I) = genericDet ℤ r ^ (∑ k, sz k) * g := by
   choose g hg hg' using fun k => cofactor_initial_minor (Nat.add_sub_cancel' (hsz k)) (I k) (hsz k)
@@ -470,7 +449,7 @@ theorem cofactor_bideterminant {r K : ℕ} (sz : Fin K → ℕ) (hsz : ∀ k, sz
   simp only [← hg']
   rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ, Fintype.card_fin]
 
-theorem shape_complement_sum {r K : ℕ} (sz : Fin K → ℕ) (t : Fin r) :
+theorem shape_complement_sum (t : Fin r) :
     (∑ k, initW r (r - sz k)) t + shapeDeg sz (Fin.rev t) = K := by
   unfold shapeDeg
   rw [Finset.sum_apply, Finset.card_filter, ← Finset.sum_add_distrib]
@@ -483,15 +462,18 @@ theorem shape_complement_sum {r K : ℕ} (sz : Fin K → ℕ) (t : Fin r) :
   rw [Finset.sum_congr rfl fun k _ => h k]
   simp
 
-theorem shape_total_degree {r K : ℕ} (sz : Fin K → ℕ) (hsz : ∀ k, sz k ≤ r) :
+theorem shape_total_degree (hsz : ∀ k, sz k ≤ r) :
     ∑ k, sz k = ∑ t : Fin r, shapeDeg sz t := by
   have e := sum_min_eq_shapeDeg sz hsz r
   have e1 : ∀ k', min r (sz k') = sz k' := fun k' => min_eq_right (hsz k')
   simp only [e1] at e
   rw [Finset.filter_true_of_mem (fun t _ => t.isLt)] at e
   exact e
+end
 
-theorem det_pow_mul_mem_dual_weyl {r : ℕ} (ν : Fin r → ℕ) (c : ℕ) {g : MvPolynomial (Fin r × Fin r) ℤ}
+section
+variable {r : ℕ} (ν : Fin r → ℕ)
+theorem det_pow_mul_mem_dual_weyl (c : ℕ) {g : MvPolynomial (Fin r × Fin r) ℤ}
     (hg : g ∈ dualWeyl ℤ r r ν) : genericDet ℤ r ^ c * g ∈ dualWeyl ℤ r r (fun a => ν a + c) := by
   induction c with
   | zero => simpa using hg
@@ -499,7 +481,7 @@ theorem det_pow_mul_mem_dual_weyl {r : ℕ} (ν : Fin r → ℕ) (c : ℕ) {g : 
     rw [pow_succ', mul_assoc]
     exact det_mul_mem_dual_weyl_shift (fun a => ν a + c) ih
 
-theorem dual_weyl_shift_eq_det_pow_mul {r : ℕ} (ν : Fin r → ℕ) (hν : Antitone ν) (c : ℕ)
+theorem dual_weyl_shift_eq_det_pow_mul (hν : Antitone ν) (c : ℕ)
     {f : MvPolynomial (Fin r × Fin r) ℤ} (hf : f ∈ dualWeyl ℤ r r (fun a => ν a + c)) :
     ∃ g ∈ dualWeyl ℤ r r ν, f = genericDet ℤ r ^ c * g := by
   induction c generalizing f with
@@ -509,6 +491,7 @@ theorem dual_weyl_shift_eq_det_pow_mul {r : ℕ} (ν : Fin r → ℕ) (hν : Ant
     obtain ⟨y, rfl⟩ := det_dvd_of_mem_dual_weyl_shift (fun a => ν a + c) hν' hf
     obtain ⟨g, hg, rfl⟩ := ih (mem_dual_weyl_of_det_mul (fun a => ν a + c) hf)
     exact ⟨g, hg, by rw [pow_succ', mul_assoc]⟩
+end
 
 theorem genericDet_pow_ne_zero (r c : ℕ) : genericDet ℤ r ^ c ≠ 0 := pow_ne_zero _ (generic_det_ne_zero r)
 
@@ -709,7 +692,9 @@ theorem cofCof : CofCof := by
   rw [← pow_mul] at h
   exact h
 
-theorem generator_diag_variable {r : ℕ} (a : Fin r) (v : Fin r × Fin r) :
+section
+variable {r : ℕ} (a : Fin r)
+theorem generator_diag_variable (v : Fin r × Fin r) :
     rowGen ℤ a a (X v) = Polynomial.C (X v) * (1 + Polynomial.X) ^ (lgraded_wa (n := r) a v) := by
   rw [rowGen, aeval_X]
   unfold lgraded_wa
@@ -720,11 +705,11 @@ theorem generator_diag_variable {r : ℕ} (a : Fin r) (v : Fin r × Fin r) :
     ring
   · simp
 
-theorem generator_diag_constant {r : ℕ} (a : Fin r) (c : ℤ) :
+theorem generator_diag_constant (c : ℤ) :
     rowGen ℤ a a (C c : MvPolynomial (Fin r × Fin r) ℤ) = Polynomial.C (C c) := by
   rw [← MvPolynomial.algebraMap_eq, AlgHom.commutes, Polynomial.algebraMap_apply, MvPolynomial.algebraMap_eq]
 
-theorem generator_diag_monomial {r : ℕ} (a : Fin r) (m : Fin r × Fin r →₀ ℕ) (c : ℤ) :
+theorem generator_diag_monomial (m : Fin r × Fin r →₀ ℕ) (c : ℤ) :
     rowGen ℤ a a (monomial m c) =
       Polynomial.C (monomial m c) * (1 + Polynomial.X) ^ (Finsupp.weight (lgraded_wa a) m) := by
   rw [monomial_eq, map_mul, Finsupp.prod, map_prod, generator_diag_constant]
@@ -734,7 +719,7 @@ theorem generator_diag_monomial {r : ℕ} (a : Fin r) (m : Fin r × Fin r →₀
   simp_rw [map_pow, smul_eq_mul, mul_comm (lgraded_wa a _)]
   ring
 
-theorem divided_power_diag_weight_vector {r : ℕ} (a : Fin r) (k : ℕ) (μ : Fin r → ℕ) (y : MvPolynomial (Fin r × Fin r) ℤ)
+theorem divided_power_diag_weight_vector (k : ℕ) (μ : Fin r → ℕ) (y : MvPolynomial (Fin r × Fin r) ℤ)
     (hy : IsWeightedHomogeneous (rowW r r) y μ) : rowDiv ℤ a a k y = ((μ a).choose k : ℤ) • y := by
   have h1 : rowDivL ℤ a a k y = ((μ a).choose k : ℤ) • y := by
     conv_lhs => rw [y.as_sum]
@@ -746,17 +731,20 @@ theorem divided_power_diag_weight_vector {r : ℕ} (a : Fin r) (k : ℕ) (μ : F
       ← lgraded_weight_rowW, hy (mem_support_iff.mp hd), smul_eq_C_mul, mul_comm]
     simp
   exact h1
+end
 
 def columnWeight {r : ℕ} (c : Fin r) : Fin r × Fin r → ℤ := fun v => ((lgraded_wa (n := r) c v : ℕ) : ℤ)
 
-theorem weight_wc_eq_degree {r : ℕ} (c : Fin r) (d : Fin r × Fin r →₀ ℕ) :
+section
+variable {r : ℕ}
+theorem weight_wc_eq_degree (c : Fin r) (d : Fin r × Fin r →₀ ℕ) :
     Finsupp.weight (columnWeight c) d = ((Finsupp.weight (rowW r r) d c : ℕ) : ℤ) := by
   rw [lgraded_weight_rowW, Finsupp.weight_apply, Finsupp.weight_apply, Finsupp.sum, Finsupp.sum]
   push_cast
   refine Finset.sum_congr rfl fun v _ => ?_
   simp [columnWeight]
 
-theorem divided_power_weight_vector {r : ℕ} (a b : Fin r) (k : ℕ) (μ : Fin r → ℕ) (y : MvPolynomial (Fin r × Fin r) ℤ)
+theorem divided_power_weight_vector (a b : Fin r) (k : ℕ) (μ : Fin r → ℕ) (y : MvPolynomial (Fin r × Fin r) ℤ)
     (hy : IsWeightedHomogeneous (rowW r r) y μ) :
     ∃ μ', IsWeightedHomogeneous (rowW r r) (rowDiv ℤ a b k y) μ' := by
   by_cases h0 : rowDiv ℤ a b k y = 0
@@ -783,11 +771,11 @@ theorem divided_power_weight_vector {r : ℕ} (a b : Fin r) (k : ℕ) (μ : Fin 
     rw [← h2] at h1
     exact_mod_cast h1
 
-theorem eq_sum_weighted_components {r : ℕ} (x : MvPolynomial (Fin r × Fin r) ℤ) :
+theorem eq_sum_weighted_components (x : MvPolynomial (Fin r × Fin r) ℤ) :
     ∃ S : Finset (Fin r → ℕ), x = ∑ μ ∈ S, weightedHomogeneousComponent (rowW r r) μ x :=
   ⟨_, by rw [← finsum_eq_sum _ (weightedHomogeneousComponent_finsupp x), sum_weightedHomogeneousComponent]⟩
 
-theorem weyl_le_of_stable_submodule {r : ℕ} (ν : Fin r → ℕ) (hν : Antitone ν) (L : Submodule ℤ (MvPolynomial (Fin r × Fin r) ℤ))
+theorem weyl_le_of_stable_submodule (ν : Fin r → ℕ) (hν : Antitone ν) (L : Submodule ℤ (MvPolynomial (Fin r × Fin r) ℤ))
     (h0 : hw ℤ le_rfl ν ∈ L)
     (hs : ∀ a b : Fin r, a ≠ b → ∀ (k : ℕ) (f : MvPolynomial (Fin r × Fin r) ℤ), f ∈ L → rowDiv ℤ a b k f ∈ L) :
     weyl ℤ r r le_rfl ν ≤ L := by
@@ -834,6 +822,7 @@ theorem weyl_le_of_stable_submodule {r : ℕ} (ν : Fin r → ℕ) (hν : Antito
       rw [divided_power_diag_weight_vector a k μ' _ hh]
       exact L.smul_mem _ (hf μ')
     · exact hs a b hab k _ (hf μ')
+end
 
 theorem eval_neg_x_coeff {S : Type*} [CommRing S] (φ : S →+* S) (p : Polynomial S) (k : ℕ) :
     (Polynomial.eval₂ (Polynomial.C.comp φ) (-Polynomial.X) p).coeff k = (-1) ^ k * φ (p.coeff k) := by
@@ -858,7 +847,9 @@ theorem adjugate_transvection' {S : Type*} [CommRing S] {n : Type*} [Fintype n] 
     _ = Matrix.transvection i j (-c) := by
         rw [← Matrix.mul_assoc, Matrix.adjugate_mul, Matrix.det_transvection_of_ne i j h, one_smul, Matrix.one_mul]
 
-theorem generator_map_generic_matrix {r : ℕ} (a b : Fin r) : (rowGen ℤ a b).mapMatrix (genericMatrix' ℤ r) =
+section
+variable {r : ℕ} (a b : Fin r)
+theorem generator_map_generic_matrix : (rowGen ℤ a b).mapMatrix (genericMatrix' ℤ r) =
     Matrix.transvection b a Polynomial.X * Polynomial.C.mapMatrix (genericMatrix' ℤ r) := by
   refine Matrix.ext fun p q => ?_
   by_cases hp : p = b
@@ -868,7 +859,7 @@ theorem generator_map_generic_matrix {r : ℕ} (a b : Fin r) : (rowGen ℤ a b).
   · rw [Matrix.transvection_mul_apply_of_ne _ _ _ _ hp]
     simp [rowGen_X, genericMatrix', hp]
 
-theorem cofactor_intertwines_generator {r : ℕ} (a b : Fin r) (hab : a ≠ b) (x : MvPolynomial (Fin r × Fin r) ℤ) :
+theorem cofactor_intertwines_generator (hab : a ≠ b) (x : MvPolynomial (Fin r × Fin r) ℤ) :
     rowGen ℤ a b (cofMap r x) =
       Polynomial.eval₂ (Polynomial.C.comp (cofMap r).toRingHom) (-Polynomial.X)
         (rowGen ℤ (Fin.rev b) (Fin.rev a) x) := by
@@ -892,25 +883,28 @@ theorem cofactor_intertwines_generator {r : ℕ} (a b : Fin r) (hab : a ≠ b) (
       simp [cofactor_of_variable, hc]
   exact congrArg (fun F => F x) key
 
-theorem divided_power_cofactor {r : ℕ} (a b : Fin r) (hab : a ≠ b) (k : ℕ) (x : MvPolynomial (Fin r × Fin r) ℤ) :
+theorem divided_power_cofactor (hab : a ≠ b) (k : ℕ) (x : MvPolynomial (Fin r × Fin r) ℤ) :
     rowDiv ℤ a b k (cofMap r x) = (-1) ^ k * cofMap r (rowDiv ℤ (Fin.rev b) (Fin.rev a) k x) := by
   unfold rowDiv
   rw [cofactor_intertwines_generator a b hab, eval_neg_x_coeff]
   rfl
 
-theorem divided_power_det_pow_mul {r : ℕ} (a b : Fin r) (hab : a ≠ b) (k n : ℕ) (f : MvPolynomial (Fin r × Fin r) ℤ) :
+theorem divided_power_det_pow_mul (hab : a ≠ b) (k n : ℕ) (f : MvPolynomial (Fin r × Fin r) ℤ) :
     rowDiv ℤ a b k (genericDet ℤ r ^ n * f) = genericDet ℤ r ^ n * rowDiv ℤ a b k f := by
   induction n with
   | zero => simp
   | succ n ih => rw [pow_succ', mul_assoc, divided_power_det_mul_of_ne ℤ a b hab, ih, mul_assoc]
+end
 
 noncomputable def leadingMinorPolynomial (r s : ℕ) : MvPolynomial (Fin r × Fin r) ℤ := if h : s ≤ r then lpMinor ℤ s h h else 1
 
 def partialSumOfExponents {r : ℕ} (ν : Fin r → ℕ) (s : ℕ) : ℕ := if h : s < r then ν ⟨s, h⟩ else 0
 
-theorem partial_sequence_val {r : ℕ} (ν : Fin r → ℕ) (s : Fin r) : partialSumOfExponents ν s.val = ν s := dif_pos s.isLt
+section
+variable {r : ℕ} (ν : Fin r → ℕ)
+theorem partial_sequence_val (s : Fin r) : partialSumOfExponents ν s.val = ν s := dif_pos s.isLt
 
-theorem partial_sequence_antitone {r : ℕ} (ν : Fin r → ℕ) (hν : Antitone ν) (s : ℕ) : partialSumOfExponents ν (s + 1) ≤ partialSumOfExponents ν s := by
+theorem partial_sequence_antitone (hν : Antitone ν) (s : ℕ) : partialSumOfExponents ν (s + 1) ≤ partialSumOfExponents ν s := by
   unfold partialSumOfExponents
   by_cases h : s + 1 < r
   · rw [dif_pos h, dif_pos (by omega)]
@@ -918,13 +912,13 @@ theorem partial_sequence_antitone {r : ℕ} (ν : Fin r → ℕ) (hν : Antitone
   · rw [dif_neg h]
     exact Nat.zero_le _
 
-theorem partial_sequence_top_eq_zero {r : ℕ} (ν : Fin r → ℕ) : partialSumOfExponents ν r = 0 := dif_neg (lt_irrefl r)
+theorem partial_sequence_top_eq_zero : partialSumOfExponents ν r = 0 := dif_neg (lt_irrefl r)
 
-theorem partial_sequence_sum {r : ℕ} (ν : Fin r → ℕ) : ∑ s ∈ Finset.range r, partialSumOfExponents ν s = ∑ a, ν a := by
+theorem partial_sequence_sum : ∑ s ∈ Finset.range r, partialSumOfExponents ν s = ∑ a, ν a := by
   rw [← Fin.sum_univ_eq_sum_range]
   exact Finset.sum_congr rfl fun s _ => partial_sequence_val ν s
 
-theorem highest_weight_prod_leading_minors {r : ℕ} (ν : Fin r → ℕ) :
+theorem highest_weight_prod_leading_minors :
     hw ℤ le_rfl ν = ∏ s ∈ Finset.range r, leadingMinorPolynomial r (s + 1) ^ (partialSumOfExponents ν s - partialSumOfExponents ν (s + 1)) := by
   rw [← Fin.prod_univ_eq_prod_range (fun s => leadingMinorPolynomial r (s + 1) ^ (partialSumOfExponents ν s - partialSumOfExponents ν (s + 1)))]
   unfold hw
@@ -932,6 +926,7 @@ theorem highest_weight_prod_leading_minors {r : ℕ} (ν : Fin r → ℕ) :
   have h1 : leadingMinorPolynomial r (s.val + 1) = lpMinor ℤ (s.val + 1) (by omega) (by omega) := dif_pos (by omega)
   have h2 : nuNext ν s = partialSumOfExponents ν (s.val + 1) := rfl
   rw [h1, h2, partial_sequence_val]
+end
 
 theorem cofactor_leading_minor_pow {r s t : ℕ} (h : s + t = r) :
     genericDet ℤ r * cofMap r (leadingMinorPolynomial r s) = genericDet ℤ r ^ s * leadingMinorPolynomial r t := by
@@ -977,13 +972,15 @@ theorem leading_minor_zero_eq_one (r s : ℕ) (hs : s = 0) : leadingMinorPolynom
   subst hs
   simp [leadingMinorPolynomial, lpMinor]
 
-theorem partial_sequence_dual {r : ℕ} (M : ℕ) (ν : Fin r → ℕ) (t : ℕ) (ht : t < r) :
+section
+variable {r : ℕ} (M : ℕ) (ν : Fin r → ℕ)
+theorem partial_sequence_dual (t : ℕ) (ht : t < r) :
     partialSumOfExponents (dualWt M ν) t = M - partialSumOfExponents ν (r - (t + 1)) := by
   unfold partialSumOfExponents dualWt
   rw [dif_pos ht, dif_pos (by omega)]
   rfl
 
-theorem highest_weight_dual_weight {r : ℕ} (M : ℕ) (ν : Fin r → ℕ) (hν : Antitone ν) (hM : ∀ a, ν a ≤ M) :
+theorem highest_weight_dual_weight (hν : Antitone ν) (hM : ∀ a, ν a ≤ M) :
     hw ℤ le_rfl (dualWt M ν) = genericDet ℤ r ^ (M - partialSumOfExponents ν 0) * ld3Q ν := by
   rcases r with _ | n
   · have h : genericDet ℤ 0 = 1 := by simp [genericDet]
@@ -1015,7 +1012,7 @@ theorem highest_weight_dual_weight {r : ℕ} (M : ℕ) (ν : Fin r → ℕ) (hν
     congr 1
     omega
 
-theorem highest_weight_dual_cofactor {r : ℕ} (M : ℕ) (ν : Fin r → ℕ) (hν : Antitone ν) (hM : ∀ a, ν a ≤ M) :
+theorem highest_weight_dual_cofactor (hν : Antitone ν) (hM : ∀ a, ν a ≤ M) :
     genericDet ℤ r ^ (∑ a, ν a) * hw ℤ le_rfl (dualWt M ν) = genericDet ℤ r ^ M * cofMap r (hw ℤ le_rfl ν) := by
   have h0 : partialSumOfExponents ν 0 ≤ M := by
     unfold partialSumOfExponents
@@ -1023,6 +1020,7 @@ theorem highest_weight_dual_cofactor {r : ℕ} (M : ℕ) (ν : Fin r → ℕ) (h
     · exact hM _
     · exact Nat.zero_le _
   rw [highest_weight_dual_weight M ν hν hM, mul_left_comm, ← cofactor_highest_weight ν hν, ← mul_assoc, ← pow_add, Nat.sub_add_cancel h0]
+end
 
 theorem weylDual : WeylDual := by
   intro r M ν hν hM
@@ -1123,8 +1121,3 @@ theorem expDual : ExpDual := expDualOfLattices nablaDual weylDual dualWeight cof
 theorem lastGradedOfGradedAlone : LastGradedOfGradedAlone := lastGradedOfGraded expDual
 
 alias last_graded_of_graded_alone := _root_.Formalism.CohomologicalDescent.LD.lastGradedOfGradedAlone
-
-end Formalism.CohomologicalDescent.LD
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.HighestWeightProdLeadingMinors =====

@@ -12,26 +12,15 @@ import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms
 import Mathlib.Tactic.Linter.Style
 import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.CoeffSubstLgFOfDegreeOne
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.IntegralExpParamOfEquivZero, Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveFirstVariable, Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveSecondVariable
-
--- ===== clump member: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.IntegralExpParamOfEquivZero =====
--- clump-header: {"m": "Formalism.SharpRestriction.GrowthBounds.MultisetValuation.IntegralExpParamOfEquivZero", "h": "module\n\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.PositivityConditionHolds\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.IntegralExpRename\npublic import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.CyclicPowerClassOfExpEquiv\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.SubstitutionOfVariables\nimport Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.LocalComponentGL\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.FormalGroupSystem.Pf
-
 open Formalism.MainNotions.G Formalism.BasicNotions Finset
 open Formalism.DworkPowerSeriesWeights (Integral mvExp)
+section
 open Formalism.InvariantFactorPaths.G7 (lgF Gser)
-
 attribute [local instance] Formalism.InvariantFactorPaths.G7.WModel.nf sx_charZero
-
 variable (p : ℕ) [hp : Fact p.Prime]
-
 theorem sx_logF_eq : logF p = lgF (K0 p) p := by
   ext n
   simp only [logF, lgF, PowerSeries.coeff_mk, pow_mul]
@@ -121,30 +110,11 @@ theorem integralExp_param_of_equiv_zero {σ : Type} [Finite σ] {f : MvPowerSeri
     have := th_inParam_sub p (0 : MvPowerSeries σ (K0 p)) 0
     simpa using this
   rwa [e, sub_zero] at this
-
-end Formalism.MainNotions.FormalGroupSystem.Pf
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.IntegralExpParamOfEquivZero =====
-
--- ===== clump member: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveFirstVariable =====
--- clump-header: {"m": "Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveFirstVariable", "h": "module\n\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.IntegralExpParamOfEquivZero\npublic import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.IsLawOfLog\nimport Formalism.SharpRestriction.GrowthBounds.MultisetValuation.SubstitutionOfVariables\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.MainNotions.FormalGroupSystem.Pf
-
-open Formalism.MainNotions.G Formalism.BasicNotions Finset
-open Formalism.DworkPowerSeriesWeights (Integral mvExp)
+end
+section
 open Formalism.InvariantFactorPaths.G7 (lgF Gser IsLawOfLog cob at1 in3 d1 swap2 DivAB BetaHyp)
-
 attribute [local instance] Formalism.InvariantFactorPaths.G7.WModel.nf sx_charZero
-
 variable (p : ℕ) [hp : Fact p.Prime]
-
 theorem sx_X_dvd_lX {σ : Type} (i : σ) : (MvPowerSeries.X i : MvPowerSeries σ (K0 p)) ∣ sx_lX p i := by
   have hs : PowerSeries.HasSubst (MvPowerSeries.X i : MvPowerSeries σ (K0 p)) :=
     PowerSeries.HasSubst.of_constantCoeff_zero (MvPowerSeries.constantCoeff_X i)
@@ -260,30 +230,10 @@ theorem biadditive_first_variable {F be : MvPowerSeries (Fin 2) (K0 p)} (hF : Is
   rw [key]
   first
     | exact equiv_zero_of_integralExp p (integralExp_param_of_equiv_zero p h.add1)
-
-end Formalism.MainNotions.FormalGroupSystem.Pf
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveFirstVariable =====
-
--- ===== clump member: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveSecondVariable =====
--- clump-header: {"m": "Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveSecondVariable", "h": "module\n\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.DworkExponentialRestrictions\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.PositivityConditionHolds\npublic import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.IsLawOfLog\npublic import Formalism.FormalGroupWitt.FormalGroupWittProofs.WittTeichmullerRoot\npublic import Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveFirstVariable\npublic import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FinalS\nimport Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FrobeniusLiftNorms.CoeffSubstLgFOfDegreeOne\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.MainNotions.FormalGroupSystem.Pf
-
-open Formalism.MainNotions.G Formalism.BasicNotions Finset
-open Formalism.DworkPowerSeriesWeights (Integral mvExp)
+end
 open Formalism.InvariantFactorPaths.G7 (lgF Gser IsLawOfLog cob at1 in3 d1 swap2 DivAB BetaHyp UnrOK)
-
 attribute [local instance] Formalism.InvariantFactorPaths.G7.WModel.nf sx_charZero
-
 variable {p : ℕ} [hp : Fact p.Prime]
-
 theorem sx_pair_hasSubst {τ : Type} {u v : MvPowerSeries τ (K0 p)} (hu : MvPowerSeries.constantCoeff u = 0)
     (hv : MvPowerSeries.constantCoeff v = 0) : MvPowerSeries.HasSubst ![u, v] :=
   MvPowerSeries.hasSubst_of_constantCoeff_zero (sx_two (τ := τ) hu hv)
@@ -418,9 +368,3 @@ theorem restBeta (p : ℕ) [hp : Fact p.Prime] : RestBeta p := by
   rw [hs] at hcc
   refine ⟨w, IsFractionRing.injective (WW p) (K0 p) hcc, ?_⟩
   exact integralExp_of_equiv p hS
-
-end Formalism.MainNotions.FormalGroupSystem.Pf
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.GrowthBounds.MultisetValuation.BiadditiveSecondVariable =====

@@ -18,23 +18,12 @@ import Mathlib.RingTheory.Henselian
 import Mathlib.RingTheory.RegularLocalRing.Defs
 import Mathlib.RingTheory.SimpleRing.Principal
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.Columns.CoefficientsModP.NabDual, Formalism.LocalToGlobal.Columns.CoefficientsModP
-
--- ===== clump member: Formalism.LocalToGlobal.Columns.CoefficientsModP.NabDual =====
--- clump-header: {"m": "Formalism.LocalToGlobal.Columns.CoefficientsModP.NabDual", "h": "module\n\npublic import Formalism.LocalToGlobal.Columns.CoefModB\npublic import Formalism.LocalToGlobal.Columns.CoefModX\npublic import Formalism.LocalToGlobal.Divisibility.CoefModLemmas\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.BaseCh\nimport Formalism.LocalToGlobal.Columns.CoefficientsModP.TauLatticeLatticeHolds\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
+noncomputable section
 open MvPolynomial NumberField IsDedekindDomain
 open scoped Matrix
-
-noncomputable section
-
 namespace Formalism.L2.DIV
-
 open Formalism.BasicNotions
-
 section
 
 variable {K : Type} [Field K] [NumberField K] [StarRing K] {ι : Type} [Fintype ι] {n : ℕ}
@@ -126,20 +115,9 @@ theorem nabDelDual_of (hD : NabDelDescent) (hK : PairBDualK) : NabDelDual := by
           exact H y hy y.2)
       x
     exact h
-
 end Formalism.L2.DIV
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.Columns.CoefficientsModP.NabDual =====
-
--- ===== clump member: Formalism.LocalToGlobal.Columns.CoefficientsModP =====
--- clump-header: {"m": "Formalism.LocalToGlobal.Columns.CoefficientsModP", "h": "module\n\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.FkMapInitMinor\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.FkPderivBlockEmbNe\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.PairingNondegenerateHolds\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.LatticeBasisExistsHolds\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.NablaIndependenceHolds\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.TauLatticeLatticeHolds\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.NablaRoundFreeHolds\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.WeTransposeWordTransposeWord\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.BaseCh\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.PairBDual\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.StdDual\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.NabDual\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 namespace Formalism.L2.DIV
-
 alias fockSTen := _root_.Formalism.L2.DIV.fockSymTensor_holds
 alias pairRat := _root_.Formalism.L2.DIV.pairingRational_holds
 alias actRat := _root_.Formalism.L2.DIV.actionRational_holds
@@ -157,8 +135,3 @@ theorem pairBDualStd : PairBDualStd := pairBDualStd_of weyl_eq_dual_nabla_holds
 theorem pairBDualK : PairBDualK := pairBDualK_of pairBDualStd
 theorem pairBDual : PairBDual := pairBDual_of pairBDualStd
 theorem nabDelDual : NabDelDual := nabDelDual_of nablaDeltaDescent_holds pairBDualK
-
-end Formalism.L2.DIV
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.Columns.CoefficientsModP =====

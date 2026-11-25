@@ -16,7 +16,6 @@ open Matrix NumberField Formalism.BasicNotions Formalism.MainNotions.S Formalism
 
 namespace Formalism.L2.SG.TermOp.Vanish
 
-open Formalism.L2.SG.Full
 
 section Asm
 

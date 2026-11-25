@@ -9,20 +9,10 @@ public import Formalism.LocalToGlobal.GlobalTheory.GL4.PStmtFree
 public import Formalism.SharpRestriction.Divisibility.SlopeExcess.HeightBoundOfComponentBounds
 import Formalism.SharpRestriction.SmoothDesignExistence.DGamSmooth
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.Divisibility.SlopeExcess.UniformSizeBoundOfOpenFamily, Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.ValueBounds.SlopeMaxB
-
--- ===== clump member: Formalism.SharpRestriction.Divisibility.SlopeExcess.UniformSizeBoundOfOpenFamily =====
--- clump-header: {"m": "Formalism.SharpRestriction.Divisibility.SlopeExcess.UniformSizeBoundOfOpenFamily", "h": "module\n\npublic import Formalism.SharpRestriction.AdmissibleParameterJoins.DIVfromGLm\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.DIV.Proofs
-
 open Formalism.BasicNotions Formalism.MainNotions
-
 theorem top2c2_dlSize (eps : ℝ) (Fm : FamP eps) : J.DlSize Fm := by
   unfold J.DlSize
   refine ⟨Fm.x1 + 1, fun x hx i => ?_⟩
@@ -30,24 +20,9 @@ theorem top2c2_dlSize (eps : ℝ) (Fm : FamP eps) : J.DlSize Fm := by
   obtain ⟨-, -, -, -, -, -, hQD, -⟩ := Fm.sizes x hx1 i
   obtain ⟨-, -, -, -, -, h, -⟩ := hQD
   exact h
-
 end Formalism.MainNotions.DIV.Proofs
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.Divisibility.SlopeExcess.UniformSizeBoundOfOpenFamily =====
-
--- ===== clump member: Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.ValueBounds.SlopeMaxB =====
--- clump-header: {"m": "Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.ValueBounds.SlopeMaxB", "h": "module\n\npublic import Formalism.SharpRestriction.Divisibility.SlopeExcess.ConstRankBaseLePolyFourth\npublic import Formalism.SharpRestriction.Divisibility.LocalQuadraticParts\npublic import Formalism.SharpRestriction.GlobalSchurBounds.FlipTwoThree\npublic import Formalism.LocalToGlobal.GlobalTheory.GL4.LowerSlopeInequalityFamily\npublic import Formalism.LocalToGlobal.GlobalTheory.GL4.PStmtFree\npublic import Formalism.SharpRestriction.Divisibility.SlopeExcess.HeightBoundOfComponentBounds\npublic import Formalism.SharpRestriction.Divisibility.SlopeExcess.UniformSizeBoundOfOpenFamily\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import Formalism.SharpRestriction.AdmissibleParameterJoins.DIVfromGLm\nimport Formalism.SharpRestriction.SmoothDesignExistence.DGamSmooth\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.L2.DIV.SlopeMaxB
-
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.Pk Formalism.MainNotions.DIV.Proofs Formalism.MainNotions.DIV.Proofs.HHParts
-
 theorem muMax_le_pol {D : D7} (L : SizeData₂ D) (hS : SizesAt L) (C CTu : ℝ)
     (hTu : ∀ u, Real.log ((D.mem u).A.T : ℝ) ≤ CTu * D.R.m * L.sc.L) (h : LocalQuadraticParts.FrobeniusExpansionCongruence L C) (u : D.what₂.Word) :
     ((D.fm u).lat 0).muMax ≤ |C| * (12 + 2 * |CTu|) * szPol L ^ 4 * L.sc.b := by
@@ -155,7 +130,9 @@ def BoundB {eps : ℝ} (Fm : FamP eps) (Eb : List ℝ → ℝ) : Prop :=
   ∃ x0 : ℝ, ∀ x ≥ x0, Fm.x1 < x → ∀ (i : Fm.Ix x) u,
     (((Fm.D x i).fm u).lat 0).muMax ≤ (Fm.L x i).sc.x ^ Eb Fm.cOut * (Fm.L x i).sc.b
 
-theorem boundB_of_slopes {eps : ℝ} (Fm : FamP eps) (hT : TuSize Fm) (h : LocalQuadraticParts.SlopesFamily Fm) : BoundB Fm EbMu := by
+section
+variable {eps : ℝ} (Fm : FamP eps)
+theorem boundB_of_slopes (hT : TuSize Fm) (h : LocalQuadraticParts.SlopesFamily Fm) : BoundB Fm EbMu := by
   obtain ⟨C, xa, h⟩ := h
   obtain ⟨xt, hT⟩ := hT
   refine ⟨max (max xa xt) (max 9 (|C| * (12 + 2 * |Fm.CTu|))), fun x hx hx1 i u => ?_⟩
@@ -171,18 +148,12 @@ theorem boundB_of_slopes {eps : ℝ} (Fm : FamP eps) (hT : TuSize Fm) (h : Local
   rw [hE]
   exact h1.trans h2
 
-theorem slopes_of_values {eps : ℝ} (Fm : FamP eps) (hT : TuSize Fm)
+theorem slopes_of_values (hT : TuSize Fm)
     (hCV : ∃ x0 : ℝ, ∀ x ≥ x0, ∀ (i : Fm.Ix x) u, Nonempty (flipTwoThree.ColVal (Fm.D x i) u)) : LocalQuadraticParts.SlopesFamily Fm :=
   J.slopes_family_of_column_values Fm hT (top2c2_dlSize eps Fm) (flipTwoThree.familySlopeLower_of_open Fm (Formalism.L2.GlobalTheoryTheory.TraceIntegrality.lower_slope_inequality_family Fm))
     (flipTwoThree.familySlopeMax_of_open Fm 4 (Formalism.L2.GlobalTheoryTheory.TraceIntegrality.slope_inequality_family_four Fm)) hCV
 
-theorem boundB_of_values {eps : ℝ} (Fm : FamP eps) (hT : TuSize Fm)
+theorem boundB_of_values (hT : TuSize Fm)
     (hCV : ∃ x0 : ℝ, ∀ x ≥ x0, ∀ (i : Fm.Ix x) u, Nonempty (flipTwoThree.ColVal (Fm.D x i) u)) : BoundB Fm EbMu :=
   boundB_of_slopes Fm hT (slopes_of_values Fm hT hCV)
-
-end Formalism.L2.DIV.SlopeMaxB
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.ValueBounds.SlopeMaxB =====

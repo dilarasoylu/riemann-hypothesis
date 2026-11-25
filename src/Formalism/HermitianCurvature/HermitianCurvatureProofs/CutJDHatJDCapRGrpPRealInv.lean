@@ -25,7 +25,6 @@ def JDRInvFn : Prop :=
 
 section poly
 
-open Formalism.FourierDecayAlt.P.PartialDerivativeAlgebra
 
 variable {k r : ℕ}
 

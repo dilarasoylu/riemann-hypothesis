@@ -13,22 +13,14 @@ import Aesop.Main
 import Mathlib.Tactic.Linter.Style
 import Std.Tactic.BVDecide.Normalize.Prop
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.HermitianCurvature.HermitianCurvatureProofs.LatticeSummability, Formalism.HermitianCurvature.HermitianCurvatureProofs.MajorantIntegrals, Formalism.HermitianCurvature.HermitianCurvatureProofs.PBCLat
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.LatticeSummability =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.LatticeSummability", "h": "module\n\npublic import Formalism.HermitianCurvature.LatticeHerglotzBound\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open MeasureTheory Set Finset Function
-
 noncomputable section
-
+section
+open MeasureTheory Set
+section
+open Finset Function
 namespace Formalism.FourierDecayAlt.P.LatticeSummability
-
 open Formalism.FourierDecayAlt.crystallineComparison
-
 theorem mfac_nonneg (K : ℕ) {L : ℝ} (hL : 0 ≤ L) (a : ℝ) (ha : 0 ≤ a) : 0 ≤ mfac K L a := by
   unfold mfac
   split_ifs
@@ -48,26 +40,10 @@ theorem mfac_anti (K : ℕ) {L : ℝ} (hL : 0 < L) {b b' : ℝ} (hb : 0 ≤ b) (
     rw [if_neg hb0, if_neg hb'0]
     refine min_le_min le_rfl (pow_le_pow_left₀ (div_nonneg hL.le (by linarith)) ?_ K)
     exact div_le_div_of_nonneg_left hL.le hbpos hbb
-
 end Formalism.FourierDecayAlt.P.LatticeSummability
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.LatticeSummability =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.MajorantIntegrals =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.MajorantIntegrals", "h": "module\n\npublic import Formalism.HermitianCurvature.LatticeHerglotzBound\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\npublic import Mathlib.MeasureTheory.Constructions.HaarToSphere\npublic import Mathlib.MeasureTheory.Measure.Lebesgue.VolumeOfBalls\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals\npublic import Mathlib.MeasureTheory.Integral.Pi\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MeasureTheory Set
-
-noncomputable section
-
+end
 namespace Formalism.FourierDecayAlt.P.MajorantIntegrals
-
 open Formalism.FourierDecayAlt.crystallineComparison
-
 theorem radial_eq (K : ℕ) (x : ℝ) (hx : 0 < x) (y : ℝ) (hy : 0 < y) :
     y ^ (Module.finrank ℝ ℂ - 1) • mfac K x y =
       if y ≤ x then y else x ^ K * y ^ ((1 : ℝ) - K) := by
@@ -129,29 +105,13 @@ theorem majIntegralProd_ok : MajIntegralProd := by
   have h2 := integral_fintype_prod_volume_eq_prod (ι := Fin f) (E := fun _ => ℂ)
     (fun v (l : ℂ) => mfac K (x v) ‖l‖)
   exact h2.trans (Finset.prod_congr rfl (fun v _ => (h1 v).2))
-
 end Formalism.FourierDecayAlt.P.MajorantIntegrals
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.MajorantIntegrals =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.PBCLat =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.PBCLat", "h": "module\n\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.PBCStmt\nimport Aesop.Main\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.LatticeSummability\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.LevelSizesJointMean\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.MajorantIntegrals\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.PeriodLatticeFactsSplitOfGeneral\npublic import Lemmata.GeneralBFactRightSide.Imports\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.MeasureTheory.Measure.Lebesgue.VolumeOfBalls\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.Order.CompletePartialOrder\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 namespace Formalism.FourierDecayAlt.P.PBC
-
 open Formalism.FourierDecayAlt Finset Filter Topology NumberField MeasureTheory
 open scoped Pointwise
-
-noncomputable section
-
 open Classical
-
 namespace Lat
-
 theorem rd_ge_one (E : Type) [Field E] [NumberField E] : 1 ≤ S6.rd E := by
   unfold S6.rd
   apply Real.one_le_rpow _ (by positivity)
@@ -250,7 +210,9 @@ theorem sizesSup : PBC.SizesSup := by
           Finset.prod_mul_distrib, Finset.prod_pow, Finset.prod_const, Finset.card_univ, Fintype.card_fin,
           ← pow_mul, mul_comm 2 S.f]
 
-theorem psi_add {f : ℕ} (a b : crystallineComparison.V f) : crystallineComparison.psi (a + b) = crystallineComparison.psi a * crystallineComparison.psi b := by
+section
+variable {f : ℕ}
+theorem psi_add (a b : crystallineComparison.V f) : crystallineComparison.psi (a + b) = crystallineComparison.psi a * crystallineComparison.psi b := by
   unfold crystallineComparison.psi
   rw [← Complex.exp_add, ← mul_add, ← Finset.sum_add_distrib]
   congr 2
@@ -258,9 +220,9 @@ theorem psi_add {f : ℕ} (a b : crystallineComparison.V f) : crystallineCompari
   simp only [Pi.add_apply, map_add (f := _)]
   ring
 
-theorem psi_zero {f : ℕ} : crystallineComparison.psi (0 : crystallineComparison.V f) = 1 := by simp [crystallineComparison.psi]
+theorem psi_zero : crystallineComparison.psi (0 : crystallineComparison.V f) = 1 := by simp [crystallineComparison.psi]
 
-theorem psi_single {f : ℕ} (v : Fin f) (w : ℂ) :
+theorem psi_single (v : Fin f) (w : ℂ) :
     crystallineComparison.psi (Pi.single v w : crystallineComparison.V f) = Complex.exp (2 * Real.pi * Complex.I * (w + (starRingEnd ℂ) w)) := by
   unfold crystallineComparison.psi
   congr 2
@@ -269,12 +231,13 @@ theorem psi_single {f : ℕ} (v : Fin f) (w : ℂ) :
   · intro u _ hu; simp [hu]
   · simp
 
-theorem mul_single {f : ℕ} (σ : crystallineComparison.V f) (v : Fin f) (w : ℂ) :
+theorem mul_single (σ : crystallineComparison.V f) (v : Fin f) (w : ℂ) :
     σ * (Pi.single v w : crystallineComparison.V f) = Pi.single v (σ v * w) := by
   funext u
   by_cases h : u = v
   · subst h; simp
   · simp [h]
+end
 
 def gen (f : ℕ) (R : ℝ) (p : Fin f × Bool) : crystallineComparison.V f :=
   Pi.single p.1 (if p.2 then (R : ℂ) * Complex.I else (R : ℂ))
@@ -556,12 +519,3 @@ theorem lstdSum : PBC.LstdSum := by
   have hdiff : 54 * (1 + x ^ 2) - (4 * x + 1) ^ 2 * 5 / 3 =
       (20 * (x - 1) ^ 2 + 62 * x ^ 2 + 137) / 3 := by ring
   linarith [sq_nonneg (x - 1), sq_nonneg x]
-
-end Lat
-
-end
-
-end Formalism.FourierDecayAlt.P.PBC
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.PBCLat =====

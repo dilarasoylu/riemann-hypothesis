@@ -18,54 +18,15 @@ import Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.Seve
 import Formalism.SizeWindowBrackets.ChainSlopeWindows.WeightedSlopeExcessDecomposition
 import Mathlib.Algebra.Ring.IsFormallyReal
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.GlobalTheory.Places, Formalism.LocalToGlobal.GlobalTheory.PlacesP
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.Places =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.Places", "h": "module\n\npublic import Formalism.SharpRestriction.Divisibility.LocalQuadraticParts\npublic import Formalism.SharpRestriction.GlobalSchurBounds.JointsF\npublic import Formalism.SharpRestriction.GlobalSchurBounds.TopDensityNGeSixteen\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.GlobalTheoryTheory.Places
-
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory
-
-def PlaceConditionsFamily : Prop :=
-  ∀ {eps : ℝ} (Fm : FamP eps) (crystallineComparison : ℝ), product_first_zeroth_parts.ConclusionOnFamily Fm crystallineComparison → SettingEventually Fm → TuSize Fm → J.MuRank Fm →
-    LinkG Fm → LinkMu Fm → Lnk.PlacesF Fm
-
-def SlopeBoundOfMuRank : Prop :=
-  ∀ {eps : ℝ} (Fm : FamP eps) (crystallineComparison : ℝ), product_first_zeroth_parts.ConclusionOnFamily Fm crystallineComparison → SettingEventually Fm → TuSize Fm → J.MuRank Fm →
-    LinkG Fm → LinkMu Fm → LocalQuadraticParts.SlopeLemmaFamily Fm
-
 def LevelPrimeSettingFamily : Prop := ∀ {eps : ℝ} (Fm : FamP eps), TuSize Fm → SettingEventually Fm
-
-def SlopeLemmaLinkForm : Prop :=
-  ∀ {eps : ℝ} (Fm : FamP eps) (Cabs CH C0 crystallineComparison : ℝ), 0 < C0 → product_first_zeroth_parts.ConclusionOnFamily Fm crystallineComparison → TuSize Fm →
-    ChosenE Fm C0 CH → GlobalTheoremInputs Fm Cabs CH C0 → LocalQuadraticParts.SlopeLemmaFamily Fm
-
 end Formalism.L2.GlobalTheoryTheory.Places
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.Places =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.PlacesP =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.PlacesP", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.Places\npublic import Formalism.SharpRestriction.AdmissibleParameterJoins.DIVfromGLm\npublic import Formalism.SharpRestriction.GrowthBounds.CornerGLContinuity\npublic import Formalism.SizeWindowBrackets.SlopesHypothesisFinitePlaces\nimport Formalism.LocalRingCardinality.Lemmas\npublic import Formalism.LogFactorialBounds.LogFactorialProofs.PrimeSum\npublic import Formalism.SharpRestriction.AdmissibleParameterJoins.DIVfromGLo\npublic import Formalism.SharpRestriction.GlobalSchurBounds.FrameCodeOfAdditive\nimport Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.SevenLogLeLOfPowerBound\npublic import Formalism.SharpRestriction.GlobalSchurBounds.JointsL\npublic import Formalism.SharpRestriction.GlobalSchurBounds.LinkPk\npublic import Formalism.SharpRestriction.GrowthBounds.TopChoiceBounds\npublic import Formalism.SizeWindowBrackets.ChainSlopeWindows.ExistsNsmulMem\nimport Formalism.SizeWindowBrackets.ChainSlopeWindows.WeightedSlopeExcessDecomposition\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Ring.IsFormallyReal\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
 open Module NumberField IsDedekindDomain
-
-noncomputable section
-
 namespace Formalism.L2.GlobalTheoryTheory.Places
-
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.GlobalTheoryTheory Formalism.HN Formalism.LFunctionChainParameters
-
 section General
 
 variable {K V : Type} [Field K] [NumberField K] [AddCommGroup V] [Module (𝓞 K) V]
@@ -569,7 +530,9 @@ end Sizes
 
 section Family
 
-theorem exists_tau_eq_natCast {D : D7} {L : SizeData₂ D} (X : G.Inst D L) (K : G.Consts) (a b : G.HH D → ℤ) (p : ℕ) :
+section
+variable {D : D7} {L : SizeData₂ D} (X : G.Inst D L) (K : G.Consts) (a b : G.HH D → ℤ)
+theorem exists_tau_eq_natCast (p : ℕ) :
     ∃ n : ℕ, G.tauP X K a b p = n := by
   classical
   unfold G.tauP
@@ -577,17 +540,20 @@ theorem exists_tau_eq_natCast {D : D7} {L : SizeData₂ D} (X : G.Inst D L) (K :
   · exact ⟨0, by simp⟩
   · exact ⟨X.ep p + ∑ t0 ∈ G.VV X K a b p, D.R.m * (⌈G.tv X K a b p t0⌉₊ + G.Dp K L p + 1), by push_cast; rfl⟩
 
-theorem VV_empty_of_ge {D : D7} {L : SizeData₂ D} (X : G.Inst D L) (K : G.Consts) (a b : G.HH D → ℤ) (p : ℕ)
+theorem VV_empty_of_ge (p : ℕ)
     (h : L.sc.X' ≤ (p : ℝ)) : G.VV X K a b p = ∅ := by
   by_contra hne
   exact absurd (G.TopChoiceBounds.bt_cand X K a b p hne).2.1 (not_lt.2 h)
 
-theorem tau_eq_zero_of_le {D : D7} {L : SizeData₂ D} (X : G.Inst D L) (K : G.Consts) (a b : G.HH D → ℤ) (p : ℕ)
+theorem tau_eq_zero_of_le (p : ℕ)
     (h : L.sc.X' ≤ (p : ℝ)) : G.tauP X K a b p = 0 := by
   unfold G.tauP
   rw [if_pos (VV_empty_of_ge X K a b p h)]
+end
 
-theorem sizes_at {D : D7} (L : SizeData₂ D) (S : SizesAt L) (hx5 : 5 ≤ L.sc.x) (hb9 : L.sc.x ^ 9 ≤ L.sc.b) :
+section
+variable {D : D7} (L : SizeData₂ D)
+theorem sizes_at (S : SizesAt L) (hx5 : 5 ≤ L.sc.x) (hb9 : L.sc.x ^ 9 ≤ L.sc.b) :
     (D.R.f : ℝ) ≤ 2 * L.sc.x ^ 3 ∧ (D.R.m : ℝ) ≤ 2 * L.sc.x ^ 3 ∧ (D.host.TT.card : ℝ) ≤ 2 * L.sc.x ^ 3 ∧
     0 ≤ Real.log L.sc.X' ∧ Real.log L.sc.X' ≤ L.sc.x ∧ L.sc.X' ≤ L.sc.b ∧ L.sc.X' ≤ L.sc.X'' D.R.n ∧
     16 * (D.R.f : ℝ) ≤ L.sc.b ∧ 4 ≤ L.sc.b := by
@@ -638,7 +604,7 @@ theorem sizes_at {D : D7} (L : SizeData₂ D) (S : SizesAt L) (hx5 : 5 ≤ L.sc.
   · have : 32 * 1 ≤ L.sc.x ^ 6 * L.sc.x ^ 3 := mul_le_mul hx6 hx3 (by norm_num) (by linarith)
     linarith
 
-theorem ta_le {D : D7} (L : SizeData₂ D) (S : SizesAt L) (hx5 : 5 ≤ L.sc.x) (hb9 : L.sc.x ^ 9 ≤ L.sc.b) (C δ : ℝ)
+theorem ta_le (S : SizesAt L) (hx5 : 5 ≤ L.sc.x) (hb9 : L.sc.x ^ 9 ≤ L.sc.b) (C δ : ℝ)
     (hC : 4 * |C| + 1 ≤ L.sc.x) (hδ : δ ≤ 1) (h : CornerGLContinuity.WeightSumBound D L C (L.sc.b ^ δ)) :
     ∑ w ∈ L.supp, SizeData₂.sz w (L.tau w) ≤ L.sc.b ^ 2 := by
   obtain ⟨-, s2, s3, s4, s5, -, -, -, s9⟩ := sizes_at L S hx5 hb9
@@ -681,6 +647,7 @@ theorem ta_le {D : D7} (L : SizeData₂ D) (S : SizesAt L) (hx5 : 5 ≤ L.sc.x) 
       4 * |C| * L.sc.x ^ 8 * L.sc.b := by ring
   rw [h6] at h2
   nlinarith
+end
 
 end Family
 
@@ -785,25 +752,7 @@ theorem placesF_of_local_conditions {eps : ℝ} (Fm : FamP eps) (h26 : LocalQuad
       fun h => hs (Fm.supp_sat x hx1 i w h)
     linarith [not_le.1 h1]
 
-theorem placesF_of : PlaceConditionsFamily := by
-  intro eps Fm crystallineComparison h10 tSet hTu hRank lG lMu
-  have hDl : J.DlSize Fm :=
-    ⟨Fm.x1 + 1, fun x hx i => (Fm.sizes x (by linarith) i).2.2.2.2.2.2.1.2.2.2.2.2.1⟩
-  have h26 : LocalQuadraticParts.LevelTFamily Fm := by
-    obtain ⟨a0, h10'⟩ := h10
-    obtain ⟨a1, hS⟩ := tSet
-    refine J.family_levelPrime_summary_closed Fm crystallineComparison hTu hDl ⟨max (max a0 a1) (Fm.x1 + 1), fun x hx i => ?_⟩
-    have e0 : a0 ≤ x := le_trans (le_trans (le_max_left _ _) (le_max_left _ _)) hx
-    have e1 : a1 ≤ x := le_trans (le_trans (le_max_right _ _) (le_max_left _ _)) hx
-    have e2 : Fm.x1 < x := by have := le_trans (le_max_right (max a0 a1) (Fm.x1 + 1)) hx; linarith
-    exact ⟨fun u => (h10' x e0 i u (hS x e1 e2 i u)).2.1, fun u => (h10' x e0 i u (hS x e1 e2 i u)).2.2.2.2.1⟩
-  have hNC := Lnk.nuCommensF_of Fm crystallineComparison h10 tSet
-  exact placesF_of_local_conditions Fm h26 hNC hTu hRank lG lMu
 
-theorem slope_lemma_division_form : SlopeBoundOfMuRank := by
-  intro eps Fm crystallineComparison h10 tSet hTu hRank lG lMu
-  obtain ⟨C, x0, -, h⟩ := Lnk.slopesNF_of Fm (placesF_of Fm crystallineComparison h10 tSet hTu hRank lG lMu)
-  exact ⟨C, x0, fun x hx i _ u => h x hx i u⟩
 
 end Main
 
@@ -831,17 +780,5 @@ theorem settingF_of : LevelPrimeSettingFamily := by
     exact_mod_cast this
   exact J.levelPrime_setting_of_sizes le_rfl (hN x e0 i).1 (hN x e0 i).2 (hT x e1 i).1 hm u
 
-theorem slope_lemma_link_form : SlopeLemmaLinkForm := by
-  intro eps Fm Cabs CH C0 crystallineComparison hC0 h10 hTu hCh hIn
-  have tSet := settingF_of Fm hTu
-  have hNF : NuFullF Fm := Lnk.nuFullF_of Fm (Lnk.nuCommensF_of Fm crystallineComparison h10 tSet)
-  exact slope_lemma_division_form Fm crystallineComparison h10 tSet hTu (muRank_of_chosen Fm crystallineComparison hC0 hCh hNF h10 tSet) hIn.1 hIn.2.2.2.2
 
 end Link
-
-end Formalism.L2.GlobalTheoryTheory.Places
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.PlacesP =====

@@ -11,8 +11,7 @@ noncomputable section
 
 namespace Formalism.L2.SG.Pf.LocOrbSumPf
 
-open NumberField Formalism.BasicNotions Formalism.MainNotions.S Formalism.MainNotions.S.Lat Formalism.MainNotions.S.LocalSplitGroups MeasureTheory
-open Formalism.L2.SG.LsDatumB
+open NumberField Formalism.BasicNotions Formalism.MainNotions.S Formalism.MainNotions.S.LocalSplitGroups MeasureTheory
 open Classical
 
 section ShiftPf

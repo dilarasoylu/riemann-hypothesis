@@ -13,23 +13,12 @@ public import Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.Rank
 import Mathlib.Tactic.Linter.HaveILetI
 import Mathlib.Tactic.Linter.Style
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankInverseBounds, Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankBounds
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankInverseBounds =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankInverseBounds", "h": "module\n\npublic import Mathlib.LinearAlgebra.Dimension.Basic\npublic import Mathlib.LinearAlgebra.Quotient.Defs\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.LinearAlgebra.Dimension.Finite\npublic import Mathlib.LinearAlgebra.Dimension.Localization\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.N.Ln34.RankInverseBounds
-
 open Module
 open scoped Classical
-
 variable {O V : Type*} [CommRing O] [IsDomain O] [AddCommGroup V] [Module O V]
-
 def Inv (γ : V →ₗ[O] V) (K' P : Submodule O V) : Submodule O V :=
   P ⊓ K'.comap (γ - LinearMap.id)
 
@@ -143,26 +132,10 @@ theorem step (γ : V →ₗ[O] V) (K' : Submodule O V) (hK : ∀ x ∈ K', γ x 
           first
           | exact LinearMap.rank_le_of_surjective f.rangeRestrict f.surjective_rangeRestrict)
     _ = _ := add_comm _ _
-
 end Formalism.MainNotions.N.Ln34.RankInverseBounds
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankInverseBounds =====
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankBounds =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankBounds", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.SecondPropositionRingAll\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankInverseBounds\npublic import Formalism.SharpRestriction.LevelLetterCocycles.SecondRankCount\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.FrobPiNPf\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.GeneratorBoundOfHypotheses\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.GradNPfA\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankLinkProof\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.MainNotions.N.Ln34.RankBounds
-
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc Module Formalism.MainNotions.ElementDenominator Formalism.MainNotions.ElementDenominator.CongruenceModules TensorProduct
 open scoped Classical
-
 section Flag
 
 variable {O V : Type*} [CommRing O] [IsDomain O] [AddCommGroup V] [Module O V]
@@ -299,18 +272,20 @@ theorem smulLA_mul (a b : LetA O n) (x : LA W T π' c) :
     smulLA W T π' c (a * b) x = smulLA W T π' c a (smulLA W T π' c b x) := by
   rw [smulLA_eq, smulLA_eq, smulLA_eq, smulE_smulE, map_mul]
 
-theorem Fl_zero (Eπ : LetA O n) (h' : ℕ) (f : ℕ → LetA O n) :
+section
+variable (Eπ : LetA O n) (h' : ℕ) (f : ℕ → LetA O n)
+theorem Fl_zero :
     Fl S Eπ h' f 0 = LamLA W T π' Eπ h' c S := by
   simp only [Fl, Finset.range_zero, Finset.prod_empty, smulLA_one, Submodule.map_id, LamLA]
 
-theorem Fl_mono (Eπ : LetA O n) (h' : ℕ) (f : ℕ → LetA O n) (k : ℕ) (hf : f k ∈ W.AΔ) :
+theorem Fl_mono (k : ℕ) (hf : f k ∈ W.AΔ) :
     Fl S Eπ h' f (k + 1) ≤ Fl S Eπ h' f k := by
   intro x hx
   obtain ⟨r, hr, hrx⟩ := hx
   refine ⟨smulLA W T π' c (f k) r, R_smul S hf hr, ?_⟩
   rw [← hrx, Finset.prod_range_succ, smulLA_mul]
 
-theorem Fl_gamma (Eπ : LetA O n) (h' : ℕ) (f : ℕ → LetA O n) (cc : ℕ → O) (ν : LetA O n)
+theorem Fl_gamma (cc : ℕ → O) (ν : LetA O n)
     (hν : ν * W.γA W.gamK (Eπ ^ h') = Eπ ^ h') (k : ℕ)
     (hγc : ∀ a ∈ W.AΔ, ∃ b ∈ W.AΔ,
       (letE c : LetA O n) * (ν * W.γA W.gamK ((∏ j ∈ Finset.range k, f j) * a) -
@@ -352,16 +327,17 @@ theorem Fl_gamma (Eπ : LetA O n) (h' : ℕ) (f : ℕ → LetA O n) (cc : ℕ �
     convert this using 1
     simp only [map_add (f := _), smul_add]
     abel
+end
 
-theorem piNL_gamma (Pt : ZMod n → LL → (K →ₐ[Qp] LL) → Prop) (Eπ : LetA O n) (h' M : ℕ)
-    (hML : ModelL W T Pt π' Eπ h' M c) {g : LetA O n} (hg : g ∈ W.AΔ) (hgπ : W.γA W.gamK π' = π' * g) :
+section
+variable (Pt : ZMod n → LL → (K →ₐ[Qp] LL) → Prop) (Eπ : LetA O n) (h' M : ℕ)
+theorem piNL_gamma (hML : ModelL W T Pt π' Eπ h' M c) {g : LetA O n} (hg : g ∈ W.AΔ) (hgπ : W.γA W.gamK π' = π' * g) :
     ∀ y ∈ piNL W T Pt π' Eπ h' c 1, γLA W T π' c y ∈ piNL W T Pt π' Eπ h' c 1 := by
   rintro _ ⟨z, hz, rfl⟩
   refine ⟨smulLA W T π' c g (γLA W T π' c z), hML.2.2.1 g hg _ (hML.2.1 z hz), ?_⟩
   rw [pow_one, ← smulLA_mul, smulLA_eq π', γLA_smulE, γE_alg, hgπ, ← smulLA_eq]
 
-theorem Fl_last (Pt : ZMod n → LL → (K →ₐ[Qp] LL) → Prop) (Eπ : LetA O n) (h' M : ℕ)
-    (hML : ModelL W T Pt π' Eπ h' M c) (hEu : IsUnit (algebraMap (LetA O n) W.EE Eπ))
+theorem Fl_last (hML : ModelL W T Pt π' Eπ h' M c) (hEu : IsUnit (algebraMap (LetA O n) W.EE Eπ))
     (N : ℕ) (f : ℕ → LetA O n)
     (hprod : (letE c : LetA O n) * ∏ k ∈ Finset.range N, f k = (letE c : LetA O n) * (π' * Eπ ^ (2 * h'))) :
     Fl S Eπ h' f N ≤ piNL W T Pt π' Eπ h' c 1 := by
@@ -380,6 +356,7 @@ theorem Fl_last (Pt : ZMod n → LL → (K →ₐ[Qp] LL) → Prop) (Eπ : LetA 
   refine ⟨smulLA W T π' c (Eπ ^ h') r, hML.2.2.2.1 ⟨r, ?_, rfl⟩, ?_⟩
   · exact RankLink.toLA_range_le W T π' c S hr
   · rw [pow_one, ← smulLA_mul]
+end
 
 theorem Fl_gr_rank (Eπ : LetA O n) (h' : ℕ) (f : ℕ → LetA O n)
     (hEu : IsUnit (algebraMap (LetA O n) W.EE Eπ)) (k : ℕ)
@@ -608,10 +585,3 @@ theorem u2rank_of_ring (hR : Formalism.MainNotions.N.Ln34.SecondRingHypothesis) 
     (hML l hl K LL hG π' E hπ h' hh' T hc hj c)
     (hR D HW F Cm CA CB CK hA l hl K LL hG π' E hπ h' hh' c)
     (lcq_finite D HW F Cm hA.1 l hl K LL hG π' E hπ T hc c)
-
-end Formalism.MainNotions.N.Ln34.RankBounds
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.RankBounds =====

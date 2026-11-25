@@ -8,22 +8,11 @@ public import Formalism.LocalToGlobal.Columns.CoefficientsModP.LatticeBasisExist
 public import Formalism.LocalToGlobal.GlobalTheory.GL6.PBwLocGlob
 import Formalism.LocalRingCardinality.Lemmas
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.Development, Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.IntegralityAtFormsOfIncrements
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.Development =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.Development", "h": "module\n\npublic import Formalism.SharpRestriction.GlobalSchurBounds.IntegralityOfRationalityLocal\npublic import Formalism.LocalToGlobal.GroupLattices.Joint0\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.DiagonalSlopes.CharacterFiniteLevelZeroOfForms\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.DiamondPreservesRationalFormZero\nimport Formalism.LocalRingCardinality.Lemmas\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.LatticeBasisExistsHolds\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.PBwLocGlob\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace PI.UnitaryGroupMassFormula.IAT
-
 open Formalism.BasicNotions Formalism.MainNotions.product_first_zeroth_parts Formalism.L2.Forms Formalism.L2.GlobalTheoryTheory Formalism.L2.GlobalTheoryTheory.LocalLatticeBases NumberField Classical IsDedekindDomain
-
 variable {D : D7} {u : D.what₂.Word}
-
 def ValuesIntegralAllBases (T : Forms0 D u) (w : D.what₂.places.Pl) (φ : Fn D u 0) : Prop :=
   ∀ (c : (D.mem u).C.cls 0) (B : GL (Fin (D.R.N 0)) D.host.E),
     IsLocBasis (D.mem u).A.T (Ld D u 0 (Nat.zero_le _) c : Set _) B →
@@ -47,11 +36,13 @@ def DnValInt0 (T : Forms0 D u) : Prop :=
   ∀ w, OverT D u w → (D.fm u).seenP w = true → ∀ v (x : Vl D u 0),
     ValuesIntegralAllBases T w ((D.fm u).emb 0 x) → ValuesIntegralNeighbourBases T w v (Dop D u 0 v ((D.fm u).emb 0 x))
 
-theorem mem_Bw_iff (T : Forms0 D u) {w : D.what₂.places.Pl} (hw : OverT D u w) (hs : (D.fm u).seenP w = true)
+section
+variable (T : Forms0 D u) {w : D.what₂.places.Pl}
+theorem mem_Bw_iff (hw : OverT D u w) (hs : (D.fm u).seenP w = true)
     (v : (D.mem u).A.vT) (x : Vl D u 0) : x ∈ (D.fm u).Bw 0 w v ↔ ValuesIntegralNeighbourBases T w v ((D.fm u).emb 0 x) :=
   T.bw0 w hw hs v x
 
-theorem mem_S_of_val (T : Forms0 D u) {w : D.what₂.places.Pl} (hw : OverT D u w) (y : Vl D u 0)
+theorem mem_S_of_val (hw : OverT D u w) (y : Vl D u 0)
     (hy : ValuesIntegralAllBases T w ((D.fm u).emb 0 y)) : y ∈ (D.fm u).S 0 w := by
   show y ∈ locW D.what₂.places w ((D.fm u).lat 0).L
   rw [D.mem_locW_iff]
@@ -90,7 +81,7 @@ theorem mem_S_of_val (T : Forms0 D u) {w : D.what₂.places.Pl} (hw : OverT D u 
     rw [e, LinearMap.map_smulₛₗ, Pi.smul_apply, Pi.smul_apply, hdP z, LinearMap.map_smul]
     rfl
 
-theorem val_of_mem_S (T : Forms0 D u) {w : D.what₂.places.Pl} (hw : OverT D u w) (x : Vl D u 0)
+theorem val_of_mem_S (hw : OverT D u w) (x : Vl D u 0)
     (hx : x ∈ (D.fm u).S 0 w) : ValuesIntegralAllBases T w ((D.fm u).emb 0 x) := by
   intro c B hB
   obtain ⟨t, ht, htx⟩ := (D.mem_locW_iff w _ x).1 hx
@@ -111,6 +102,7 @@ theorem val_of_mem_S (T : Forms0 D u) {w : D.what₂.places.Pl} (hw : OverT D u 
   rw [← algebraMap_smul D.what₂.LL t x, LinearMap.map_smulₛₗ, Pi.smul_apply, Pi.smul_apply] at hz
   rw [LinearMap.map_smul, Pi.smul_apply, ← hz, smul_eq_mul, smul_eq_mul, ← mul_assoc, map_inv₀,
     inv_mul_cancel₀ ((map_ne_zero D.what₂.embLL).2 ht0), one_mul]
+end
 
 theorem integrality_of_rationality_local (T : Forms0 D u) (hR : HeckeRationalLevelZero D u) (hU : UpValInt0 T) (hD : DnValInt0 T) : HeckeIntegralLevelZero D u := by
   intro w hw hs v
@@ -139,27 +131,6 @@ theorem integrality_at_forms_of_values
   rintro ⟨Ch, chOf, T, hC⟩ hA hS
   have hC0 := chiFin0_sym T hC
   exact integrality_of_rationality_local T.to0 (hR D u _ hC0 hA hS) (hU D u _ hC0 hA hS) (hD D u _ hC0 hA hS)
-
-end PI.UnitaryGroupMassFormula.IAT
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.Development =====
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.IntegralityAtFormsOfIncrements =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.IntegralityAtFormsOfIncrements", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.Development\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace PI.UnitaryGroupMassFormula.IAT
-
-open Formalism.BasicNotions Formalism.MainNotions.product_first_zeroth_parts Formalism.L2.Forms Formalism.L2.GlobalTheoryTheory Formalism.L2.GlobalTheoryTheory.LocalLatticeBases NumberField Classical IsDedekindDomain
-
-variable {D : D7} {u : D.what₂.Word}
-
 def ValSc (T : Forms0 D u) (w : D.what₂.places.Pl) (c : (D.mem u).C.cls 0) (h : (D.mem u).C.Y 0 → ℂ) : Prop :=
   ∀ B : GL (Fin (D.R.N 0)) D.host.E,
     IsLocBasis (D.mem u).A.T (Ld D u 0 (Nat.zero_le _) c : Set _) B →
@@ -185,7 +156,9 @@ def DnIncInt0 (T : Forms0 D u) : Prop :=
     g ((D.fm u).te 0 v c) = 1 →
     ∀ h, ValSc T w ((D.fm u).dn 0 v c g) h → ValBc T w v c ((D.fm u).dnT 0 v c g h)
 
-theorem valSc_sum (T : Forms0 D u) (w : D.what₂.places.Pl) (c : (D.mem u).C.cls 0) {ι : Type} (s : Finset ι)
+section
+variable (T : Forms0 D u) (w : D.what₂.places.Pl)
+theorem valSc_sum (c : (D.mem u).C.cls 0) {ι : Type} (s : Finset ι)
     (h : ι → (D.mem u).C.Y 0 → ℂ) (hh : ∀ i ∈ s, ValSc T w c (h i)) : ValSc T w c (∑ i ∈ s, h i) := by
   classical
   induction s using Finset.induction_on with
@@ -201,7 +174,7 @@ theorem valSc_sum (T : Forms0 D u) (w : D.what₂.places.Pl) (c : (D.mem u).C.cl
     refine ⟨P + Q, AddSubgroup.add_mem _ hP hQ, fun z => ?_⟩
     rw [Pi.add_apply, hPe z, hQe z, map_add (f := _), Pi.add_apply]
 
-theorem valBc_sum (T : Forms0 D u) (w : D.what₂.places.Pl) (v : (D.mem u).A.vT) (c : (D.mem u).C.cls 0) {ι : Type}
+theorem valBc_sum (v : (D.mem u).A.vT) (c : (D.mem u).C.cls 0) {ι : Type}
     (s : Finset ι) (h : ι → (D.mem u).C.Y 0 → ℂ) (hh : ∀ i ∈ s, ValBc T w v c (h i)) :
     ValBc T w v c (∑ i ∈ s, h i) := by
   classical
@@ -217,19 +190,23 @@ theorem valBc_sum (T : Forms0 D u) (w : D.what₂.places.Pl) (v : (D.mem u).A.vT
     obtain ⟨Q, hQ, hQe⟩ := ih (fun j hj => hh j (Finset.mem_insert_of_mem hj)) B B' hB hB'
     refine ⟨P + Q, AddSubgroup.add_mem _ hP hQ, fun z => ?_⟩
     rw [Pi.add_apply, hPe z, hQe z, map_add (f := _), Pi.add_apply]
+end
 
-theorem uop_apply (v : (D.mem u).A.vT) (φ : Fn D u 0) (c : (D.mem u).C.cls 0) :
+section
+variable (v : (D.mem u).A.vT) (φ : Fn D u 0) (c : (D.mem u).C.cls 0)
+theorem uop_apply :
     Uop D u 0 v φ c = ∑ x ∈ Finset.univ.filter (fun x : (D.fm u).lv 0 v c => (D.fm u).fv 0 v c x = 1),
       (D.fm u).upT 0 v c x (φ ((D.fm u).up 0 v c x)) := by
   simp only [Formalism.BasicNotions.LT.Uop, LinearMap.pi_apply, LinearMap.sum_apply, LinearMap.comp_apply, LinearMap.proj_apply]
   rfl
 
-theorem dop_apply (v : (D.mem u).A.vT) (φ : Fn D u 0) (c : (D.mem u).C.cls 0) :
+theorem dop_apply :
     Dop D u 0 v φ c = ∑ g ∈ Finset.univ.filter
       (fun g : Module.Dual ((D.mem u).A.Fv v) ((D.fm u).lk 0 v c) => g ((D.fm u).te 0 v c) = 1),
       (D.fm u).dnT 0 v c g (φ ((D.fm u).dn 0 v c g)) := by
   simp only [Dop, LinearMap.pi_apply, LinearMap.sum_apply, LinearMap.comp_apply, LinearMap.proj_apply]
   rfl
+end
 
 theorem upValInt0_of (T : Forms0 D u) (hI : UpIncInt0 T) : UpValInt0 T := by
   intro w hw hs v x hx c B hB
@@ -266,10 +243,3 @@ theorem integrality_at_forms_of_increments
     (hD : ∀ (D : D7) (u : D.what₂.Word) (T : Forms0 D u), LocalLatticeBases.ChiFin0 T → admS D u → HidaSetting D u → DnIncInt0 T)
     (D : D7) (u : D.what₂.Word) : Formalism.MainNotions.RT.IntegralityLevelZeroUnderForms D u := integrality_at_forms_of_values hR (fun D u T hC hA hS => upValInt0_of T (hU D u T hC hA hS))
     (fun D u T hC hA hS => dnValInt0_of T (hD D u T hC hA hS)) D u
-
-end PI.UnitaryGroupMassFormula.IAT
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.IntegralityAtPrimeLattices.IntegralityAtFormsOfIncrements =====

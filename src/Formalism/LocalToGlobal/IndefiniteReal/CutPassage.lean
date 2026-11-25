@@ -6,19 +6,9 @@ public import Formalism.LocalToGlobal.IndefiniteReal.CxLemmas
 public import Formalism.QuotientMetricDivisors.HermitianTwistDivisors.ValBasic
 import Mathlib.Tactic.Linter.Style
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.IndefiniteReal.NonGenericAndKTwoTheorems, Formalism.LocalToGlobal.IndefiniteReal.CutPassage
-
--- ===== clump member: Formalism.LocalToGlobal.IndefiniteReal.NonGenericAndKTwoTheorems =====
--- clump-header: {"m": "Formalism.LocalToGlobal.IndefiniteReal.NonGenericAndKTwoTheorems", "h": "module\n\npublic import Formalism.LocalToGlobal.IndefiniteReal.HeckeTupleStatement\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 namespace Formalism.IndefR.NonGenericAndKTwoTheorems
-
-open NumberField IsDedekindDomain
-open Formalism.DivisionValues Formalism.L2.Indef Formalism.IndefR.HeckeTupleConditions
-
+open NumberField IsDedekindDomain Formalism.DivisionValues Formalism.L2.Indef Formalism.IndefR.HeckeTupleConditions
 theorem hecke_tuple_condition : UntwistedOfSupportAtTwistedPlaces := by
   intro K _ _ _ Bs Df S N h1 h2 w hw j
   have hμ : S.μ w = Bs.μ0 := by
@@ -33,30 +23,14 @@ theorem hecke_tuple_condition : UntwistedOfSupportAtTwistedPlaces := by
     intro h0
     exact hc ⟨hA.trans h0, hF⟩
   · exact Or.inr hF
-
 end Formalism.IndefR.NonGenericAndKTwoTheorems
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.IndefiniteReal.NonGenericAndKTwoTheorems =====
-
--- ===== clump member: Formalism.LocalToGlobal.IndefiniteReal.CutPassage =====
--- clump-header: {"m": "Formalism.LocalToGlobal.IndefiniteReal.CutPassage", "h": "module\n\npublic import Formalism.LocalToGlobal.IndefiniteReal.CutTuples2\npublic import Formalism.LocalToGlobal.IndefiniteReal.HeckeTupleStatement\npublic import Formalism.LocalToGlobal.IndefiniteReal.CxLemmas\npublic import Formalism.LocalToGlobal.IndefiniteReal.NonGenericAndKTwoTheorems\npublic import Formalism.QuotientMetricDivisors.HermitianTwistDivisors.ValBasic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+noncomputable section
 open Module NumberField IsDedekindDomain
 open scoped Matrix ComplexOrder InnerProductSpace
-
-noncomputable section
-
 namespace Formalism.IndefR.Cx
-
 open Formalism.DivisionValues Formalism.L2.Indef Formalism.L2.DIV
-
 variable {K : Type} [Field K] [NumberField K] [StarRing K]
-
 namespace CxData
-
 theorem rinv_spec {d n : ℕ} (P : Matrix (Fin d) (Fin n) K) (h : Function.Surjective P.mulVec) :
     P * rinv P = 1 := by
   have hex : ∃ R : Matrix (Fin n) (Fin d) K, P * R = 1 := by
@@ -114,11 +88,3 @@ theorem cutTuples2 (C CH : ℝ) : X.CutTuples2 cr C CH := by
       simp [Formalism.IndefR.HeckeTupleConditions.Atup, h1, h2, h3]
     · exact ⟨j, Or.inr (Or.inr (Or.inr (Or.inr (Or.inl h))))⟩
   · exact hH0.2
-
-end CxData
-
-end Formalism.IndefR.Cx
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.IndefiniteReal.CutPassage =====

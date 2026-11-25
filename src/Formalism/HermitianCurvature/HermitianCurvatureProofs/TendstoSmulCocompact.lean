@@ -11,23 +11,14 @@ import Mathlib.Algebra.Order.Star.Real
 import Mathlib.Tactic.Monotonicity.Lemmas
 import Mathlib.Topology.Sheaves.Presheaf
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoIntegralPsiMoving, Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoSmulCocompact
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoIntegralPsiMoving =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoIntegralPsiMoving", "h": "module\n\npublic import Formalism.HermitianCurvature.StatementG\npublic import Mathlib.Analysis.Complex.Circle\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\npublic import Mathlib.Analysis.Fourier.RiemannLebesgueLemma\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Monotonicity.Lemmas\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Presheaf\n\n"}
-section -- clump:auto
 @[expose] public section
-
-namespace Formalism.FourierDecayAlt.P.PBK
-
-open Formalism.FourierDecayAlt Filter Topology MeasureTheory
-open scoped ComplexConjugate InnerProductSpace
-
 noncomputable section
-
+namespace Formalism.FourierDecayAlt.P.PBK
+open Formalism.FourierDecayAlt
+section
+open Filter Topology MeasureTheory
+open scoped ComplexConjugate InnerProductSpace
 variable {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] [CompleteSpace E]
-
 theorem norm_psi (β w : ℂ) : ‖G.psi β w‖ = 1 := by
   unfold G.psi
   rw [mul_comm]
@@ -122,28 +113,10 @@ theorem tendsto_integral_psi_conv {α : Type} {l : Filter α} (β : ℂ) (f : α
   refine squeeze_zero' (Eventually.of_forall fun _ => norm_nonneg _) ?_ hf
   filter_upwards [hfi] with x hx
   exact norm_integral_psi_sub_le β (w x) (f x) f0 hx hf0
-
 end
-
-end Formalism.FourierDecayAlt.P.PBK
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoIntegralPsiMoving =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoSmulCocompact =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoSmulCocompact", "h": "module\n\npublic import Formalism.HermitianCurvature.StatementG\npublic import Mathlib.Analysis.CStarAlgebra.Module.Constructions\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.GermRealisation\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.LastBlockDecay\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.NormOfMemRootSetOne\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoIntegralPsiMoving\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.FourierDecayAlt.P.PBK
-
-open Formalism.FourierDecayAlt Finset Filter Topology MeasureTheory
+open Finset Filter Topology MeasureTheory
 open scoped ComplexConjugate InnerProductSpace
-
-noncomputable section
-
 open Classical
-
 section main
 
 variable {H : Type} [NormedAddCommGroup H] [InnerProductSpace ℂ H] [CompleteSpace H]
@@ -279,10 +252,3 @@ theorem tendsto_pairD {s : ℕ} (hs : s ≠ 0) {β : ℂ} (hβ : β ≠ 0) {ε :
   exact (pairD_eq hs β hε hb hb' (x a) (x' a) (ρ a) ha).symm
 
 end main
-
-end
-
-end Formalism.FourierDecayAlt.P.PBK
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.TendstoSmulCocompact =====

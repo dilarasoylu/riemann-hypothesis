@@ -17,18 +17,9 @@ import Formalism.LocalToGlobal.GlobalTheory.GL6.CoordMapInjective
 import Formalism.SharpRestriction.GlobalSchurBounds.QuadraticLogDerivCongr
 import Formalism.SharpRestriction.GlobalSchurBounds.TheoremThreeUnderScaleOfGeneral
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.AdmissibleParameterJoins.DGamMink, Formalism.LocalToGlobal.ClassOfRecordOfChoice
-
--- ===== clump member: Formalism.SharpRestriction.AdmissibleParameterJoins.DGamMink =====
--- clump-header: {"m": "Formalism.SharpRestriction.AdmissibleParameterJoins.DGamMink", "h": "module\n\npublic import Formalism.SharpRestriction.SmoothDesignExistence.DGamSmooth\npublic import Formalism.LocalRingCardinality.DataMink\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 namespace Formalism.MainNotions.J
-
 open Formalism.BasicNotions
-
 private lemma prime_le_succ_of_dvd_minkM' {n p : ℕ} (hp : p.Prime) (h : p ∣ minkM n) : p ≤ n + 1 := by
   have h' : p ∣ ∏ q ∈ (Finset.range (n + 2)).filter Nat.Prime, q ^ Formalism.HermitianLatticeCounting.S6.minkowskiExp n q := h
   rcases (Prime.dvd_finsetProd_iff hp.prime _).1 h' with ⟨q, hq, hdvd⟩
@@ -42,23 +33,10 @@ theorem dGamSmooth_of_dvd {eps : ℝ} (Fm : FamP eps)
     Pk.DGamSmooth Fm := by
   obtain ⟨x0, hx0⟩ := h
   exact ⟨x0, fun x hx i u p hp hpd => prime_le_succ_of_dvd_minkM' hp (dvd_trans hpd (hx0 x hx i u))⟩
-
 end Formalism.MainNotions.J
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.AdmissibleParameterJoins.DGamMink =====
-
--- ===== clump member: Formalism.LocalToGlobal.ClassOfRecordOfChoice =====
--- clump-header: {"m": "Formalism.LocalToGlobal.ClassOfRecordOfChoice", "h": "module\n\npublic import Formalism.LocalToGlobal.ThresholdSelection\npublic import Formalism.SharpRestriction.LevelLetterCocycles.TwAllF\npublic import Formalism.SharpRestriction.PageFix\npublic import Formalism.SharpRestriction.Divisibility.SmallFirstModulusBelowScale\npublic import Formalism.SharpRestriction.DesignExistsOfChoices\npublic import Formalism.SharpRestriction.SmoothDesignExistence.DesignExistsDes\npublic import Formalism.SharpRestriction.GlobalSchurBounds.WeightVectorSmallSharesEight\npublic import Formalism.LocalToGlobal.Divisibility.RecBridgeTied\npublic import Formalism.SharpRestriction.Divisibility.WeightDegreeSizes\npublic import Formalism.SharpRestriction.MuTuOfTuSize\npublic import Formalism.SharpRestriction.AdmissibleParameterJoins.DGamMink\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.CoordMapInjective\nimport Formalism.SharpRestriction.GlobalSchurBounds.QuadraticLogDerivCongr\nimport Formalism.SharpRestriction.GlobalSchurBounds.TheoremThreeUnderScaleOfGeneral\n\n"}
-section -- clump:auto
-@[expose] public section
-
 noncomputable section
-
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.Pk Formalism.MainNotions.Lnk Formalism.MainNotions.GlobalTheoryTheory Formalism.L2.GlobalTheoryTheory Formalism.MainNotions.RT
-
 namespace Formalism.L2.Top3
-
 abbrev WithChN (𝒞 : FamClass) : FamClass :=
   fun Fm => 𝒞 Fm ∧ DGamDvdF Fm ∧ TameDistinctF Fm ∧ BoxesF Fm ∧ QDRowsF Fm ∧ Fm.CYL ≤ 9
 
@@ -123,12 +101,3 @@ structure ColChoice (P : Formalism.L2.Rows.RowSideFamily ex) where
   tie : Formalism.L2.DIV.ColTie3 P X e c Sp
 
 end ColChoice
-
-
-
-end Formalism.L2.Top3
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.ClassOfRecordOfChoice =====

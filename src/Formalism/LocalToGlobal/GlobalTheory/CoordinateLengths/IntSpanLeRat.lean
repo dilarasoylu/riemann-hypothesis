@@ -11,23 +11,12 @@ public import Formalism.LocalToGlobal.GlobalTheory.GL6.DiagonalSlopes.GroupActio
 import Mathlib.Tactic.Linter.Style
 import Formalism.LocalToGlobal.GlobalTheory.GL6.Statement
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.LocalGlobalOfBasisIndependence, Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.IntSpanLeRat
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.LocalGlobalOfBasisIndependence =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.LocalGlobalOfBasisIndependence", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.PBwLocInd\npublic import Formalism.LocalToGlobal.GroupLattices.DownNaturalLevelZero\npublic import Formalism.LocalRingCardinality.Lemmas\npublic import Formalism.LocalToGlobal.Columns.CoefficientsModP.LatticeBasisExistsHolds\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.LatticeInclusionFamilyOf\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.PBwLocGlob\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.Statement\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.GlobalTheoryTheory.LemB.G0
-
 open Formalism.BasicNotions Formalism.MainNotions.product_first_zeroth_parts Formalism.L2.Forms NumberField Classical Formalism.L2.GlobalTheoryTheory.LocalLatticeBases
 open scoped Matrix
-
 variable (D : D7) (u : D.what₂.Word)
-
 def BwLocGlob0 (Tt : Forms0 D u) : Prop :=
   ∀ w, OverT D u w → ∀ i (hi : i ≤ D.R.m) (h0 : i = 0) (y : ((D.fm u).lat i).V),
     (∀ c, ∃ B : GL (Fin (D.R.N i)) D.host.E, IsLocBasis (D.mem u).A.T (Ld D u i hi c : Set _) B ∧
@@ -42,7 +31,9 @@ def BwBasisInd0 (Tt : Forms0 D u) : Prop :=
       fnOf _ (shiftOf (lamT u i)) (atInf (embT D) (B⁻¹ : GL (Fin (D.R.N i)) D.host.E).1) Q ((Tt.val i hi h0).eY z) =
         fnOf _ (shiftOf (lamT u i)) (atInf (embT D) (B₂⁻¹ : GL (Fin (D.R.N i)) D.host.E).1) Q₂ ((Tt.val i hi h0).eY z)
 
-theorem local_global_of_basis_independence (Tt : Forms0 D u) (hI : BwBasisInd0 D u Tt) : BwLocGlob0 D u Tt := by
+section
+variable (Tt : Forms0 D u)
+theorem local_global_of_basis_independence (hI : BwBasisInd0 D u Tt) : BwLocGlob0 D u Tt := by
   intro w hw i hi h0 y hy
   show y ∈ locW D.what₂.places w ((D.fm u).lat i).L
   rw [D.mem_locW_iff]
@@ -82,7 +73,7 @@ theorem local_global_of_basis_independence (Tt : Forms0 D u) (hI : BwBasisInd0 D
     rw [e, LinearMap.map_smulₛₗ, Pi.smul_apply, Pi.smul_apply, hdP z, LinearMap.map_smul]
     rfl
 
-theorem bwBasisInd_of_stab0 (Tt : Forms0 D u) (hS : ∀ w, OverT D u w → BwGLStab D w) : BwBasisInd0 D u Tt := by
+theorem bwBasisInd_of_stab0 (hS : ∀ w, OverT D u w → BwGLStab D w) : BwBasisInd0 D u Tt := by
   intro w hw i hi h0 c B B₂ hB hB₂ Q hQ
   set N : D.what₂.Tau → Matrix (Fin (D.R.N i)) (Fin (D.R.N i)) ℂ :=
     fun τ => atInf (embT D) ((B⁻¹ * B₂ : GL (Fin (D.R.N i)) D.host.E) : Matrix (Fin (D.R.N i)) (Fin (D.R.N i)) D.host.E) τ
@@ -108,28 +99,13 @@ theorem bwBasisInd_of_stab0 (Tt : Forms0 D u) (hS : ∀ w, OverT D u w → BwGLS
     group
   rw [hM]
 
-theorem local_global_lattice_level_zero (Tt : Forms0 D u) : BwLocGlob0 D u Tt :=
+theorem local_global_lattice_level_zero : BwLocGlob0 D u Tt :=
   local_global_of_basis_independence D u Tt (bwBasisInd_of_stab0 D u Tt fun w _ => local_GL_stabilises_lattice D w)
-
+end
 end Formalism.L2.GlobalTheoryTheory.LemB.G0
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.LocalGlobalOfBasisIndependence =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.IntSpanLeRat =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.IntSpanLeRat", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.IsCrdExists\npublic import Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.LocalGlobalOfBasisIndependence\npublic import Formalism.LocalToGlobal.GlobalTheory.GL6.DiagonalSlopes.GroupActionMulSingleEqDilation\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.PBwLocGlob\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.L2.GlobalTheoryTheory.LemB
-
 open Formalism.BasicNotions Formalism.MainNotions.product_first_zeroth_parts Formalism.L2.Forms NumberField MvPolynomial Formalism.L2.GlobalTheoryTheory.LocalLatticeBases
-
 variable {D : D7} {u : D.what₂.Word}
-
 def RatInC (D : D7) (u : D.what₂.Word) : Prop :=
   ∀ P ∈ RatSpan D ((D.fm u).lam 0), P ∈ Formalism.L2.Forms.CSpan ((D.fm u).lam 0)
 
@@ -140,14 +116,15 @@ def RatGL (D : D7) (u : D.what₂.Word) : Prop :=
       subP (fun τ => atInf (embT D) ((γ τ : GL (Fin (D.R.N 0)) D.host.E) :
         Matrix (Fin (D.R.N 0)) (Fin (D.R.N 0)) D.host.E) τ) P ∈ RatSpan D ((D.fm u).lam 0)
 
-theorem intSpan_le_rat (w : D.what₂.places.Pl) {N : ℕ} (lam : D.what₂.Tau → DomWeight N) :
+section
+variable (w : D.what₂.places.Pl) {N : ℕ} (lam : D.what₂.Tau → DomWeight N)
+theorem intSpan_le_rat :
     Formalism.L2.Forms.IntSpan D w lam ≤ RatSpan D lam := by
   apply AddSubgroup.closure_mono
   rintro p ⟨r, f, -, hf, rfl⟩
   exact ⟨r, f, hf, rfl⟩
 
-theorem mem_intSubm (w : D.what₂.places.Pl) {N : ℕ} (lam : D.what₂.Tau → DomWeight N)
-    (p : MvPolynomial (D.what₂.Tau × Fin N × Fin N) ℂ) : p ∈ intSubm D w lam → p ∈ Formalism.L2.Forms.IntSpan D w lam := by
+theorem mem_intSubm (p : MvPolynomial (D.what₂.Tau × Fin N × Fin N) ℂ) : p ∈ intSubm D w lam → p ∈ Formalism.L2.Forms.IntSpan D w lam := by
   intro hp
   induction hp using Submodule.span_induction with
   | mem x hx => exact hx
@@ -159,6 +136,7 @@ theorem mem_intSubm (w : D.what₂.places.Pl) {N : ℕ} (lam : D.what₂.Tau →
       rw [Subring.smul_def, hra]
     rw [ha]
     exact Formalism.L2.GlobalTheoryTheory.LocalLatticeBases.bwG_intSpan_smul (D := D) w lam r hr hx
+end
 
 theorem crd_surj (T : Forms0 D u) (hA : admS D u) (B : (D.mem u).C.cls 0 → GL (Fin (D.R.N 0)) D.host.E)
     (Q : (D.mem u).C.cls 0 → MvPolynomial (D.what₂.Tau × Fin (D.R.N 0) × Fin (D.R.N 0)) ℂ)
@@ -235,9 +213,3 @@ theorem onto_tL (hRC : RatInC D u) (hRG : RatGL D u) (T : Forms0 D u) (hA : admS
   · funext c
     show crd T B (r • x₀) c = y c
     rw [crd_smul T B r x₀ c, hr, crd_eq T B (hx₀ c), hQy c]
-
-end Formalism.L2.GlobalTheoryTheory.LemB
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.IntSpanLeRat =====

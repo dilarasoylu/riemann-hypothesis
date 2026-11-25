@@ -7,21 +7,11 @@ import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.AdelicLocalCompactness.
 import Mathlib.Tactic.Linter.HaveILetI
 import Mathlib.Tactic.Linter.Style
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.FinProjOpen, Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.EvalVOpen
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.FinProjOpen =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.FinProjOpen", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.HaarIdxGlobOfFinProj\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.MassComputations.SplitG\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace MassDataLevelSSteps
-
 open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.SG.Measures Formalism.L2.SG.AdBridge
 open Formalism.MainNotions.S (AutInst)
-
 theorem finProjOpen_holds : FinProjOpen := by
   intro I
   obtain ⟨e, he⟩ := MassDataMassesW.splitIso_holds I.cm.sig I.J
@@ -30,27 +20,11 @@ theorem finProjOpen_holds : FinProjOpen := by
     simp only [Function.comp, he]
   rw [h]
   exact isOpenMap_snd.comp e.toHomeomorph.isOpenMap
-
 end MassDataLevelSSteps
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.FinProjOpen =====
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.EvalVOpen =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.EvalVOpen", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.HaarIdxGlobOfFinProj\nimport Formalism.PeriodIntegrals.UnitaryGroupMassFormula.AdelicLocalCompactness.T2SpaceTensorProductFiniteExtension\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.FinProjOpen\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.StabilizerOrbitVolume.SdUniq\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.PiTensorProduct\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace MassDataLevelSSteps
-
 namespace EvalVW
-
 open scoped TensorProduct
 open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.SG.Measures
-
 theorem isOpenMap_of_section {G H : Type} [Group G] [Group H] [TopologicalSpace G] [TopologicalSpace H]
     [ContinuousMul G] (π : G →* H) (s : H → G) (hs : Continuous s) (hπ : ∀ y, π (s y) = y) :
     IsOpenMap π := by
@@ -285,15 +259,17 @@ def uHom (v : HeightOneSpectrum (𝓞 F)) : Fv F v →* Af F where
     have h3 : singleL v (1 : Fv F v) * singleL v 1 = singleL v 1 := by rw [← singleL_mul, mul_one]
     linear_combination hab + h1 + h2 - h3
 
-theorem continuous_uHom (v : HeightOneSpectrum (𝓞 F)) : Continuous (uHom v) :=
+section
+variable (v : HeightOneSpectrum (𝓞 F))
+theorem continuous_uHom : Continuous (uHom v) :=
   (PI.VolStabSW.SdUniqW.continuous_singleV v).add continuous_const
 
-theorem uHom_mul_single (v : HeightOneSpectrum (𝓞 F)) (a b : Fv F v) :
+theorem uHom_mul_single (a b : Fv F v) :
     uHom v a * singleL v b = singleL v (a * b) := by
   show (singleL v a + (1 - singleL v 1)) * singleL v b = singleL v (a * b)
   rw [add_mul, sub_mul, one_mul, ← singleL_mul, ← singleL_mul, one_mul, sub_self, add_zero]
 
-theorem Jt_smul (v : HeightOneSpectrum (𝓞 F)) (a : Fv F v) (z : Fv F v ⊗[F] E) :
+theorem Jt_smul (a : Fv F v) (z : Fv F v ⊗[F] E) :
     EvalVW.Jt (singleL v) (a • z) = uHom v a • EvalVW.Jt (singleL v) z := by
   induction z using TensorProduct.induction_on with
   | zero => rw [smul_zero, map_zero, smul_zero]
@@ -301,6 +277,7 @@ theorem Jt_smul (v : HeightOneSpectrum (𝓞 F)) (a : Fv F v) (z : Fv F v ⊗[F]
     rw [TensorProduct.smul_tmul', EvalVW.Jt_tmul, EvalVW.Jt_tmul, TensorProduct.smul_tmul', smul_eq_mul, smul_eq_mul,
       uHom_mul_single]
   | add x y hx hy => rw [smul_add, map_add (f := _), hx, hy, map_add (f := _), smul_add]
+end
 
 theorem continuous_Jt_single (v : HeightOneSpectrum (𝓞 F)) :
     Continuous (EvalVW.Jt (E := E) (singleL v)) := by
@@ -344,7 +321,3 @@ theorem haarIdxLoc_holds : HaarIdxLoc :=
   haarIdxLoc_of_open finProjOpen_holds evalVOpen_holds
 
 end MassDataLevelSSteps
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelStructures.EvalVOpen =====

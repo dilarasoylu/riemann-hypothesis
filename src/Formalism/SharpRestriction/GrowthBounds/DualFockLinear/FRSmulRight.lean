@@ -11,7 +11,6 @@ noncomputable section
 
 namespace Formalism.MainNotions.TestSideCounting
 
-open Formalism.GradedWeylDivisibility
 open Formalism.L2.G.Model (theta Hd nuL)
 open Formalism.L2.G.Model.TS (fockR)
 

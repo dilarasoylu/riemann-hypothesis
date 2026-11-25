@@ -21,24 +21,17 @@ import Mathlib.Algebra.Order.Star.Real
 import Mathlib.MeasureTheory.Covering.Besicovitch
 import Mathlib.Analysis.LocallyConvex.AbsConvexOpen
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.HermitianCurvature.HermitianCurvatureProofs.MomentIntegrable, Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothBoundedOfFourierDecay, Formalism.HermitianCurvature.HermitianCurvatureProofs.NormIteratedFDerivWithinInvOneLe, Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothDecayOfWeighted, Formalism.HermitianCurvature.HermitianCurvatureProofs.ContinuousExtensionOfFourierDecay
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.MomentIntegrable =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.MomentIntegrable", "h": "module\n\npublic import Mathlib.Analysis.Calculus.ContDiff.Defs\npublic import Mathlib.Analysis.Fourier.FourierTransform\npublic import Mathlib.Analysis.Fourier.FourierTransformDeriv\npublic import Mathlib.Analysis.Fourier.Inversion\nimport Mathlib.Tactic.TypeStar\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open MeasureTheory Real Module
-open scoped FourierTransform
-
 noncomputable section
-
+open MeasureTheory
+section
+open Real
+section
+open Module
+open scoped FourierTransform
 namespace Formalism.FourierDecayAlt.P5.HerC.Fou
-
 variable {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V] [FiniteDimensional ℝ V] [MeasurableSpace V]
   [BorelSpace V]
-
 theorem moment_integrable {u : V → ℂ} (hu : Continuous u) (m : ℕ) (C : ℝ)
     (hdec : ∀ w, ‖u w‖ ≤ C * (1 + ‖w‖) ^ (-((m : ℝ) + finrank ℝ V + 1))) (n : ℕ) (hn : n ≤ m) :
     Integrable (fun v => ‖v‖ ^ n * ‖u v‖) := by
@@ -98,25 +91,12 @@ theorem fourier_smooth (D : V → ℂ) (m : ℕ) (C : ℝ) (hD : Integrable D)
     simpa [mul_assoc] using this
   · rw [hinv]
     exact hD.fourierInv_fourier_eq hgi ht
-
 end Formalism.FourierDecayAlt.P5.HerC.Fou
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.MomentIntegrable =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothBoundedOfFourierDecay =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothBoundedOfFourierDecay", "h": "module\n\npublic import Formalism.HermitianCurvature.CompositeFormulaLevelZero\npublic import Mathlib.Analysis.Fourier.FourierTransform\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.MomentIntegrable\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\npublic import Mathlib.Analysis.Real.Pi.Bounds\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MeasureTheory Real Complex
+end
+section
+open Complex
 open scoped FourierTransform ComplexConjugate
-
-noncomputable section
-
 namespace Formalism.FourierDecayAlt.P5.HerC.Fou
-
 theorem integral_fsv_eq_fourier (D : ℂ → ℂ) (s : ℂ) :
     ∫ t, Formalism.FourierDecayAlt.P5.fsv s t * D t = 𝓕 D (-(I * conj s) / (π : ℂ)) := by
   rw [Real.fourier_eq]
@@ -169,27 +149,16 @@ theorem smooth_bounded_of_fourier_decay (D : ℂ → ℂ) (m : ℕ) (C : ℝ) (h
   refine Real.rpow_le_rpow_of_nonpos (by positivity) ?_ (by linarith [(Nat.cast_nonneg m : (0 : ℝ) ≤ m)])
   rw [hns]
   nlinarith [Real.pi_gt_three, norm_nonneg w]
-
 end Formalism.FourierDecayAlt.P5.HerC.Fou
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothBoundedOfFourierDecay =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.NormIteratedFDerivWithinInvOneLe =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.NormIteratedFDerivWithinInvOneLe", "h": "module\n\npublic import Mathlib.Analysis.Calculus.ContDiff.FTaylorSeries\npublic import Mathlib.Analysis.InnerProductSpace.Basic\npublic import Mathlib.Analysis.Calculus.ContDiff.Bounds\npublic import Mathlib.Analysis.Calculus.Deriv.ZPow\npublic import Mathlib.Analysis.Calculus.IteratedDeriv.Defs\npublic import Mathlib.Analysis.InnerProductSpace.Calculus\nimport Mathlib.MeasureTheory.Covering.Besicovitch\nimport Mathlib.Tactic.TypeStar\npublic import Mathlib.Analysis.Calculus.ContDiff.Basic\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MeasureTheory Module Set
+end
+end
+section
+open Module
+section
+open Set
 open scoped Nat
-
-noncomputable section
-
 namespace Formalism.FourierDecayAlt.P5.HerC.Fou
-
 variable {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V]
-
 theorem norm_iteratedFDeriv_id_le (j : ℕ) (x : V) : ‖iteratedFDeriv ℝ j (id : V → V) x‖ ≤ 1 + ‖x‖ := by
   rcases j with _ | _ | m
   · rw [norm_iteratedFDeriv_zero]
@@ -298,27 +267,12 @@ theorem norm_iteratedFDeriv_u_le (k : ℕ) (x₀ : V) :
     (ContDiffOn.mono (contDiffOn_inv (𝕜 := ℝ)) (fun t (ht : t ∈ Ioi (0 : ℝ)) => (ne_of_gt ht : t ≠ 0))) hfc le_rfl x₀ hC hD
   calc ‖iteratedFDeriv ℝ k ((fun t : ℝ => t⁻¹) ∘ f) x₀‖ ≤ k ! * k ! * 4 ^ k := hmain
     _ = k ! * k ! * 4 ^ k := rfl
-
 end Formalism.FourierDecayAlt.P5.HerC.Fou
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.NormIteratedFDerivWithinInvOneLe =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothDecayOfWeighted =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothDecayOfWeighted", "h": "module\n\npublic import Mathlib.Analysis.Calculus.ContDiff.Defs\npublic import Mathlib.MeasureTheory.Integral.Bochner.Basic\npublic import Mathlib.MeasureTheory.Measure.Haar.OfBasis\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.IntegralIteratedFDerivEqZero\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.NormIteratedFDerivWithinInvOneLe\nimport Mathlib.Analysis.Calculus.ContDiff.Bounds\nimport Mathlib.Analysis.InnerProductSpace.Calculus\nimport Mathlib.MeasureTheory.Covering.Besicovitch\nimport Mathlib.Tactic.TypeStar\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MeasureTheory Module
+end
+section
 open scoped Nat
-
-noncomputable section
-
 namespace Formalism.FourierDecayAlt.P5.HerC.Fou
-
 variable {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V]
-
 def au (j : ℕ) : ℝ := j ! * j ! * 4 ^ j
 
 theorem au_nonneg (j : ℕ) : 0 ≤ au j := by
@@ -415,24 +369,11 @@ theorem smooth_decay_of_weighted [FiniteDimensional ℝ V] [MeasurableSpace V] [
   · linarith [norm_nonneg x]
   · have : (finrank ℝ V : ℝ) ≤ 3 := by exact_mod_cast hV
     linarith
-
 end Formalism.FourierDecayAlt.P5.HerC.Fou
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothDecayOfWeighted =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.ContinuousExtensionOfFourierDecay =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.ContinuousExtensionOfFourierDecay", "h": "module\n\npublic import Formalism.HermitianCurvature.CompositeFormulaLevelZero\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothBoundedOfFourierDecay\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.SmoothDecayOfWeighted\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.LocallyConvex.AbsConvexOpen\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MeasureTheory Real Complex Module
-
-noncomputable section
-
+end
+end
+open Real Complex Module
 namespace Formalism.FourierDecayAlt.P5.HerC.Fou
-
 theorem unif_bound {X : Type*} (f : ℕ → X → ℝ) (m : ℕ) (h : ∀ j ≤ m, ∃ B, ∀ t, f j t ≤ B) :
     ∃ B, ∀ j ≤ m, ∀ t, f j t ≤ B := by
   choose! B hB using h
@@ -473,9 +414,3 @@ theorem smooth_extension_of_fourier_decay (D : ℂ → ℂ) (m : ℕ) (C : ℝ) 
     filter_upwards [this] with t ht
     exact hD'eq t (hc t ht)
   exact ⟨D', hD'c, fun t ht => hD'eq t (hc t ht), integral_congr_ae hae, hdec, hint⟩
-
-end Formalism.FourierDecayAlt.P5.HerC.Fou
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.ContinuousExtensionOfFourierDecay =====

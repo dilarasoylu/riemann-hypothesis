@@ -4,23 +4,13 @@ public import Formalism.HermitianCurvature.MemParahoricTimesPrincipalCongruenceI
 public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HModelAllOf
 import Mathlib.Tactic.Linter.Style
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptGen, Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptRed
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptGen =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptGen", "h": "module\n\npublic import Formalism.HermitianCurvature.MemParahoricTimesPrincipalCongruenceIff\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace PIW.MassDataColumns
-
+section
 open Matrix Formalism.FourierDecayAlt.S3
 open scoped Matrix
-
 variable {K : Type} [Field K] (O : Subring K) {r k : ℕ}
-
 def colv (c : Idx r k → Idx r k → K) (y : Fin k → Idx r k → K) : Idx r k → Idx r k → K
   | Sum.inr (Sum.inl (Sum.inl i)) => y i
   | Sum.inl a => c (Sum.inl a)
@@ -35,28 +25,10 @@ section Gen
 def IntO (M : Matrix (Idx r k) (Idx r k) K) : Prop := ∀ i j, M i j ∈ O
 
 end Gen
-
-end PIW.MassDataColumns
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptGen =====
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptRed =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptRed", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptGen\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HModelAllOf\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.PiTensorProduct\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace PIW.MassDataColumns
-
-open Formalism.BasicNotions Formalism.L2.SG.HidaSetting Formalism.L2.SG.AdBridge Formalism.L2.SG.TypedSets Formalism.L2.SG.Measures Formalism.L2.SG.Sub
-  Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes NumberField IsDedekindDomain Formalism.FourierDecayAlt.S3 MassDataIdxSteps MassDataIdxStIm MassDataIdxSpl
+end
+open Formalism.BasicNotions Formalism.L2.SG.HidaSetting Formalism.L2.SG.AdBridge Formalism.L2.SG.TypedSets Formalism.L2.SG.Measures Formalism.L2.SG.Sub Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes NumberField IsDedekindDomain Formalism.FourierDecayAlt.S3 MassDataIdxSteps MassDataIdxStIm MassDataIdxSpl
 open scoped Matrix TensorProduct
-
 variable {D : D7}
-
 section In
 
 variable (X : HidaSetting D) (hb : AdBridgeIso X.B.I) (u : D.what₂.Word) (p : TypX X)
@@ -94,15 +66,20 @@ def AdaptIn (X : HidaSetting D) (hb : AdBridgeIso X.B.I) (u : D.what₂.Word) (p
 private theorem mulVec_apply_eq_sum_lattice_columns {ι κ K : Type} [Fintype κ] [Field K] (M : Matrix ι κ K) (v : κ → K)
     (i : ι) : (M *ᵥ v) i = ∑ j, M i j * v j := rfl
 
-private theorem dotProduct_eq_sum_mul {κ K : Type} [Fintype κ] [Field K] (v w : κ → K) :
+section
+variable {κ K : Type} [Fintype κ] [Field K] (v w : κ → K)
+private theorem dotProduct_eq_sum_mul :
     v ⬝ᵥ w = ∑ j, v j * w j := rfl
 
-private theorem dotProduct_comm_field {κ K : Type} [Fintype κ] [Field K] (v w : κ → K) :
+private theorem dotProduct_comm_field :
     v ⬝ᵥ w = w ⬝ᵥ v := by
   rw [dotProduct_eq_sum_mul, dotProduct_eq_sum_mul]
   exact Finset.sum_congr rfl fun j _ => mul_comm _ _
+end
 
-private theorem colv_apply_of_not_isW {r k : ℕ} {K : Type} [Field K] (c : Idx r k → Idx r k → K)
+section
+variable {r k : ℕ} {K : Type} [Field K]
+private theorem colv_apply_of_not_isW (c : Idx r k → Idx r k → K)
     (y : Fin k → Idx r k → K) (s : Idx r k) (hs : ¬ IsW s) : colv c y s = c s := by
   rcases s with a | ((i | u) | b)
   · rfl
@@ -110,33 +87,33 @@ private theorem colv_apply_of_not_isW {r k : ℕ} {K : Type} [Field K] (c : Idx 
   · rfl
   · rfl
 
-private theorem ofCols_mulVec_single_one {r k : ℕ} {K : Type} [Field K] (v : Idx r k → Idx r k → K)
-    (s : Idx r k) : ofCols v *ᵥ Pi.single s 1 = v s := by
+section
+variable (v : Idx r k → Idx r k → K)
+private theorem ofCols_mulVec_single_one (s : Idx r k) : ofCols v *ᵥ Pi.single s 1 = v s := by
   funext i
   rw [mulVec_apply_eq_sum_lattice_columns]
   simp [ofCols, Pi.single_apply]
 
-private theorem ofCols_transpose_mulVec_apply {r k : ℕ} {K : Type} [Field K] (v : Idx r k → Idx r k → K)
-    (w : Idx r k → K) (t : Idx r k) : ((ofCols v)ᵀ *ᵥ w) t = v t ⬝ᵥ w := by
+private theorem ofCols_transpose_mulVec_apply (w : Idx r k → K) (t : Idx r k) : ((ofCols v)ᵀ *ᵥ w) t = v t ⬝ᵥ w := by
   first
   | rfl
 
-private theorem ofCols_mulVec_eq_sum_smul {r k : ℕ} {K : Type} [Field K] (v : Idx r k → Idx r k → K)
-    (w : Idx r k → K) : ofCols v *ᵥ w = ∑ j, w j • v j := by
+private theorem ofCols_mulVec_eq_sum_smul (w : Idx r k → K) : ofCols v *ᵥ w = ∑ j, w j • v j := by
   funext i
   rw [mulVec_apply_eq_sum_lattice_columns, Finset.sum_apply]
   simp [ofCols, mul_comm]
+end
 
-private theorem ofCols_colv_zero_mulVec_eq_zero_of_isW {r k : ℕ} {K : Type} [Field K] (z : Fin k → Idx r k → K)
-    (w : Idx r k → K) (hw : ∀ j, IsW j → w j = 0) : ofCols (colv (fun _ => 0) z) *ᵥ w = 0 := by
+section
+variable (z : Fin k → Idx r k → K)
+private theorem ofCols_colv_zero_mulVec_eq_zero_of_isW (w : Idx r k → K) (hw : ∀ j, IsW j → w j = 0) : ofCols (colv (fun _ => 0) z) *ᵥ w = 0 := by
   rw [ofCols_mulVec_eq_sum_smul]
   refine Finset.sum_eq_zero fun j _ => ?_
   by_cases hj : IsW j
   · rw [hw j hj, zero_smul]
   · simp [colv_apply_of_not_isW _ _ j hj]
 
-private theorem ofCols_colv_zero_mul_self_eq_zero_of_isW {r k : ℕ} {K : Type} [Field K] (z : Fin k → Idx r k → K)
-    (hz : ∀ i j, IsW j → z i j = 0) :
+private theorem ofCols_colv_zero_mul_self_eq_zero_of_isW (hz : ∀ i j, IsW j → z i j = 0) :
     ofCols (colv (fun _ => 0) z) * ofCols (colv (fun _ => 0) z) = 0 := by
   ext a b
   rw [Matrix.mul_apply, Matrix.zero_apply]
@@ -147,6 +124,8 @@ private theorem ofCols_colv_zero_mul_self_eq_zero_of_isW {r k : ℕ} {K : Type} 
       simp [ofCols, colv, hz i j hj]
     · simp [ofCols, colv_apply_of_not_isW _ _ b hb]
   · simp [ofCols, colv_apply_of_not_isW _ _ j hj]
+end
+end
 
 private theorem mulVec_apply_mem_of_mem {ι κ K : Type} [Fintype κ] [Field K] (S : ValuationSubring K)
     (M : Matrix ι κ K) (hM : ∀ i j, M i j ∈ S) (v : κ → K) (hv : ∀ j, v j ∈ S) (i : ι) :
@@ -154,7 +133,9 @@ private theorem mulVec_apply_mem_of_mem {ι κ K : Type} [Fintype κ] [Field K] 
   rw [mulVec_apply_eq_sum_lattice_columns]
   exact sum_mem fun j _ => mul_mem (hM i j) (hv j)
 
-private theorem mulVec_mem_iff_of_mul_eq_one_of_mem {κ K : Type} [Fintype κ] [DecidableEq κ] [Field K] (S : ValuationSubring K)
+section
+variable {κ K : Type} [Fintype κ]
+private theorem mulVec_mem_iff_of_mul_eq_one_of_mem [DecidableEq κ] [Field K] (S : ValuationSubring K)
     (N N' : Matrix κ κ K) (h : N * N' = 1) (hN : ∀ i j, N i j ∈ S) (hN' : ∀ i j, N' i j ∈ S)
     (w : κ → K) : (∀ i, (N' *ᵥ w) i ∈ S) ↔ ∀ i, w i ∈ S := by
   constructor
@@ -165,13 +146,13 @@ private theorem mulVec_mem_iff_of_mul_eq_one_of_mem {κ K : Type} [Fintype κ] [
   · intro hw i
     exact mulVec_apply_mem_of_mem S N' hN' w hw i
 
-private theorem matrix_mul_apply_mem_of_mem {κ K : Type} [Fintype κ] [Field K] (S : ValuationSubring K)
+private theorem matrix_mul_apply_mem_of_mem [Field K] (S : ValuationSubring K)
     (M E : Matrix κ κ K) (hM : ∀ i j, M i j ∈ S) (hE : ∀ i j, E i j ∈ S) (i j : κ) :
     (M * E) i j ∈ S := by
   rw [Matrix.mul_apply]
   exact sum_mem fun l _ => mul_mem (hM i l) (hE l j)
 
-private theorem adjugate_apply_mem_of_forall_mem {κ K : Type} [Fintype κ] [DecidableEq κ] [Field K] (S : ValuationSubring K)
+private theorem adjugate_apply_mem_of_forall_mem [DecidableEq κ] [Field K] (S : ValuationSubring K)
     (M : Matrix κ κ K) (hM : ∀ i j, M i j ∈ S) (i j : κ) : M.adjugate i j ∈ S := by
   let M' : Matrix κ κ S.toSubring := fun a b => ⟨M a b, hM a b⟩
   have hMeq : M = (S.toSubring.subtype).mapMatrix M' := by
@@ -179,6 +160,7 @@ private theorem adjugate_apply_mem_of_forall_mem {κ K : Type} [Fintype κ] [Dec
     rfl
   rw [hMeq, ← RingHom.map_adjugate]
   exact (M'.adjugate i j).2
+end
 
 private theorem latBasis_mul_of_mem_integers_of_inv_mem (X : HidaSetting D) (p : TypX X)
     (θ : TpX X p ≃ₐ[FpX X p] FpX X p × FpX X p) (P R : GL (Fin X.B.I.n) (FpX X p))
@@ -389,9 +371,3 @@ theorem hAdaptAll_of (h : AdaptInAll) : HAdaptAll := by
   unfold HAdaptAll
   intro D X hb hK u hM hL p
   exact hAdaptQ_of_in X hb u p (h X hb hK u hM hL p)
-
-end PIW.MassDataColumns
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LatticeColumns.HAdaptRed =====

@@ -13,24 +13,12 @@ import Mathlib.Tactic.TypeStar
 import Formalism.EllipticTorsion.EllipticTorsionProofs.WPoint
 import Formalism.EllipticTorsion.EllipticTorsionProofs.WSubst
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.EllipticTorsion.EllipticTorsionProofs.JetsTwo, Formalism.EllipticTorsion.EllipticTorsionProofs.CubeTwo
-
--- ===== clump member: Formalism.EllipticTorsion.EllipticTorsionProofs.JetsTwo =====
--- clump-header: {"m": "Formalism.EllipticTorsion.EllipticTorsionProofs.JetsTwo", "h": "module\n\npublic import Mathlib.RingTheory.MvPowerSeries.Derivative\npublic import Mathlib.RingTheory.MvPowerSeries.Substitution\npublic import Formalism.FormalGroupLog.FormalGroupLogProofs.ChainRule\npublic import Formalism.FormalGroupLog.FormalGroupLogProofs.ConstantCoeffSubstOfZero\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
-universe u
-
 noncomputable section
-
+universe u
 namespace Formalism.ELL.FormalGroupQuadraticJets
-
 open Formalism.G.LogCR
-
 variable {K : Type*} [CommRing K]
-
 def ccd (i : Fin 2) (H : MvPowerSeries (Fin 2) K) : K :=
   MvPowerSeries.constantCoeff (MvPowerSeries.pderiv (R := K) i H)
 
@@ -71,18 +59,8 @@ namespace Formalism.ELL
 open Formalism.G Formalism.ELL.FormalGroupQuadraticJets Formalism.G.LogCR
 
 end Formalism.ELL
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.EllipticTorsion.EllipticTorsionProofs.JetsTwo =====
-
--- ===== clump member: Formalism.EllipticTorsion.EllipticTorsionProofs.CubeTwo =====
--- clump-header: {"m": "Formalism.EllipticTorsion.EllipticTorsionProofs.CubeTwo", "h": "module\n\npublic import Formalism.EllipticTorsion.CoeffRing\npublic import Formalism.EllipticTorsion.EllipticTorsionProofs.WChord\npublic import Formalism.EllipticTorsion.EllipticTorsionProofs.ExistsUnitFactor\npublic import Formalism.EllipticTorsion.EllipticTorsionProofs.FormalGroupPointsHomDef\npublic import Formalism.EllipticTorsion.EllipticTorsionProofs.JetsTwo\nimport Formalism.EllipticTorsion.EllipticTorsionProofs.WPoint\npublic import Formalism.EllipticTorsion.EllipticTorsionProofs.WSeries\nimport Formalism.EllipticTorsion.EllipticTorsionProofs.WSubst\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 open PowerSeries
-
 local notation "cc" => MvPowerSeries.constantCoeff
 
 universe u
@@ -484,7 +462,3 @@ theorem cube_two : Formalism.ELL.CubeTwo.{u} := by
   exact ⟨c, fun d => WeierstrassChordSeries.mem_T.mp hcT d, hcc, hc⟩
 
 end Formalism.ELL
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.EllipticTorsion.EllipticTorsionProofs.CubeTwo =====

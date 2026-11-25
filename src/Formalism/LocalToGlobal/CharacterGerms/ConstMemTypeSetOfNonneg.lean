@@ -12,7 +12,6 @@ open Classical
 
 namespace Formalism.L2.FormalSeriesBounds
 
-open Formalism.IncomingBounds ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ
 
 variable {C : Type} [Field C]
 

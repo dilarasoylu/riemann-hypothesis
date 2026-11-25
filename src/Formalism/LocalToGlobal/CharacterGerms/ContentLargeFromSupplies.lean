@@ -11,7 +11,7 @@ open Classical
 
 namespace Formalism.L2.FormalSeriesBounds
 
-open Formalism.IncomingBounds Formalism.UnitaryBoundIntegral Formalism.L2.DIV Formalism.BasicNotions
+open Formalism.L2.DIV Formalism.BasicNotions
 
 variable {C : Type} [Field C] {V : VF C} {d : ℕ} [NeZero d] {I J : Fin 2 → Type}
   [∀ g, Fintype (I g)] [∀ g, Fintype (J g)]
@@ -59,12 +59,6 @@ def kind (n : ℕ) : (b : GlobalTheory d) → Fin (b.what₂ n) → Option (Fin 
   | ch _ _ _ => fun _ => none
   | mon _ _ _ => fun _ => none
 
-def wt : GlobalTheory d → Fin 2 → ZMod d → ℕ → ℕ
-  | bi g a i y => fun g' a' k =>
-      (if g' = g ∧ a' = a ∧ k = X.n then V.l ^ i * y else 0) +
-        (if g' = 1 - g ∧ a' = a + (i : ZMod d) ∧ k = X.n then y else 0)
-  | ch g a u => fun g' a' k => if g' = g ∧ a' = a ∧ k = X.n then u else 0
-  | mon g e N => fun g' a' k => if g' = g ∧ 1 ≤ k ∧ k ≤ min N (X.rk g a') then e a' k else 0
 
 def Attains (b : GlobalTheory d) (c : ℝ) : Prop :=
   ∃ (S : ∀ g, Sys (X.G g)) (t : ∀ g, I g → MvPowerSeries (I g) C), (∀ g, (S g).IsT (t g)) ∧

@@ -13,25 +13,15 @@ import Formalism.LocalToGlobal.GlobalTheory.BlockActions.FixOrthogonalVector
 import Formalism.LocalToGlobal.GlobalTheory.BlockActions.LengthInverseBound
 import Formalism.LocalToGlobal.HermitianForms.TiedBrUnit
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabRestrict, Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfInjection, Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFixed, Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFinite
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabRestrict =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabRestrict", "h": "module\n\npublic import Formalism.LocalToGlobal.HermitianForms.TiedSym\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.InJSymRestrict\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.TilEqLevel\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.MulLatMulLat\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.GlobalTheoryTheory.Br
-
-open Formalism.BasicNotions Formalism.L2.Forms NumberField Formalism.UG Matrix
+open Formalism.BasicNotions Formalism.L2.Forms
+section
+open NumberField Formalism.UG Matrix
 open scoped TensorProduct
 open IsDedekindDomain
-
 variable {D : D7} {u : D.what₂.Word} {Ch : ℕ → Type} {chOf : ∀ i, (D.mem u).C.cls i → Ch i}
-
-
 theorem stab_restrict (Tf : FormsTiedSym D u Ch chOf) (c : (D.fm u).clsP)
     (γ : UJ (sigD D : D.host.E →+* D.host.E) (gramN D D.R.m le_rfl))
     (hγ : γ ∈ ((Tf.cls D.R.m le_rfl (Or.inr rfl)).stabI ((D.fm u).til c)).range)
@@ -82,24 +72,7 @@ theorem stab_restrict (Tf : FormsTiedSym D u Ch chOf) (c : (D.fm u).clsP)
   show (Tf.clsP.y c).1 * K * ((Tf.clsP.y c).1)⁻¹ = _
   rw [hK]
   group
-
-end Formalism.L2.GlobalTheoryTheory.Br
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabRestrict =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfInjection =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfInjection", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.ClassMapEstimateOfPartial\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.L2.GlobalTheoryTheory.Br
-
-open Formalism.BasicNotions Formalism.L2.Forms
-
+end
 theorem bij_of_inj_back {A B : Type} [Finite A] (f : A → B) (hf : Function.Injective f) (g : B → A) (hg : Function.Injective g) :
     Function.Bijective f := by
   haveI : Finite B := Finite.of_injective g hg
@@ -112,32 +85,16 @@ theorem stabiliser_bijective_of_injection
   intro D u Ch chOf Tf c
   obtain ⟨g, hg⟩ := h D u Ch chOf Tf c
   exact bij_of_inj_back _ ((D.fm u).stabMap_inj c) g hg
-
-end Formalism.L2.GlobalTheoryTheory.Br
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfInjection =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFixed =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFixed", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.ClassMapEstimateOfPartial\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.ClassInjectiveOfDegree\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.DefNOfFact\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.FixOrthogonalVector\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.LengthInverseBound\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabRestrict\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfInjection\nimport Formalism.LocalToGlobal.HermitianForms.TiedBrUnit\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.L2.GlobalTheoryTheory.Br
-
-open Formalism.BasicNotions Formalism.L2.Forms NumberField Formalism.UG Matrix
-
+open NumberField Formalism.UG Matrix
 variable {D : D7} {u : D.what₂.Word} {Ch : ℕ → Type} {chOf : ∀ i, (D.mem u).C.cls i → Ch i}
-
 def StabFix (Tf : FormsTiedSym D u Ch chOf) : Prop :=
   ∀ (c : (D.fm u).clsP) (γ : UJ (sigD D : D.host.E →+* D.host.E) (gramN D D.R.m le_rfl)),
     γ ∈ ((Tf.cls D.R.m le_rfl (Or.inr rfl)).stabI ((D.fm u).til c)).range →
     ((Tf.til.ga c).1.1 * γ.1.1 * ((Tf.til.ga c)⁻¹).1.1) *ᵥ Tf.til.z0 = Tf.til.z0
 
-theorem span_with_orthogonal_vector (Tf : FormsTiedSym D u Ch chOf) :
+section
+variable (Tf : FormsTiedSym D u Ch chOf)
+theorem span_with_orthogonal_vector :
     ∀ y, ∃ (x : Fin (D.R.N D.R.m - 1) → D.host.E) (s : D.host.E), y = iXc D x + s • Tf.til.z0 := by
   have hTp : ((D.mem u).A.T : ℕ).Prime := (D.mem u).A.T_prime
   obtain ⟨a, ha⟩ := Tf.til.lastCoordinateUniformizerVector_spans_orthogonal_line
@@ -151,7 +108,7 @@ theorem span_with_orthogonal_vector (Tf : FormsTiedSym D u Ch chOf) :
   obtain ⟨x, s, hy⟩ := span_iXc_zc D y
   exact ⟨x, s / a, by rw [hy, ha, smul_smul, div_mul_cancel₀ s ha0]⟩
 
-theorem ext_of_fix (Tf : FormsTiedSym D u Ch chOf) (Γ : Matrix (Fin (D.R.N D.R.m)) (Fin (D.R.N D.R.m)) D.host.E)
+theorem ext_of_fix (Γ : Matrix (Fin (D.R.N D.R.m)) (Fin (D.R.N D.R.m)) D.host.E)
     (hΓ : cT (sigD D : D.host.E →+* D.host.E) Γ * gramN D D.R.m le_rfl * Γ = gramN D D.R.m le_rfl)
     (hfix : Γ *ᵥ Tf.til.z0 = Tf.til.z0) :
     ∃ δ : Matrix (Fin (D.R.N D.R.m - 1)) (Fin (D.R.N D.R.m - 1)) D.host.E,
@@ -183,7 +140,7 @@ theorem ext_of_fix (Tf : FormsTiedSym D u Ch chOf) (Γ : Matrix (Fin (D.R.N D.R.
   · have : (fun a => (RingHom.id D.host.E) (z0 a)) = z0 := rfl
     rw [this]; exact hfix
 
-theorem ext_unique (Tf : FormsTiedSym D u Ch chOf) {δ : Matrix (Fin (D.R.N D.R.m - 1)) (Fin (D.R.N D.R.m - 1)) D.host.E}
+theorem ext_unique {δ : Matrix (Fin (D.R.N D.R.m - 1)) (Fin (D.R.N D.R.m - 1)) D.host.E}
     {Γ1 Γ2 : Matrix (Fin (D.R.N D.R.m)) (Fin (D.R.N D.R.m)) D.host.E}
     (h1 : IsExt D Tf.til.z0 (RingHom.id D.host.E) δ Γ1) (h2 : IsExt D Tf.til.z0 (RingHom.id D.host.E) δ Γ2) : Γ1 = Γ2 := by
   have hm : (iXm D).map (RingHom.id D.host.E) = iXm D := by ext i j; rfl
@@ -202,7 +159,7 @@ theorem ext_unique (Tf : FormsTiedSym D u Ch chOf) {δ : Matrix (Fin (D.R.N D.R.
 
 
 
-theorem stab_back (Tf : FormsTiedSym D u Ch chOf) (hF : StabFix Tf) (c : (D.fm u).clsP) :
+theorem stab_back (hF : StabFix Tf) (c : (D.fm u).clsP) :
     ∃ g : (D.mem u).C.stab D.R.m ((D.fm u).til c) → (D.fm u).stabilizer₂ c, Function.Injective g := by
   set Km := Tf.cls D.R.m le_rfl (Or.inr rfl) with hKm
   have key : ∀ s : (D.mem u).C.stab D.R.m ((D.fm u).til c), ∃ (s' : (D.fm u).stabilizer₂ c)
@@ -246,31 +203,12 @@ theorem stab_back (Tf : FormsTiedSym D u Ch chOf) (hF : StabFix Tf) (c : (D.fm u
   simp only [← Matrix.mul_assoc, hi, Matrix.one_mul] at this
   simp only [Matrix.mul_assoc, hi, Matrix.mul_one] at this
   exact this
+end
 
 theorem stabiliser_bijective_of_fixed
     (hF : ∀ (D : D7) (u : D.what₂.Word) (Ch : ℕ → Type) (chOf : ∀ i, (D.mem u).C.cls i → Ch i) (Tf : FormsTiedSym D u Ch chOf),
       StabFix Tf) : StabiliserMapBijective :=
   stabiliser_bijective_of_injection (fun D u Ch chOf Tf c => stab_back Tf (hF D u Ch chOf Tf) c)
-
-end Formalism.L2.GlobalTheoryTheory.Br
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFixed =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFinite =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFinite", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFixed\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.ClassInjectiveOfDegree\npublic import Formalism.LocalToGlobal.GlobalTheory.BlockActions.ClassInjectiveOfSelfDual\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.DefNOfFact\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.FixOrthogonalVector\nimport Formalism.LocalToGlobal.GlobalTheory.BlockActions.LengthInverseBound\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.L2.GlobalTheoryTheory.Br
-
-open Formalism.BasicNotions Formalism.L2.Forms NumberField Formalism.UG Matrix
-
-variable {D : D7} {u : D.what₂.Word} {Ch : ℕ → Type} {chOf : ∀ i, (D.mem u).C.cls i → Ch i}
-
 def StabLF (Tf : FormsTiedSym D u Ch chOf) : Prop :=
   ∀ (c : (D.fm u).clsP) (γ : UJ (sigD D : D.host.E →+* D.host.E) (gramN D D.R.m le_rfl)),
     γ ∈ ((Tf.cls D.R.m le_rfl (Or.inr rfl)).stabI ((D.fm u).til c)).range →
@@ -351,9 +289,3 @@ theorem stabiliser_bijective_of_finite
     (hLF : ∀ (D : D7) (u : D.what₂.Word) (Ch : ℕ → Type) (chOf : ∀ i, (D.mem u).C.cls i → Ch i) (Tf : FormsTiedSym D u Ch chOf),
       StabLF Tf) : StabiliserMapBijective :=
   stabiliser_bijective_of_fixed (fun D u Ch chOf Tf => stabFix_of Tf (hSD D u Ch chOf Tf) (hLF D u Ch chOf Tf))
-
-end Formalism.L2.GlobalTheoryTheory.Br
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.BlockActions.StabiliserBijectiveOfFinite =====

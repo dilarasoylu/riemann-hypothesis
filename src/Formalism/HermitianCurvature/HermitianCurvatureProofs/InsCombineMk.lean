@@ -70,14 +70,17 @@ private theorem cj_eq_self_of_commute {f fi : A} (h2 : fi * f = 1) (x : SlopeTes
   unfold cj
   rw [mul_assoc, ← hx.eq, ← mul_assoc, hfi, one_mul]
 
-private theorem cj_smul' (f fi : A) (c : ℂ) (x : SlopeTestRemainingChoices S A) : cj f fi (c • x) = c • cj f fi x := by
+section
+variable (f fi : A)
+private theorem cj_smul' (c : ℂ) (x : SlopeTestRemainingChoices S A) : cj f fi (c • x) = c • cj f fi x := by
   unfold cj; rw [mul_smul_comm, smul_mul_assoc]
 
-private theorem cj_sub' (f fi : A) (x y : SlopeTestRemainingChoices S A) : cj f fi (x - y) = cj f fi x - cj f fi y := by
+private theorem cj_sub' (x y : SlopeTestRemainingChoices S A) : cj f fi (x - y) = cj f fi x - cj f fi y := by
   unfold cj; rw [mul_sub, sub_mul]
 
-private theorem cj_add' (f fi : A) (x y : SlopeTestRemainingChoices S A) : cj f fi (x + y) = cj f fi x + cj f fi y := by
+private theorem cj_add' (x y : SlopeTestRemainingChoices S A) : cj f fi (x + y) = cj f fi x + cj f fi y := by
   unfold cj; rw [mul_add, add_mul]
+end
 
 private theorem star_eU_apply_swap (a : S) (i j : Fin 2) : star (eU a i j : SlopeTestRemainingChoices S A) = eU a j i := by
   refine Matrix.ext fun x y => ?_
@@ -91,7 +94,9 @@ private theorem star_eU_apply_swap (a : S) (i j : Fin 2) : star (eU a i j : Slop
   · rw [if_pos (hiff.2 h), if_pos h, star_one]
   · rw [if_neg (mt hiff.1 h), if_neg h, star_zero]
 
-theorem ins_combine (a : S) (p k : SlopeTestRemainingChoices S A) (hk : FreeOf a k) (M : M2 (SlopeTestRemainingChoices S A)) :
+section
+variable (a : S) (p k : SlopeTestRemainingChoices S A)
+theorem ins_combine (hk : FreeOf a k) (M : M2 (SlopeTestRemainingChoices S A)) :
     p + k * ins a M = ins a !![p + k * M 0 0, k * M 0 1; k * M 1 0, p + k * M 1 1] := by
   have hc : ∀ i j, eU a i j * k = k * eU a i j := fun i j => (hk i j).eq
   have hp : p = eU a 0 0 * p + eU a 1 1 * p := by rw [← add_mul, eU_zero_zero_add_eU_one_one, one_mul]
@@ -100,9 +105,10 @@ theorem ins_combine (a : S) (p k : SlopeTestRemainingChoices S A) (hk : FreeOf a
   conv_lhs => rw [hp]
   abel
 
-theorem ins_combine_mk (a : S) (p k : SlopeTestRemainingChoices S A) (hk : FreeOf a k) (x y z w : SlopeTestRemainingChoices S A) :
+theorem ins_combine_mk (hk : FreeOf a k) (x y z w : SlopeTestRemainingChoices S A) :
     p + k * ins a !![x, y; z, w] = ins a !![p + k * x, k * y; k * z, p + k * w] := by
   exact ins_combine a p k hk !![x, y; z, w]
+end
 
 variable {L : R.LevelData A r} {st : Fr.Start A} {f fi : A} {s : ℂ}
 
@@ -328,36 +334,6 @@ theorem minus_l (mm1 : Ya - 1 ∈ fw.inv) : ∀ Y ∈ (fw.minus L a Ya).inv, Tw 
     exact cj_eq_self_of_commute hW.fi_f _ (hW.kap.mul_right ((h1.mul_right h2).smul_right _).neg_right)
 
 
-omit m0 in
-theorem minus_m (ihc : Commute (io f : SlopeTestRemainingChoices S A) fw.c) (mm1 : Ya - 1 ∈ fw.inv) : Tw f fi (star s) (fw.m L Ya) := by
-  obtain ⟨hcc, hcc'⟩ := hF.c_ci
-  have hci : Commute (io f : SlopeTestRemainingChoices S A) fw.ci := by
-    show (io f : SlopeTestRemainingChoices S A) * fw.ci = fw.ci * io f
-    calc (io f : SlopeTestRemainingChoices S A) * fw.ci = fw.ci * fw.c * io f * fw.ci := by rw [hcc', one_mul]
-      _ = fw.ci * (io f * fw.c) * fw.ci := by rw [ihc.eq]; simp only [mul_assoc]
-      _ = fw.ci * io f := by rw [mul_assoc, mul_assoc, hcc, mul_one]
-  have hdi : Commute (io f : SlopeTestRemainingChoices S A) (fw.di L) := by
-    unfold Formalism.FourierDecayAlt.Fr.FrameData.di
-    exact hci.mul_right ((WaveHyp.wti (S := S) hW).pow_right _)
-  have hd : Commute (io f : SlopeTestRemainingChoices S A) (fw.d L) := by
-    unfold Formalism.FourierDecayAlt.Fr.FrameData.d
-    exact ((WaveHyp.wt (S := S) hW).pow_right _).mul_right ihc
-  have hstar : ∀ x : A, star (io x : SlopeTestRemainingChoices S A) = io (star x) := by
-    intro x
-    first
-      | (unfold io
-         rw [Matrix.scalar_apply, Matrix.scalar_apply, Matrix.star_eq_conjTranspose, Matrix.diagonal_conjTranspose]
-         rfl)
-  have hsf : star fi = f := by rw [← hW.star_f, star_star]
-  have cjs : ∀ z : SlopeTestRemainingChoices S A, cj f fi (star z) = star (cj f fi z) := by
-    intro z
-    unfold cj
-    rw [star_mul, star_mul, hstar, hstar, hW.star_f, hsf, mul_assoc]
-  have hl : cj f fi (fw.l L (Ya - 1)) = fw.l L (Ya - 1) - s • (1 : SlopeTestRemainingChoices S A) := ihl (Ya - 1) mm1
-  show cj f fi (fw.di L * star (fw.l L (Ya - 1)) * fw.d L) =
-    fw.di L * star (fw.l L (Ya - 1)) * fw.d L - star s • (1 : SlopeTestRemainingChoices S A)
-  rw [cj_mul_of_mul_inv_eq_one hW.f_fi, cj_mul_of_mul_inv_eq_one hW.f_fi, cj_eq_self_of_commute hW.fi_f _ hdi, cj_eq_self_of_commute hW.fi_f _ hd, cjs, hl,
-    star_sub, star_smul, star_one, mul_sub, sub_mul, mul_smul_comm, mul_one, smul_mul_assoc, di_d L fw hcc']
 
 omit m0 in
 theorem minus_F (hfree : fw.Free a) (ihc : Commute (io f : SlopeTestRemainingChoices S A) fw.c) (mm1 : Ya - 1 ∈ fw.inv) (UU : SlopeTestRemainingChoices S A) (ihF : fw.F * (io f * UU) = io f * fw.F) :

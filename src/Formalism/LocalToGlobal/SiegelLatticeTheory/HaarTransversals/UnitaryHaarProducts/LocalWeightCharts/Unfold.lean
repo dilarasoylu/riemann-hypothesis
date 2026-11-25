@@ -17,35 +17,10 @@ namespace Grp
 def sig (k r : ℕ) (i : Fin (2 * r + k + 1)) : Fin (2 * r + k + 1) :=
   if i.val < r ∨ r + k < i.val then ⟨2 * r + k - i.val, by omega⟩ else i
 
-lemma sig_val (k r : ℕ) (i : Fin (2 * r + k + 1)) :
-    (sig k r i).val = if i.val < r ∨ r + k < i.val then 2 * r + k - i.val else i.val := by
-  unfold sig; split_ifs <;> rfl
 
-lemma sig_sig (k r : ℕ) (i : Fin (2 * r + k + 1)) : sig k r (sig k r i) = i := by
-  apply Fin.ext
-  have hi := i.isLt
-  have h1 := sig_val k r i
-  have h2 := sig_val k r (sig k r i)
-  split_ifs at h1 h2 <;> omega
 
-def sgn (k r : ℕ) (i : Fin (2 * r + k + 1)) : ℂ := if i.val = r + k then -1 else 1
 
-lemma sgn_sig (k r : ℕ) (i : Fin (2 * r + k + 1)) : sgn k r (sig k r i) = sgn k r i := by
-  have hi := i.isLt
-  have h1 := sig_val k r i
-  unfold sgn
-  split_ifs at h1 ⊢ <;> first | rfl | (exfalso; omega)
 
-lemma Hpk_eq (k r : ℕ) (i j : Fin (2 * r + k + 1)) :
-    Formalism.QuantumDeterminants.Hpk k r i j = if j = sig k r i then sgn k r i else 0 := by
-  have hi := i.isLt
-  have hj := j.isLt
-  have hs := sig_val k r i
-  have e1 : (j = sig k r i) ↔ j.val = (sig k r i).val := Fin.ext_iff
-  have e2 : (i = j) ↔ i.val = j.val := Fin.ext_iff
-  unfold Formalism.QuantumDeterminants.Hpk sgn
-  simp only [e1, e2]
-  split_ifs at * <;> first | rfl | (exfalso; omega)
 
 variable {k r : ℕ}
 
@@ -70,25 +45,28 @@ lemma of_mul_mem {s x : Mat k r} (hs : s ∈ Gr k r) (hsx : s * x ∈ Gr k r) : 
         rw [conjTranspose_mul]; simp only [Matrix.mul_assoc]
     _ = Formalism.QuantumDeterminants.Hpk k r := hsx'
 
-lemma inv_left {g : Mat k r} (hg : g ∈ Gr k r) :
+section
+variable {g : Mat k r}
+lemma inv_left (hg : g ∈ Gr k r) :
     (Formalism.QuantumDeterminants.Hpk k r * gᴴ * Formalism.QuantumDeterminants.Hpk k r) * g = 1 := by
   have hg' : gᴴ * Formalism.QuantumDeterminants.Hpk k r * g = Formalism.QuantumDeterminants.Hpk k r := hg
   calc Formalism.QuantumDeterminants.Hpk k r * gᴴ * Formalism.QuantumDeterminants.Hpk k r * g
       = Formalism.QuantumDeterminants.Hpk k r * (gᴴ * Formalism.QuantumDeterminants.Hpk k r * g) := by simp only [Matrix.mul_assoc]
     _ = 1 := by rw [hg', _root_.Formalism.MainNotions.BesselShellMomentBounds.Hpk_sq']
 
-lemma inv_eq {g : Mat k r} (hg : g ∈ Gr k r) : g⁻¹ = Formalism.QuantumDeterminants.Hpk k r * gᴴ * Formalism.QuantumDeterminants.Hpk k r :=
+lemma inv_eq (hg : g ∈ Gr k r) : g⁻¹ = Formalism.QuantumDeterminants.Hpk k r * gᴴ * Formalism.QuantumDeterminants.Hpk k r :=
   Matrix.inv_eq_left_inv (inv_left hg)
 
-lemma inv_mul {g : Mat k r} (hg : g ∈ Gr k r) : g⁻¹ * g = 1 := by
+lemma inv_mul (hg : g ∈ Gr k r) : g⁻¹ * g = 1 := by
   rw [inv_eq hg]; exact inv_left hg
 
-lemma mul_inv {g : Mat k r} (hg : g ∈ Gr k r) : g * g⁻¹ = 1 := by
+lemma mul_inv (hg : g ∈ Gr k r) : g * g⁻¹ = 1 := by
   rw [inv_eq hg]; exact mul_eq_one_comm.mp (inv_left hg)
 
-lemma inv_mem {g : Mat k r} (hg : g ∈ Gr k r) : g⁻¹ ∈ Gr k r := by
+lemma inv_mem (hg : g ∈ Gr k r) : g⁻¹ ∈ Gr k r := by
   apply of_mul_mem hg
   rw [mul_inv hg]; exact one_mem
+end
 
 lemma isClosed_Gr : IsClosed (Gr k r) := by
   have hc : Continuous (fun x : Mat k r => xᴴ * Formalism.QuantumDeterminants.Hpk k r * x) := by fun_prop

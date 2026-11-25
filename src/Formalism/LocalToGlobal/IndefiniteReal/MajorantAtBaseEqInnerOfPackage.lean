@@ -12,23 +12,12 @@ import Formalism.LocalToGlobal.Divisibility.ProjLemmas
 import Formalism.LocalToGlobal.Divisibility.RowLatLemmas
 import Formalism.LocalToGlobal.GlobalTheory.DivPassage
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.IndefiniteReal.CxPassMet, Formalism.LocalToGlobal.IndefiniteReal.MajorantAtBaseEqInnerOfPackage
-
--- ===== clump member: Formalism.LocalToGlobal.IndefiniteReal.CxPassMet =====
--- clump-header: {"m": "Formalism.LocalToGlobal.IndefiniteReal.CxPassMet", "h": "module\n\npublic import Formalism.LocalToGlobal.IndefiniteReal.CxPassSk\npublic import Mathlib.Analysis.CStarAlgebra.CStarMatrix\npublic import Formalism.LocalToGlobal.Divisibility.FramesLemmas\npublic import Formalism.LocalToGlobal.Divisibility.LiftLatLemmas\nimport Formalism.LocalToGlobal.Divisibility.ProjLemmas\nimport Formalism.LocalToGlobal.Divisibility.RowLatLemmas\npublic import Formalism.LocalToGlobal.IndefiniteReal.CxLemmas\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Formalism.LocalToGlobal.GlobalTheory.DivPassage\n\n"}
-section -- clump:auto
 @[expose] public section
-
+noncomputable section
 open Module NumberField IsDedekindDomain
 open scoped Matrix ComplexOrder InnerProductSpace
-
-noncomputable section
-
 namespace Formalism.IndefR.CxPass.BlockMetrics
-
 open Formalism.L2.DIV
-
 theorem inv_smul_ne {n : ℕ} (k : ℂ) (hk : k ≠ 0) (A : Matrix (Fin n) (Fin n) ℂ) :
     (k • A)⁻¹ = k⁻¹ • A⁻¹ := by
   by_cases h : IsUnit A.det
@@ -783,25 +772,8 @@ theorem majorant_at_base_eq_scaled_inner {Bs : DefBase K} {A : DefAmb Bs} (X : C
 end In
 
 end Formalism.IndefR.CxPass
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.IndefiniteReal.CxPassMet =====
-
--- ===== clump member: Formalism.LocalToGlobal.IndefiniteReal.MajorantAtBaseEqInnerOfPackage =====
--- clump-header: {"m": "Formalism.LocalToGlobal.IndefiniteReal.MajorantAtBaseEqInnerOfPackage", "h": "module\n\npublic import Formalism.LocalToGlobal.IndefiniteReal.InBlock\npublic import Formalism.LocalToGlobal.IndefiniteReal.CxPassMet\npublic import Formalism.LocalToGlobal.Divisibility.InertPartitionLePartF\nimport Formalism.LocalToGlobal.Divisibility.RowLatLemmas\npublic import Formalism.LocalToGlobal.Divisibility.TrivialExtensionSideWellFormed\nimport Formalism.LocalToGlobal.IndefiniteReal.CxLemmas\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Module NumberField IsDedekindDomain
-open scoped Matrix ComplexOrder InnerProductSpace
-
-noncomputable section
-
 namespace Formalism.IndefR.CxPass
-
 open Formalism.DivisionValues Formalism.L2.Indef Formalism.L2.DIV Formalism.IndefR.Cx Formalism.L2.GlobalTheoryTheory.DivPassage
-
 section Part3
 
 variable {K : Type} [Field K] [NumberField K] [StarRing K] {G : Type} [Group G] [Fintype G] {Pl0 I0 Ty : Type}
@@ -983,9 +955,3 @@ theorem pUni_of (_hJt : I.PJt) (hρ : I.PRho) : I.PUni :=
   I.pUni_core invS_holds hρ
 
 end In3
-
-end Formalism.IndefR.CxPass
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.IndefiniteReal.MajorantAtBaseEqInnerOfPackage =====

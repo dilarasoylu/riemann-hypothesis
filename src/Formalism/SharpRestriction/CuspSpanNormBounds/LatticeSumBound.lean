@@ -6,20 +6,10 @@ import Mathlib.Algebra.Order.Star.Real
 import Mathlib.Analysis.CStarAlgebra.Classes
 import Mathlib.Tactic.Lemma
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.CuspSpanNormBounds.WeightedLatticeSum, Formalism.SharpRestriction.CuspSpanNormBounds.LatticeSumBound
-
--- ===== clump member: Formalism.SharpRestriction.CuspSpanNormBounds.WeightedLatticeSum =====
--- clump-header: {"m": "Formalism.SharpRestriction.CuspSpanNormBounds.WeightedLatticeSum", "h": "module\n\npublic import Mathlib.Analysis.SpecialFunctions.Pow.Real\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.CStarAlgebra.Classes\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.WeightedLatticeSum
-
 open Finset
-
 def wt (R : ℝ) (m : ℕ) : ℝ := (max 1 (((m : ℝ) - 1) / (2 * R))) ^ (-(3 / 2 : ℝ))
 
 lemma rpow_neg_three_halves {t : ℝ} (ht : 0 < t) : t ^ (-(3 / 2 : ℝ)) = 1 / (t * Real.sqrt t) := by
@@ -75,7 +65,9 @@ private theorem max_div_rpow_le_two_mul_inv_sqrt_sub (c K : ℝ) (hc : 0 < c) (h
         mul_le_mul_of_nonneg_left ht (mul_pos hc hsc).le
     _ = 2 * c * Real.sqrt c * (1 / Real.sqrt (K - 1) - 1 / Real.sqrt K) := by ring
 
-lemma wt_tail (R : ℝ) (hR : 1 ≤ R) (N : ℕ) (hN : 2 * R ≤ N) (j : ℕ) :
+section
+variable (R : ℝ)
+lemma wt_tail (hR : 1 ≤ R) (N : ℕ) (hN : 2 * R ≤ N) (j : ℕ) :
     wt R (N + 2 + j) ≤ 2 * (2 * R) * Real.sqrt (2 * R) *
       (1 / Real.sqrt ((N : ℝ) + (j : ℝ)) - 1 / Real.sqrt ((N : ℝ) + ((j + 1 : ℕ) : ℝ))) := by
   have hc : 0 < 2 * R := by linarith
@@ -88,7 +80,7 @@ lemma wt_tail (R : ℝ) (hR : 1 ≤ R) (N : ℕ) (hN : 2 * R ≤ N) (j : ℕ) :
   rw [e1, e2]
   exact h
 
-lemma sum_wt_le (R : ℝ) (hR : 1 ≤ R) (T : Finset ℕ) : ∑ m ∈ T, wt R m ≤ 9 * R := by
+lemma sum_wt_le (hR : 1 ≤ R) (T : Finset ℕ) : ∑ m ∈ T, wt R m ≤ 9 * R := by
   obtain ⟨N, hN, hN'⟩ : ∃ N : ℕ, 2 * R ≤ (N : ℝ) ∧ (N : ℝ) < 2 * R + 1 :=
     ⟨⌈2 * R⌉₊, Nat.le_ceil _, Nat.ceil_lt_add_one (by linarith)⟩
   obtain ⟨J, hsub⟩ : ∃ J : ℕ, T ⊆ Finset.range (N + 2 + J) := by
@@ -127,14 +119,14 @@ lemma sum_wt_le (R : ℝ) (hR : 1 ≤ R) (T : Finset ℕ) : ∑ m ∈ T, wt R m 
           rw [mul_one_div, mul_div_assoc, div_self hsc.ne', mul_one]; ring
   linarith
 
-private theorem sum_wt_natAbs_le_nine_mul_of_injOn (R : ℝ) (hR : 1 ≤ R) (s : Finset ℤ)
+private theorem sum_wt_natAbs_le_nine_mul_of_injOn (hR : 1 ≤ R) (s : Finset ℤ)
     (hinj : ∀ x ∈ s, ∀ y ∈ s, x.natAbs = y.natAbs → x = y) :
     ∑ a ∈ s, wt R a.natAbs ≤ 9 * R := by
   calc ∑ a ∈ s, wt R a.natAbs = ∑ m ∈ s.image Int.natAbs, wt R m :=
         (Finset.sum_image hinj).symm
     _ ≤ 9 * R := sum_wt_le R hR _
 
-lemma sum_wt_int_le (R : ℝ) (hR : 1 ≤ R) (S : Finset ℤ) : ∑ a ∈ S, wt R a.natAbs ≤ 18 * R := by
+lemma sum_wt_int_le (hR : 1 ≤ R) (S : Finset ℤ) : ∑ a ∈ S, wt R a.natAbs ≤ 18 * R := by
   have h1 := sum_wt_natAbs_le_nine_mul_of_injOn R hR (S.filter (fun a : ℤ => 0 ≤ a)) (by
     intro x hx y hy hxy
     have hx0 : 0 ≤ x := (Finset.mem_filter.mp hx).2
@@ -157,6 +149,7 @@ lemma sum_wt_int_le (R : ℝ) (hR : 1 ≤ R) (S : Finset ℤ) : ∑ a ∈ S, wt 
         (Finset.sum_filter_add_sum_filter_not S _ _).symm
     _ ≤ 9 * R + 9 * R := add_le_add h1 h2
     _ = 18 * R := by ring
+end
 
 private theorem rpow_neg_three_halves_anti_of_one_le {s t : ℝ} (hs : 1 ≤ s) (hst : s ≤ t) :
     t ^ (-(3 / 2 : ℝ)) ≤ s ^ (-(3 / 2 : ℝ)) := by
@@ -311,29 +304,7 @@ theorem latSum (ι : Type) [Fintype ι] (P : Finset (ι → ℂ)) (R : ℝ) (hR 
     _ = (18 * R) ^ (2 * Fintype.card ι) := by
         rw [Finset.prod_const, Finset.card_univ, pow_mul, sq]
     _ ≤ (64 * R) ^ (2 * Fintype.card ι) := pow_le_pow_left₀ (by linarith) (by linarith) _
-
 end Formalism.MainNotions.WeightedLatticeSum
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.CuspSpanNormBounds.WeightedLatticeSum =====
-
--- ===== clump member: Formalism.SharpRestriction.CuspSpanNormBounds.LatticeSumBound =====
--- clump-header: {"m": "Formalism.SharpRestriction.CuspSpanNormBounds.LatticeSumBound", "h": "module\n\npublic import Formalism.SharpRestriction.CuspSpanNormBounds.KTwoMinorIntegrality\npublic import Formalism.SharpRestriction.CuspSpanNormBounds.WeightedLatticeSum\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.MainNotions.LatticeSumConvergence
-
 theorem LatSum_holds : Formalism.MainNotions.KTwoMinorIntegrality.LatSum :=
   fun ι _ P R hR hsep => Formalism.MainNotions.WeightedLatticeSum.latSum ι P R hR hsep
-
-end Formalism.MainNotions.LatticeSumConvergence
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.CuspSpanNormBounds.LatticeSumBound =====

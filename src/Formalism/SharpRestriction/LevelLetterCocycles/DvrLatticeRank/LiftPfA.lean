@@ -7,22 +7,11 @@ import Mathlib.RingTheory.Henselian
 import Mathlib.RingTheory.RegularLocalRing.Defs
 import Mathlib.RingTheory.SimpleRing.Principal
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.LevelLetterCocycles.FinrankMaxUnramifiedSubfieldPadicFinExtPos, Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.LiftPfA
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.FinrankMaxUnramifiedSubfieldPadicFinExtPos =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.FinrankMaxUnramifiedSubfieldPadicFinExtPos", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DataNLoc\npublic import Formalism.SharpRestriction.LevelLetterCocycles.ProdOneSubPrimitiveRoots\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.N.PreambleDegrees
-
 open Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.MainNotions.N.PreambleDegrees.Loc Module
-
 variable {l : ℕ} [Fact l.Prime]
-
 theorem finrank_sup_adjoin (F : IntermediateField ℚ_[l] (Om l)) (y : Om l) :
     finrank ℚ_[l] ↥(F ⊔ IntermediateField.adjoin ℚ_[l] {y}) = finrank ℚ_[l] ↥F * (minpoly F y).natDegree := by
   have hint : IsIntegral F y := (Algebra.IsIntegral.isIntegral (R := ℚ_[l]) y).tower_top
@@ -30,7 +19,9 @@ theorem finrank_sup_adjoin (F : IntermediateField ℚ_[l] (Om l)) (y : Om l) :
   set_option synthInstance.maxHeartbeats 200000 in
     exact (Module.finrank_mul_finrank ℚ_[l] ↥F ↥(IntermediateField.adjoin F {y})).symm
 
-theorem Ks_eq (K : FinExt l) (s : ℕ) {z : Om l} (hz : IsPrimitiveRoot z (l ^ s)) :
+section
+variable (K : FinExt l)
+theorem Ks_eq (s : ℕ) {z : Om l} (hz : IsPrimitiveRoot z (l ^ s)) :
     Ks K s = K0 K ⊔ IntermediateField.adjoin ℚ_[l] {z} := by
   have : NeZero (l ^ s) := ⟨(pow_pos (Fact.out : l.Prime).pos _).ne'⟩
   unfold Ks
@@ -41,38 +32,23 @@ theorem Ks_eq (K : FinExt l) (s : ℕ) {z : Om l} (hz : IsPrimitiveRoot z (l ^ s
     exact pow_mem (IntermediateField.mem_adjoin_simple_self _ _) _
   · exact IntermediateField.adjoin.mono _ _ _ (by rintro x rfl; exact hz.pow_eq_one)
 
-theorem finrank_Ks (K : FinExt l) {s : ℕ} (hs : 0 < s) :
+theorem finrank_Ks {s : ℕ} (hs : 0 < s) :
     finrank ℚ_[l] ↥(Ks K s) = finrank ℚ_[l] ↥(K0 K) * (l ^ (s - 1) * (l - 1)) := by
   have hz := ζQ_primitive l s
   rw [Ks_eq K s hz, finrank_sup_adjoin, natDegree_minpoly_eq (F := K0 K) inf_le_right hs hz,
     Nat.totient_prime_pow Fact.out hs]
 
-theorem finrank_maxUnramifiedSubfield_padicFinExt_pos (K : FinExt l) : 0 < finrank ℚ_[l] ↥(K0 K) := by
+theorem finrank_maxUnramifiedSubfield_padicFinExt_pos : 0 < finrank ℚ_[l] ↥(K0 K) := by
   have := K.2
   have : FiniteDimensional ℚ_[l] ↥(K0 K) := FiniteDimensional.of_injective
       (IntermediateField.inclusion (inf_le_left : K0 K ≤ K.1)).toLinearMap
       (IntermediateField.inclusion (inf_le_left : K0 K ≤ K.1)).injective
   exact finrank_pos
-
+end
 end Formalism.MainNotions.N.PreambleDegrees
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.FinrankMaxUnramifiedSubfieldPadicFinExtPos =====
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.LiftPfA =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.LiftPfA", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.DataNLoc\npublic import Mathlib.FieldTheory.Relrank\npublic import Formalism.SharpRestriction.LevelLetterCocycles.FinrankMaxUnramifiedSubfieldPadicFinExtPos\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.MainNotions.N.Ln34.CyclotomicLifting
-
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc Module
-
 variable {l : ℕ} [Fact l.Prime]
-
 theorem finite_roots_l : {x : Om l | x ^ (l ^ 1) = 1}.Finite := by
   classical
   have hl : 0 < l ^ 1 := pow_pos (Fact.out : l.Prime).pos 1
@@ -97,24 +73,26 @@ theorem fd_Ks (K : FinExt l) : FiniteDimensional ℚ_[l] ↥(Ks K 1) := by
 
 def cycL (K : FinExt l) : FinExt l := ⟨Ks K 1, fd_Ks K⟩
 
-theorem cycL_val (K : FinExt l) : (cycL K).1 = Ks K 1 := rfl
+section
+variable (K : FinExt l)
+theorem cycL_val : (cycL K).1 = Ks K 1 := rfl
 
-theorem max_unramified_le_cyclotomic (K : FinExt l) : K0 K ≤ K0 (cycL K) :=
+theorem max_unramified_le_cyclotomic : K0 K ≤ K0 (cycL K) :=
   le_inf (le_sup_left : K0 K ≤ Ks K 1) inf_le_right
 
-theorem Ks_cycL (K : FinExt l) : Ks (cycL K) 1 = Ks K 1 := by
+theorem Ks_cycL : Ks (cycL K) 1 = Ks K 1 := by
   apply le_antisymm
   · exact sup_le (inf_le_left : K0 (cycL K) ≤ (cycL K).1) le_sup_right
   · exact sup_le_sup_right (max_unramified_le_cyclotomic K) _
 
-theorem cyclotomic_degree_max_unramified (K : FinExt l) : (K0 K).relfinrank (Ks K 1) = l - 1 := by
+theorem cyclotomic_degree_max_unramified : (K0 K).relfinrank (Ks K 1) = l - 1 := by
   have hp : 0 < finrank ℚ_[l] ↥(K0 K) := Formalism.MainNotions.N.PreambleDegrees.finrank_maxUnramifiedSubfield_padicFinExt_pos K
   have h1 := IntermediateField.finrank_bot_mul_relfinrank (le_sup_left : K0 K ≤ Ks K 1)
   have h2 := Formalism.MainNotions.N.PreambleDegrees.finrank_Ks K one_pos
   rw [Nat.sub_self, pow_zero, one_mul] at h2
   exact Nat.eq_of_mul_eq_mul_left hp (h1.trans h2)
 
-theorem max_unramified_cyclotomic_eq (K : FinExt l) : K0 (cycL K) = K0 K := by
+theorem max_unramified_cyclotomic_eq : K0 (cycL K) = K0 K := by
   have h1 := cyclotomic_degree_max_unramified K
   have h2 := cyclotomic_degree_max_unramified (cycL K)
   rw [Ks_cycL] at h2
@@ -126,7 +104,7 @@ theorem max_unramified_cyclotomic_eq (K : FinExt l) : K0 (cycL K) = K0 K := by
     Nat.eq_of_mul_eq_mul_right hpos (by rw [hm, one_mul])
   exact le_antisymm (IntermediateField.relfinrank_eq_one_iff.1 h3) (max_unramified_le_cyclotomic K)
 
-theorem finrank_eq_relfinrank (K : FinExt l) :
+theorem finrank_eq_relfinrank :
     finrank ↥(K0 K) ↥K.1 = (K0 K).relfinrank K.1 := by
   have hle : K0 K ≤ K.1 := inf_le_left
   rw [IntermediateField.relfinrank_eq_finrank_of_le hle]
@@ -138,12 +116,6 @@ theorem finrank_eq_relfinrank (K : FinExt l) :
       left_inv := fun _ => rfl
       right_inv := fun _ => rfl }
 
-theorem finrank_cycL (K : FinExt l) : finrank ↥(K0 (cycL K)) ↥(cycL K).1 = l - 1 := by
+theorem finrank_cycL : finrank ↥(K0 (cycL K)) ↥(cycL K).1 = l - 1 := by
   rw [finrank_eq_relfinrank, cycL_val, ← Ks_cycL K, cyclotomic_degree_max_unramified]
-
-end Formalism.MainNotions.N.Ln34.CyclotomicLifting
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.DvrLatticeRank.LiftPfA =====

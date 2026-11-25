@@ -4,24 +4,14 @@ public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankP
 public import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.ExistsUnitShift
 import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.LsDatumA
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.EmbeddingSecondComponent, Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.SumIndL
-
--- ===== clump member: Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.EmbeddingSecondComponent =====
--- clump-header: {"m": "Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.EmbeddingSecondComponent", "h": "module\n\npublic import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.DeterminantUnitTheta.GSteps\npublic import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.ExistsUnitShift\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.LsDatumA\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open ValuativeRel Formalism.MainNotions.S.Loc Formalism.L2.SG.LsDatumA Formalism.L2.SG.LocalCountModules.LocCntCommon Formalism.L2.SG.LocalCountModules.ThetaMbe0GWork
-
 namespace Formalism.L2.SG.LocalCountModules.AlgGSplit
-
 variable {F : Type} [Field F] [ValuativeRel F] [TopologicalSpace F]
 variable {E : Type} [CommRing E] [Algebra F E] [TopologicalSpace E] [MeasurableSpace E]
+section
 variable {M : Model F E} {g : SplitG M.L}
-
 theorem fst_mem (g : SplitG M.L) (x : M.L.O) : (g.e (x : E)).1 ∈ 𝒪[F] := (Formalism.L2.SG.LocalCountModules.UnitaryGroupMassFormula.LocCntUG.comp_mem_O g x.2).1
 
 theorem snd_mem (g : SplitG M.L) (x : M.L.O) : (g.e (x : E)).2 ∈ 𝒪[F] := (Formalism.L2.SG.LocalCountModules.UnitaryGroupMassFormula.LocCntUG.comp_mem_O g x.2).2
@@ -92,7 +82,9 @@ theorem e_iota2 (l : Fin (r + 1) → M.R) (i : Ix r) :
   · rw [e_iota1_inr]
     rfl
 
-theorem firstComponent_iotaOne (l : Fin (r + 1) → M.R) : cmp1 hs (iota1 hs l) = l := by
+section
+variable (l : Fin (r + 1) → M.R)
+theorem firstComponent_iotaOne : cmp1 hs (iota1 hs l) = l := by
   have hq : (g.q : F) ≠ 0 := fun h => g.q_irr.ne_zero (Subtype.ext (by simpa using h))
   funext a
   apply Subtype.ext
@@ -104,21 +96,21 @@ theorem firstComponent_iotaOne (l : Fin (r + 1) → M.R) : cmp1 hs (iota1 hs l) 
     field_simp
     ring
 
-theorem secondComponent_iotaOne (l : Fin (r + 1) → M.R) : cmp2 hs (iota1 hs l) = 0 := by
+theorem secondComponent_iotaOne : cmp2 hs (iota1 hs l) = 0 := by
   funext a
   apply Subtype.ext
   apply g.e.injective
   rw [embedding_secondComponent, e_iota1_inl, e_iota1_inr]
   simp
 
-theorem firstComponent_iotaTwo (l : Fin (r + 1) → M.R) : cmp1 hs (iota2 hs l) = 0 := by
+theorem firstComponent_iotaTwo : cmp1 hs (iota2 hs l) = 0 := by
   funext a
   apply Subtype.ext
   apply g.e.injective
   rw [embedding_firstComponent, e_iota2, e_iota2]
   simp
 
-theorem secondComponent_iotaTwo (l : Fin (r + 1) → M.R) : cmp2 hs (iota2 hs l) = l := by
+theorem secondComponent_iotaTwo : cmp2 hs (iota2 hs l) = l := by
   have hq : (g.q : F) ≠ 0 := fun h => g.q_irr.ne_zero (Subtype.ext (by simpa using h))
   funext a
   apply Subtype.ext
@@ -129,6 +121,7 @@ theorem secondComponent_iotaTwo (l : Fin (r + 1) → M.R) : cmp2 hs (iota2 hs l)
   · simp only
     field_simp
     ring
+end
 
 theorem iota_cmp (Y : Ix r → M.L.O) : iota1 hs (cmp1 hs Y) + iota2 hs (cmp2 hs Y) = Y := by
   have hq : (g.q : F) ≠ 0 := fun h => g.q_irr.ne_zero (Subtype.ext (by simpa using h))
@@ -142,7 +135,9 @@ theorem iota_cmp (Y : Ix r → M.L.O) : iota1 hs (cmp1 hs Y) + iota2 hs (cmp2 hs
   · rw [e_iota1_inr, e_iota1_inr, embedding_firstComponent, embedding_secondComponent]
     ext <;> simp <;> field_simp
 
-theorem iotaOne_add (l w : Fin (r + 1) → M.R) : iota1 hs (l + w) = iota1 hs l + iota1 hs w := by
+section
+variable (l w : Fin (r + 1) → M.R)
+theorem iotaOne_add : iota1 hs (l + w) = iota1 hs l + iota1 hs w := by
   funext i
   apply Subtype.ext
   apply g.e.injective
@@ -153,15 +148,18 @@ theorem iotaOne_add (l w : Fin (r + 1) → M.R) : iota1 hs (l + w) = iota1 hs l 
   · rw [e_iota1_inr, e_iota1_inr, e_iota1_inr, Pi.add_apply, Subring.coe_add, map_add (f := _)]
     ext <;> simp <;> ring
 
-theorem iotaTwo_add (l w : Fin (r + 1) → M.R) : iota2 hs (l + w) = iota2 hs l + iota2 hs w := by
+theorem iotaTwo_add : iota2 hs (l + w) = iota2 hs l + iota2 hs w := by
   funext i
   apply Subtype.ext
   apply g.e.injective
   rw [Pi.add_apply, Subring.coe_add, map_add (f := _), e_iota2, e_iota2, e_iota2, iotaOne_add, Pi.add_apply,
     Subring.coe_add, map_add]
   ext <;> simp
+end
 
-theorem firstComponent_smul (c : M.L.O) (Y : Ix r → M.L.O) : cmp1 hs (c • Y) = dgR hs (c1 g c) • cmp1 hs Y := by
+section
+variable (c : M.L.O) (Y : Ix r → M.L.O)
+theorem firstComponent_smul : cmp1 hs (c • Y) = dgR hs (c1 g c) • cmp1 hs Y := by
   funext a
   apply Subtype.ext
   apply g.e.injective
@@ -171,7 +169,7 @@ theorem firstComponent_smul (c : M.L.O) (Y : Ix r → M.L.O) : cmp1 hs (c • Y)
   simp [dgR, c1, AlgEquiv.commutes]
   ring
 
-theorem secondComponent_smul (c : M.L.O) (Y : Ix r → M.L.O) : cmp2 hs (c • Y) = dgR hs (c2 g c) • cmp2 hs Y := by
+theorem secondComponent_smul : cmp2 hs (c • Y) = dgR hs (c2 g c) • cmp2 hs Y := by
   funext a
   apply Subtype.ext
   apply g.e.injective
@@ -180,28 +178,9 @@ theorem secondComponent_smul (c : M.L.O) (Y : Ix r → M.L.O) : cmp2 hs (c • Y
   rw [embedding_secondComponent]
   simp [dgR, c2, AlgEquiv.commutes]
   ring
-
-end Formalism.L2.SG.LocalCountModules.AlgGSplit
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.EmbeddingSecondComponent =====
-
--- ===== clump member: Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.SumIndL =====
--- clump-header: {"m": "Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.SumIndL", "h": "module\n\npublic import Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.EmbeddingSecondComponent\nimport Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.ExistsUnitShift\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.LsDatumA\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open ValuativeRel Formalism.MainNotions.S.Loc Formalism.L2.SG.LsDatumA Formalism.L2.SG.LocalCountModules.LocCntCommon Formalism.L2.SG.LocalCountModules.ThetaMbe0GWork
-
-namespace Formalism.L2.SG.LocalCountModules.AlgGSplit
-
-variable {F : Type} [Field F] [ValuativeRel F] [TopologicalSpace F]
-variable {E : Type} [CommRing E] [Algebra F E] [TopologicalSpace E] [MeasurableSpace E]
+end
+end
 variable {M : Model F E} {g : SplitG M.L} {r : ℕ}
-
 def ind (r : ℕ) (a b : Fin (r + 1)) : F := if a = Fin.last r ∧ b = Fin.last r then 1 else 0
 
 theorem e_cor (x : E) (a b : Fin (r + 1)) :
@@ -260,9 +239,3 @@ theorem e_llMap (Z : M.Mat (r + 1)) (TT : M.R) (m : Fin (r + 1) → M.R) (b : Fi
   · refine Prod.ext ?_ ?_ <;>
 
       simp [hb, llMap, Matrix.mulVec, dotProduct, map_sum, Prod.fst_sum, Prod.snd_sum]
-
-end Formalism.L2.SG.LocalCountModules.AlgGSplit
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.SiegelLatticeTheory.CokernelGLCounts.RankPointCounts.ThetaModuleTransport.HeadColumnCoordinates.UnitShiftSplitting.SumIndL =====

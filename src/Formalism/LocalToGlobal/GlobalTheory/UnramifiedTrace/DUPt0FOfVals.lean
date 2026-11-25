@@ -16,18 +16,10 @@ import Formalism.LocalToGlobal.GlobalTheory.GL6.PDnDil
 import Formalism.LocalToGlobal.GlobalTheory.GL6.PRLocV
 import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.CrossDiagonalMatching.DnkLkLocP
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.SumFib, Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DuFormulaOfFibreCount, Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DUPt0FOfVals
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.SumFib =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.SumFib", "h": "module\n\npublic import Mathlib.Algebra.GroupWithZero.Units.Fintype\npublic import Mathlib.Basic.Complex.Basic\npublic import Mathlib.LinearAlgebra.Span.Defs\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.CStarAlgebra.Classes\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\npublic import Mathlib.Algebra.BigOperators.Ring.Finset\npublic import Mathlib.Algebra.Module.Torsion.Free\n\n"}
-section -- clump:auto
 @[expose] public section
-
+section
 open scoped Classical
-
 namespace Formalism.L2.GlobalTheoryTheory.UnramifiedTrace
-
 theorem sum_fib {X P : Type*} [Fintype X] [DecidableEq X] [Fintype P] (π : P → X) (V : P → ℂ) (w : X → ℂ)
     (hV : ∀ p, V p = w (π p)) :
     ∑ p, V p = ∑ x, ((Finset.univ.filter (fun p => π p = x)).card : ℂ) * w x := by
@@ -125,28 +117,14 @@ theorem comb_du {K X PD PE : Type*} [Field K] [Fintype K] [DecidableEq K] [AddCo
       rw [← hq, ← hwE q, hline a q hq]
   rw [hD0, hD1, hE0, hE1, hS2, inv_mul_cancel_left₀ hA]
   ring
-
 end Formalism.L2.GlobalTheoryTheory.UnramifiedTrace
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.SumFib =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DuFormulaOfFibreCount =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DuFormulaOfFibreCount", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.EopUEq\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedDiagonal.HeckeRamifiedZeroOfMatchingsAndDu\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.DiagonalSlopes.PSplitT\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.DiamondPreservesRationalFormZero\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.SumFib\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 noncomputable section
-
 namespace Formalism.L2.GlobalTheoryTheory.UnramifiedTrace
-
 open Formalism.BasicNotions Formalism.MainNotions.product_first_zeroth_parts Formalism.L2.Forms Formalism.L2.GlobalTheoryTheory.LocalLatticeBases Formalism.L2.GlobalTheoryTheory.LocalLatticeBases.S0 NumberField IsDedekindDomain Matrix Formalism.UG
 open scoped TensorProduct Classical
-
+section
 variable {D : D7} {u : D.what₂.Word}
-
-
-
 theorem du_formula_of_fibre_count (T : Forms0 D u) (hF : DUFib0F T) : DUFormulaLevelZero D u := by
   intro v φ hφ
   obtain ⟨G, hG, hGφ⟩ := S0.forms_from_adelic_function T 0 (Nat.zero_le _) rfl φ hφ
@@ -177,26 +155,7 @@ theorem du_formula_of_fibre_count (T : Forms0 D u) (hF : DUFib0F T) : DUFormulaL
 
 theorem dUAll_of (h : ∀ (D : D7) (u : D.what₂.Word) (T : Forms0 D u), DUFib0F T) : Formalism.L2.GlobalTheoryTheory.UnramifiedDiagonal.DUAll :=
   fun D u T => du_formula_of_fibre_count T (h D u T)
-
-end Formalism.L2.GlobalTheoryTheory.UnramifiedTrace
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DuFormulaOfFibreCount =====
-
--- ===== clump member: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DUPt0FOfVals =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DUPt0FOfVals", "h": "module\n\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DUAllOfParts\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedDiagonal.HeckeRamifiedZeroOfMatchingsAndDu\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.PDnDil\nimport Formalism.LocalToGlobal.GlobalTheory.GL6.PRLocV\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DuFormulaOfFibreCount\nimport Formalism.PeriodIntegrals.UnitaryGroupMassFormula.CrossDiagonalMatching.DnkLkLocP\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.L2.GlobalTheoryTheory.UnramifiedTrace
-
-open Formalism.BasicNotions Formalism.MainNotions.product_first_zeroth_parts Formalism.L2.Forms Formalism.L2.GlobalTheoryTheory.LocalLatticeBases Formalism.L2.GlobalTheoryTheory.LocalLatticeBases.S0 NumberField IsDedekindDomain Matrix Formalism.UG
-open scoped TensorProduct Classical
-
 section Gen
 
 variable {E : Type} [Field E] [NumberField E] {n : ℕ}
@@ -260,7 +219,9 @@ theorem dn_bwd (hD : DnMvL T v c g γ η κ) (m : Fin (D.R.N 0) → D.host.E)
 
 end Mv
 
-theorem ptz_sub (T : Forms0 D u) {v : (D.mem u).A.vT} {c : (D.mem u).C.cls 0}
+section
+variable (T : Forms0 D u)
+theorem ptz_sub {v : (D.mem u).A.vT} {c : (D.mem u).C.cls 0}
     {g : Module.Dual ((D.mem u).A.Fv v) ((D.fm u).lk 0 v c)}
     {γ : UJ (sigD D : D.host.E →+* D.host.E) (gramN D 0 (Nat.zero_le _))}
     (z z' : ↥(Ld D u 0 (Nat.zero_le _) ((D.fm u).dn 0 v c g))) {y y' : (D.fm u).lk 0 v c}
@@ -275,14 +236,14 @@ theorem ptz_sub (T : Forms0 D u) {v : (D.mem u).A.vT} {c : (D.mem u).C.cls 0}
   · rw [map_sub, T.lv0.prk_smul, T.lv0.prk_smul, hy, hy', smul_smul, smul_smul, smul_sub,
       mul_comm (T.atT.res v s') _]
 
-theorem ptEx_holds (T : Forms0 D u) : PtEx T := by
+theorem ptEx_holds : PtEx T := by
   intro v c g _ γ η κ hD z
   obtain ⟨s, hs, hsz⟩ := (rlv_mem_locP _ _ _).1 (dn_fwd T hD z.1 z.2)
   have hz : s • (γ.1.1 *ᵥ z.1) ∈ Lk T.atT 0 (Nat.zero_le _) v c := Submodule.mem_sup_left hsz
   refine ⟨(T.atT.res v s)⁻¹ • T.lv0.prk v c ⟨_, hz⟩, s, hs, hz, ?_⟩
   rw [smul_smul, mul_inv_cancel₀ (res_ne T hs), one_smul]
 
-theorem ptWd_holds (T : Forms0 D u) : PtWd T := by
+theorem ptWd_holds : PtWd T := by
   rintro v c g _ γ η κ hD x y y' ⟨z, hzx, s, hs, hz, hy⟩ ⟨z', hzx', s', hs', hz', hy'⟩
   obtain ⟨w, hw, hpw⟩ := ptz_sub T z z' s s' hz hz' hy hy'
   have hd : (z - z').1 ∈ T.atT.Pv v • Ld D u 0 (Nat.zero_le _) ((D.fm u).dn 0 v c g) :=
@@ -298,7 +259,7 @@ theorem ptWd_holds (T : Forms0 D u) : PtWd T := by
     mul_ne_zero (res_ne T ht) (mul_ne_zero (res_ne T hs) (res_ne T hs'))
   exact sub_eq_zero.1 ((smul_eq_zero.1 h0).resolve_left hne)
 
-theorem ptInj_holds (T : Forms0 D u) : PtInj T := by
+theorem ptInj_holds : PtInj T := by
   rintro v c g _ γ η κ hD x x' y ⟨z, hzx, s, hs, hz, hy⟩ ⟨z', hzx', s', hs', hz', hy'⟩
   obtain ⟨w, hw, hpw⟩ := ptz_sub T z z' s s' hz hz' hy hy'
   rw [sub_self, smul_zero] at hpw
@@ -318,7 +279,9 @@ theorem ptInj_holds (T : Forms0 D u) : PtInj T := by
     exact mul_ne_zero (res_ne T ht) (mul_ne_zero (res_ne T hs) (res_ne T hs'))
   exact sub_eq_zero.1 ((smul_eq_zero.1 h0).resolve_left hne)
 
-theorem dn_img (T : Forms0 D u) {v : (D.mem u).A.vT} {c : (D.mem u).C.cls 0}
+section
+variable {v : (D.mem u).A.vT}
+theorem dn_img {c : (D.mem u).C.cls 0}
     {g : Module.Dual ((D.mem u).A.Fv v) ((D.fm u).lk 0 v c)}
     {γ : UJ (sigD D : D.host.E →+* D.host.E) (gramN D 0 (Nat.zero_le _))}
     {η : UPts (sigD D) (gramN D 0 (Nat.zero_le _)) (FiniteAdeleRing (𝓞 D.host.F) D.host.F)} {κ : T.cls0.lev.U}
@@ -332,10 +295,11 @@ theorem dn_img (T : Forms0 D u) {v : (D.mem u).A.vT} {c : (D.mem u).C.cls 0}
   obtain ⟨x, hx, hxe⟩ := Submodule.mem_map.1 htm
   exact ⟨t, ht, x, hx, hxe⟩
 
-theorem one_nmem (T : Forms0 D u) {v : (D.mem u).A.vT} : (1 : 𝓞 D.host.E) ∉ T.atT.Pv v := fun h => (Ideal.IsPrime.ne_top inferInstance) ((Ideal.eq_top_iff_one _).2 h)
+theorem one_nmem : (1 : 𝓞 D.host.E) ∉ T.atT.Pv v := fun h => (Ideal.IsPrime.ne_top inferInstance) ((Ideal.eq_top_iff_one _).2 h)
+end
 
 
-theorem ptSurj_holds (T : Forms0 D u) : PtSurj T := by
+theorem ptSurj_holds : PtSurj T := by
   intro v c g _ γ η κ hD y
   obtain ⟨w0, hw0⟩ := T.lv0.prk_surj v c y
   obtain ⟨t, ht, x, hx, hxe⟩ := dn_img T hD w0.1 w0.2
@@ -352,16 +316,10 @@ theorem ptSurj_holds (T : Forms0 D u) : PtSurj T := by
     rw [one_smul, Matrix.mulVec_smul, hxe, smul_smul]
   rw [e, T.lv0.prk_smul, map_mul, hr, inv_mul_cancel₀ htne, one_smul, map_one, one_smul, hw0]
 
-theorem dUPt0F_of_vals (T : Forms0 D u) (vS : ValSame T) (vT : ValTe T) (vD : ValDia T) : DUPt0F T :=
+theorem dUPt0F_of_vals (vS : ValSame T) (vT : ValTe T) (vD : ValDia T) : DUPt0F T :=
   dUPt0F_of T (ptEx_holds T) (ptWd_holds T) (ptInj_holds T) (ptSurj_holds T) vS vT vD
+end
 
 theorem dUAll_of_vals (h : ∀ (D : D7) (u : D.what₂.Word) (T : Forms0 D u), ValSame T ∧ ValTe T ∧ ValDia T) :
     Formalism.L2.GlobalTheoryTheory.UnramifiedDiagonal.DUAll := dUAll_of fun D u T =>
   duFib_of_pt T (dUPt0F_of_vals T (h D u T).1 (h D u T).2.1 (h D u T).2.2)
-
-end Formalism.L2.GlobalTheoryTheory.UnramifiedTrace
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.DUPt0FOfVals =====

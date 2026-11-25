@@ -4,21 +4,12 @@ public import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.ValUniqOf
 public import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.CastGLSymmBc
 import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.ColSpanMap
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.IsLatTupSmulIff, Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.CmpCMemFunMod
-
--- ===== clump member: Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.IsLatTupSmulIff =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.IsLatTupSmulIff", "h": "module\n\npublic import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.ValUniqOf\npublic import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.CastGLSymmBc\nimport Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.ColSpanMap\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.G.Cmp
-
 open Formalism.MainNotions.G Formalism.L2.Forms Formalism.UG NumberField IsDedekindDomain Matrix
 open scoped TensorProduct
-
+section
 theorem isLatTup_smul_iff {p : ℕ} {G : GAtP p} (i : G.comp) (γ : (G.lev i).Γ) (L : G.P.Tup) :
     G.P.IsLatTup ((G.lev i).smul γ L) ↔ G.P.IsLatTup L := by
   constructor
@@ -98,26 +89,7 @@ theorem cmpC_equiv (tE : Tau → E →+* LL) (htE : ∀ τ x, embLL (tE τ x) = 
       ← algebraMap_smul G.Kf ((G.lev i).χ γ : G.O), smul_smul, hr1, one_smul]
   · have hL' : ¬ G.P.IsLatTup ((G.lev i).smul γ L) := fun h => hL ((isLatTup_smul_iff i γ L).1 h)
     rw [ite_eq_right hL, ite_eq_right hL', map_zero, smul_zero]
-
-end Formalism.L2.G.Cmp
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.IsLatTupSmulIff =====
-
--- ===== clump member: Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.CmpCMemFunMod =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.CmpCMemFunMod", "h": "module\n\npublic import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.ValUniqOf\npublic import Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.IsLatTupSmulIff\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.L2.G.Cmp
-
-open Formalism.MainNotions.G Formalism.L2.Forms Formalism.UG NumberField IsDedekindDomain Matrix
-open scoped TensorProduct
-
 theorem mem_funMod_iff {p : ℕ} (G : GAtP p) (Hv : G.P.Tup → Submodule G.O G.P.Xsp) (Fn : G.Fn) :
     Fn ∈ G.funMod Hv ↔ ∀ i, (∀ L, G.P.IsLatTup L → Fn i L ∈ Hv L) ∧ (∀ L, ¬ G.P.IsLatTup L → Fn i L = 0) ∧
       ∀ (γ : (G.lev i).Γ) (L : G.P.Tup), Fn i ((G.lev i).smul γ L) = ((G.lev i).χ γ : G.O) • (G.lev i).actX γ (Fn i L) := by
@@ -156,10 +128,3 @@ theorem cmpC_mem_funMod (tE : Tau → E →+* LL) (htE : ∀ τ x, embLL (tE τ 
   · unfold cmpC
     rw [if_neg hL]
   · exact cmpC_equiv tE htE hc hBs hA hex hpos hchi hi hp hU haw x i γ L
-
-end Formalism.L2.G.Cmp
-
-end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GroupLattices.ComparisonMaps.CmpCMemFunMod =====

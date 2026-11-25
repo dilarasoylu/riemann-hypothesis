@@ -55,7 +55,9 @@ theorem ev_self1 (g : PS C 1 d) : ev (n := 1) ![pt C d 0] g = g := by
   rw [h, subst_self]
   rfl
 
-theorem F_0P {n : ℕ} (P : Pt C n d) (hP : ∀ j, constantCoeff (P j) = 0) (a : Fin d) :
+section
+variable {n : ℕ} (P : Pt C n d)
+theorem F_0P (hP : ∀ j, constantCoeff (P j) = 0) (a : Fin d) :
     ev ![0, P] (G.F a) = P a := by
   have h := congrArg (ev (![P] : Fin 1 → Pt C n d)) (G.unit a)
   rw [ev_ev (constant_zero_zero_point (pt C d 0) (coordinate_point_constantCoeff 0)) (z0_1 P hP), ev_X (z0_1 P hP)] at h
@@ -68,26 +70,17 @@ theorem F_0P {n : ℕ} (P : Pt C n d) (hP : ∀ j, constantCoeff (P j) = 0) (a :
   rw [e] at h
   exact h
 
-theorem group_law_zero_right {n : ℕ} (P : Pt C n d) (hP : ∀ j, constantCoeff (P j) = 0) (a : Fin d) :
+theorem group_law_zero_right (hP : ∀ j, constantCoeff (P j) = 0) (a : Fin d) :
     ev ![P, 0] (G.F a) = P a := by
   rw [← G.comm a, eval_eval_pair (z0_pp 1 0) (z0_p0 P hP) (a' := 0) (b' := P)
     (fun i => ev_X (z0_p0 P hP) 1 i) (fun i => ev_X (z0_p0 P hP) 0 i)]
   exact F_0P G P hP a
+end
 
-def Mm (j k : Fin d) : PS C 1 d :=
-  ev (n := 1) ![pt C d 0, 0] (pderiv (R := C) ((1 : Fin 2), k) (G.F j))
 
 theorem constant_zero_first_zero : Z0 (![pt C d 0, 0] : Fin 2 → Pt C 1 d) := z0_p0 _ (coordinate_point_constantCoeff 0)
 
-def MM : Matrix (Fin d) (Fin d) (PS C 1 d) := Matrix.of fun j k => Mm G j k
 
-theorem pderiv_eval_single {n : ℕ} (P : Pt C n d) (hP : ∀ j, constantCoeff (P j) = 0) (g : PS C 1 d) (q : Fin n × Fin d) :
-    pderiv (R := C) q (ev ![P] g) =
-      ∑ b, ev ![P] (pderiv (R := C) ((0 : Fin 1), b) g) * pderiv (R := C) q (P b) := by
-  unfold ev
-  rw [Formalism.G.LogCR.pderiv_subst (a := fun p : Fin 1 × Fin d => (![P] : Fin 1 → Pt C n d) p.1 p.2)
-    (fun p => z0_1 P hP p.1 p.2) g q, Fintype.sum_prod_type, Fin.sum_univ_one]
-  rfl
 
 theorem eval_group_law_at_zero (h : PS C 1 d) : ev (n := 1) ![pt C d 0, 0] (ev (n := 2) ![G.F] h) = h := by
   rw [eval_eval_single (z0_1 G.F G.const) constant_zero_first_zero (a' := pt C d 0) (fun b => group_law_zero_right G (pt C d 0) (coordinate_point_constantCoeff 0) b), ev_self1]

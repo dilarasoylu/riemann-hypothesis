@@ -5,24 +5,14 @@ public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureT
 public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.MeasureIsomorphismAtInfinity
 import Std.Tactic.BVDecide.Normalize.Prop
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.ConjSubMulVec, Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.NilpotentMeasureRecursion
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.ConjSubMulVec =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.ConjSubMulVec", "h": "module\n\npublic import Formalism.LocalToGlobal.SiegelLatticeTheory.HaarTransversals.HidaSetting\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.ContinuousEvI\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open NumberField Matrix Formalism.L2.SG.AdBridge
+section
 open scoped TensorProduct Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
 open Formalism.MainNotions.S (AutInst uMat)
-
 namespace Formalism.L2.SG.Pf.MeasInfW
-
 variable (I : AutInst)
-
 def thV (v : InfinitePlace I.F) (w : Fin I.n → TI I) : Fin I.n → ℂ := fun i => thI I v (w i)
 
 theorem thV_zero (v : InfinitePlace I.F) : thV I v 0 = 0 := by
@@ -148,28 +138,13 @@ theorem hJ_conj (v : InfinitePlace I.F) (a b : Fin I.n → ℂ) :
     simp [Bv, dotProduct, Matrix.mulVec, Finset.mul_sum, mul_assoc]
   rw [key, hJ', Formalism.L2.SG.HidaSetting.hJ, ← Matrix.mulVec_mulVec, ← Matrix.mulVec_mulVec, Matrix.star_mulVec]
   conv_rhs => rw [Matrix.dotProduct_mulVec]
-
 end Formalism.L2.SG.Pf.MeasInfW
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.ConjSubMulVec =====
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.NilpotentMeasureRecursion =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.NilpotentMeasureRecursion", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.ConjSubMulVec\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.MeasureIsomorphismAtInfinity\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open NumberField Matrix Formalism.L2.SG.AdBridge Formalism.L2.SG.HidaSetting
+end
+open Formalism.L2.SG.HidaSetting
 open scoped TensorProduct Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes
 open Formalism.MainNotions.S (AutInst uMat)
-
 namespace Formalism.L2.SG.Pf.MeasInfW
-
 variable (I : AutInst) (hb : Formalism.L2.SG.AdBridge.AdBridgeIso I)
-
 abbrev Mv (g : HI I) (v : InfinitePlace I.F) : Matrix (Fin I.n) (Fin I.n) ℂ := (hmI I g).map (thI I v)
 
 theorem uMat_toInf (s : I.Ginf) (v : InfinitePlace I.F) :
@@ -380,9 +355,3 @@ theorem nilpotent_measure_recursion : NStep := by
   rw [nsub_iff I _ e f z T hstd]
   simp only [Formalism.L2.SG.HidaSetting.Ninf, Set.mem_setOf_eq]
   exact forall_congr' fun v => by rw [uMat_toInf I hb s v, inN_iff]
-
-end Formalism.L2.SG.Pf.MeasInfW
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.InfiniteMeasureTransfer.NilpotentMeasureRecursion =====

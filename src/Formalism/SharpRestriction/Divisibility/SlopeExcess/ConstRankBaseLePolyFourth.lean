@@ -1,13 +1,10 @@
 module
-
 public import Formalism.SharpRestriction.ParamsHeightRankConstant
 public import Development.AutomorphicArithmetic.CyclotomicBounds.RamifiedDiscriminants.FourMulQLeCondN
 import Mathlib.Algebra.Order.Star.Rat
 import Mathlib.Analysis.Real.Pi.Bounds
 import Mathlib.Tactic.TypeStar
-
 @[expose] public section
-
 noncomputable section
 
 namespace Formalism.MainNotions.DIV.Proofs.HHParts

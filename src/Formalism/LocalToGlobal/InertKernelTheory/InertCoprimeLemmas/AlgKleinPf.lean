@@ -19,21 +19,11 @@ import Std.Tactic.BVDecide.Normalize.Prop
 import Mathlib.Tactic.Linter.Style
 import Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.AnalyticIdentityTheorems.IntegerEndomorphismInstance
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKlein, Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKleinPf
-
--- ===== clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKlein =====
--- clump-header: {"m": "Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKlein", "h": "module\n\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgTrans\nimport Formalism.LocalToGlobal.GlobalTheory.GL3.PStdOK\nimport Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.FourthTensorThetaEqKernel\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.SigmaAlg\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.AnalyticIdentityTheorems.PDeriv\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.AnalyticIdentityTheorems.Taylor\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.IsogenyFormulaInstance\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.MulStableIntegral\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.QuasiPeriodConstUnique\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.SigmaLogDeriv2\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.Th0TranslateProduct\nimport Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.BaseChangeCompatible\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.GaloisTorsionConjugacy.TorsValsFinite\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.KerInert
-
 open NumberField Formalism.BasicNotions Classical
 open scoped ComplexConjugate Topology
-
 def PTorsAlg (L : PeriodPair) : Prop :=
   ∀ u : ℂ, (∃ N : ℕ, 0 < N ∧ (N : ℂ) * u ∈ L.lattice) → u ∉ L.lattice →
     L.weierstrassP u ∈ Formalism.MainNotions.TaylorLogMetric.Qbar ∧ L.derivWeierstrassP u ∈ Formalism.MainNotions.TaylorLogMetric.Qbar
@@ -356,62 +346,45 @@ theorem kerTransAll_of_kleinAll (hK : KleinAll) : KerTransAll :=
 end AllK
 
 end AlgP
-
-end Formalism.L2.KerInert
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKlein =====
-
--- ===== clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKleinPf =====
--- clump-header: {"m": "Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKleinPf", "h": "module\n\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKlein\npublic import Formalism.LocalToGlobal.InertKernelTheory.DefsMM\nimport Formalism.LocalToGlobal.GlobalTheory.GL3.PStdOK\nimport Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.FourthTensorThetaEqKernel\nimport Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.SigmaAlg\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.AnalyticIdentityTheorems.PDeriv\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.AnalyticIdentityTheorems.Taylor\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.IsogenyFormulaInstance\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.MulStableIntegral\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.QuasiPeriodConstUnique\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.Th0TranslateProduct\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.AnalyticIdentityTheorems.IntegerEndomorphismInstance\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace Formalism.L2.KerInert
-
-open NumberField Formalism.BasicNotions Classical
-open scoped ComplexConjugate Topology
-
 namespace AlgP
-
 section KleinPf
 
 open Formalism.L2.Th1.F
 
-theorem translation_operator_zero (L : PeriodPair) (F : ℂ → ℂ) : opU L 0 F = F := by
+section
+variable (L : PeriodPair)
+theorem translation_operator_zero (F : ℂ → ℂ) : opU L 0 F = F := by
   funext z
   simp [opU, herm]
 
-theorem sg_analytic (L : PeriodPair) (u : ℂ) : AnalyticOnNhd ℂ (opU L u (sgStar L)) Set.univ :=
+theorem sg_analytic (u : ℂ) : AnalyticOnNhd ℂ (opU L u (sgStar L)) Set.univ :=
   translation_operator_analytic L u (sgStarBasic L).1
 
-theorem sg_val_ne (L : PeriodPair) {u : ℂ} (hu : u ∉ L.lattice) : opU L u (sgStar L) 0 ≠ 0 :=
+theorem sg_val_ne {u : ℂ} (hu : u ∉ L.lattice) : opU L u (sgStar L) 0 ≠ 0 :=
   (th0Const L u).2 hu
 
-theorem semiChar_mem (L : PeriodPair) (ω : ℂ) : semiChar L ω ∈ Formalism.MainNotions.TaylorLogMetric.Qbar ∧ semiChar L ω ≠ 0 := by
+theorem semiChar_mem (ω : ℂ) : semiChar L ω ∈ Formalism.MainNotions.TaylorLogMetric.Qbar ∧ semiChar L ω ≠ 0 := by
   unfold semiChar
   split_ifs
   · exact ⟨one_mem _, one_ne_zero⟩
   · exact ⟨neg_mem (one_mem _), by norm_num⟩
 
-theorem sg_lat (L : PeriodPair) {ω : ℂ} (hω : ω ∈ L.lattice) (z : ℂ) :
+theorem sg_lat {ω : ℂ} (hω : ω ∈ L.lattice) (z : ℂ) :
     opU L ω (sgStar L) z = (semiChar L ω)⁻¹ * sgStar L z := by
   have h := sgStarFixed L ω z hω
   have hne := (semiChar_mem L ω).2
   rw [← h, ← mul_assoc, inv_mul_cancel₀ hne, one_mul]
 
-theorem altE_nat_mul (L : PeriodPair) (N : ℕ) (x y : ℂ) : altE L ((N : ℂ) * x) y = (N : ℝ) * altE L x y := by
+theorem altE_nat_mul (N : ℕ) (x y : ℂ) : altE L ((N : ℂ) * x) y = (N : ℝ) * altE L x y := by
   simp only [altE, herm]
   rw [show (N : ℂ) * x * conj y / (area L : ℂ) = ((N : ℝ) : ℂ) * (x * conj y / (area L : ℂ)) by push_cast; ring]
   simp [Complex.mul_im]
 
-theorem altE_mul_nat (L : PeriodPair) (N : ℕ) (x y : ℂ) : altE L x ((N : ℂ) * y) = (N : ℝ) * altE L x y := by
+theorem altE_mul_nat (N : ℕ) (x y : ℂ) : altE L x ((N : ℂ) * y) = (N : ℝ) * altE L x y := by
   simp only [altE, herm, map_mul, map_natCast]
   rw [show x * ((N : ℂ) * conj y) / (area L : ℂ) = ((N : ℝ) : ℂ) * (x * conj y / (area L : ℂ)) by push_cast; ring]
   simp [Complex.mul_im]
+end
 
 theorem expAltE_mem (L : PeriodPair) (x y : ℂ) (N : ℕ) (hN : 0 < N) (h : ∃ k : ℤ, (N : ℝ) * altE L x y = k) :
     Complex.exp (-(Real.pi : ℂ) * Complex.I * (altE L x y : ℂ)) ∈ Formalism.MainNotions.TaylorLogMetric.Qbar := by
@@ -423,7 +396,9 @@ theorem expAltE_mem (L : PeriodPair) (x y : ℂ) (N : ℕ) (hN : 0 < N) (h : ∃
   push_cast
   linear_combination (-2 * (Real.pi : ℂ) * Complex.I) * hk'
 
-theorem sg_shift (L : PeriodPair) (u ω : ℂ) (N : ℕ) (hN : 0 < N) (hu : (N : ℂ) * u ∈ L.lattice)
+section
+variable (L : PeriodPair)
+theorem sg_shift (u ω : ℂ) (N : ℕ) (hN : 0 < N) (hu : (N : ℂ) * u ∈ L.lattice)
     (hω : ω ∈ L.lattice) :
     ∃ c : ℂ, c ∈ Formalism.MainNotions.TaylorLogMetric.Qbar ∧ c ≠ 0 ∧ ∀ z, opU L (u + ω) (sgStar L) z = c * opU L u (sgStar L) z := by
   obtain ⟨k, hk⟩ := altEInt L _ _ hu hω
@@ -441,15 +416,15 @@ theorem sg_shift (L : PeriodPair) (u ω : ℂ) (N : ℕ) (hN : 0 < N) (hu : (N :
   rw [← inv_mul_cancel_left₀ hne (opU L (u + ω) (sgStar L) z), ← h]
   ring
 
-theorem sg_neg (L : PeriodPair) (u z : ℂ) : opU L (-u) (sgStar L) z = -opU L u (sgStar L) (-z) := by
+theorem sg_neg (u z : ℂ) : opU L (-u) (sgStar L) z = -opU L u (sgStar L) (-z) := by
   simp only [opU, herm, map_neg]
   rw [show z + -u = -(-z + u) by ring, (sgStarBasic L).2.1 (-z + u)]
   ring_nf
 
-theorem sg_neg_val (L : PeriodPair) (u : ℂ) : opU L (-u) (sgStar L) 0 = -opU L u (sgStar L) 0 := by
+theorem sg_neg_val (u : ℂ) : opU L (-u) (sgStar L) 0 = -opU L u (sgStar L) 0 := by
   rw [sg_neg, neg_zero]
 
-theorem sg_neg_deriv (L : PeriodPair) (u : ℂ) :
+theorem sg_neg_deriv (u : ℂ) :
     deriv (opU L (-u) (sgStar L)) 0 = deriv (opU L u (sgStar L)) 0 := by
   have hf : opU L (-u) (sgStar L) = fun z => -opU L u (sgStar L) (-z) := funext (sg_neg L u)
   have hd : HasDerivAt (opU L u (sgStar L)) (deriv (opU L u (sgStar L)) (-0)) (-0) :=
@@ -460,12 +435,12 @@ theorem sg_neg_deriv (L : PeriodPair) (u : ℂ) :
   rw [e, h2.deriv]
   simp
 
-theorem wp_analytic (L : PeriodPair) {P : ℂ} (hP : P ∉ L.lattice) :
+theorem wp_analytic {P : ℂ} (hP : P ∉ L.lattice) :
     AnalyticAt ℂ (fun z => L.weierstrassP (z + P)) 0 :=
   analyticAt_of_eventually ((_root_.Formalism.L2.Th1.F.EndoZ.ev_shift_notMem L hP).mono fun z hz =>
     ((PDeriv.hasDerivAt_P L hz).comp_add_const z P).differentiableAt)
 
-theorem tp_series (L : PeriodPair) (P Q : ℂ) (hQ : Q ∉ L.lattice) (hP : P ∉ L.lattice) :
+theorem tp_series (P Q : ℂ) (hQ : Q ∉ L.lattice) (hP : P ∉ L.lattice) :
     taylor0 (opU L (P + Q) (sgStar L)) * taylor0 (opU L (P - Q) (sgStar L)) =
       PowerSeries.C (opU L Q (sgStar L) 0 ^ 2) * ((PowerSeries.C (L.weierstrassP Q) +
         PowerSeries.C (-1 : ℂ) * taylor0 (fun z => L.weierstrassP (z + P))) *
@@ -505,6 +480,7 @@ theorem tp_series (L : PeriodPair) (P Q : ℂ) (hQ : Q ∉ L.lattice) (hP : P �
   refine Taylor.taylor0_congr ((_root_.Formalism.L2.Th1.F.EndoZ.ev_shift_notMem L hP).mono fun z hz => ?_)
   have h := translateProduct L P Q z hQ hz
   linear_combination h
+end
 
 theorem coeff_mul_low_degrees (f g : PowerSeries ℂ) :
     PowerSeries.coeff 0 (f * g) = PowerSeries.coeff 0 f * PowerSeries.coeff 0 g ∧
@@ -593,7 +569,9 @@ theorem series_rel (A B W G : PowerSeries ℂ) (c p : ℂ)
   · linear_combination e1
   · linear_combination e2
 
-theorem tp_rel (L : PeriodPair) (P Q : ℂ) (hQ : Q ∉ L.lattice) (hP : P ∉ L.lattice) :
+section
+variable (L : PeriodPair)
+theorem tp_rel (P Q : ℂ) (hQ : Q ∉ L.lattice) (hP : P ∉ L.lattice) :
     opU L (P + Q) (sgStar L) 0 * opU L (P - Q) (sgStar L) 0 =
       opU L Q (sgStar L) 0 ^ 2 * ((L.weierstrassP Q - L.weierstrassP P) * opU L P (sgStar L) 0 ^ 2) ∧
     deriv (opU L (P + Q) (sgStar L)) 0 * opU L (P - Q) (sgStar L) 0 +
@@ -609,7 +587,7 @@ theorem tp_rel (L : PeriodPair) (P Q : ℂ) (hQ : Q ∉ L.lattice) (hP : P ∉ L
   · linear_combination e0
   · linear_combination e1
 
-theorem dbl_rel (L : PeriodPair) (Q : ℂ) (hQ : Q ∉ L.lattice) :
+theorem dbl_rel (Q : ℂ) (hQ : Q ∉ L.lattice) :
     opU L (Q + Q) (sgStar L) 0 = -L.derivWeierstrassP Q * opU L Q (sgStar L) 0 ^ 4 ∧
     deriv (opU L (Q + Q) (sgStar L)) 0 = opU L Q (sgStar L) 0 ^ 2 *
       (-L.derivWeierstrassP Q * (2 * opU L Q (sgStar L) 0 * deriv (opU L Q (sgStar L)) 0) -
@@ -625,7 +603,7 @@ theorem dbl_rel (L : PeriodPair) (Q : ℂ) (hQ : Q ∉ L.lattice) :
   · linear_combination e1
   · linear_combination e2
 
-theorem step_rel (L : PeriodPair) (Q : ℂ) (m : ℕ) (hQ : Q ∉ L.lattice) (hP : ((m + 2 : ℕ) : ℂ) * Q ∉ L.lattice) :
+theorem step_rel (Q : ℂ) (m : ℕ) (hQ : Q ∉ L.lattice) (hP : ((m + 2 : ℕ) : ℂ) * Q ∉ L.lattice) :
     opU L (((m + 3 : ℕ) : ℂ) * Q) (sgStar L) 0 * opU L (((m + 1 : ℕ) : ℂ) * Q) (sgStar L) 0 =
       opU L Q (sgStar L) 0 ^ 2 * ((L.weierstrassP Q - L.weierstrassP (((m + 2 : ℕ) : ℂ) * Q)) *
         opU L (((m + 2 : ℕ) : ℂ) * Q) (sgStar L) 0 ^ 2) ∧
@@ -640,7 +618,7 @@ theorem step_rel (L : PeriodPair) (Q : ℂ) (m : ℕ) (hQ : Q ∉ L.lattice) (hP
   rw [e1, e2] at h
   exact h
 
-theorem kv_rec (L : PeriodPair) (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (Q : ℂ) (N : ℕ)
+theorem kv_rec (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (Q : ℂ) (N : ℕ)
     (hN3 : 3 ≤ N) (hNQ : (N : ℂ) * Q ∈ L.lattice) (hmin : ∀ m : ℕ, 0 < m → m < N → (m : ℂ) * Q ∉ L.lattice) :
     ∀ m : ℕ, m + 3 ≤ N → ∀ j ∈ ({m + 1, m + 2} : Finset ℕ),
       ∃ a ∈ Formalism.MainNotions.TaylorLogMetric.Qbar, a ≠ 0 ∧
@@ -754,7 +732,7 @@ theorem kv_rec (L : PeriodPair) (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLo
         push_cast at c1 ⊢
         linear_combination c1 + (-2 * (((m : ℂ) + 2) * (y / x) + b2) + q * p⁻¹) * c0 + x ^ 2 * q * K2 ^ 2 * hinvp
 
-theorem kv_main (L : PeriodPair) (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (Q : ℂ) (N : ℕ)
+theorem kv_main (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (Q : ℂ) (N : ℕ)
     (hN3 : 3 ≤ N) (hNQ : (N : ℂ) * Q ∈ L.lattice) (hmin : ∀ m : ℕ, 0 < m → m < N → (m : ℂ) * Q ∉ L.lattice) :
     opU L Q (sgStar L) 0 ∈ Formalism.MainNotions.TaylorLogMetric.Qbar ∧ deriv (opU L Q (sgStar L)) 0 ∈ Formalism.MainNotions.TaylorLogMetric.Qbar := by
   obtain ⟨n, rfl⟩ : ∃ n, N = n + 3 := ⟨N - 3, by omega⟩
@@ -805,7 +783,7 @@ theorem kv_main (L : PeriodPair) (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorL
     exact this
   exact div_mem (neg_mem (mul_mem hxQ hb)) h3Q
 
-theorem kv (L : PeriodPair) (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (u : ℂ)
+theorem kv (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (u : ℂ)
     (hu : ∃ N : ℕ, 0 < N ∧ (N : ℂ) * u ∈ L.lattice) (hu' : u ∉ L.lattice) :
     opU L u (sgStar L) 0 ∈ Formalism.MainNotions.TaylorLogMetric.Qbar ∧ deriv (opU L u (sgStar L)) 0 ∈ Formalism.MainNotions.TaylorLogMetric.Qbar := by
   have hspec := Nat.find_spec hu
@@ -866,7 +844,7 @@ theorem kv (L : PeriodPair) (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMet
   rw [h0]
   exact zero_mem _
 
-theorem kleinAlg_of (L : PeriodPair) (ω₀ : ℂ) (hω : ω₀ ∈ L.lattice) (hh : ω₀ / 2 ∉ L.lattice)
+theorem kleinAlg_of (ω₀ : ℂ) (hω : ω₀ ∈ L.lattice) (hh : ω₀ / 2 ∉ L.lattice)
     (hg2 : L.g₂ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) (hg3 : L.g₃ ∈ Formalism.MainNotions.TaylorLogMetric.Qbar) : KleinAlg L ω₀ := by
   rintro s ⟨N, hN, hNs⟩
   have ht2 : ((2 : ℕ) : ℂ) * (ω₀ / 2) ∈ L.lattice := by
@@ -913,6 +891,7 @@ theorem kleinAlg_of (L : PeriodPair) (ω₀ : ℂ) (hω : ω₀ ∈ L.lattice) (
       exact inv_mem hψ
   · obtain ⟨h0, h1⟩ := kv L hg2 hg3 _ htor hu
     exact ⟨mul_mem hcQ h0, mul_mem hcQ h1⟩
+end
 
 end KleinPf
 
@@ -931,11 +910,3 @@ theorem algebraic_fact_kernels : AlgFact := algFact_of_kerTrans kernel_torsion_t
 theorem zero_value_algebraic : AlgZero := algZero_of_trans kernel_torsion_translates_algebraic
 
 end KleinAllPf
-
-end AlgP
-
-end Formalism.L2.KerInert
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.AlgKleinPf =====

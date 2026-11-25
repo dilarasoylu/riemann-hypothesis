@@ -17,16 +17,10 @@ import Mathlib.RingTheory.SimpleRing.Principal
 import Mathlib.Algebra.Order.Star.Real
 import Mathlib.Algebra.Order.Star.Int
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ArcExp, Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.QNumericalIdentity, Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SaturationCriterion, Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncSig, Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncationRemainderBound, Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.UnitCoefficientPowerMod, Formalism.TruncatedSeriesCounting.EtaDeterminantPolynomialIdentities
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ArcExp =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ArcExp", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
+namespace Formalism.TruncatedSeriesCounting.WachCoordinates
+end Formalism.TruncatedSeriesCounting.WachCoordinates
 @[expose] public section
-
 namespace Formalism.TruncatedSeriesCounting.X
-
 theorem arc_exponential_identity : ArcExp := by
   intro r σ κ G j' ell hr hσ hκ hG hj
   have hj' : (j' : ℝ) ≤ ell := by exact_mod_cast hj
@@ -37,19 +31,6 @@ theorem arc_exponential_identity : ArcExp := by
     linarith
   · rw [max_eq_left h]
     linarith
-
-end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ArcExp =====
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.QNumericalIdentity =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.QNumericalIdentity", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.TruncatedSeriesCounting.X
-
 theorem q_numerical_identity : QaNum := by
   intro ℓ hℓ H' H eW hH heW
   unfold Formalism.TruncatedSeriesCounting.RamifiedCoefficientChains.aR Formalism.TruncatedSeriesCounting.RamifiedCoefficientChains.lam
@@ -82,19 +63,6 @@ theorem q_numerical_identity : QaNum := by
     exact mul_le_mul_of_nonneg_right (by exact_mod_cast hH) (by linarith)
   push_cast
   linarith
-
-end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.QNumericalIdentity =====
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SaturationCriterion =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SaturationCriterion", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.TruncatedSeriesCounting.X
-
 private theorem iter_nzd {A : Type} [CommRing A] (ℓ g : A)
     (h : ∀ a : A, ℓ * a ∈ Ideal.span {g} → a ∈ Ideal.span {g}) :
     ∀ (n : ℕ) (z : A), ℓ ^ n * z ∈ Ideal.span {g} → z ∈ Ideal.span {g} := by
@@ -127,19 +95,6 @@ theorem saturation_criterion : SatA := by
   obtain ⟨d, hd⟩ := Ideal.mem_span_singleton.mp (iter_nzd ℓ f hℓf k c (by
     rw [h2]; exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self f)))
   exact ⟨d, by rw [hx, hd]⟩
-
-end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SaturationCriterion =====
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncSig =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncSig", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.TruncatedSeriesCounting.X
-
 theorem truncation_signature_bound : TruncSig := by
   unfold TruncSig
   intro ℓ hℓ y X M η
@@ -187,19 +142,6 @@ theorem truncation_signature_bound : TruncSig := by
         nlinarith [mul_nonneg h hs2]
     have h6 : (0 : ℝ) ≤ 1 := zero_le_one
     linarith
-
-end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncSig =====
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncationRemainderBound =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncationRemainderBound", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import Mathlib.RingTheory.Ideal.BigOperators\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.TruncatedSeriesCounting.X
-
 theorem truncation_remainder_bound : TruncRem1 := by
   intro R _ ℓ hℓ π₀ y K c hc
   rcases Nat.eq_zero_or_pos y with hy | hy
@@ -250,23 +192,10 @@ theorem truncation_remainder_bound : TruncRem1 := by
         linear_combination (π₀ * (-(ℓ : R)) ^ (y' - m) * ↑(y'.choose m)) * e2.symm
       rw [this]
       exact Ideal.mul_mem_right _ _ hmem
-
 end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncationRemainderBound =====
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.UnitCoefficientPowerMod =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.UnitCoefficientPowerMod", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
 noncomputable section
-
 namespace Formalism.TruncatedSeriesCounting.X
-
 open PowerSeries
-
 theorem unit_coefficient_power_mod : UnitCoefficientPowerMod := by
   intro O _ ℓ ε u y
   have hsplit : ∃ W : PowerSeries O,
@@ -296,24 +225,9 @@ theorem unit_coefficient_power_mod : UnitCoefficientPowerMod := by
     have h3 := Ideal.sub_mem _ h2 h1
     rw [add_sub_cancel_right] at h3
     exact ((IsLocalRing.mem_maximalIdeal _).mp h3) h0
-
 end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.UnitCoefficientPowerMod =====
-
--- ===== clump member: Formalism.TruncatedSeriesCounting.EtaDeterminantPolynomialIdentities =====
--- clump-header: {"m": "Formalism.TruncatedSeriesCounting.EtaDeterminantPolynomialIdentities", "h": "module\n\npublic import Formalism.TruncatedSeriesCounting.StatementX\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ArcExp\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ColAssembly\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ColChain\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.ExpBound\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.FirstSigmaValuationBound\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.HCoefficientBound\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.KappaSecondExponentBound\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.LemmaGIdeal\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.LemmaGVal\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.QNumericalIdentity\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.RamifiedValuationInequality\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SaturationCriterion\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SubGen\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.SubSmulOneInjective\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncSig\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.TruncationRemainderBound\npublic import Formalism.TruncatedSeriesCounting.TruncatedSeriesProofs.UnitCoefficientPowerMod\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.TruncatedSeriesCounting.WachCoordinates
-
-end Formalism.TruncatedSeriesCounting.WachCoordinates
-
+end
 namespace Formalism.TruncatedSeriesCounting.RamifiedCoefficientChains
-
 theorem ramified_coefficient_chain_bounds : HCoef ∧ ExpBound ∧ MaxZeroExponentInequality ∧ TwoIntervalValuationSumBound ∧ LemmaGVal ∧ LemmaGIdeal ∧ RamifiedValuationInequality ∧ LenPi0 ∧ ColChain ∧ SubGen ∧ ColAssembly :=
   ⟨h_coefficient_bound, expBound_statement, second_exponent_bound, first_sigma_valuation_bound, g_coeff_valuation_statement, g_ideal_valuation_statement, ramified_valuation_inequality, length_pi_zero_bound, column_chain_bound, submodule_generator_count, column_assembly_bound⟩
 
@@ -341,6 +255,3 @@ theorem pX_conditions : QaNum ∧ TruncSig ∧ TruncRem1 ∧ ArcExp ∧ SatA ∧
   ⟨q_numerical_identity, truncation_signature_bound, truncation_remainder_bound, arc_exponential_identity, saturation_criterion, unit_coefficient_power_mod⟩
 
 end Formalism.TruncatedSeriesCounting.X
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.TruncatedSeriesCounting.EtaDeterminantPolynomialIdentities =====

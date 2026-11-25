@@ -18,57 +18,32 @@ open WlocSk Formalism.QuantumDeterminants Formalism.MainNotions.S Formalism.Main
 
 variable {k r : ℕ}
 
-def tau (k r : ℕ) (i : Fin (2 * r + k + 1)) : Fin (2 * r + k + 1) :=
-  ⟨if i.val < r ∨ r + k < i.val then 2 * r + k - i.val else i.val, by split_ifs <;> omega⟩
 
-def sgn (k r : ℕ) (i : Fin (2 * r + k + 1)) : ℂ := if i.val = r + k then -1 else 1
 
-theorem hpk_row (i m : Fin (2 * r + k + 1)) :
-    Hpk k r i m = if m = tau k r i then sgn k r i else 0 := by
-  unfold Hpk tau sgn
-  simp only [Fin.ext_iff]
-  split_ifs <;> first | rfl | (exfalso; omega)
 
-theorem hpk_mul_apply (A : Matrix (Fin (2 * r + k + 1)) (Fin (2 * r + k + 1)) ℂ)
-    (i j : Fin (2 * r + k + 1)) : (Hpk k r * A) i j = sgn k r i * A (tau k r i) j := by
-  rw [Matrix.mul_apply, Finset.sum_eq_single (tau k r i)]
-  · rw [hpk_row, if_pos rfl]
-  · intro m _ hm
-    rw [hpk_row, if_neg hm, zero_mul]
-  · intro h
-    exact absurd (Finset.mem_univ _) h
 
-theorem tau_tau (i : Fin (2 * r + k + 1)) : tau k r (tau k r i) = i := by
-  unfold tau
-  apply Fin.ext
-  simp only
-  split_ifs <;> omega
 
-theorem sgn_tau (i : Fin (2 * r + k + 1)) : sgn k r (tau k r i) = sgn k r i := by
-  unfold sgn tau
-  simp only
-  split_ifs <;> first | rfl | (exfalso; omega)
 
-theorem sgn_mul_self (i : Fin (2 * r + k + 1)) : sgn k r i * sgn k r i = 1 := by
-  unfold sgn
-  split_ifs <;> norm_num
 
 theorem hpk_sq : Hpk k r * Hpk k r = 1 := by
   first
   | exact _root_.Formalism.SharedLemmas.upq_hpk_mul_self
   | (apply _root_.Formalism.SharedLemmas.upq_hpk_mul_self <;> assumption)
 
-theorem gr_left_inv {g : Mat k r} (hg : g ∈ Gr k r) : Hpk k r * gᴴ * Hpk k r * g = 1 := by
+section
+variable {g : Mat k r}
+theorem gr_left_inv (hg : g ∈ Gr k r) : Hpk k r * gᴴ * Hpk k r * g = 1 := by
   have hg' : gᴴ * Hpk k r * g = Hpk k r := hg
   calc Hpk k r * gᴴ * Hpk k r * g = Hpk k r * (gᴴ * Hpk k r * g) := by
         simp only [Matrix.mul_assoc]
     _ = 1 := by rw [hg', hpk_sq]
 
-theorem gr_isUnit {g : Mat k r} (hg : g ∈ Gr k r) : IsUnit g.det :=
+theorem gr_isUnit (hg : g ∈ Gr k r) : IsUnit g.det :=
   Matrix.isUnit_det_of_left_inverse (gr_left_inv hg)
 
-theorem gr_inv_eq {g : Mat k r} (hg : g ∈ Gr k r) : g⁻¹ = Hpk k r * gᴴ * Hpk k r :=
+theorem gr_inv_eq (hg : g ∈ Gr k r) : g⁻¹ = Hpk k r * gᴴ * Hpk k r :=
   Matrix.inv_eq_left_inv (gr_left_inv hg)
+end
 
 theorem gr_one : (1 : Mat k r) ∈ Gr k r := by
   show (1 : Mat k r)ᴴ * Hpk k r * 1 = Hpk k r

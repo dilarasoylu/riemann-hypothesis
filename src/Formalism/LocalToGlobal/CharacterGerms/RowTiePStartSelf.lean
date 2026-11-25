@@ -10,27 +10,14 @@ import Formalism.LocalToGlobal.CharacterGerms.ConstMemTypeSetOfNonneg
 import Formalism.LocalToGlobal.CharacterGerms.RowTieCartAdd
 import Formalism.LocalToGlobal.CharacterGerms.RowTieCartFB
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.CharacterGerms.RowTiePAllStart, Formalism.LocalToGlobal.CharacterGerms.RowTiePStartSelf
-
--- ===== clump member: Formalism.LocalToGlobal.CharacterGerms.RowTiePAllStart =====
--- clump-header: {"m": "Formalism.LocalToGlobal.CharacterGerms.RowTiePAllStart", "h": "module\n\npublic import Formalism.LocalToGlobal.CharacterGerms.RowTieFB\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\nimport Formalism.LocalToGlobal.CharacterGerms.CoeffSubstEqSum\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open scoped BigOperators
 open Classical
-
 namespace Formalism.L2.FormalSeriesBounds
-
 open Formalism.IncomingBounds ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ RowTiePE0
-
 namespace AllStart
-
 variable {C : Type} [Field C]
-
 theorem linAct_sum {dd : ℕ} (φ : Pt C 1 dd) {ι : Type} (S : Finset ι) (w : ι → C) (u : ι → Fin dd → C) :
     linAct φ (∑ c ∈ S, w c • u c) = ∑ c ∈ S, w c • linAct φ (u c) := by
   funext i
@@ -63,25 +50,8 @@ variable {C : Type} [Field C] [CharZero C] {V : VF C} {O : Type} [CommRing O] [S
   {I : Fin 2 → Type} [∀ g, Fintype (I g)]
 
 end Formalism.L2.FormalSeriesBounds
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.CharacterGerms.RowTiePAllStart =====
-
--- ===== clump member: Formalism.LocalToGlobal.CharacterGerms.RowTiePStartSelf =====
--- clump-header: {"m": "Formalism.LocalToGlobal.CharacterGerms.RowTiePStartSelf", "h": "module\n\npublic import Formalism.LocalToGlobal.CharacterGerms.RowTiePPTSelfEx\npublic import Formalism.LocalToGlobal.CharacterGerms.RowTiePOActLog\npublic import Formalism.LocalToGlobal.CharacterGerms.CoeffSubstEqSum\nimport Formalism.LocalToGlobal.CharacterGerms.ConstMemTypeSetOfNonneg\npublic import Formalism.LocalToGlobal.CharacterGerms.EndomorphismLimitIntegral\nimport Formalism.LocalToGlobal.CharacterGerms.RowTieCartAdd\nimport Formalism.LocalToGlobal.CharacterGerms.RowTieCartFB\npublic import Formalism.LocalToGlobal.CharacterGerms.RowTiePAllStart\npublic import Formalism.LocalToGlobal.CharacterGerms.RowTiePLSmallMain\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open scoped BigOperators
-open Classical
-
 namespace Formalism.L2.FormalSeriesBounds
-
 open Formalism.IncomingBounds ReciprocityTheory.ChartRestriction.G.Geo.Tor.Germ RowTiePE0 RowTiePProj
-
 def ProjLieSelfSt : Prop :=
   ∀ (C : Type) [Field C] [CharZero C] (V : VF C) (O : Type) [CommRing O] [StarRing O] (dd : ℕ)
     (Y : FBChart C V O dd) (d : ℕ) [NeZero d] (I0 : Type) [Fintype I0] (p : SelfData Y d I0)
@@ -127,7 +97,9 @@ theorem dvd_of_ge (em : ZMod d → (O →+* C)) (ε : O) (hεI : ∀ a, V.Ge 0 (
       _ = (V.l : O) * ((V.l : O) ^ k * z) := by rw [hz]
       _ = (V.l : O) ^ (k + 1) * z := by ring
 
-theorem actCv_of (Y : FBChart C V O dd) (em : ZMod d → (O →+* C)) (ε : O) (hε : ∃ y, ε * ε - ε = (V.l : O) * y)
+section
+variable (Y : FBChart C V O dd)
+theorem actCv_of (em : ZMod d → (O →+* C)) (ε : O) (hε : ∃ y, ε * ε - ε = (V.l : O) * y)
     (hεI : ∀ a, V.Ge 0 (em a ε)) (hεx : ∀ x : O, (∀ a, V.MM (em a x)) → ∃ y, ε * x = (V.l : O) * y)
     (M : ℕ → O) (hM : ∀ (N : ℕ) a, V.Ge ((N + 1 : ℕ) : ℝ) (em a (M (N + 1) - M N))) :
     ActCv Y (fun N => M N * ε ^ V.l ^ N) := by
@@ -148,7 +120,7 @@ theorem actCv_of (Y : FBChart C V O dd) (em : ZMod d → (O →+* C)) (ε : O) (
     (fun n => M n * ε ^ V.l ^ n) hd N i μ
   exact ⟨n0, h⟩
 
-theorem lim_endo (Y : FBChart C V O dd) (em : ZMod d → (O →+* C)) (hemI : ∀ a x, V.Ge 0 (em a x)) (sh : ZMod d)
+theorem lim_endo (em : ZMod d → (O →+* C)) (hemI : ∀ a x, V.Ge 0 (em a x)) (sh : ZMod d)
     (hconj : ∀ a x, em a (star x) = em (a + sh) x) (ε : O) (hε : ∃ y, ε * ε - ε = (V.l : O) * y)
     (hεx : ∀ x : O, (∀ a, V.MM (em a x)) → ∃ y, ε * x = (V.l : O) * y)
     (M : ℕ → O) (hM : ∀ (N : ℕ) a, V.Ge ((N + 1 : ℕ) : ℝ) (em a (M (N + 1) - M N))) :
@@ -173,7 +145,7 @@ theorem lim_endo (Y : FBChart C V O dd) (em : ZMod d → (O →+* C)) (hemI : �
   have hT : ∀ i, TendsS V (fun n => Y.B.A.act (M n * ε ^ V.l ^ n) i) (φ i) := tends_of_endomorphism_limit Y hφlim
   exact ⟨φ, hφI, const_of_lim Y hT, hhom, hT⟩
 
-theorem lin_of_lim (Y : FBChart C V O dd) {I0 : Type} [Fintype I0] (p : SelfData Y d I0) (M : ℕ → O) (ε : O)
+theorem lin_of_lim {I0 : Type} [Fintype I0] (p : SelfData Y d I0) (M : ℕ → O) (ε : O)
     (hε1 : ∀ a, V.MM (p.em a ε - 1)) (t : ZMod d → C) (ht : ∀ a, Tends V (fun n => p.em a (M n)) (t a))
     (φ : Pt C 1 dd) (hT : ∀ i, TendsS V (fun n => Y.B.A.act (M n * ε ^ V.l ^ n) i) (φ i)) (c : I0) :
     linAct φ (p.e c) = t (p.ty0 c) • p.e c := by
@@ -186,6 +158,7 @@ theorem lin_of_lim (Y : FBChart C V O dd) {I0 : Type} [Fintype I0] (p : SelfData
   have R := ((ht (p.ty0 c)).mul (tends_pow_one (hε1 (p.ty0 c)))).mul (tends_const (V := V) (p.e c i))
   rw [mul_one] at R
   exact L.unique R
+end
 
 theorem subst_lg_comp (Y : FBChart C V O dd) (φ : Pt C 1 dd) (hφ0 : ∀ i, MvPowerSeries.constantCoeff (φ i) = 0)
     (hhom : comp1 φ (addOf Y.B.G.F (pt C (n := 2) dd 0) (pt C (n := 2) dd 1)) =
@@ -327,9 +300,3 @@ theorem allStartSelf_of (hLie : ProjLieSelfSt) : AllStartSelfSt := by
   · intro c
     show (if 1 = 1 then w c else b 1 c) = w c
     rw [if_pos rfl]
-
-end Formalism.L2.FormalSeriesBounds
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.CharacterGerms.RowTiePStartSelf =====

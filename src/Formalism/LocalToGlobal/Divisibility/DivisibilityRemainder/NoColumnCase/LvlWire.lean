@@ -13,22 +13,11 @@ public import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.IntegralAtT0Latt
 import Formalism.LocalToGlobal.GlobalTheory.PlacesMin
 import Formalism.LocalToGlobal.GlobalTheory.PlacesP
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.Divisibility.HookProducts.GaugeFormBoundOfUniformSize, Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.NoColumnCase.LvlWire
-
--- ===== clump member: Formalism.SharpRestriction.Divisibility.HookProducts.GaugeFormBoundOfUniformSize =====
--- clump-header: {"m": "Formalism.SharpRestriction.Divisibility.HookProducts.GaugeFormBoundOfUniformSize", "h": "module\n\npublic import Formalism.SharpRestriction.Divisibility.LocalQuadraticParts\npublic import Formalism.SharpRestriction.ParamsHeightRankConstant\npublic import Formalism.SharpRestriction.Divisibility.HookProducts.CardLiftsEq\npublic import Formalism.SharpRestriction.Divisibility.HookProducts.LwPNonneg\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.DIV.HookProducts.Row4C
-
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.DIV.Proofs.HHParts
-
 variable {D : D7} {L : SizeData₂ D}
-
 theorem negEe_le (C : ℝ) (h2 : Formalism.MainNotions.LocalQuadraticParts.adm11 D L C) (u : D.what₂.Word) :
     -(L.Ee u) ≤ C * D.R.m * L.B0 := by
   have ha : 0 < L.sc.a := by
@@ -109,58 +98,45 @@ theorem gauge_form_bound_of_uniform_size {eps : ℝ} (Fm : FamP eps) (c2 : Forma
     linarith
   have h := mul_le_mul_of_nonneg_right hxC hPb
   linarith [t1, hFo, t3, h]
-
 end Formalism.MainNotions.DIV.HookProducts.Row4C
-
 end
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.Divisibility.HookProducts.GaugeFormBoundOfUniformSize =====
-
--- ===== clump member: Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.NoColumnCase.LvlWire =====
--- clump-header: {"m": "Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.NoColumnCase.LvlWire", "h": "module\n\npublic import Formalism.SharpRestriction.Divisibility.HookProducts.GaugeFormBoundOfUniformSize\npublic import Formalism.SharpRestriction.Divisibility.SlopeExcess.HeightBoundOfComponentBounds\npublic import Formalism.LocalToGlobal.ClassOfRecordOfChoice\npublic import Formalism.SharpRestriction.GlobalSchurBounds.LinkTied\npublic import Formalism.LocalToGlobal.GlobalTheory.CoordinateLengths.SecondBranchAllMembers\nimport Formalism.LocalToGlobal.GlobalTheory.PlacesMin\nimport Formalism.LocalToGlobal.GlobalTheory.PlacesP\npublic import Formalism.LocalToGlobal.GlobalTheory.UnramifiedTrace.HeckeRamifiedZeroAll\npublic import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.IntegralAtT0Lattice\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.DIV.LvlWire
-
 open Formalism.BasicNotions Formalism.MainNotions Formalism.MainNotions.Lnk Formalism.MainNotions.GlobalTheoryTheory Formalism.L2.GlobalTheoryTheory Formalism.MainNotions.RT
-
 variable {eps : ℝ}
-
-theorem ramified_level_zero_holds (Fm : FamP eps) (tT : FamU Fm ConcreteFormsLevelZero) : FamU Fm LocalLatticeBases.HeckeRamifiedLevelZero :=
+section
+variable (Fm : FamP eps)
+theorem ramified_level_zero_holds (tT : FamU Fm ConcreteFormsLevelZero) : FamU Fm LocalLatticeBases.HeckeRamifiedLevelZero :=
   tT.mono fun D u hS h => UnramifiedTrace.hecke_ramified_zero_all D u hS h
 
-theorem transposed_slope_of_form_tie (Fm : FamP eps) (tT : FamU Fm ConcreteFormsLevelZero) : FamU Fm product_first_zeroth_parts.family_property_and :=
+theorem transposed_slope_of_form_tie (tT : FamU Fm ConcreteFormsLevelZero) : FamU Fm product_first_zeroth_parts.family_property_and :=
   let r := slope_free_branch_family Fm tT freeTT_holds slopeLineT_holds LemB.second_branch_all_members
   (r.1.and r.2.1).mono fun _ _ hS h => by obtain ⟨⟨W⟩, hm⟩ := h; exact product_first_zeroth_parts.division_side_conditions_at_sizeData hS W hm
 
-theorem slope_no_collision_of_form_tie (Fm : FamP eps) (tT : FamU Fm ConcreteFormsLevelZero) : FamU Fm LocalLatticeBases.CongruenceLatticeLengthBound :=
+theorem slope_no_collision_of_form_tie (tT : FamU Fm ConcreteFormsLevelZero) : FamU Fm LocalLatticeBases.CongruenceLatticeLengthBound :=
   let r := slope_free_branch_family Fm tT freeTT_holds slopeLineT_holds LemB.second_branch_all_members
   (r.2.2.and ((hI_tied Fm tT PI.IntegralAtBasePointLattice.integral_at_t0_lattice).and (ramified_level_zero_holds Fm tT))).mono
     fun _ _ hS h => LocalLatticeBases.congruence_no_kernel_minimal hS h.1 h.2.1 h.2.2
 
-theorem level_lines_of_form_tie (Fm : FamP eps) (tT : FamU Fm ConcreteFormsLevelZero) (hTu : TuSize Fm) : J.LvlF Fm :=
+theorem level_lines_of_form_tie (tT : FamU Fm ConcreteFormsLevelZero) (hTu : TuSize Fm) : J.LvlF Fm :=
   lvlF_of Fm (Formalism.L2.GlobalTheoryTheory.Places.settingF_of Fm hTu) (transposed_slope_of_form_tie Fm tT) (slope_no_collision_of_form_tie Fm tT)
 
-theorem lvlF_of_ties (Fm : FamP eps) (t : RealPlaceSecondLayerConditions Fm) (hTu : TuSize Fm) : J.LvlF Fm :=
+theorem lvlF_of_ties (t : RealPlaceSecondLayerConditions Fm) (hTu : TuSize Fm) : J.LvlF Fm :=
   level_lines_of_form_tie Fm (family_conditions_of_layer_two Fm t).2.2 hTu
 
-theorem slope_lemma_division_side (Fm : FamP eps) (hE : J.LvlF Fm) (hTu : TuSize Fm) (hrk : J.MuRank Fm) (lG : LinkG Fm) (lMu : LinkMu Fm) :
+theorem slope_lemma_division_side (hE : J.LvlF Fm) (hTu : TuSize Fm) (hrk : J.MuRank Fm) (lG : LinkG Fm) (lMu : LinkMu Fm) :
     LocalQuadraticParts.SlopeLemmaFamily Fm := by
   obtain ⟨C, x0, -, h⟩ := Lnk.slopesNF_of Fm
     (Formalism.L2.GlobalTheoryTheory.Places.placesF_min' Fm (J.lemma_five_one_of_theorem_two Fm hTu hE) (nuCommensF_min Fm hE) hTu hrk lG lMu)
   exact ⟨C, x0, fun x hx i _ u => h x hx i u⟩
 
-theorem nuFullF_of_lvl (Fm : FamP eps) (hE : J.LvlF Fm) : NuFullF Fm := nuFullF_of Fm (nuCommensF_min Fm hE)
+theorem nuFullF_of_lvl (hE : J.LvlF Fm) : NuFullF Fm := nuFullF_of Fm (nuCommensF_min Fm hE)
 
-theorem muRank_of_lvl (Fm : FamP eps) {C0 : ℝ} (hC0 : 0 < C0) (cPr : ChosenProviso Fm C0) (hE : J.LvlF Fm) (hTu : TuSize Fm) :
+theorem muRank_of_lvl {C0 : ℝ} (hC0 : 0 < C0) (cPr : ChosenProviso Fm C0) (hE : J.LvlF Fm) (hTu : TuSize Fm) :
     J.MuRank Fm :=
   muRank_min Fm hC0 cPr (nuFullF_of_lvl Fm hE) hE (Formalism.L2.GlobalTheoryTheory.Places.settingF_of Fm hTu)
 
-theorem hh_of_lvl (Fm : FamP eps) (CH : ℝ) (Eb CF0 : List ℝ → ℝ)
+theorem hh_of_lvl (CH : ℝ) (Eb CF0 : List ℝ → ℝ)
     (hL : Fm.Large (Formalism.MainNotions.DIV.Proofs.thrHH Eb Formalism.MainNotions.DIV.HookProducts.Row4C.EcHH CF0) CH)
     (hE : J.LvlF Fm) (hTu : TuSize Fm) (hrk : J.MuRank Fm)
     (lG : LinkG Fm) (lMu : LinkMu Fm) (c2 : LocalQuadraticParts.ComplementTwoFamily Fm)
@@ -172,6 +148,7 @@ theorem hh_of_lvl (Fm : FamP eps) (CH : ℝ) (Eb CF0 : List ℝ → ℝ)
     LocalQuadraticParts.FrameNumberBoundFamily Fm Fm.Csz CH :=
   Formalism.MainNotions.DIV.Proofs.height_bound_of_component_bounds Fm CH Eb Formalism.MainNotions.DIV.HookProducts.Row4C.EcHH CF0 hL
     (slope_lemma_division_side Fm hE hTu hrk lG lMu) hrk (nuFullF_of_lvl Fm hE) hb (Formalism.MainNotions.DIV.HookProducts.Row4C.gauge_form_bound_of_uniform_size Fm c2) hTu he
+end
 
 theorem proviso_of_working_class {𝒜 : FamClass} {C0 : ℝ} (Fm : FamP eps) (hc : Formalism.L2.Top3.D3 C0 𝒜 Fm) : ChosenProviso Fm C0 := by
   obtain ⟨CH, C5, c6, Cb, -, -, -, -, -, -, -, -, cPr, -⟩ := hc.2.1
@@ -182,6 +159,3 @@ end Formalism.L2.DIV.LvlWire
 end
 
 set_option pp.fullNames true
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.Divisibility.DivisibilityRemainder.NoColumnCase.LvlWire =====

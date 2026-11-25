@@ -13,18 +13,10 @@ import Mathlib.Algebra.Order.Star.Real
 import Formalism.GradedWeylDivisibility.FockSpaceTableaux.LCassemLemmas
 import Formalism.PieriBlockIdeals.StatementLA
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PieriBlockIdeals.PieriColumnMinors.MaxValEqZeroOfLt, Formalism.PieriBlockIdeals.PieriColumnMinors.SL2BinomialLattices, Formalism.PieriBlockIdeals.PieriColumnMinors.RecursionInclusionExceptional
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.MaxValEqZeroOfLt =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.MaxValEqZeroOfLt", "h": "module\n\npublic import Formalism.RankGapBounds.CloudMinFalse\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\npublic import Mathlib.Data.Nat.Prime.Factorial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
+section
 open Finset
-
 namespace Formalism.CohomologicalDescent
-
 theorem max_val_eq_zero_of_lt (l n : ℕ) (h : n < l) : Formalism.RankGapBounds.JumpSetsAlt.maxVal l n = 0 := by
   unfold Formalism.RankGapBounds.JumpSetsAlt.maxVal
   apply le_antisymm _ (Nat.zero_le _)
@@ -40,27 +32,14 @@ theorem max_val_eq_zero_of_lt (l n : ℕ) (h : n < l) : Formalism.RankGapBounds.
     have := (Nat.Prime.dvd_factorial hp).mp hdf
     omega
   · exact (Nat.factorization_eq_zero_of_not_prime _ hp).le
-
 end Formalism.CohomologicalDescent
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.MaxValEqZeroOfLt =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.SL2BinomialLattices =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.SL2BinomialLattices", "h": "module\n\npublic import Formalism.PieriBlockIdeals.ExponentBoundCounterexample\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.MaxValEqZeroOfLt\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\nimport Formalism.GradedWeylDivisibility.FockSpaceTableaux.LCassemLemmas\nimport Formalism.PieriBlockIdeals.StatementLA\npublic import Mathlib.Data.Nat.Choose.Cast\npublic import Mathlib.Data.Nat.Choose.Factorization\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MvPolynomial CategoryTheory TensorProduct
-
+end
 noncomputable section
-
+section
+open MvPolynomial CategoryTheory TensorProduct
 namespace Formalism.CohomologicalDescent.SL2BinomialLattices
-
 open Formalism.GradedWeylDivisibility Formalism.RankGapBounds.JumpSetsAlt Formalism.CohomologicalDescent.LA
-
 universe u v u' v'
-
 theorem maxVal_le_log_alt (l n : ℕ) : Formalism.RankGapBounds.JumpSetsAlt.maxVal l n ≤ Nat.log l n :=
   Finset.sup_le fun _ _ => Nat.factorization_choose_le_log
 
@@ -301,28 +280,12 @@ theorem size_large : SizeLarge := by
     have a5 := mul_le_mul a4 a1 (Real.log_natCast_nonneg h) (by positivity)
     have a6 := mul_le_mul (choose_two_le_sq k) a2 (Real.log_natCast_nonneg S) (by positivity)
     linarith
-
 end Formalism.CohomologicalDescent.SL2BinomialLattices
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.SL2BinomialLattices =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.RecursionInclusionExceptional =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.RecursionInclusionExceptional", "h": "module\n\npublic import Formalism.PieriBlockIdeals.StatementE\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.ProdInitialMinorsMemDetSpan\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.SL2BinomialLattices\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.WeightBounds\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open TensorProduct MvPolynomial
-open Module NumberField IsDedekindDomain
+end
+open TensorProduct MvPolynomial Module NumberField IsDedekindDomain
 open scoped Matrix ComplexOrder
-
 namespace Formalism.CohomologicalDescent.E
-
 open Formalism.UG Formalism.RankGapBounds.FormsTensorLocalization Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds Formalism.CohomologicalDescent.DepthNonnegative Formalism.CohomologicalDescent.LogSmallConstantBounds Formalism.CohomologicalDescent.ShortWeightBounds
-
 def ThinAE : Prop :=
   ExIntervalLt → ExCut → ∀ P : Par, P.Hyp → P.Large → ∀ (ι : Type) (W : Wts ι), W.Ok P → ∀ J : ℕ → ℕ,
     (W.sizeData₂ P J).ThinA P
@@ -617,9 +580,3 @@ theorem recursion_sum_exceptional : RecSum7E := by
   intro hI hC hRS P hH hL ι _ _ W hW hcard hSp Q hQ
   exact totalElementary_holds hRS P hH hL ι (W.sizeData₂ P (W.Jrec7 P))
     (recursion_inputs_exceptional hI hC P hH hL ι W hW hcard hSp) (places_real_holds P hH hL ι W hW _).2 Q hQ
-
-end Formalism.CohomologicalDescent.E
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.RecursionInclusionExceptional =====

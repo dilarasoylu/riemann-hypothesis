@@ -15,20 +15,12 @@ import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.Mirabolic
 import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.RamBasic
 import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.ThreeForms
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxPsiGood, Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.OrthogonalityOfMackey, Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.LemmaGG, Formalism.MirabolicMackeyTheory.MirabolicIsMackey
-
--- ===== clump member: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxPsiGood =====
--- clump-header: {"m": "Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxPsiGood", "h": "module\n\npublic import Formalism.MirabolicMackeyTheory.StatementL\npublic import Formalism.QuotientMetricDivisors.HermitianTwistDivisors.ValBasic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
+section
 open Module NumberField IsDedekindDomain
-
 namespace Formalism.EigenvalueLevelCeiling
-
+section
 open Formalism.DivisionValues
-
 theorem mem_sc {K : Type} [Field K] {Z : Type} [AddCommGroup Z] [Module K Z]
     [Module (𝓞 K) Z] [IsScalarTower (𝓞 K) K Z] (a : K) (A : Submodule (𝓞 K) Z) (x : Z) :
     x ∈ sc a A ↔ ∃ y ∈ A, a • y = x := by
@@ -138,21 +130,7 @@ theorem idxPsiGood_of (hMono : IdxMono) (hSc : IdxScaleIn) (hCut : IdxCutLe) (hI
   have hc2 : (lix w (cut L M) (cut L N) : ℝ) ≤ lix w (cut Zψ M) (cut Zψ N) := by
     exact_mod_cast hcut2
   nlinarith
-
-end Formalism.EigenvalueLevelCeiling
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxPsiGood =====
-
--- ===== clump member: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.OrthogonalityOfMackey =====
--- clump-header: {"m": "Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.OrthogonalityOfMackey", "h": "module\n\npublic import Formalism.MirabolicMackeyTheory.StatementL\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Module NumberField IsDedekindDomain
-
-namespace Formalism.EigenvalueLevelCeiling
-
+end
 theorem orthogonality_of_mackey : OrthOfMackey := by
   unfold OrthOfMackey
   intro K _ _ _ Z _ _ P _ _ ρ U _ ψ hM h hh z hz
@@ -194,23 +172,8 @@ theorem orthogonality_of_mackey : OrthOfMackey := by
   rcases smul_eq_zero.mp h3 with h0 | h0
   · exact absurd (by exact_mod_cast (sub_eq_zero.mp h0).symm) hne
   · exact h0
-
-end Formalism.EigenvalueLevelCeiling
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.OrthogonalityOfMackey =====
-
--- ===== clump member: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.LemmaGG =====
--- clump-header: {"m": "Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.LemmaGG", "h": "module\n\npublic import Formalism.MirabolicMackeyTheory.StatementL\npublic import Formalism.HermitianLattices.HermitianLatticesProofs.IndexBasic\npublic import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxRules\npublic import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.OrthogonalityOfMackey\npublic import Formalism.QuotientMetricDivisors.HermitianTwistDivisors.ValBasic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open Module NumberField IsDedekindDomain
-
-namespace Formalism.EigenvalueLevelCeiling
-
+section
 open Formalism.DivisionValues
-
 section Abstract
 
 variable {R : Type*} [CommRing R] {Y Q : Type*} [AddCommGroup Y] [Module R Y] [AddCommGroup Q]
@@ -561,24 +524,10 @@ theorem lemmaGG_of (hSc : IdxScaleIn) : LemmaGG := by
   linarith
 
 theorem good_index_GG : LemmaGG := lemmaGG_of index_scale_inclusion
-
+end
 end Formalism.EigenvalueLevelCeiling
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.LemmaGG =====
-
--- ===== clump member: Formalism.MirabolicMackeyTheory.MirabolicIsMackey =====
--- clump-header: {"m": "Formalism.MirabolicMackeyTheory.MirabolicIsMackey", "h": "module\n\npublic import Formalism.MirabolicMackeyTheory.StatementT\npublic import Formalism.MirabolicMackeyTheory.StatementL\nimport Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxPsiGood\npublic import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.IdxRules\npublic import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.LemmaGG\nimport Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.Mirabolic\npublic import Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.OnLocal\nimport Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.RamBasic\nimport Formalism.MirabolicMackeyTheory.MirabolicMackeyProofs.ThreeForms\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 namespace Formalism.EigenvalueLevelCeiling
-
 theorem idxPsiGood : IdxPsiGood := idxPsiGood_of _root_.Formalism.EigenvalueLevelCeiling.index_monotone _root_.Formalism.EigenvalueLevelCeiling.index_scale_inclusion _root_.Formalism.EigenvalueLevelCeiling.index_truncation_le _root_.Formalism.EigenvalueLevelCeiling.lattice_intersection
 theorem onLocal : OnLocal := onLocal_of _root_.Formalism.EigenvalueLevelCeiling.index_monotone _root_.Formalism.EigenvalueLevelCeiling.index_truncation_le _root_.Formalism.EigenvalueLevelCeiling.index_transport _root_.Formalism.EigenvalueLevelCeiling.lattice_intersection _root_.Formalism.EigenvalueLevelCeiling.three_forms idxPsiGood _root_.Formalism.EigenvalueLevelCeiling.good_index_GG
 theorem ramBasic : RamBasic := ramified_basic_bound
-
-end Formalism.EigenvalueLevelCeiling
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.MirabolicMackeyTheory.MirabolicIsMackey =====

@@ -1,5 +1,4 @@
 module
-
 public import Formalism.LocalToGlobal.GroupLattices.PendingLemmas.DelEquiv
 import Mathlib.Algebra.Order.Star.Int
 import Mathlib.RingTheory.PiTensorProduct

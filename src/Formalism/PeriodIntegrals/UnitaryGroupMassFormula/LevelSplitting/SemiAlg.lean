@@ -7,20 +7,11 @@ import Mathlib.RingTheory.Henselian
 import Mathlib.RingTheory.RegularLocalRing.Defs
 import Mathlib.RingTheory.SimpleRing.Principal
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiGen, Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.HermitianIsotropicProjComplement, Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiAlg
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiGen =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiGen", "h": "module\n\npublic import Formalism.SatakeDualWeyl.Statement\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.PiTensorProduct\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace PI.LevelKSplit.W.SemiG
-
 open Formalism.UG
-
+section
 structure Dat (A : Type) [CommRing A] (n : Type) (r : ℕ) where
   σA : A →+* A
   JA : Matrix n n A
@@ -107,18 +98,21 @@ def pW : (n → A) →ₗ[A] (n → A) := LinearMap.id - D.pU
 
 def Pi (S : (n → A) →ₗ[A] (n → A)) : (n → A) →ₗ[A] (n → A) := D.pU + D.pW ∘ₗ S ∘ₗ D.pW
 
-theorem pX_apply (v : n → A) : D.pX v = ∑ a, D.h (D.f a) v • D.e a := by
+section
+variable (v : n → A)
+theorem pX_apply : D.pX v = ∑ a, D.h (D.f a) v • D.e a := by
   simp [pX, LinearMap.sum_apply, hL_apply]
 
-theorem pXv_apply (v : n → A) : D.pXv v = ∑ a, D.h (D.e a) v • D.f a := by
+theorem pXv_apply : D.pXv v = ∑ a, D.h (D.e a) v • D.f a := by
   simp [pXv, LinearMap.sum_apply, hL_apply]
 
-theorem pz_apply (v : n → A) : D.pz v = (D.tz * D.h D.z v) • D.z := by
+theorem pz_apply : D.pz v = (D.tz * D.h D.z v) • D.z := by
   simp [pz, hL_apply]
 
-theorem pU_apply (v : n → A) : D.pU v = D.pX v + D.pXv v + D.pz v := rfl
+theorem pU_apply : D.pU v = D.pX v + D.pXv v + D.pz v := rfl
 
-theorem pW_apply (v : n → A) : D.pW v = v - D.pU v := rfl
+theorem pW_apply : D.pW v = v - D.pU v := rfl
+end
 
 variable {D}
 
@@ -186,28 +180,10 @@ theorem orthogonal_proj_normal_zero (H : D.Hyp) : D.pW D.z = 0 := by
   rw [pW_apply, pU_z_eq H, sub_self]
 
 end Dat
-
-end PI.LevelKSplit.W.SemiG
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiGen =====
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.HermitianIsotropicProjComplement =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.HermitianIsotropicProjComplement", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiGen\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-namespace PI.LevelKSplit.W.SemiG
-
-open Formalism.UG
-
+end
+section
 variable {A : Type} [CommRing A] {n : Type} [Fintype n] [DecidableEq n] {r : ℕ}
-
 namespace Dat
-
 def FixEZ (D : Dat A n r) (S : (n → A) →ₗ[A] (n → A)) : Prop := (∀ a, S (D.e a) = D.e a) ∧ S D.z = D.z
 
 def Uni (D : Dat A n r) (S : (n → A) →ₗ[A] (n → A)) : Prop := ∀ x y, D.h (S x) (S y) = D.h x y
@@ -243,13 +219,6 @@ theorem h_pX_right (H : D.Hyp) {y : n → A} (hy : ∀ b, D.h (D.e b) y = 0) (u 
     D.h y (D.pX u) = 0 := by
   rw [h_symm H (D.pX u) y, h_pX_left hy, map_zero]
 
-theorem h_span_left {x y : n → A} (hx : x ∈ Submodule.span A (Set.range D.e))
-    (hy : ∀ b, D.h (D.e b) y = 0) : D.h x y = 0 := by
-  induction hx using Submodule.span_induction with
-  | mem x hx => obtain ⟨a, rfl⟩ := hx; exact hy a
-  | zero => simp [Dat.h, hform]
-  | add x x' _ _ h1 h2 => rw [h_add_left, h1, h2, add_zero]
-  | smul c x _ h1 => rw [h_smul_left, h1, mul_zero]
 
 theorem pW_span (H : D.Hyp) {x : n → A} (hx : x ∈ Submodule.span A (Set.range D.e)) :
     D.pW x = 0 := by
@@ -273,16 +242,19 @@ theorem pW_S_pX (H : D.Hyp) {S : (n → A) →ₗ[A] (n → A)} (hX : D.MapX S) 
     D.pW (S (D.pX u)) = 0 :=
   pW_span H (S_span hX (pX_mem_span u))
 
-theorem isotropic_proj_image_complement {S : (n → A) →ₗ[A] (n → A)} (hW : D.MapW S) {w : n → A} (hw : IsW D w) :
+section
+variable {S : (n → A) →ₗ[A] (n → A)}
+theorem isotropic_proj_image_complement (hW : D.MapW S) {w : n → A} (hw : IsW D w) :
     D.pU (S w) = D.pX (S w) := by
   simp only [pU, LinearMap.add_apply, pXv, pz, LinearMap.sum_apply, LinearMap.smulRight_apply,
     LinearMap.smul_apply, hL_apply_lemma, (hW w hw).1, (hW w hw).2, smul_eq_mul, mul_zero, zero_smul,
     Finset.sum_const_zero, add_zero]
 
-theorem complement_proj_image {S : (n → A) →ₗ[A] (n → A)} (hW : D.MapW S) {w : n → A} (hw : IsW D w) :
+theorem complement_proj_image (hW : D.MapW S) {w : n → A} (hw : IsW D w) :
     D.pW (S w) = S w - D.pX (S w) := by
   simp only [pW, LinearMap.sub_apply, LinearMap.id_apply]
   rw [isotropic_proj_image_complement hW hw]
+end
 
 theorem Pi_comp (H : D.Hyp) {S S' : (n → A) →ₗ[A] (n → A)} (hX : D.MapX S) (hW' : D.MapW S')
     (v : n → A) : D.Pi S (D.Pi S' v) = D.Pi (S ∘ₗ S') v := by
@@ -337,13 +309,16 @@ theorem Pi_uni (H : D.Hyp) {S : (n → A) →ₗ[A] (n → A)} (hW : D.MapW S) (
     simp only [Pi, LinearMap.add_apply, LinearMap.comp_apply, map_add (f := _), pW_pU H, pW_pW H, zero_add]
   rw [h_dec H, hPU, hPU, hPW, hPW, key _ _ (isW_pW H x) (isW_pW H y), ← h_dec H]
 
-theorem h_e_S {S : (n → A) →ₗ[A] (n → A)} (hS : D.FixEZ S) (hU : D.Uni S) (b : Fin r)
+section
+variable {S : (n → A) →ₗ[A] (n → A)}
+theorem h_e_S (hS : D.FixEZ S) (hU : D.Uni S) (b : Fin r)
     (w : n → A) : D.h (D.e b) (S w) = D.h (D.e b) w := by
   rw [← hU (D.e b) w, hS.1 b]
 
-theorem h_z_S {S : (n → A) →ₗ[A] (n → A)} (hS : D.FixEZ S) (hU : D.Uni S) (w : n → A) :
+theorem h_z_S (hS : D.FixEZ S) (hU : D.Uni S) (w : n → A) :
     D.h D.z (S w) = D.h D.z w := by
   rw [← hU D.z w, hS.2]
+end
 
 theorem Pi_of_fix (H : D.Hyp) {S : (n → A) →ₗ[A] (n → A)} (hS : D.FixEZ S)
     (hf : ∀ a, S (D.f a) = D.f a) (hU : D.Uni S) (v : n → A) : D.Pi S v = S v := by
@@ -377,15 +352,6 @@ theorem Pi_of_N (H : D.Hyp) {S : (n → A) →ₗ[A] (n → A)}
   simp only [pW, LinearMap.sub_apply, LinearMap.id_apply]
   abel
 
-theorem mapW_of_inv {S Si : (n → A) →ₗ[A] (n → A)} (hSSi : ∀ v, S (Si v) = v) (hU : D.Uni S)
-    (hXi : D.MapX Si) (hZi : Si D.z - D.z ∈ Submodule.span A (Set.range D.e)) : D.MapW S := by
-  intro w hw
-  refine ⟨fun b => ?_, ?_⟩
-  · rw [← hSSi (D.e b), hU]
-    exact h_span_left (hXi b) hw.1
-  · rw [← hSSi D.z, hU]
-    have hz : Si D.z = D.z + (Si D.z - D.z) := by abel
-    rw [hz, h_add_left, hw.2.2, h_span_left hZi hw.1, add_zero]
 
 theorem N_part (H : D.Hyp) {S : (n → A) →ₗ[A] (n → A)} (hX : D.MapX S) (hW : D.MapW S)
     (hZ : S D.z - D.z ∈ Submodule.span A (Set.range D.e)) (v : n → A)
@@ -412,27 +378,12 @@ theorem N_part (H : D.Hyp) {S : (n → A) →ₗ[A] (n → A)} (hX : D.MapX S) (
   rw [e1]
   exact Submodule.add_mem _ (Submodule.add_mem _
     (Submodule.sub_mem _ (S_span hX (pX_mem_span v)) (pX_mem_span v)) hpz) (pX_mem_span _)
-
 end Dat
-
+end
 end PI.LevelKSplit.W.SemiG
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.HermitianIsotropicProjComplement =====
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiAlg =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiAlg", "h": "module\n\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.HermitianIsotropicProjComplement\npublic import Formalism.LocalToGlobal.SiegelLatticeTheory.FundamentalEquivalence.LevelIntersectParabolic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.PiTensorProduct\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace PI.LevelKSplit.W.SemiA
-
 open Formalism.MainNotions.GlobalTheoryTheory.GenusMassVolumes Formalism.L2.SG.Sub
 open scoped TensorProduct
-
 section R
 
 variable {F E : Type} [Field F] [Field E] [Algebra F E] (R : Type) [CommRing R] [Algebra F R]
@@ -647,9 +598,3 @@ theorem mapW_S {g : HA R σ J} (hg : g ∈ Ssub R σ J P) : (datR R σ J P T).Ma
     rw [← sub_add_cancel (lin R σ J g⁻¹ (ratV (F := F) R P.z)) (ratV (F := F) R P.z), hadd, h2, hWz', add_zero]
 
 end R
-
-end PI.LevelKSplit.W.SemiA
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.LevelSplitting.SemiAlg =====

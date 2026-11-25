@@ -95,26 +95,17 @@ import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.ScalarConst
 import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.TensZEt
 import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.TensorFourthPowerScaling
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EigenFrameDualOf, Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtJets, Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtPower, Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.JetsInOfOneVariable, Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.LogDerivativeJetsIntegral, Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.UnitKer, Formalism.LocalToGlobal.AlgebraicTheory.ColBoundOfPaths, Formalism.LocalToGlobal.AlgebraicTheory.SplitPlaceScaledBound
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EigenFrameDualOf =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EigenFrameDualOf", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementEig\npublic import ReciprocityTheory.EigenFrames.EigenSt\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
+section
 open scoped BigOperators
+section
 open NumberField
-
 namespace Formalism.L2.AlgTh
-
 open Formalism.L2.Th1.GD (InMul frameM)
 open Formalism.L2.Col (Fields Sp)
 open Formalism.L2.Ker (Amb DVar)
-
 namespace CapelliMinorMembership
-
 theorem norm_natCast (p : ℕ) [Fact p.Prime] {N : ℕ} (h : ¬ p ∣ N) : ‖(N : ℂ_[p])‖ = 1 := by
   have hq : ‖(N : ℚ_[p])‖ = 1 := by
     exact Padic.norm_natCast_eq_one_iff.2 ((Nat.Prime.coprime_iff_not_dvd (Fact.out)).2 h)
@@ -205,27 +196,12 @@ theorem kerFrame_of (h : EigenFrameDual) : KerFrame := by
       exact hc ⟨(Prod.mk.inj h2).1, (Prod.mk.inj h2).2⟩
 
 end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EigenFrameDualOf =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtJets =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtJets", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementB\npublic import Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.FinalA\npublic import Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.InVarAddInVarNeZero\npublic import Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.RestrictSecondZeroInVarOne\npublic import Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.FinalA\nimport Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.PairedSquareJets.Hurwitz\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.BinomialSeriesCoefficients.IntPSDerivativeOfLG\npublic import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.AnalyticTransOfAdd\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.AnaSys\npublic import Formalism.LocalToGlobal.TorsionIntegrality.UniformGaussModels.OneLetterGaussSharpTranslateHolds\npublic import Formalism.LocalToGlobal.TorsionIntegrality.UniformGaussModels.OrthogonalGaussModels.ThmBGaussOrthOf\nimport Formalism.LocalToGlobal.TorsionIntegrality.WeierstrassTwoTorsion.WeierstrassSubstitution.SubstPairSubst\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.PairedSquareJets.CurveJetsUnramifiedHolds\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.AnalyticTransOfAdd\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-open scoped BigOperators
-
+end
 namespace Formalism.L2.AlgTh
-
 namespace TorsionPointJets
-
 open PowerSeries
 open Formalism.L2.Th1.G (JetsIn)
 open Formalism.L2.Th1.C (IsLogPair IsOneUnit IntPS jet)
-
 section Field
 
 variable {K : Type} [Field K]
@@ -266,14 +242,16 @@ theorem subst_neg' {e : PowerSeries K} (hs : HasSubst e) (f : PowerSeries K) :
     subst e (-f) = -subst e f := by
   rw [← coe_substAlgHom hs, map_neg]
 
-theorem subst_e_l {l e : PowerSeries K} (h : IsLogPair l e) (F : PowerSeries K) :
+section
+variable {l e : PowerSeries K}
+theorem subst_e_l (h : IsLogPair l e) (F : PowerSeries K) :
     subst e (subst l F) = F := by
   obtain ⟨hl0, -, he0, -, hel⟩ := h
   rw [subst_comp_subst_apply (HasSubst.of_constantCoeff_zero' hl0)
     (HasSubst.of_constantCoeff_zero' he0), hel]
   exact X_subst F
 
-private theorem derivative_subst_eq_subst_Dinv {l e : PowerSeries K} (h : IsLogPair l e) (g : PowerSeries K) :
+private theorem derivative_subst_eq_subst_Dinv (h : IsLogPair l e) (g : PowerSeries K) :
     derivative (subst e g) = subst e (Formalism.L2.Th1.C.Dinv l g) := by
   obtain ⟨-, hl1, he0, -, hel⟩ := h
   have hse : HasSubst e := HasSubst.of_constantCoeff_zero' he0
@@ -295,12 +273,13 @@ private theorem derivative_subst_eq_subst_Dinv {l e : PowerSeries K} (h : IsLogP
   rw [← coe_substAlgHom hse, map_mul]
   ring
 
-private theorem iterate_derivative_subst_eq_subst_iterate {l e : PowerSeries K} (h : IsLogPair l e) (n : ℕ) (g : PowerSeries K) :
+private theorem iterate_derivative_subst_eq_subst_iterate (h : IsLogPair l e) (n : ℕ) (g : PowerSeries K) :
     (derivative (R := K))^[n] (subst e g) = subst e ((Formalism.L2.Th1.C.Dinv l)^[n] g) := by
   induction n generalizing g with
   | zero => rfl
   | succ n ih =>
     rw [Function.iterate_succ_apply, Function.iterate_succ_apply, derivative_subst_eq_subst_Dinv h, ih]
+end
 
 private theorem factorial_mul_coeff_eq_constantCoeff_iterate (n : ℕ) (g : PowerSeries K) :
     ((n.factorial : ℕ) : K) * coeff n g = constantCoeff ((derivative (R := K))^[n] g) := by
@@ -593,26 +572,12 @@ theorem etThetaZ_of (h : EtJetsTh0) (hp : ProdScaleJets) : EtThetaZ := by
   exact h dK L hsq hmod hcm p ι hp2 hpd hW ω₀ hω hω2 α (s k i) M hαq hα (hαs k i) hM (hMs k i) j
 
 end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtJets =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtPower =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtPower", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementB\npublic import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.AnalyticTransOfAdd\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.FacShapeZero\npublic import Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.ScaledXOffOrigin\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.Taylor0ConstMul\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+section
 open PowerSeries
-
-noncomputable section
-
 namespace Formalism.L2.AlgTh
-
 namespace EtPowerP
-
 open Formalism.L2.Th1.E Formalism.L2.Th1.E.Main
-
 private theorem exists_unitAt_prod_pow {K : Type} [NormedField K] [IsUltrametricDist K]
     (s : Finset ℕ) (F : ℕ → K⟦X⟧) (m : ℕ → ℕ) (h : ∀ j ∈ s, ∃ e, UnitAt e (F j)) :
     ∃ E, UnitAt E (∏ j ∈ s, F j ^ m j) := by
@@ -764,27 +729,14 @@ theorem etPower_of (h : UnitKerInt) : EtPower := by
     map_one, one_mul]
 
 end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtPower =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.JetsInOfOneVariable =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.JetsInOfOneVariable", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementA\npublic import Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.FinalA\nimport Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.PairedSquareJets.HurwitzB\nimport Formalism.LocalToGlobal.TorsionIntegrality.RamifiedCurveKernels.PairedSquareJets.Several\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
+end
+section
 open scoped BigOperators
-
 namespace Formalism.L2.AlgTh
-
 open Formalism.L2.Th1.G (linSub JetsIn JetsIn1)
 open Formalism.DworkPowerSeriesWeights (JetsIntegral mfact)
 open Formalism.InvariantFactorPaths.G7 (at1)
-
 namespace LinearSubstitutionJets
-
 private theorem sum_C_scl_mul_X {K : Type} [Field K] {p : Type} [Fintype p] [DecidableEq p] (c : K)
     (x : p) :
     (∑ y, MvPowerSeries.C (scl p c x y) * MvPowerSeries.X y : MvPowerSeries p K) =
@@ -893,21 +845,7 @@ theorem linear_scaling_jets : LinScale := by
     ring
 
 end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.JetsInOfOneVariable =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.LogDerivativeJetsIntegral =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.LogDerivativeJetsIntegral", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementA\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-open scoped BigOperators
-
 namespace Formalism.L2.AlgTh
-
 theorem jet_succ_eq {K : Type} [Field K] [CharZero K] (F a : PowerSeries K)
     (h : PowerSeries.derivative (R := K) F = a * F) (i : ℕ) :
     (((i + 1).factorial : ℕ) : K) * PowerSeries.coeff (i + 1) F =
@@ -977,25 +915,9 @@ theorem power_log_derivative_jets : PowLogDer := by
     apply mul_left_cancel₀ hC
     rw [map_natCast]
     linear_combination (-((n + 1 : ℕ) : PowerSeries K) * PowerSeries.derivative (R := K) G) * h + G * hd
-
 end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.LogDerivativeJetsIntegral =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.UnitKer =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.UnitKer", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementB\npublic import Formalism.LocalToGlobal.TorsionIntegrality.UniformGaussModels.OrthogonalGaussModels.NeZeroOfNorm\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.EisensteinRecursion\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.HasCMByStable\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.IsogenyFormulaInstance\nimport Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.SecondLogDerivativeUnique\nimport Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.SqrtInUnramifiedCompletion\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.BinomialSeriesCoefficients.Points\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.BinomialSeriesCoefficients.UnitBall\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.CurveJetsUnitBall\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.CurveSecondLogDerivative\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.FirstLevelFromUniversalLaw\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.SecondCoeffConsistency\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.AnalyticTransOfAdd\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.FacShapeZero\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.CmIntegralityOfTorsionPoints\nimport Formalism.LocalToGlobal.TorsionIntegrality.UniformGaussModels.OrthogonalGaussModels.NormLeOneOfQuad\nimport Formalism.LocalToGlobal.TorsionIntegrality.WeierstrassTwoTorsion.CubeThreeR\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Henselian\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.RegularLocalRing.Defs\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FinalS\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-open scoped BigOperators
-
 namespace Formalism.L2.AlgTh
-
 namespace UnitKernelIntegral
-
 open PowerSeries
 open Formalism.L2.Th1.CM (HasCMBy omegaK)
 open Formalism.L2.Th1.E (IntCurve curveL ptOf px py GaussOne IntS)
@@ -1005,7 +927,6 @@ open Formalism.L2.Th1.D (normInt)
 open Formalism.L2.Th1.D.GaussNormEstimates (normZ_lt normZ_one normZ_le norm_one_of_close)
 open Formalism.L2.Th1.Top.CalcPAux
 open Formalism.G (unitBall)
-
 section Int
 
 variable {K : Type} [Field K] (R : Subring K)
@@ -1284,7 +1205,9 @@ theorem three_split (hpd : ¬ (3 : ℤ) ∣ (dK : ℤ)) (hmod : dK % 4 = 3) {m n
 
 end Three
 
-theorem calcGen {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ} (L : PeriodPair) (hmod : dK % 4 = 3)
+section
+variable {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ}
+theorem calcGen (L : PeriodPair) (hmod : dK % 4 = 3)
     (hcm : HasCMBy dK L) (hp2 : p ≠ 2) (hW : IntCurve (curveL p L ι))
     (htwo : ∀ α : OO ι hmod, ∃ u v : (OO ι hmod)ˣ, α = u + v) (a b : ℂ_[p]) (hab : (a, b) ∈ OO ι hmod) :
     EndInt (unitBall ℂ_[p]) (logSer (curveL p L ι)) (expSer (curveL p L ι)) a ∧
@@ -1326,7 +1249,7 @@ theorem calcGen {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ} (L 
   have h := key ⟨(a, b), hab⟩
   exact ⟨h.1, h.2.1⟩
 
-theorem split_w {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ} (hmod : dK % 4 = 3) (hp : p = 3)
+theorem split_w (hmod : dK % 4 = 3) (hp : p = 3)
     (hpd : ¬ p ∣ dK) {m n : ℤ} (hN : (p : ℤ) ∣ normInt dK m n)
     (hα1 : ‖ι ((m : ℂ) + (n : ℂ) * omegaK dK)‖ = 1) :
     ‖ι (omegaK dK)‖ < 1 ∨ ‖ι (omegaK dK) - 1‖ < 1 := by
@@ -1374,7 +1297,7 @@ theorem split_w {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ} (hm
   rw [norm_mul] at hn
   nlinarith [hcon.1, hcon.2]
 
-theorem main_case {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ} (L : PeriodPair) (hmod : dK % 4 = 3)
+theorem main_case (L : PeriodPair) (hmod : dK % 4 = 3)
     (hcm : HasCMBy dK L) (hW : IntCurve (curveL p L ι)) (m n : ℤ)
     (hα1 : ‖ι ((m : ℂ) + (n : ℂ) * omegaK dK)‖ = 1)
     (hEI : EndInt (unitBall ℂ_[p]) (logSer (curveL p L ι)) (expSer (curveL p L ι))
@@ -1489,6 +1412,7 @@ theorem main_case {p : ℕ} [Fact p.Prime] (ι : ℂ ≃+* ℂ_[p]) {dK : ℕ} (
       exact mul_le_one₀ hW.2.2.2.1 (norm_nonneg _) hx
   rw [norm_pow] at hn
   exact (pow_le_one_iff_of_nonneg (norm_nonneg _) two_ne_zero).1 hn
+end
 
 end UnitKernelIntegral
 
@@ -1520,43 +1444,16 @@ theorem unit_kernel_integral_coords : UnitKerInt := by
   exact main_case ι L hmod hcm hW m n hα1 (calcGen ι L hmod hcm hp2 hW htwo _ _ hmem) t hαt ht
 
 end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.UnitKer =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.ColBoundOfPaths =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.ColBoundOfPaths", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementC\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementD\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.DvdOfNormIntCastLt\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtJets\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EtPower\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.JetsInOfOneVariable\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.LogDerivativeJetsIntegral\nimport Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.ScalarConst\nimport Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.TensZEt\nimport Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.TensorFourthPowerScaling\nimport Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.UnitKer\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+end
 namespace Formalism.L2.AlgTh
-
 theorem etPower : EtPower := etPower_of _root_.Formalism.L2.AlgTh.unit_kernel_integral_coords
 theorem etJetsSigma : EtJetsSigma := etJetsSigma_of etPower _root_.Formalism.L2.AlgTh.log_derivative_jets_integral _root_.Formalism.L2.AlgTh.power_log_derivative_jets
 theorem etJetsTh0 : EtJetsTh0 := etJetsTh0_of etJetsSigma
 theorem etThetaZ : EtThetaZ := etThetaZ_of etJetsTh0 _root_.Formalism.L2.AlgTh.product_scaling_jets
 theorem etLoc : EtLoc := etLoc_of _root_.Formalism.L2.AlgTh.tensor_integral_torsion etThetaZ _root_.Formalism.L2.AlgTh.linear_scaling_jets
 theorem xiEt : XiEt := xiEt_of etLoc
-
-end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.ColBoundOfPaths =====
-
--- ===== clump member: Formalism.LocalToGlobal.AlgebraicTheory.SplitPlaceScaledBound =====
--- clump-header: {"m": "Formalism.LocalToGlobal.AlgebraicTheory.SplitPlaceScaledBound", "h": "module\n\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementD\npublic import Formalism.LocalToGlobal.AlgebraicTheory.StatementEig\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.EigenFrameDualOf\npublic import Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.XiConn\npublic import Formalism.LocalToGlobal.AlgebraicTheory.ColBoundOfPaths\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import ReciprocityTheory.EigenFrames.EigenPf\nimport Formalism.LocalToGlobal.AlgebraicTheory.AlgebraicTheoryProofs.ScalarConst\n\n"}
-section -- clump:auto
-@[expose] public section
-
-namespace Formalism.L2.AlgTh
-
 theorem xiConn : XiConn := xiConn_of etLoc _root_.Formalism.L2.AlgTh.scalar_constant_value _root_.Formalism.L2.AlgTh.xi_swap
 theorem split_place_scaled_bound : SelfDualLatticeThetaPadicIntegrality := split_bound_of_xi_lemmas xiEt xiConn
 theorem eigenFrameDual : EigenFrameDual := eigenFrameDual_of ReciprocityTheory.EigenFramesTheory.eigenFrameDual
 theorem kerFrame : KerFrame := kerFrame_of eigenFrameDual
-
-end Formalism.L2.AlgTh
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.AlgebraicTheory.SplitPlaceScaledBound =====

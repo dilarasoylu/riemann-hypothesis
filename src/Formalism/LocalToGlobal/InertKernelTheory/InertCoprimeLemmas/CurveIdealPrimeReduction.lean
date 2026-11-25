@@ -8,20 +8,11 @@ public import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.HalfT
 public import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.InertPrime
 import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticInvariants.QuadPolyIrreducible
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticDedekindZeta.GenBase, Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.CurveIdealPrimeReduction
-
--- ===== clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticDedekindZeta.GenBase =====
--- clump-header: {"m": "Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticDedekindZeta.GenBase", "h": "module\n\npublic import Mathlib.NumberTheory.NumberField.Basic\npublic import Mathlib.RingTheory.Ideal.Norm.AbsNorm\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
+section
 open NumberField
-
 namespace PI.ClassNumImQ.ZetaNonvanishing₂
-
 variable {K : Type} [Field K] [NumberField K]
-
 theorem absNorm_span_two (h2 : Module.finrank ℚ K = 2) (p : ℕ) :
     Ideal.absNorm (Ideal.span {(p : 𝓞 K)}) = p ^ 2 := by
   rw [Ideal.absNorm_span_singleton]
@@ -35,25 +26,13 @@ theorem ne_bot_of_absNorm {P : Ideal (𝓞 K)} {n : ℕ} (hP : Ideal.absNorm P =
   rintro rfl
   rw [Ideal.absNorm_bot] at hP
   exact hn hP.symm
-
 end PI.ClassNumImQ.ZetaNonvanishing₂
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticDedekindZeta.GenBase =====
-
--- ===== clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.CurveIdealPrimeReduction =====
--- clump-header: {"m": "Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.CurveIdealPrimeReduction", "h": "module\n\npublic import Formalism.LocalToGlobal.InertKernelTheory.StatementCc\npublic import Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.EpsteinZeta.Homothety\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.HalfTorsionNotMemCmLattice\npublic import Formalism.PeriodIntegrals.OrbitalBoundsConclusion.InertPrime\npublic import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticDedekindZeta.GenBase\nimport Formalism.PeriodIntegrals.UnitaryGroupMassFormula.QuadraticInvariants.QuadPolyIrreducible\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 noncomputable section
 open NumberField Formalism.BasicNotions
 open scoped Pointwise
-
 namespace Formalism.L2.KerInert.CcGen
-
 variable {K : Type} [Field K] [NumberField K]
-
 theorem coprime_absNorm_of_not_le {p : ℕ} (hp : p.Prime) (hP : (Ideal.span {(p : 𝓞 K)}).IsMaximal)
     {I : Ideal (𝓞 K)} (hI : ¬ I ≤ Ideal.span {(p : 𝓞 K)}) : Nat.Coprime (Ideal.absNorm I) p := by
   have hsup : I ⊔ Ideal.span {(p : 𝓞 K)} = ⊤ := by
@@ -102,7 +81,9 @@ namespace Formalism.L2.KerInert
 
 open Formalism.MainNotions
 
-theorem lamOf_span_mul (D : D7) (cc : Ideal (𝓞 D.host.K)) (a : 𝓞 D.host.K) (δ : ℂ) :
+section
+variable (D : D7) (cc : Ideal (𝓞 D.host.K))
+theorem lamOf_span_mul (a : 𝓞 D.host.K) (δ : ℂ) :
     TaylorLogMetric.lamOf D (Ideal.span {a} * cc) δ = TaylorLogMetric.lamOf D cc (δ * D.host.φ₀ ((a : D.host.K) : D.host.E)) := by
   unfold TaylorLogMetric.lamOf
   congr 1
@@ -114,7 +95,7 @@ theorem lamOf_span_mul (D : D7) (cc : Ideal (𝓞 D.host.K)) (a : 𝓞 D.host.K)
   · rintro ⟨z, hz, rfl⟩
     exact ⟨a * z, ⟨z, hz, rfl⟩, by simp only [map_mul, MulMemClass.coe_mul]; ring⟩
 
-theorem lamOf_smul (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) :
+theorem lamOf_smul (δ : ℂ) :
     TaylorLogMetric.lamOf D cc δ = δ • TaylorLogMetric.lamOf D cc 1 := by
   unfold TaylorLogMetric.lamOf
   change _ = AddSubgroup.map (DistribSMul.toAddMonoidHom ℂ δ) _
@@ -125,6 +106,7 @@ theorem lamOf_smul (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) :
   constructor
   · rintro ⟨c, hc, rfl⟩; exact ⟨_, ⟨c, hc, rfl⟩, rfl⟩
   · rintro ⟨_, ⟨c, hc, rfl⟩, rfl⟩; exact ⟨c, hc, rfl⟩
+end
 
 theorem discr_smul_eq_inv_pow_twelve_mul (Λ : AddSubgroup ℂ) (c : ℂ) (hc : c ≠ 0) :
     TaylorLogMetric.discr (c • Λ) = (c ^ 12)⁻¹ * TaylorLogMetric.discr Λ :=
@@ -157,7 +139,3 @@ theorem curve_ideal_prime : CcPrime := by
   field_simp
 
 end Formalism.L2.KerInert
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.CurveIdealPrimeReduction =====

@@ -7,22 +7,13 @@ public import Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MemNab
 public import Formalism.LocalToGlobal.GroupLattices.FockModels.ElementaryDivisorBasis
 import Mathlib.Order.Interval.Finset.Box
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MatQTwDet, Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.LaTwTranspose
-
--- ===== clump member: Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MatQTwDet =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MatQTwDet", "h": "module\n\npublic import Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.PolynomialThetaProduct\npublic import Formalism.SharpRestriction.GrowthBounds.ObjBridge\npublic import Formalism.SharpRestriction.GrowthBounds.LatticeSystems\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.Order.Interval.Finset.Box\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
-open MvPolynomial
-
 noncomputable section
-
+open MvPolynomial
 namespace Formalism.L2.G.Model
-
-open Formalism.MainNotions.G Formalism.GradedWeylDivisibility Formalism.MainNotions.G.LatticeSystems
-
+open Formalism.MainNotions.G Formalism.GradedWeylDivisibility
+section
+open Formalism.MainNotions.G.LatticeSystems
 section Lift
 
 variable {p n' : ℕ} {W Qq O Kf : Type} [CommRing W] [IsDomain W] [IsDiscreteValuationRing W] [Field Qq]
@@ -200,27 +191,8 @@ theorem lift_eq {S : Type} [Fintype S] [DecidableEq S] (h : HidaSetting p n' W Q
   exact RingHom.congr_fun e F
 
 end Lift
-
-end Formalism.L2.G.Model
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MatQTwDet =====
-
--- ===== clump member: Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.LaTwTranspose =====
--- clump-header: {"m": "Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.LaTwTranspose", "h": "module\n\npublic import Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MemNablaLTwLetter\npublic import Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.MatQTwDet\npublic import Formalism.LocalToGlobal.GroupLattices.FockModels.ElementaryDivisorBasis\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-open MvPolynomial
-
-noncomputable section
-
-namespace Formalism.L2.G.Model
-
-open Formalism.MainNotions.G Formalism.GradedWeylDivisibility
+end
 open Formalism.MainNotions.G.LatticeSystems (la_tw lb_D la_tw_det lb_D_det)
-
 section Gen
 
 variable {p n' : ℕ} {W Qq O Kf : Type} [CommRing W] [IsDomain W] [IsDiscreteValuationRing W] [Field Qq]
@@ -483,9 +455,3 @@ theorem gen_R (h : HidaSetting p n' W Qq O Kf ι σ j w) (φ : WF p n' ≃+* W) 
     rfl
 
 end Gen
-
-end Formalism.L2.G.Model
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.GroupLattices.FockModels.FlatModels.LaTwTranspose =====

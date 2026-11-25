@@ -6,21 +6,11 @@ public import Formalism.HermitianCurvature.HermitianCurvatureProofs.CoordinateSi
 public import Formalism.HermitianCurvature.HermitianCurvatureProofs.TheoremPIntegralOfPlaces
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.OrbitalIntegralAeConvergenceContinuity
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.HermitianCurvature.HermitianCurvatureProofs.IsOpenDetBottomLeftNeZero, Formalism.HermitianCurvature.HermitianCurvatureProofs.ChartCoefficientHasCompactSupport
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.IsOpenDetBottomLeftNeZero =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.IsOpenDetBottomLeftNeZero", "h": "module\n\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.ContDiffAtSecondCoordinate\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.SymmetricScalarBlockMatrixMul\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 namespace Formalism.FourierDecayAlt.P.PBI
-
 open Matrix Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.U Formalism.FourierDecayAlt.P.Ux3 Formalism.FourierDecayAlt.P.PBI.Sm
 open scoped ComplexConjugate ContDiff
-
 noncomputable section
-
 section msgen
 
 variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] {x : E}
@@ -239,7 +229,9 @@ theorem skewCoords_skewOf {n : ℕ} (q : (G.UT n → ℂ) × (Fin n → ℝ)) : 
   apply skewOf_inj
   exact skewOf_coords _ (skewOf_conjTranspose _)
 
-theorem chart_spec (g : B.Mat k (j + ρ)) (hg : g ∈ B.GV k (j + ρ)) (hD : DjU k j ρ g ≠ 0) :
+section
+variable (g : B.Mat k (j + ρ))
+theorem chart_spec (hg : g ∈ B.GV k (j + ρ)) (hD : DjU k j ρ g ≠ 0) :
     (chZ g).det ≠ 0 ∧ chMu g ∈ B.GV k ρ ∧
       g = (Rn k j ρ (chX g))⁻¹ * mMap k j ρ (chZ g) (chMu g) * Rn k j ρ (chX' g) := by
   obtain ⟨x, x', Z, γ, hZ, hγ, hgeq⟩ := bigCell_exists g hg hD
@@ -312,7 +304,7 @@ theorem chart_spec (g : B.Mat k (j + ρ)) (hg : g ∈ B.GV k (j + ρ)) (hD : DjU
   unfold mMap
   rw [block_three_center]
 
-theorem djU_eq (g : B.Mat k (j + ρ)) : DjU k j ρ g = (G.wMat j * bk31 g).det := by
+theorem djU_eq : DjU k j ρ g = (G.wMat j * bk31 g).det := by
   have h := hat_z_of_block3 (bk11 g) (g.submatrix (fun a => eB k j ρ (Sum.inl (Sum.inl a))) (fun b => eB k j ρ (Sum.inl (Sum.inr b))))
     (g.submatrix (fun a => eB k j ρ (Sum.inl (Sum.inl a))) (fun b => eB k j ρ (Sum.inr b))) (bk21 g) (bk22 g)
     (g.submatrix (fun a => eB k j ρ (Sum.inl (Sum.inr a))) (fun b => eB k j ρ (Sum.inr b))) (bk31 g) (bk32 g) (bk33 g)
@@ -324,12 +316,13 @@ theorem djU_eq (g : B.Mat k (j + ρ)) : DjU k j ρ g = (G.wMat j * bk31 g).det :
   conv_lhs => rw [e]
   rw [h]
 
-theorem djU_ne_iff (g : B.Mat k (j + ρ)) : DjU k j ρ g ≠ 0 ↔ (bk31 g).det ≠ 0 := by
+theorem djU_ne_iff : DjU k j ρ g ≠ 0 ↔ (bk31 g).det ≠ 0 := by
   rw [djU_eq, Matrix.det_mul]
   have hW := (wMat_det j).ne_zero
   constructor
   · intro h h0; exact h (by rw [h0, mul_zero])
   · intro h; exact mul_ne_zero hW h
+end
 
 end ident
 
@@ -342,24 +335,11 @@ namespace Formalism.FourierDecayAlt.P
 open Matrix Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.U
 
 end Formalism.FourierDecayAlt.P
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.IsOpenDetBottomLeftNeZero =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.ChartCoefficientHasCompactSupport =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.ChartCoefficientHasCompactSupport", "h": "module\n\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.IsOpenDetBottomLeftNeZero\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.CoordinateSizesOfHypotheses\nimport Formalism.HermitianCurvature.HermitianCurvatureProofs.OrbitalIntegralAeConvergenceContinuity\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.TheoremPIntegralOfPlaces\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.SimpleRing.Principal\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
 noncomputable section
-
 open Matrix MeasureTheory Filter Formalism.REAL Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.U Formalism.FourierDecayAlt.P.Ux3
 open scoped ContDiff
-
 attribute [local instance] Matrix.normedAddCommGroup Matrix.normedSpace
-
 namespace Formalism.FourierDecayAlt.P.PBI
-
 section mk
 
 variable {k j ρ : ℕ} {Wp Wq : Type} [NormedAddCommGroup Wp] [InnerProductSpace ℂ Wp] [NormedAddCommGroup Wq]
@@ -603,7 +583,3 @@ theorem chartCoefficient_hasCompactSupport (Bs : B.RealPlaceData k (j + ρ) Wp W
 end cpt
 
 end Formalism.FourierDecayAlt.P.PBI
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.ChartCoefficientHasCompactSupport =====

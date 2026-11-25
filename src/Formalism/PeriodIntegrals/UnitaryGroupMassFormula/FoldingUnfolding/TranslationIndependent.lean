@@ -6,7 +6,6 @@ public import Formalism.PeriodIntegrals.UnitaryGroupMassFormula.FoldingUnfolding
 
 open MeasureTheory
 open scoped ENNReal NNReal
-open Formalism.L2.SG.FoldBound Formalism.L2.SG.PoincareSeriesSquareIntegrable
 
 namespace PI.FoldDCUnfold.W
 

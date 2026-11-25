@@ -31,23 +31,14 @@ import Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.Unit
 import Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FinalS
 import Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.NormHalfB2SubTwoTorsionLeOne
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.JetsModel, Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.RepDict
-
--- ===== clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.JetsModel =====
--- clump-header: {"m": "Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.JetsModel", "h": "module\n\npublic import Formalism.SharpRestriction.GlobalSchurBounds.GeneralLinearActions.IsDiscriminantTwelfthRootOfIdealLattice\npublic import Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.PeriodRelations.ConjCls\npublic import Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.WeierstrassUniqueness.ExistsPeriodPairOfIsLat\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.PadicNormTwoHundredSixteenEqOneOfFiveLe\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.SigmaAlg\nimport Formalism.LocalToGlobal.TorsionIntegrality.ComplexLatticeClosure.LamConjTheta0\nimport Formalism.SharpRestriction.AdmissibleParameterJoins.GandSp\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.L2.KerInert
-
 namespace JetsModel
-
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric
-
-theorem eisenstein_invariants_algebraic (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (hcc : IsCurveIdeal D cc) (hδ : IsDiscriminantTwelfthRootOfIdealLattice D cc δ) :
+section
+variable (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ)
+theorem eisenstein_invariants_algebraic (hcc : IsCurveIdeal D cc) (hδ : IsDiscriminantTwelfthRootOfIdealLattice D cc δ) :
     g2 (lamOf D cc δ) ∈ Qbar ∧ g3 (lamOf D cc δ) ∈ Qbar := by
   have hδ0 := Formalism.L2.GlobalTheoryTheory.IntegralLatticeDensity.B5.brcc_delta_ne D cc hcc δ hδ
   obtain ⟨⟨L, hL⟩, -⟩ := _root_.Formalism.L2.Th1.F2.lambda_of_lattice_holds D cc δ hcc.1 hδ0
@@ -57,7 +48,7 @@ theorem eisenstein_invariants_algebraic (D : D7) (cc : Ideal (𝓞 D.host.K)) (�
   rw [e2, e3]
   exact ⟨hg2, hg3⟩
 
-theorem wModel_Δ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (hcc : IsCurveIdeal D cc) (hδ : IsDiscriminantTwelfthRootOfIdealLattice D cc δ)
+theorem wModel_Δ (hcc : IsCurveIdeal D cc) (hδ : IsDiscriminantTwelfthRootOfIdealLattice D cc δ)
     {p : ℕ} [Fact p.Prime] (lam : Qbar →+* ℂ_[p]) : (wModel lam (lamOf D cc δ)).Δ = 1 := by
   obtain ⟨h2, h3⟩ := eisenstein_invariants_algebraic D cc δ hcc hδ
   set a2 : Qbar := ⟨g2 (lamOf D cc δ), h2⟩ with ha2
@@ -80,30 +71,12 @@ theorem wModel_Δ (D : D7) (cc : Ideal (𝓞 D.host.K)) (δ : ℂ) (hcc : IsCurv
   simp only [WeierstrassCurve.Δ, WeierstrassCurve.b₂, WeierstrassCurve.b₄, WeierstrassCurve.b₆,
     WeierstrassCurve.b₈, map_sub, map_mul, map_pow, map_div₀, map_neg, map_ofNat]
   ring
-
-
+end
 end JetsModel
-
-
 end Formalism.L2.KerInert
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.JetsModel =====
-
--- ===== clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.RepDict =====
--- clump-header: {"m": "Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.RepDict", "h": "module\n\npublic import Formalism.LocalToGlobal.InertKernelTheory.DefsRepDict\npublic import Formalism.LocalToGlobal.GlobalTheory.GL3.CubicFields.WeierstrassUniqueness.ExistsPeriodPairOfIsLat\npublic import Formalism.LocalToGlobal.GroupLattices.PendingLemmas.ExistsCoprimePowEqOne\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.BeWInertOfSigma\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.ExistsWittSeriesInverseFormalGroupIso\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.IntBasis\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.JetsModel\npublic import Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.MMRead\nimport Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.PadicNormTwoHundredSixteenEqOneOfFiveLe\nimport Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.PowerSeriesEmbedding\nimport Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.SigmaAlg\nimport Formalism.LocalToGlobal.TorsionIntegrality.CMGoodModels.CmAll\nimport Formalism.LocalToGlobal.TorsionIntegrality.ComplexLatticeClosure.LamConjTheta0\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.EllipticOnePole\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.HasCMByStable\nimport Formalism.LocalToGlobal.TorsionIntegrality.EisensteinTranslationProducts.MulStableIntegral\nimport Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.FinalC\npublic import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.FinalOfNRDense\nimport Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.KummerThetaLogarithms.ComplexMultiplicationFieldData\npublic import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.SecondLevelOfNorm\npublic import Formalism.LocalToGlobal.TorsionIntegrality.GaussSumParity.SingleLetterBiextensionRelation\nimport Formalism.LocalToGlobal.TorsionIntegrality.SecondCoefficientNorms.BinomialSeriesCoefficients.CoeffPowEqZeroOfCc\nimport Formalism.LocalToGlobal.TorsionIntegrality.TorsionTranslationPowers.NonsingularJetNorms.Joints\npublic import Formalism.LocalToGlobal.TorsionIntegrality.UniformGaussModels.FinalFree\nimport Formalism.SharpRestriction.GlobalSchurBounds.GlobalRankLatticeProofs.UnitTraceSumBounds.FamilyLogGammaSmallHolds\nimport Formalism.ThetaLogCoordinates.UniformThetaSubstitution.FinalS\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\npublic import Formalism.LocalToGlobal.InertKernelTheory.DefsBeW\nimport Formalism.LocalToGlobal.TorsionIntegrality.FrobeniusFibreCurves.LogarithmicSubstitution.NormHalfB2SubTwoTorsionLeOne\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.L2.KerInert.WeierstrassScaling
-
 open NumberField Formalism.BasicNotions Formalism.MainNotions.TaylorLogMetric Formalism.L2.KerInert.ParameterChangeLemmas Formalism.L2.KerInert.IntegralOrthonormalChange
-
 variable {p : ℕ} [Fact p.Prime]
-
 def scC (ν : ℂ_[p]) (hν : ν ≠ 0) : WeierstrassCurve.VariableChange ℂ_[p] := ⟨Units.mk0 ν hν, 0, 0, 0⟩
 
 section Scale
@@ -112,20 +85,23 @@ variable (ν : ℂ_[p]) (hν : ν ≠ 0)
 
 theorem scC_uinv : (((scC ν hν).u⁻¹ : ℂ_[p]ˣ) : ℂ_[p]) = ν⁻¹ := by simp [scC]
 
-theorem scale_weierstrass_a1 (W : WeierstrassCurve ℂ_[p]) : (scC ν hν • W).a₁ = ν⁻¹ * W.a₁ := by
+section
+variable (W : WeierstrassCurve ℂ_[p])
+theorem scale_weierstrass_a1 : (scC ν hν • W).a₁ = ν⁻¹ * W.a₁ := by
   rw [WeierstrassCurve.variableChange_a₁, scC_uinv]; simp [scC]
 
-theorem scale_weierstrass_a2 (W : WeierstrassCurve ℂ_[p]) : (scC ν hν • W).a₂ = ν⁻¹ ^ 2 * W.a₂ := by
+theorem scale_weierstrass_a2 : (scC ν hν • W).a₂ = ν⁻¹ ^ 2 * W.a₂ := by
   rw [WeierstrassCurve.variableChange_a₂, scC_uinv]; simp [scC]
 
-theorem scale_weierstrass_a3 (W : WeierstrassCurve ℂ_[p]) : (scC ν hν • W).a₃ = ν⁻¹ ^ 3 * W.a₃ := by
+theorem scale_weierstrass_a3 : (scC ν hν • W).a₃ = ν⁻¹ ^ 3 * W.a₃ := by
   rw [WeierstrassCurve.variableChange_a₃, scC_uinv]; simp [scC]
 
-theorem scale_weierstrass_a4 (W : WeierstrassCurve ℂ_[p]) : (scC ν hν • W).a₄ = ν⁻¹ ^ 4 * W.a₄ := by
+theorem scale_weierstrass_a4 : (scC ν hν • W).a₄ = ν⁻¹ ^ 4 * W.a₄ := by
   rw [WeierstrassCurve.variableChange_a₄, scC_uinv]; simp [scC]
 
-theorem scale_weierstrass_a6 (W : WeierstrassCurve ℂ_[p]) : (scC ν hν • W).a₆ = ν⁻¹ ^ 6 * W.a₆ := by
+theorem scale_weierstrass_a6 : (scC ν hν • W).a₆ = ν⁻¹ ^ 6 * W.a₆ := by
   rw [WeierstrassCurve.variableChange_a₆, scC_uinv]; simp [scC]
+end
 
 theorem rescale_C' (c a : ℂ_[p]) : PowerSeries.rescale c (PowerSeries.C a) = PowerSeries.C a := by
   ext n
@@ -138,19 +114,21 @@ theorem rescale_alg (c a : ℂ_[p]) :
     PowerSeries.rescale c (algebraMap ℂ_[p] (PowerSeries ℂ_[p]) a) = algebraMap ℂ_[p] (PowerSeries ℂ_[p]) a := by
   rw [PowerSeries.algebraMap_eq]; exact rescale_C' c a
 
-theorem cc_rescale (c : ℂ_[p]) (f : PowerSeries ℂ_[p]) :
+section
+variable (c : ℂ_[p]) (f : PowerSeries ℂ_[p])
+theorem cc_rescale :
     PowerSeries.constantCoeff (PowerSeries.rescale c f) = PowerSeries.constantCoeff f := by
   rw [← PowerSeries.coeff_zero_eq_constantCoeff_apply, PowerSeries.coeff_rescale, pow_zero, one_mul,
     PowerSeries.coeff_zero_eq_constantCoeff_apply]
 
-theorem rescale_inv (c : ℂ_[p]) (f : PowerSeries ℂ_[p]) :
+theorem rescale_inv :
     PowerSeries.rescale c f⁻¹ = (PowerSeries.rescale c f)⁻¹ := by
   by_cases hf : PowerSeries.constantCoeff f = 0
   · rw [PowerSeries.inv_eq_zero.mpr hf, map_zero, PowerSeries.inv_eq_zero.mpr ((cc_rescale c f).trans hf)]
   · rw [PowerSeries.eq_inv_iff_mul_eq_one (by rw [cc_rescale]; exact hf), ← map_mul,
       PowerSeries.inv_mul_cancel _ hf, map_one]
 
-theorem X_dX_rescale (c : ℂ_[p]) (f : PowerSeries ℂ_[p]) :
+theorem X_dX_rescale :
     PowerSeries.X * dX (PowerSeries.rescale c f) = PowerSeries.rescale c (PowerSeries.X * dX f) := by
   ext n
   rw [PowerSeries.coeff_rescale]
@@ -160,8 +138,11 @@ theorem X_dX_rescale (c : ℂ_[p]) (f : PowerSeries ℂ_[p]) :
     rw [PowerSeries.coeff_succ_X_mul, PowerSeries.coeff_succ_X_mul]
     simp only [dX, PowerSeries.coeff_mk, PowerSeries.coeff_rescale]
     ring
+end
 
-theorem isWq_scale (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p]) (h : IsWq W wq) :
+section
+variable (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p])
+theorem isWq_scale (h : IsWq W wq) :
     IsWq (scC ν hν • W) (PowerSeries.rescale ν⁻¹ wq) := by
   unfold IsWq at h ⊢
   dsimp only at h ⊢
@@ -170,7 +151,7 @@ theorem isWq_scale (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p]) (h 
   simp only [map_add (f := _), map_mul, map_pow, map_one, PowerSeries.rescale_X, PowerSeries.algebraMap_eq, rescale_C']
   ring
 
-theorem omegaW_scale (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p]) :
+theorem omegaW_scale :
     omegaW (scC ν hν • W) (PowerSeries.rescale ν⁻¹ wq) = PowerSeries.rescale ν⁻¹ (omegaW W wq) := by
   unfold omegaW
   dsimp only
@@ -189,7 +170,7 @@ theorem omegaW_scale (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p]) :
     ring
   rw [hnum, hden, ← rescale_inv, ← map_mul]
 
-theorem flog_scale (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p]) :
+theorem flog_scale :
     flog (scC ν hν • W) (PowerSeries.rescale ν⁻¹ wq) = PowerSeries.C ν * PowerSeries.rescale ν⁻¹ (flog W wq) := by
   ext n
   rw [PowerSeries.coeff_C_mul, PowerSeries.coeff_rescale]
@@ -201,6 +182,7 @@ theorem flog_scale (W : WeierstrassCurve ℂ_[p]) (wq : PowerSeries ℂ_[p]) :
     have h1 : ν * ν⁻¹ = 1 := mul_inv_cancel₀ hν
     rw [pow_succ]
     linear_combination (-(ν⁻¹ ^ n * PowerSeries.coeff n (omegaW W wq) / ((n + 1 : ℕ) : ℂ_[p]))) * h1
+end
 
 end Scale
 
@@ -231,8 +213,9 @@ theorem scC_mul_uinv (ν : ℂ_[p]) (hν : ν ≠ 0) (C : WeierstrassCurve.Varia
   rw [WeierstrassCurve.VariableChange.mul_def]
   simp [scC, mul_comm]
 
-theorem ePhi1_scale (lam : Qbar →+* ℂ_[p]) (Λ : AddSubgroup ℂ) (C : WeierstrassCurve.VariableChange ℂ_[p])
-    (wq : PowerSeries ℂ_[p]) (ν : ℂ_[p]) (hν : ν ≠ 0) :
+section
+variable (lam : Qbar →+* ℂ_[p]) (Λ : AddSubgroup ℂ) (C : WeierstrassCurve.VariableChange ℂ_[p])
+theorem ePhi1_scale (wq : PowerSeries ℂ_[p]) (ν : ℂ_[p]) (hν : ν ≠ 0) :
     ePhi1 lam Λ (scC ν hν * C) (PowerSeries.rescale ν⁻¹ wq) = PowerSeries.rescale ν⁻¹ (ePhi1 lam Λ C wq) := by
   have hW : (scC ν hν * C) • wModel lam Λ = scC ν hν • (C • wModel lam Λ) := mul_smul _ _ _
   set ep : ℂ_[p] := ((C.u⁻¹ : ℂ_[p]ˣ) : ℂ_[p]) with hep
@@ -254,8 +237,7 @@ theorem ePhi1_scale (lam : Qbar →+* ℂ_[p]) (Λ : AddSubgroup ℂ) (C : Weier
   linear_combination (ν⁻¹ ^ n * ep⁻¹ * PowerSeries.coeff (n + 1)
     (PowerSeries.subst (algebraMap ℂ_[p] (PowerSeries ℂ_[p]) ep * fl) (sgSer lam Λ))) * h1
 
-theorem isModel_scale (lam : Qbar →+* ℂ_[p]) (Λ : AddSubgroup ℂ) (C : WeierstrassCurve.VariableChange ℂ_[p])
-    (hU : Formalism.MainNotions.GL3Theta.IsModelU lam Λ C) (ν : ℂ_[p]) (hν : ν ≠ 0) (hν1 : ‖ν‖ = 1)
+theorem isModel_scale (hU : Formalism.MainNotions.GL3Theta.IsModelU lam Λ C) (ν : ℂ_[p]) (hν : ν ≠ 0) (hν1 : ‖ν‖ = 1)
     (hν12 : ν ^ 12 = (C • wModel lam Λ).Δ) : IsModel lam Λ (scC ν hν * C) := by
   obtain ⟨h1, h2, h3, h4, h6, -⟩ := hU
   have hW : (scC ν hν * C) • wModel lam Λ = scC ν hν • (C • wModel lam Λ) := mul_smul _ _ _
@@ -272,6 +254,7 @@ theorem isModel_scale (lam : Qbar →+* ℂ_[p]) (Λ : AddSubgroup ℂ) (C : Wei
   · rw [scale_weierstrass_a4, norm_mul, norm_pow, hn, one_pow, one_mul]; exact h4
   · rw [scale_weierstrass_a6, norm_mul, norm_pow, hn, one_pow, one_mul]; exact h6
   · rw [WeierstrassCurve.variableChange_Δ, scC_uinv, ← hν12, inv_pow, inv_mul_cancel₀ (pow_ne_zero _ hν)]
+end
 
 theorem dict_core (hp2 : p ≠ 2) (D : D7) {N N' r : ℕ} (lam : Qbar →+* ℂ_[p]) (Λ : AddSubgroup ℂ)
     (C : WeierstrassCurve.VariableChange ℂ_[p]) (wq : PowerSeries ℂ_[p])
@@ -655,7 +638,3 @@ end Formalism.L2.KerInert.BeCob
 namespace Formalism.L2.KerInert.Rep
 
 end Formalism.L2.KerInert.Rep
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.LocalToGlobal.InertKernelTheory.InertCoprimeLemmas.RepDict =====

@@ -13,20 +13,10 @@ import Formalism.SharpRestriction.LevelLetterCocycles.RingConditionOfDeltaInvari
 import Mathlib.NumberTheory.Padics.MahlerBasis
 import Mathlib.RingTheory.PowerSeries.NoZeroDivisors
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsOfGrading, Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsUnramifiedStatement
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsOfGrading =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsOfGrading", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.FiltrationSaturationKiller\npublic import Formalism.SharpRestriction.LevelLetterCocycles.KillerLevCoreOf\npublic import Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorGeneralOfRingCondition\npublic import Formalism.SharpRestriction.LevelLetterCocycles.PsCoprimeOf\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\npublic import Formalism.SharpRestriction.LevelLetterCocycles.LemmasUnramifiedOfRingCondition\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 namespace Formalism.MainNotions.UnusedSlot80
-
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.MainNotions.ArcLiftingSetup Formalism.MainNotions.UnusedSlot80.KL
-
 def KillLevFacts (D : D7) (HW : HWOf D.loc) : Prop :=
   AtCaseA fun l _ K LL hG => LevGrad ((HW l).W K 1 LL hG)
 
@@ -42,26 +32,10 @@ theorem annihilator_levels_of_grading (D : D7) (HW : HWOf D.loc) (F : FonOf D.lo
   have hT := tool_algebra_of_ring_condition D HW F h9 l K LL hC h5
   exact KL.killerLevCore_of _ (KF.psUnitE_of _ hR hT) (KF.psCoprime_of _ hR) (hK l K LL hG hC h5)
     (KF.psStable_of _ hR) hR.1
-
 end Formalism.MainNotions.UnusedSlot80
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsOfGrading =====
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsUnramifiedStatement =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsUnramifiedStatement", "h": "module\n\nimport Formalism.SharpRestriction.LevelLetterCocycles.RingConditionOfDeltaInvariants\npublic import Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsOfGrading\npublic import Formalism.SharpRestriction.LevelLetterCocycles.LemmasUnramifiedOfRingCondition\npublic import Mathlib.RingTheory.PowerSeries.Binomial\nimport Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorGeneralOfRingCondition\npublic import Formalism.SharpRestriction.LevelLetterCocycles.ExistsPosConstLagrangeCondition\npublic import Formalism.SharpRestriction.LevelLetterCocycles.LevelClauseOfOpenTool\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\npublic import Mathlib.NumberTheory.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.Padics.MahlerBasis\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.PowerSeries.NoZeroDivisors\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
 namespace Formalism.MainNotions.UnusedSlot80.LG
-
 open PowerSeries
-
 variable {O : Type} [CommRing O]
-
 theorem algHom_eq_subst (τ : PowerSeries O →ₐ[O] PowerSeries O) (h0 : constantCoeff (τ X) = 0)
     (f : PowerSeries O) : τ f = subst (τ X) f := by
   have hs : HasSubst (τ X) := HasSubst.of_constantCoeff_zero' h0
@@ -565,20 +539,17 @@ theorem levg_charZero {l : ℕ} [Fact l.Prime] (LL : FinExt l) : CharZero ↥(OL
     have := congrArg (algebraMap ↥(OL LL) ↥LL.1) h
     simpa using this⟩
 
-theorem killLevFacts_of (D : D7) (HW : HWOf D.loc) (F : FonOf D.loc D.locA HW)
-    (h9 : Formalism.MainNotions.DeltaInvariantLattices.P9 D HW F) : KillLevFacts D HW := by
+section
+variable (D : D7) (HW : HWOf D.loc) (F : FonOf D.loc D.locA HW)
+theorem killLevFacts_of (h9 : Formalism.MainNotions.DeltaInvariantLattices.P9 D HW F) : KillLevFacts D HW := by
   intro l _ K LL hG hA _
   have hR := ring_condition_uniformizer_polynomial D HW F h9 l K LL hA
   obtain ⟨z, hz, hz1⟩ := levg_chi (D.loc l) (HW l) K LL hG
   haveI := levg_charZero LL
   exact Formalism.MainNotions.UnusedSlot80.LG.levGrad_of _ hR z hz hz1
 
-theorem annihilator_levels_unramified_statement (D : D7) (HW : HWOf D.loc) (F : FonOf D.loc D.locA HW)
-    (Cm : CmpOf D.loc D.locA HW F) : KillerLevelsTheorem D HW F Cm := fun hAdm =>
+theorem annihilator_levels_unramified_statement (Cm : CmpOf D.loc D.locA HW F) : KillerLevelsTheorem D HW F Cm := fun hAdm =>
   annihilator_levels_of_grading D HW F Cm (killLevFacts_of D HW F hAdm.2) hAdm
+end
 
 end Formalism.MainNotions.UnusedSlot80
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.AnnihilatorLevelsUnramifiedStatement =====

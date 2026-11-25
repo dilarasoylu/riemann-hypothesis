@@ -12,7 +12,6 @@ open NumberField
 
 namespace Formalism.L2.SG.Pf.LatDictZ.Z0
 
-open ReciprocityTheory.ChartRestriction.L3.WA
 open Formalism.HermitianLattices.Ext.L3.WA (IsSelfDualMod IsUnitIn locRing)
 
 def SemiGenusLoc : Prop :=

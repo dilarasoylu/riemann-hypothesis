@@ -1,13 +1,10 @@
 module
-
 public import Formalism.SharpRestriction.GrowthBounds.FrobeniusPaths.DividedPowerZeroOfGlActionZero
 public import Formalism.SharpRestriction.GrowthBounds.RootWeights.DerivativeValuationBounds
 import Mathlib.Tactic.Linter.Style
 import Std.Tactic.BVDecide.Normalize.Prop
 public import Formalism.SharpRestriction.GrowthBounds.FrobeniusPaths.LatticeCountingFormula
-
 @[expose] public section
-
 noncomputable section
 
 open MvPolynomial Finset Formalism.MainNotions.G Formalism.MainNotions.CovariantDegrees

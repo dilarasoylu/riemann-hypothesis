@@ -9,22 +9,12 @@ public import Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds
 public import Formalism.PieriBlockIdeals.PieriColumnMinors.RealLocalDeltaNabla
 import Formalism.PieriBlockIdeals.PieriColumnMinors.UnitNormBounds
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PieriBlockIdeals.PieriColumnMinors.WorkedExample, Formalism.PieriBlockIdeals.PieriColumnMinors.WeightBounds
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.WorkedExample =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.WorkedExample", "h": "module\n\npublic import Formalism.PieriBlockIdeals.MultiplicityZeroThickEmbedding\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.HeckeLFunctionIdealEulerProduct\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
+section
 open Finset
-
 namespace Formalism.CohomologicalDescent.WorkedExample
-
 open Formalism.CohomologicalDescent
-
 theorem weight_reflection_holds : MwFlip := by
   intro l b h t κ U
   unfold mwCount
@@ -172,26 +162,11 @@ theorem orientation_lattice_holds : WEOrientLattice := by
     (by intro a h1 h2; show D.U (ep (ep τ)) a = _; rw [e1, e3]; exact hS3 a h1 h2)
   simp only [e4, e1, e2, e3, e5, e6] at key
   exact key
-
 end Formalism.CohomologicalDescent.WorkedExample
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.WorkedExample =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.WeightBounds =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.WeightBounds", "h": "module\n\npublic import Formalism.PieriBlockIdeals.LatticeInclusionRealSettingAlt\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.DepthNonnegative\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.HighestWeightProdLeadingMinors\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.RealLocalDeltaNabla\nimport Formalism.PieriBlockIdeals.PieriColumnMinors.UnitNormBounds\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.WorkedExample\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
+end
 open TensorProduct MvPolynomial
-
 namespace Formalism.CohomologicalDescent.ShortWeightBounds
-
 open Formalism.UG Formalism.RankGapBounds.FormsTensorLocalization Formalism.GradedWeylDivisibility Formalism.CohomologicalDescent.LD Formalism.CohomologicalDescent.UnitNormBounds Formalism.CohomologicalDescent.DepthNonnegative Formalism.CohomologicalDescent.LogSmallConstantBounds
-
 theorem c_prime_le_short_bound_holds : CPrimeLeShort6 := by
   intro l k j t q h N' ecl xm xp mB I hl hI
   unfold cPrime cShort6 labelSumBoundPos
@@ -278,7 +253,9 @@ theorem depth_nat_le_holds : DepthNatLe := by
     mul_le_mul_of_nonneg_left h1 (Nat.cast_nonneg _)
   linarith
 
-theorem weight_on_block_eq_bot_add (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) (a : ℕ)
+section
+variable (P : Par)
+theorem weight_on_block_eq_bot_add (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) (a : ℕ)
     (h1 : kc P + W.j τ ≤ a) (h2 : a < kc P + W.j τ + P.t) :
     W.U P τ a = W.bot P τ + ((kc P + W.j τ + P.t - 1 - a : ℕ) : ℤ) := by
   have ht := hP.t_ge
@@ -288,19 +265,22 @@ theorem weight_on_block_eq_bot_add (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts �
   rw [e1, e2]
   omega
 
-theorem weights_strictAnti (P : Par) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) (a b : ℕ)
+section
+variable {ι : Type} (W : Wts ι)
+theorem weights_strictAnti (hW : W.Ok P) (τ : ι) (a b : ℕ)
     (h1 : a < b) (h2 : b < P.Nr) : W.U P τ b < W.U P τ a := by
   have e1 := hW.anti τ a b h1.le h2
   unfold Wts.U UN
   omega
 
-theorem weights_antitone_le (P : Par) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) (a b : ℕ)
+theorem weights_antitone_le (hW : W.Ok P) (τ : ι) (a b : ℕ)
     (h1 : a ≤ b) (h2 : b < P.Nr) : W.U P τ b ≤ W.U P τ a := by
   rcases h1.lt_or_eq with h | h
   · exact (weights_strictAnti P W hW τ a b h h2).le
   · rw [h]
+end
 
-theorem top_eq_bot_add_t_sub_one (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) :
+theorem top_eq_bot_add_t_sub_one (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) :
     W.top P τ = W.bot P τ + (P.t : ℤ) - 1 := by
   have ht := hP.t_ge
   have e := weight_on_block_eq_bot_add P hP W hW τ (kc P + W.j τ) le_rfl (by omega)
@@ -308,7 +288,7 @@ theorem top_eq_bot_add_t_sub_one (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι)
   rw [e]
   omega
 
-theorem j_add_q_eq_m (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) :
+theorem j_add_q_eq_m (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) :
     W.j τ + W.q τ = P.m := by
   have h1 := hW.what₂ τ
   have h2 := hP.Nr_eq
@@ -316,6 +296,7 @@ theorem j_add_q_eq_m (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok 
   have h4 := hP.m_pos
   unfold kc at h1
   omega
+end
 
 theorem abs_weight_sub_near_translation_le (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) (a : ℕ)
     (h1 : kc P ≤ a) (h2 : a < P.Nr) : |(W.U P τ a : ℝ) - W.c τ + W.e τ| ≤ P.η := by
@@ -345,7 +326,9 @@ theorem rest_near_holds : RestNear := by
   exact ⟨fun a h1 h2 => abs_weight_sub_near_translation_le P hP W hW τ a h1 h2, fun a h1 h2 => weight_on_block_eq_bot_add P hP W hW τ a h1 h2,
     top_eq_bot_add_t_sub_one P hP W hW τ, j_add_q_eq_m P hP W hW τ, fun a b h1 h2 => weights_strictAnti P W hW τ a b h1 h2⟩
 
-theorem two_eta_lt_b (P : Par) (hP : P.Hyp) (hL : P.Large) : 2 * P.η < P.b := by
+section
+variable (P : Par)
+theorem two_eta_lt_b (hP : P.Hyp) (hL : P.Large) : 2 * P.η < P.b := by
   have h1 := two_mul_lstar_le_b hP hL
   have h2 := b_div_lstar_pos hP hL
   have h3 := hP.sum_lt
@@ -353,12 +336,12 @@ theorem two_eta_lt_b (P : Par) (hP : P.Hyp) (hL : P.Large) : 2 * P.η < P.b := b
   have h5 := hP.S_nonneg
   linarith
 
-theorem weight_nonneg' (P : Par) {ι : Type} (W : Wts ι) (τ : ι) (a : ℕ) (h : a < P.Nr) :
+theorem weight_nonneg' {ι : Type} (W : Wts ι) (τ : ι) (a : ℕ) (h : a < P.Nr) :
     0 ≤ W.U P τ a := by
   unfold Wts.U UN
   omega
 
-theorem weight_lt_lower_translation_of_thick (P : Par) (hP : P.Hyp) (hL : P.Large) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι)
+theorem weight_lt_lower_translation_of_thick (hP : P.Hyp) (hL : P.Large) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι)
     (hτ : τ ∈ W.T2) (a : ℕ) (h1 : kc P ≤ a) (h2 : a < P.Nr) : W.U P τ a < W.xm τ := by
   have h3 := abs_weight_sub_near_translation_le P hP W hW τ a h1 h2
   have h4 := (hW.thick τ hτ).1.1
@@ -369,13 +352,14 @@ theorem weight_lt_lower_translation_of_thick (P : Par) (hP : P.Hyp) (hL : P.Larg
   have : (W.U P τ a : ℝ) < (W.xm τ : ℝ) := by linarith
   exact_mod_cast this
 
-theorem rank_fits_block_and_t_ge_six (P : Par) (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) :
+theorem rank_fits_block_and_t_ge_six (hP : P.Hyp) {ι : Type} (W : Wts ι) (hW : W.Ok P) (τ : ι) :
     kc P + W.j τ + P.t ≤ P.Nr ∧ 6 ≤ P.t := by
   have h1 := hW.what₂ τ
   have h2 := hP.t_ge
   have h3 := hP.m_pos
   have h4 := hP.m_le
   omega
+end
 
 theorem shape_t_real_holds : ShapeTReal := by
   intro P hP hL ι W hW J τ hτ
@@ -572,16 +556,19 @@ theorem one_le_floor_height (P : Par) (hH : P.Hyp) : 1 ≤ h0 P := by
   unfold h0
   exact Nat.le_floor (by exact_mod_cast one_le_h P hH)
 
-theorem restriction_lambda_antitone {ι : Type} {W : Wts ι} {P : Par} (hW : W.Ok P) (τ : ι) :
+section
+variable {ι : Type} {W : Wts ι} {P : Par}
+theorem restriction_lambda_antitone (hW : W.Ok P) (τ : ι) :
     Antitone (res P.Nr (W.lam τ)) := fun a b hab => hW.anti τ a b hab b.2
 
-theorem kc_le_rank {ι : Type} {W : Wts ι} {P : Par} (hW : W.Ok P) (τ : ι) : kc P ≤ P.Nr := by
+theorem kc_le_rank (hW : W.Ok P) (τ : ι) : kc P ≤ P.Nr := by
   have := hW.what₂ τ
   omega
 
-theorem restriction_lambda_antitone_kc {ι : Type} {W : Wts ι} {P : Par} (hW : W.Ok P) (τ : ι) :
+theorem restriction_lambda_antitone_kc (hW : W.Ok P) (τ : ι) :
     Antitone (res (kc P) (W.lam τ)) :=
   fun a b hab => hW.anti τ a b hab (lt_of_lt_of_le b.2 (kc_le_rank hW τ))
+end
 
 theorem top_inputs_of_shape_w (hSW : ShapeWReal) : TopInputsReal := by
   intro P hH hL ι _ _ W hW l X hl hu hlJ ϖ n₀ e Λ L _ _ _ _ _ hwt hfin hϖ hA hT hS hI
@@ -634,7 +621,9 @@ theorem exponent_mul_log_le_choose_mul_log (N l w e : ℕ) (y : ℝ) (he : e ≤
       _ = (N.choose 2 : ℝ) * (((Nat.log l w : ℕ) : ℝ) * Real.log l) := by push_cast; ring
       _ ≤ (N.choose 2 : ℝ) * Real.log y := mul_le_mul_of_nonneg_left key (by positivity)
 
-theorem weight_in_width_range {ι : Type} {W : Wts ι} {P : Par} (hW : W.Ok P) (τ : ι) (a : ℕ) (ha : a < P.Nr) :
+section
+variable {ι : Type} {W : Wts ι} {P : Par}
+theorem weight_in_width_range (hW : W.Ok P) (τ : ι) (a : ℕ) (ha : a < P.Nr) :
     W.U P τ (P.Nr - 1) ≤ UN P.Nr (W.lam τ) a ∧
       UN P.Nr (W.lam τ) a ≤ W.U P τ (P.Nr - 1) + ((W.width P τ).toNat : ℤ) := by
   have h1 := hW.anti τ a (P.Nr - 1) (by omega) (by omega)
@@ -643,11 +632,12 @@ theorem weight_in_width_range {ι : Type} {W : Wts ι} {P : Par} (hW : W.Ok P) (
   unfold Wts.width Wts.U UN
   omega
 
-theorem width_nonneg {ι : Type} {W : Wts ι} {P : Par} (hW : W.Ok P) (hN : 0 < P.Nr) (τ : ι) :
+theorem width_nonneg (hW : W.Ok P) (hN : 0 < P.Nr) (τ : ι) :
     0 ≤ W.width P τ := by
   have h3 := hW.anti τ 0 (P.Nr - 1) (by omega) (by omega)
   unfold Wts.width Wts.U UN
   omega
+end
 
 theorem rank_pos_of_hyp (P : Par) (hH : P.Hyp) : 0 < P.Nr := by
   have h1 := hH.Nr_eq
@@ -660,7 +650,9 @@ theorem kc_cast_le_k (P : Par) : (kc P : ℝ) ≤ (P.k : ℝ) := by
   unfold kc
   exact_mod_cast Nat.sub_le _ _
 
-theorem sizeData_depth_nonneg {ι : Type} (W : Wts ι) (P : Par) (hH : P.Hyp) (J : ℕ → ℕ) (τ : ι) (l : ℕ) :
+section
+variable {ι : Type} (W : Wts ι) (P : Par)
+theorem sizeData_depth_nonneg (hH : P.Hyp) (J : ℕ → ℕ) (τ : ι) (l : ℕ) :
     0 ≤ (W.sizeData₂ P J).depth P τ l := by
   have hh := one_le_h P hH
   unfold SizeData₂.depth
@@ -669,7 +661,7 @@ theorem sizeData_depth_nonneg {ι : Type} (W : Wts ι) (P : Par) (hH : P.Hyp) (J
       ((P.t : ℝ) + 2 * (P.kap l : ℝ)) := by positivity
   linarith
 
-theorem correction_weight_eq_formula {ι : Type} (W : Wts ι) (P : Par) (J : ℕ → ℕ) (τ : ι) (l : ℕ) :
+theorem correction_weight_eq_formula (J : ℕ → ℕ) (τ : ι) (l : ℕ) :
     (W.sizeData₂ P J).cW P τ l =
       ((W.q τ : ℝ) + 2 * (W.j τ : ℝ)) * ((P.h + (P.Nr : ℝ)) / ((l : ℝ) - 1) + 6)
         + (W.ecl P τ l : ℝ)
@@ -678,6 +670,7 @@ theorem correction_weight_eq_formula {ι : Type} (W : Wts ι) (P : Par) (J : ℕ
             min (min (P.k : ℝ) (P.t : ℝ))
               ((W.sizeData₂ P J).depth P τ l / (d0 l (W.xm τ - W.top P τ) : ℝ)) else 0)
         + ((W.sizeData₂ P J).depth P τ l / (l : ℝ)) * (1 + max 0 (Real.log (P.h / (l : ℝ)))) := rfl
+end
 
 theorem inclusion_w_real_holds : InclWReal := inclusion_w_of_shape_w shape_w_real_holds
 
@@ -844,15 +837,17 @@ theorem j_w_seven_le_holds : CoarseWeightBoundLe := by
       rw [if_neg hτ]
       exact le_rfl
 
-theorem seventh_recursion_eq_a_of_small_prime {ι : Type} [Fintype ι] [DecidableEq ι] (W : Wts ι) (P : Par) (l : ℕ)
+section
+variable {ι : Type} [Fintype ι] [DecidableEq ι] (W : Wts ι) (P : Par)
+theorem seventh_recursion_eq_a_of_small_prime (l : ℕ)
     (hc : (l : ℝ) ≤ P.lJ ∨ P.Excl l ∨ l ∈ W.Sp) : W.Jrec7 P l = W.JA P l := by
   rw [Wts.Jrec7, if_pos hc]
 
-theorem seventh_recursion_eq_w_of_large_prime {ι : Type} [Fintype ι] [DecidableEq ι] (W : Wts ι) (P : Par) (l : ℕ)
+theorem seventh_recursion_eq_w_of_large_prime (l : ℕ)
     (hc : ¬ ((l : ℝ) ≤ P.lJ ∨ P.Excl l ∨ l ∈ W.Sp)) : W.Jrec7 P l = W.coarseWeightBound P l := by
   rw [Wts.Jrec7, if_neg hc]
 
-theorem sizeData_boundW_of_le_seventh_recursion {ι : Type} [Fintype ι] [DecidableEq ι] (W : Wts ι) (P : Par) (hH : P.Hyp)
+theorem sizeData_boundW_of_le_seventh_recursion (hH : P.Hyp)
     (hL : P.Large) (hW : W.Ok P) (J : ℕ → ℕ) (hJ : ∀ l : ℕ, l.Prime → J l ≤ W.Jrec7 P l) :
     (W.sizeData₂ P J).BoundW P := by
   intro l hl hlJ hE hS _ _ _
@@ -868,9 +863,4 @@ theorem sizeData_boundW_of_le_seventh_recursion {ι : Type} [Fintype ι] [Decida
   by_cases hτ : τ ∈ (W.sizeData₂ P J).T2
   · rw [if_pos hτ, if_pos hτ]
   · rw [if_neg hτ, if_neg hτ]
-
-end Formalism.CohomologicalDescent.ShortWeightBounds
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.WeightBounds =====
+end

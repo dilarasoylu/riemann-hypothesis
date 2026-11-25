@@ -14,22 +14,11 @@ import Mathlib.Algebra.GroupWithZero.Submonoid.CancelMulZero
 import Mathlib.Topology.Connected.Separation
 import Mathlib.Topology.MetricSpace.Ultra.TotallySeparated
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.SharpRestriction.LevelLetterCocycles.LengthRestrictNat, Formalism.SharpRestriction.LevelLetterCocycles.BcAtDesc, Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeOfCoefficientJump, Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeEveryTheory
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.LengthRestrictNat =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.LengthRestrictNat", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeMapMemLattice\npublic import Formalism.SharpRestriction.LevelLetterCocycles.WachCoordinates\nimport Mathlib.Algebra.Module.StablyFree.Basic\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\nimport Std.Tactic.BVDecide.Normalize.Prop\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open Classical TensorProduct
-
 namespace Formalism.MainNotions.UnusedSlot80.BCW
-
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions
-
 section Len
 
 variable {O O' : Type} [CommRing O] [CommRing O'] [Algebra O O'] [IsLocalRing O']
@@ -160,17 +149,19 @@ variable {G : Type} [Group G] {LL LL' : Type} [Field LL] [Field LL'] [Algebra LL
 def prj (φ : LL' →ₗ[LL] LL) (V : Type) [AddCommGroup V] [Module LL V] : LL' ⊗[LL] V →ₗ[LL] V :=
   (TensorProduct.lid LL V).toLinearMap ∘ₗ LinearMap.rTensor V φ
 
-theorem prj_tmul (φ : LL' →ₗ[LL] LL) {V : Type} [AddCommGroup V] [Module LL V] (a : LL') (v : V) :
+section
+variable (φ : LL' →ₗ[LL] LL) {V : Type} [AddCommGroup V] [Module LL V]
+theorem prj_tmul (a : LL') (v : V) :
     prj φ V (a ⊗ₜ[LL] v) = φ a • v := by
   simp [prj]
 
-theorem prj_bρ (φ : LL' →ₗ[LL] LL) {V : Type} [AddCommGroup V] [Module LL V]
-    (ρ : Representation LL G V) (g : G) (x : LL' ⊗[LL] V) :
+theorem prj_bρ (ρ : Representation LL G V) (g : G) (x : LL' ⊗[LL] V) :
     prj φ V (bρ LL' ρ g x) = ρ g (prj φ V x) := by
   induction x using TensorProduct.induction_on with
   | zero => simp
   | tmul a v => rw [bρ_tmul, prj_tmul, prj_tmul, map_smul]
   | add x y hx hy => rw [map_add (f := _), map_add (f := _), hx, hy, map_add (f := _), map_add (f := _)]
+end
 
 theorem prj_bf (φ : LL' →ₗ[LL] LL) {V V₂ : Type} [AddCommGroup V] [Module LL V] [AddCommGroup V₂]
     [Module LL V₂] (f : V →ₗ[LL] V₂) (x : LL' ⊗[LL] V) :
@@ -270,16 +261,19 @@ theorem mJ_eq (ρ : Representation LL G V) (g : G) (v : V) (x : V ⊗[Qp] B)
   rw [map_sub, mJ_act] at h1
   exact h1
 
-theorem mP_eq (φ : LL' →ₗ[LL] LL) (ρ : Representation LL G V) (g : G) (u : LL' ⊗[LL] V)
+section
+variable (φ : LL' →ₗ[LL] LL) (ρ : Representation LL G V) (g : G)
+theorem mP_eq (u : LL' ⊗[LL] V)
     (x : (LL' ⊗[LL] V) ⊗[Qp] B) (h : u ⊗ₜ[Qp] (1 : B) = actVB PD (bρ LL' ρ) g x - x) :
     prj φ V u ⊗ₜ[Qp] (1 : B) = actVB PD ρ g (mP φ x) - mP φ x := by
   have h1 := congrArg (mP (B := B) φ) h
   rw [map_sub, mapPoint_act] at h1
   exact h1
 
-theorem prj_coc (φ : LL' →ₗ[LL] LL) (ρ : Representation LL G V) (g : G) (a b : LL' ⊗[LL] V) :
+theorem prj_coc (a b : LL' ⊗[LL] V) :
     prj φ V (a + bρ LL' ρ g b) = prj φ V a + ρ g (prj φ V b) := by
   rw [map_add (f := _), prj_bρ]
+end
 
 theorem core_eq (φ : LL' →ₗ[LL] LL) {V₂ : Type} [AddCommGroup V₂] [Module LL V₂] (f : V →ₗ[LL] V₂)
     (ρ₂ : Representation LL G V₂) (g : G) (a : LL' ⊗[LL] V) (t : LL' ⊗[LL] V₂) :
@@ -600,26 +594,6 @@ theorem descCol_at [IsLocalRing O'] (hk : lenOl PD (O := O) ≠ ⊤) :
   fun T₁ T₂ F _ _ _ x h => descCol PD hc hO' bO bL hb hlin hk T₁ T₂ F x h
 
 end Desc
-
-end Formalism.MainNotions.UnusedSlot80.BCW
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.LengthRestrictNat =====
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.BcAtDesc =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.BcAtDesc", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.BaseCoefJump\npublic import Formalism.SharpRestriction.LevelLetterCocycles.WachCoordinates\npublic import Formalism.SharpRestriction.LevelLetterCocycles.LengthRestrictNat\npublic import Formalism.SharpRestriction.LevelLetterCocycles.MatOfEquiv\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open Classical TensorProduct
-
-namespace Formalism.MainNotions.UnusedSlot80.BCW
-
-open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions
-
 section Asm
 
 variable {G : Type} [Group G] [TopologicalSpace G] {Qp K₀ K : Type} [Field Qp] [Field K₀] [Field K]
@@ -641,30 +615,10 @@ theorem bcAt_desc (hc : Continuous (algebraMap LL LL')) (hO' : Function.Injectiv
   bcAt_of PD hc hO' hJ (descLift_at PD hc hO' bO bL hb hlin) (descCol_at PD hc hO' bO bL hb hlin hk)
 
 end Asm
-
 end Formalism.MainNotions.UnusedSlot80.BCW
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.BcAtDesc =====
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeOfCoefficientJump =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeOfCoefficientJump", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.FiltrationSaturationKiller\npublic import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.BaseCoefJump\nimport Formalism.LocalRingCardinality.SpanPowerMembership.NDLocE\npublic import Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeMapMemLattice\npublic import Formalism.SharpRestriction.LevelLetterCocycles.BcAtDesc\npublic import Formalism.SharpRestriction.LevelLetterCocycles.ExistsPosConstLagrangeCondition\npublic import Formalism.SharpRestriction.LevelLetterCocycles.IsFracOL\nimport Mathlib.Algebra.GroupWithZero.Submonoid.CancelMulZero\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.HaveILetI\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Topology.Connected.Separation\nimport Mathlib.Topology.MetricSpace.Ultra.TotallySeparated\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open Classical TensorProduct
-
 namespace Formalism.MainNotions.UnusedSlot80.BCF
-
 open Formalism.WeaklyAdmissibleFiltrations Formalism.BasicNotions Formalism.BasicNotions.Loc Formalism.MainNotions.UnusedSlot80.BCW
-
 variable {l : ℕ} [Fact l.Prime]
-
-
-
 theorem bcAt_fin (hJ : Formalism.MainNotions.N.GlobalTheory.CoefJumpGen) (Th : LocTheory) (K LL LL' : FinExt l)
     (hLL : LL.1 ≤ LL'.1) :
     Formalism.MainNotions.WachCoordinates.BCAt ((Th l).PD K) (LL := ↥LL.1) (O := ↥(OL LL)) (O' := ↥(OL LL'))
@@ -766,27 +720,10 @@ theorem base_change_of_coefficient_jump (hJ : Formalism.MainNotions.N.GlobalTheo
 
 theorem base_change_statement_of_jump (hJ : Formalism.MainNotions.N.GlobalTheory.CoefJumpGen) (D : D7) : Formalism.MainNotions.UnusedSlot80.H1fBaseChangeTheorem D :=
   base_change_of_coefficient_jump hJ D.loc
-
 end Formalism.MainNotions.UnusedSlot80.BCF
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeOfCoefficientJump =====
-
--- ===== clump member: Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeEveryTheory =====
--- clump-header: {"m": "Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeEveryTheory", "h": "module\n\npublic import Formalism.SharpRestriction.LevelLetterCocycles.FiltrationSaturationKiller\npublic import Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeOfCoefficientJump\npublic import Formalism.SharpRestriction.LevelLetterCocycles.JointConditionsZpowers.BaseCoefJumpProof\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 namespace Formalism.MainNotions.UnusedSlot80
-
 open Formalism.BasicNotions
-
 theorem base_change_statement (D : D7) : H1fBaseChangeTheorem D := BCF.base_change_statement_of_jump Formalism.MainNotions.N.GlobalTheory.coefficient_jump_general D
 
 theorem base_change_every_theory (Th : LocTheory) : Formalism.MainNotions.WachCoordinates.admBC Th := BCF.base_change_of_coefficient_jump Formalism.MainNotions.N.GlobalTheory.coefficient_jump_general Th
-
-end Formalism.MainNotions.UnusedSlot80
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.SharpRestriction.LevelLetterCocycles.BaseChangeEveryTheory =====

@@ -13,22 +13,11 @@ import Mathlib.Tactic.Lemma
 import Mathlib.Algebra.Order.Star.Real
 import Mathlib.Algebra.Ring.IsFormallyReal
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.PieriBlockIdeals.PieriColumnMinors.LocalComponentGL, Formalism.PieriBlockIdeals.PieriColumnMinors.LogarithmEquivalence, Formalism.PieriBlockIdeals.PieriColumnMinors.SharperSizeNeedsMleKFalse, Formalism.RankGapBounds.RankGapProofs.CardLargePrimeFactorsLeOneHolds, Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.LocalComponentGL =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.LocalComponentGL", "h": "module\n\npublic import Formalism.PieriBlockIdeals.ContentDistanceBounds\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open Finset
-
 namespace Formalism.CohomologicalDescent
-
 open Classical
-
 theorem windowResidueCountEqZero_holds : NoResidue := by
   intro l b t κ U hU
   rw [mwCount]
@@ -43,26 +32,6 @@ theorem windowResidueCountEqZero_holds : NoResidue := by
     rw [h0, abs_zero] at h1
     exact lt_irrefl 0 h1
   · exact h hd
-
-end Formalism.CohomologicalDescent
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.LocalComponentGL =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.LogarithmEquivalence =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.LogarithmEquivalence", "h": "module\n\npublic import Formalism.PieriBlockIdeals.ContentDistanceBounds\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open Finset
-
-namespace Formalism.CohomologicalDescent
-
-open Classical
-
 theorem eq_of_dvd_of_abs_lt_sq {L : ℝ} (hL : 0 ≤ L) {n : ℤ} (hn : n ≠ 0) (hnL : ((|n| : ℤ) : ℝ) < L ^ 2)
     {l l' : ℕ} (hl : l.Prime) (hl' : l'.Prime) (hLl : L < (l : ℝ)) (hLl' : L < (l' : ℝ))
     (hd : (l : ℤ) ∣ n) (hd' : (l' : ℤ) ∣ n) : l = l' := by
@@ -154,26 +123,6 @@ theorem residueIndicatorPrimeSum_holds : ISum := by
   refine Finset.sum_congr rfl (fun l _ => ?_)
   unfold IlInd
   split_ifs <;> simp
-
-end Formalism.CohomologicalDescent
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.LogarithmEquivalence =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.SharperSizeNeedsMleKFalse =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.SharperSizeNeedsMleKFalse", "h": "module\n\npublic import Formalism.PieriBlockIdeals.Statement\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\npublic import Mathlib.NumberTheory.Harmonic.Bounds\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Lemma\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open Finset
-
-namespace Formalism.CohomologicalDescent
-
-open Classical
-
 lemma sums_harmonic_real (n : ℕ) :
     ∑ i ∈ Finset.Icc 1 n, (1 : ℝ) / (i : ℝ) ≤ 1 + Real.log n := by
   have h1 := harmonic_le_one_add_log n
@@ -281,46 +230,22 @@ theorem gatedPrimeSum_holds : GatedSum := by
   calc A * Real.log (h : ℝ) * ∑ x ∈ Finset.Icc 1 h, (1 : ℝ) / (x : ℝ)
       ≤ A * Real.log (h : ℝ) * (1 + Real.log h) := mul_le_mul_of_nonneg_left hH hAl
     _ = A * (1 + Real.log (h : ℝ)) * Real.log (h : ℝ) := by ring
-
 end Formalism.CohomologicalDescent
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.SharperSizeNeedsMleKFalse =====
-
--- ===== clump member: Formalism.RankGapBounds.RankGapProofs.CardLargePrimeFactorsLeOneHolds =====
--- clump-header: {"m": "Formalism.RankGapBounds.RankGapProofs.CardLargePrimeFactorsLeOneHolds", "h": "module\n\npublic import Formalism.RankGapBounds.LargePrimeFactor\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\npublic import Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
+section
 open Real Finset
-
 namespace Formalism.RankGapBounds.ChebyshevFactorialBounds
-
 theorem chebyshevThetaLe_holds : ChebyshevTheta := by
   intro n
   have h := Chebyshev.theta_le_log4_mul_x (Nat.cast_nonneg n : (0 : ℝ) ≤ n)
   rw [Chebyshev.theta_eq_sum_primesLE_log] at h
   exact h
-
 end Formalism.RankGapBounds.ChebyshevFactorialBounds
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.RankGapBounds.RankGapProofs.CardLargePrimeFactorsLeOneHolds =====
-
--- ===== clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds =====
--- clump-header: {"m": "Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds", "h": "module\n\npublic import Formalism.PieriBlockIdeals.MertensReciprocalElementary\npublic import Formalism.RankGapBounds.LargePrimeFactor\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.LocalComponentGL\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.LogarithmEquivalence\npublic import Formalism.PieriBlockIdeals.PieriColumnMinors.SharperSizeNeedsMleKFalse\npublic import Formalism.RankGapBounds.RankGapProofs.CardLargePrimeFactorsLeOneHolds\nimport Mathlib.Algebra.Order.Floor.Extended\npublic import Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Algebra.Order.Star.Int\nimport Mathlib.Algebra.Order.Star.Real\nimport Mathlib.Algebra.Ring.IsFormallyReal\npublic import Mathlib.Analysis.Complex.ExponentialBounds\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Bernstein\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
+end
 noncomputable section
-
 open Finset
-
 namespace Formalism.CohomologicalDescent.LogSmallConstantBounds
-
 open Classical
-
 private theorem log_two_le_seven_tenths : Real.log 2 ≤ 7 / 10 := by
   have h := Real.log_two_lt_d9
   have d : (0.6931471808 : ℝ) = 6931471808 / 10000000000 := by norm_num
@@ -368,7 +293,9 @@ structure NatBounds (P : Par) : Prop where
   nr : (P.Nr : ℝ) + 1 = P.k + P.m + P.t
   nr2 : (P.Nr : ℝ) ≤ 2 * P.t - 5
 
-theorem natBounds {P : Par} (H : P.Hyp) : NatBounds P := by
+section
+variable {P : Par}
+theorem natBounds (H : P.Hyp) : NatBounds P := by
   have hm : (1 : ℝ) ≤ P.m := by exact_mod_cast H.m_pos
   have hk : (1 : ℝ) ≤ P.k := by exact_mod_cast le_trans H.m_pos H.m_le
   have ht : (P.k : ℝ) + P.m + 4 ≤ P.t := by exact_mod_cast H.t_ge
@@ -376,7 +303,7 @@ theorem natBounds {P : Par} (H : P.Hyp) : NatBounds P := by
   exact ⟨hm, by exact_mod_cast H.n_pos, by exact_mod_cast H.f_pos, hk,
     by exact_mod_cast H.m_le, ht, by exact_mod_cast H.t_gt, by linarith, hN, by linarith⟩
 
-theorem le_lstarDenom {P : Par} (H : P.Hyp) (G : P.Large) :
+theorem le_lstarDenom (H : P.Hyp) (G : P.Large) :
     (P.t : ℝ) ^ 3 * P.L ^ 2 ≤ lstarDenom P := by
   have nb := natBounds H
   have hS := H.S_nonneg
@@ -395,22 +322,22 @@ theorem le_lstarDenom {P : Par} (H : P.Hyp) (G : P.Large) :
   unfold lstarDenom
   linarith
 
-theorem lstarDenom_pos {P : Par} (H : P.Hyp) (G : P.Large) : 0 < lstarDenom P := by
+theorem lstarDenom_pos (H : P.Hyp) (G : P.Large) : 0 < lstarDenom P := by
   have nb := natBounds H
   have hL := G.L_ge
   have : (0 : ℝ) < (P.t : ℝ) ^ 3 * P.L ^ 2 :=
     mul_pos (pow_pos (by linarith [nb.t6]) 3) (pow_pos (by linarith) 2)
   exact lt_of_lt_of_le this (le_lstarDenom H G)
 
-theorem lstar_pos {P : Par} (H : P.Hyp) (G : P.Large) : 0 < P.lstar := by
+theorem lstar_pos (H : P.Hyp) (G : P.Large) : 0 < P.lstar := by
   have nb := natBounds H
   rw [lstar_eq_div]
   exact div_pos (mul_pos (by linarith [nb.m1]) (b_pos' P)) (lstarDenom_pos H G)
 
-theorem b_div_lstar_pos {P : Par} (H : P.Hyp) (G : P.Large) : 0 < P.b / P.lstar :=
+theorem b_div_lstar_pos (H : P.Hyp) (G : P.Large) : 0 < P.b / P.lstar :=
   div_pos (b_pos' P) (lstar_pos H G)
 
-theorem two_mul_lstar_le_b {P : Par} (H : P.Hyp) (G : P.Large) : 2 * P.lstar ≤ P.b := by
+theorem two_mul_lstar_le_b (H : P.Hyp) (G : P.Large) : 2 * P.lstar ≤ P.b := by
   have nb := natBounds H
   have hL := G.L_ge
   have hb := b_pos' P
@@ -430,9 +357,9 @@ theorem two_mul_lstar_le_b {P : Par} (H : P.Hyp) (G : P.Large) : 2 * P.lstar ≤
     _ ≤ lstarDenom P * P.b := mul_le_mul_of_nonneg_right hm hb.le
     _ = P.b * lstarDenom P := mul_comm _ _
 
-theorem eta_nonneg' {P : Par} (H : P.Hyp) : 0 ≤ P.η := le_trans (Nat.cast_nonneg _) H.t_le
+theorem eta_nonneg' (H : P.Hyp) : 0 ≤ P.η := le_trans (Nat.cast_nonneg _) H.t_le
 
-private theorem lstar_bounds_of_large {P : Par} (H : P.Hyp) (G : P.Large) :
+private theorem lstar_bounds_of_large (H : P.Hyp) (G : P.Large) :
     P.S + P.η < P.lstar ∧ 2 * P.η + P.t + 7 < P.lstar ∧ 2 * P.lstar ≤ P.b ∧ 0 < P.b / P.lstar := by
   have h1 := H.sum_lt
   have h2 := H.win_lt
@@ -440,6 +367,7 @@ private theorem lstar_bounds_of_large {P : Par} (H : P.Hyp) (G : P.Large) :
   have hbl := b_div_lstar_pos H G
   have e : 8 * P.b / P.lstar = 8 * (P.b / P.lstar) := by ring
   exact ⟨by linarith, by linarith, two_mul_lstar_le_b H G, hbl⟩
+end
 
 theorem paramsBasic_holds : Elem0 := by
   intro P H G
@@ -917,7 +845,9 @@ theorem thinSum_holds : SumA := by
           rw [d1, d2]
           linarith
 
-theorem log_h_bounds {P : Par} (H : P.Hyp) (G : P.Large) :
+section
+variable {P : Par}
+theorem log_h_bounds (H : P.Hyp) (G : P.Large) :
     0 < Real.log P.h ∧ Real.log P.h ≤ P.L + 0.7 := by
   have hb := b_pos' P
   have hh := (paramsBasic_holds P H G).2.2
@@ -933,14 +863,14 @@ theorem log_h_bounds {P : Par} (H : P.Hyp) (G : P.Large) :
     rw [d]
     exact this
 
-private theorem log_h_pos_and_le {P : Par} (H : P.Hyp) (G : P.Large) :
+private theorem log_h_pos_and_le (H : P.Hyp) (G : P.Large) :
     0 < Real.log P.h ∧ Real.log P.h ≤ P.L + 7 / 10 := by
   obtain ⟨h1, h2⟩ := log_h_bounds H G
   have d : (0.7 : ℝ) = 7 / 10 := by norm_num
   rw [d] at h2
   exact ⟨h1, h2⟩
 
-theorem ex_mul_log_le_of_thickA {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
+theorem ex_mul_log_le_of_thickA (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
     (hA : D.ThickA P) {τ : ι} (hτ : τ ∈ D.T2) {l : ℕ} (hl : l.Prime) :
     (D.ex τ l : ℝ) * Real.log (l : ℝ) ≤ (P.Nr : ℝ) ^ 2 * P.L := by
   obtain ⟨_, h2, _⟩ := hA τ hτ l hl
@@ -952,7 +882,7 @@ theorem ex_mul_log_le_of_thickA {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} 
     _ ≤ (P.Nr : ℝ) ^ 2 * P.L := by
         linarith [mul_nonneg (sq_nonneg (P.Nr : ℝ)) (by linarith : (0 : ℝ) ≤ P.L / 2 - 7 / 20)]
 
-theorem smaller_exponent_lt {P : Par} (H : P.Hyp) (G : P.Large) : P.b' < P.b := by
+theorem smaller_exponent_lt (H : P.Hyp) (G : P.Large) : P.b' < P.b := by
   have nb := natBounds H
   have hb' := H.b'_pos
   have h1 : (1 : ℝ) ≤ 12 * P.k * P.t := by
@@ -961,7 +891,7 @@ theorem smaller_exponent_lt {P : Par} (H : P.Hyp) (G : P.Large) : P.b' < P.b := 
   have := mul_le_mul_of_nonneg_right h1 hb'.le
   linarith [G.bb']
 
-theorem ex_mul_log_le_of_thinA {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
+theorem ex_mul_log_le_of_thinA (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
     (hA : D.ThinA P) (hW : D.Widths P) {τ : ι} (hτ : τ ∉ D.T2) {l : ℕ} (hl : l.Prime) :
     (D.ex τ l : ℝ) * Real.log (l : ℝ) ≤ (P.Nr : ℝ) ^ 2 * P.L := by
   obtain ⟨h1, h2⟩ := hA τ hτ l hl
@@ -984,6 +914,7 @@ theorem ex_mul_log_le_of_thinA {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} {
     calc (D.ex τ l : ℝ) * Real.log (l : ℝ) ≤ (P.Nr.choose 2 : ℝ) * Real.log (D.hw τ) := h2 hlw
       _ ≤ ((P.Nr : ℝ) ^ 2 / 2) * (2 * P.L) := mul_le_mul hC hlog hlog0 (by positivity)
       _ = (P.Nr : ℝ) ^ 2 * P.L := by ring
+end
 
 theorem costBound_holds : CostB := by
   intro P H G ι _ D hcard hA hK hW l hl
@@ -1174,7 +1105,9 @@ theorem subset_primesLe_h_add_Nr {P : Par} (H : P.Hyp) (G : P.Large) {R : Finset
 theorem log_div_prime_nonneg {p : ℕ} (hp : p.Prime) : 0 ≤ Real.log (p : ℝ) / (p : ℝ) :=
   div_nonneg (log_prime_nonneg hp) (Nat.cast_nonneg _)
 
-theorem floor_h_bounds {P : Par} (H : P.Hyp) (G : P.Large) :
+section
+variable {P : Par}
+theorem floor_h_bounds (H : P.Hyp) (G : P.Large) :
     (1 : ℝ) ≤ (⌊P.h⌋₊ : ℝ) ∧ (⌊P.h⌋₊ : ℝ) ≤ P.h ∧ (⌊P.h⌋₊ : ℝ) < P.lJ ^ 2 ∧
       0 ≤ Real.log (⌊P.h⌋₊ : ℝ) ∧ Real.log (⌊P.h⌋₊ : ℝ) ≤ Real.log P.h := by
   have hb := b_pos' P
@@ -1188,7 +1121,7 @@ theorem floor_h_bounds {P : Par} (H : P.Hyp) (G : P.Large) :
   have f2 : (⌊P.h⌋₊ : ℝ) ≤ P.h := Nat.floor_le hh0
   exact ⟨f1, f2, by linarith [hLJ.2.1], Real.log_nonneg f1, Real.log_le_log (by linarith) f2⟩
 
-theorem le_floor_h {P : Par} (H : P.Hyp) {z : ℤ} (hz : (z : ℝ) ≤ P.h) :
+theorem le_floor_h (H : P.Hyp) {z : ℤ} (hz : (z : ℝ) ≤ P.h) :
     z ≤ ((⌊P.h⌋₊ : ℕ) : ℤ) := by
   rcases le_or_gt z 0 with hz0 | hz0
   · have : (0 : ℤ) ≤ ((⌊P.h⌋₊ : ℕ) : ℤ) := by positivity
@@ -1199,7 +1132,7 @@ theorem le_floor_h {P : Par} (H : P.Hyp) {z : ℤ} (hz : (z : ℝ) ≤ P.h) :
     have h1 : z.toNat ≤ ⌊P.h⌋₊ := Nat.le_floor (by rw [e]; exact hz)
     omega
 
-theorem sum_residueIndicator_mul_log_le {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
+theorem sum_residueIndicator_mul_log_le (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
     (hT : D.ShapeT P) {τ : ι} (hτ : τ ∈ D.T2) {R : Finset ℕ}
     (hR : ∀ l ∈ R, l.Prime ∧ P.lJ < (l : ℝ) ∧ (l : ℝ) ≤ P.h) :
     ∑ l ∈ R, IlInd l (D.xlo τ) (D.xhi τ) (D.maxB τ) * Real.log (l : ℝ) ≤
@@ -1213,7 +1146,7 @@ theorem sum_residueIndicator_mul_log_le {P : Par} (H : P.Hyp) (G : P.Large) {ι 
   have hS0 := H.S_nonneg
   exact key.trans (mul_le_mul (by linarith) f5 f4 (by linarith))
 
-theorem toNat_xlo_sub_maxB_bounds {P : Par} (H : P.Hyp) {ι : Type} {D : SizeData₂ ι}
+theorem toNat_xlo_sub_maxB_bounds (H : P.Hyp) {ι : Type} {D : SizeData₂ ι}
     (hT : D.ShapeT P) {τ : ι} (hτ : τ ∈ D.T2) :
     (((D.xlo τ - D.maxB τ).toNat : ℕ) : ℤ) = D.xlo τ - D.maxB τ ∧
       1 ≤ (D.xlo τ - D.maxB τ).toNat ∧ (D.xlo τ - D.maxB τ).toNat ≤ ⌊P.h⌋₊ := by
@@ -1221,7 +1154,7 @@ theorem toNat_xlo_sub_maxB_bounds {P : Par} (H : P.Hyp) {ι : Type} {D : SizeDat
   have hxhN := le_floor_h H hxh
   refine ⟨by omega, by omega, by omega⟩
 
-theorem sum_gateTerm_mul_log_le {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
+theorem sum_gateTerm_mul_log_le (H : P.Hyp) (G : P.Large) {ι : Type} {D : SizeData₂ ι}
     (hT : D.ShapeT P) {τ : ι} (hτ : τ ∈ D.T2) {R : Finset ℕ}
     (hR : ∀ l ∈ R, l.Prime ∧ P.lJ < (l : ℝ) ∧ (l : ℝ) ≤ P.h) :
     ∑ l ∈ R, gatedCoefficientTerm D P τ l * Real.log (l : ℝ) ≤
@@ -1246,7 +1179,7 @@ theorem sum_gateTerm_mul_log_le {P : Par} (H : P.Hyp) (G : P.Large) {ι : Type} 
     _ ≤ (D.q τ : ℝ) * P.h * ((1 + Real.log P.h) * Real.log P.h) := mul_le_mul_of_nonneg_left hm hA0
     _ = (D.q τ : ℝ) * P.h * (1 + Real.log P.h) * Real.log P.h := by ring
 
-theorem sum_one_add_log_div_le {P : Par} {R : Finset ℕ}
+theorem sum_one_add_log_div_le {R : Finset ℕ}
     (hR : ∀ l ∈ R, l.Prime ∧ P.lJ < (l : ℝ) ∧ (l : ℝ) ≤ P.h) (B : ℝ) (hB : 0 ≤ B)
     (hBl : ∀ l ∈ R, Real.log (P.h / (l : ℝ)) ≤ B) :
     ∑ l ∈ R, (1 + max 0 (Real.log (P.h / (l : ℝ)))) * (Real.log (l : ℝ) / (l : ℝ)) ≤
@@ -1257,7 +1190,7 @@ theorem sum_one_add_log_div_le {P : Par} {R : Finset ℕ}
   have hmax : max 0 (Real.log (P.h / (l : ℝ))) ≤ B := max_le hB (hBl l hl)
   exact mul_le_mul_of_nonneg_right (by linarith) (log_div_prime_nonneg (hR l hl).1)
 
-theorem q_j_bounds {P : Par} {ι : Type} {D : SizeData₂ ι} (hT : D.ShapeT P) {τ : ι} (hτ : τ ∈ D.T2) :
+theorem q_j_bounds {ι : Type} {D : SizeData₂ ι} (hT : D.ShapeT P) {τ : ι} (hτ : τ ∈ D.T2) :
     (D.q τ : ℝ) ≤ P.m ∧ (D.q τ : ℝ) + 2 * (D.j τ : ℝ) ≤ 2 * P.m ∧ (0 : ℝ) ≤ D.q τ ∧
       (0 : ℝ) ≤ D.j τ := by
   obtain ⟨_, _, _, _, _, hqj⟩ := hT τ hτ
@@ -1266,13 +1199,14 @@ theorem q_j_bounds {P : Par} {ι : Type} {D : SizeData₂ ι} (hT : D.ShapeT P) 
   have hj0 : (0 : ℝ) ≤ D.j τ := Nat.cast_nonneg _
   exact ⟨by linarith, by linarith, hq0, hj0⟩
 
-private theorem h_add_Nr_bounds_and_log_bounds {P : Par} (H : P.Hyp) (G : P.Large) :
+private theorem h_add_Nr_bounds_and_log_bounds (H : P.Hyp) (G : P.Large) :
     1 < P.h + (P.Nr : ℝ) ∧ P.h + (P.Nr : ℝ) ≤ 3 * P.b ∧
       0 < Real.log (P.h + (P.Nr : ℝ)) ∧ Real.log (P.h + (P.Nr : ℝ)) ≤ P.L + 11 / 10 := by
   obtain ⟨_, h1, h2, h3, h4⟩ := h_add_Nr_bounds H G
   have d : (1.1 : ℝ) = 11 / 10 := by norm_num
   rw [d] at h4
   exact ⟨h1, h2, h3, h4⟩
+end
 
 private theorem mul_mul_le_mul_mul {a b c a' b' c' : ℝ} (ha : a ≤ a') (hb : b ≤ b') (hc : c ≤ c')
     (ha0 : 0 ≤ a) (hb0 : 0 ≤ b) (hc0 : 0 ≤ c) : a * b * c ≤ a' * b' * c' :=
@@ -1691,9 +1625,3 @@ theorem totalElementary_holds : TotalElementary := by
   have hmbL : 0 ≤ (P.m : ℝ) * P.b * P.L ^ 2 :=
     mul_nonneg (mul_nonneg (Nat.cast_nonneg _) (b_pos' P).le) (sq_nonneg _)
   linarith
-
-end Formalism.CohomologicalDescent.LogSmallConstantBounds
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.PieriBlockIdeals.PieriColumnMinors.ParameterBounds =====

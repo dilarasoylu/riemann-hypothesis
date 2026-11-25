@@ -5,23 +5,12 @@ public import Formalism.HermitianCurvature.HermitianCurvatureProofs.NFRadRedA
 import Mathlib.Tactic.TypeStar
 import Formalism.HermitianCurvature.HermitianCurvatureProofs.TwoByOneBlock
 
--- This file was produced by scripts/clump.py from the modules listed below.
--- Members: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmulRApply, Formalism.HermitianCurvature.HermitianCurvatureProofs.NfRadOrder0OfRadRed
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmulRApply =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.SmulRApply", "h": "module\n\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.NormalFormOrderZeroOfParts\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Tactic.TypeStar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
 @[expose] public section
-
 noncomputable section
-
 open Finset Filter
 open scoped ContDiff Topology
-
 namespace Formalism.FourierDecayAlt.P.NFRO
-
 open Formalism.FourierDecayAlt.NF Formalism.FourierDecayAlt.P.NFx4
-
 def JetR {M : Type*} [AddCommGroup M] [Module ℝ M] (U : Set ℂ) (ζ0 : ℂ) (Λ : (ℂ → ℂ) → M) : Prop :=
   ∃ (ι : Type) (_ : Fintype ι) (w : ι → List Bool) (L : ι → ℂ →ₗ[ℝ] M),
     ∀ f, ContDiffOn ℝ ∞ f U → Λ f = ∑ i, L i (wd (w i) f ζ0)
@@ -206,27 +195,9 @@ theorem cl_apply {E : Type*} [AddCommGroup E] [Module ℂ E] [Module ℝ E] [IsS
     (c : ℂ) : cl α e c = (α * c) • e := rfl
 
 end Closure
-
 end Formalism.FourierDecayAlt.P.NFRO
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.SmulRApply =====
-
--- ===== clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.NfRadOrder0OfRadRed =====
--- clump-header: {"m": "Formalism.HermitianCurvature.HermitianCurvatureProofs.NfRadOrder0OfRadRed", "h": "module\n\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.SmulRApply\npublic import Formalism.HermitianCurvature.HermitianCurvatureProofs.NFRadRedA\nimport Formalism.HermitianCurvature.HermitianCurvatureProofs.TwoByOneBlock\nimport Mathlib.Algebra.Order.Floor.Extended\nimport Mathlib.Algebra.Order.Floor.Semifield\nimport Mathlib.Algebra.Order.Interval.Basic\nimport Mathlib.Analysis.Complex.UpperHalfPlane.Basic\nimport Mathlib.Analysis.Normed.Algebra.GelfandRadius\nimport Mathlib.Analysis.SpecialFunctions.Gamma.Basic\nimport Mathlib.Analysis.SpecialFunctions.Trigonometric.DerivHyp\nimport Mathlib.Combinatorics.Enumerative.DyckWord\nimport Mathlib.Combinatorics.SimpleGraph.Triangle.Removal\nimport Mathlib.Data.NNRat.Floor\nimport Mathlib.Data.Nat.Choose.Multinomial\nimport Mathlib.Geometry.Euclidean.Volume.Basic\nimport Mathlib.NumberTheory.Chebyshev\nimport Mathlib.NumberTheory.Height.NumberField\nimport Mathlib.NumberTheory.Height.Projectivization\nimport Mathlib.NumberTheory.LucasLehmer\nimport Mathlib.NumberTheory.SelbergSieve\nimport Mathlib.RingTheory.Radical.NatInt\nimport Mathlib.RingTheory.WittVector.IsPoly\nimport Mathlib.Tactic.Basify\nimport Mathlib.Tactic.ENatToNat\nimport Mathlib.Tactic.Echelon.Zsqrtd\nimport Mathlib.Tactic.Inclusion.Extension.Core.Core\nimport Mathlib.Tactic.Inclusion.Extension.Interval.BinarySplit\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Exp\nimport Mathlib.Tactic.Inclusion.Extension.IntervalDyadicReal.Hypotheses\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Basic\nimport Mathlib.Tactic.Inclusion.Extension.IntervalInt.Hypotheses\nimport Mathlib.Tactic.Linter.Style\nimport Mathlib.Tactic.NormNum.Irrational\nimport Mathlib.Tactic.NormNum.IsCoprime\nimport Mathlib.Tactic.NormNum.IsSquare\nimport Mathlib.Tactic.NormNum.LegendreSymbol\nimport Mathlib.Tactic.NormNum.ModEq\nimport Mathlib.Tactic.NormNum.NatFib\nimport Mathlib.Tactic.NormNum.NatLog\nimport Mathlib.Tactic.NormNum.NatSqrt\nimport Mathlib.Tactic.NormNum.Ordinal\nimport Mathlib.Tactic.NormNum.Parity\nimport Mathlib.Tactic.NormNum.Prime\nimport Mathlib.Tactic.NormNum.RealSqrt\nimport Mathlib.Tactic.Polynomial.Basic\nimport Mathlib.Tactic.ReduceModChar\nimport Mathlib.Topology.Sheaves.Init\n\n"}
-section -- clump:auto
-@[expose] public section
-
-noncomputable section
-
-open Finset Filter
-open scoped ContDiff Topology
-
 namespace Formalism.FourierDecayAlt.P.NFRO
-
 open Formalism.REAL Formalism.QuantumDeterminants Formalism.FourierDecayAlt Formalism.FourierDecayAlt.Q Formalism.FourierDecayAlt.NF Formalism.FourierDecayAlt.P.NFx4
-
 section Main
 
 variable {k r : ℕ} {z z' : Fin (2 * r + k + 1) → ℂ} {μsec : ℂ → Matrix (Fin (k + 1)) (Fin (k + 1)) ℂ}
@@ -243,13 +214,16 @@ theorem radR_mulZ (hB : RadBase k r z z' μsec π π') (f : ℂ → ℂ) {Φ : F
     radR k r z z' μsec (mulZ k r z z' f Φ) x = f x.2 • radR k r z z' μsec Φ x := by
   simp only [radR, Set.indicator_of_mem hx, mulZ_eq f hΦ, zeta_muZ hB hx.2]
 
-theorem radR_sub {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (F G : Fn k r E) (x : (Fin r → ℂ) × ℂ) :
+section
+variable {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (F G : Fn k r E) (x : (Fin r → ℂ) × ℂ)
+theorem radR_sub :
     radR k r z z' μsec (F - G) x = radR k r z z' μsec F x - radR k r z z' μsec G x := by
   by_cases hx : x ∈ QR k r z z' <;> simp [radR, hx]
 
-theorem radR_add {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (F G : Fn k r E) (x : (Fin r → ℂ) × ℂ) :
+theorem radR_add :
     radR k r z z' μsec (F + G) x = radR k r z z' μsec F x + radR k r z z' μsec G x := by
   by_cases hx : x ∈ QR k r z z' <;> simp [radR, hx]
+end
 
 theorem radR_zero' {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (x : (Fin r → ℂ) × ℂ) :
     radR k r z z' μsec (0 : Fn k r E) x = 0 := by
@@ -266,15 +240,18 @@ theorem mulZ_congr {f g : ℂ → ℂ} (h : Set.EqOn f g {ζ | Tz k r z * Tz k r
     rw [h hζ]
   · rw [Set.indicator_of_notMem hx, Set.indicator_of_notMem hx]
 
-theorem mulZ_mul {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (f g : ℂ → ℂ) (Φ : Fn k r E) :
+section
+variable {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (f g : ℂ → ℂ) (Φ : Fn k r E)
+theorem mulZ_mul :
     mulZ k r z z' f (mulZ k r z z' g Φ) = mulZ k r z z' (fun ζ => f ζ * g ζ) Φ := by
   funext c g0
   by_cases hx : (c, g0) ∈ DomR k r z z' <;> simp [mulZ, hx, mul_smul]
 
-theorem mulZ_add_left {E : Type} [NormedAddCommGroup E] [NormedSpace ℂ E] (f g : ℂ → ℂ) (Φ : Fn k r E) :
+theorem mulZ_add_left :
     mulZ k r z z' (fun ζ => f ζ + g ζ) Φ = mulZ k r z z' f Φ + mulZ k r z z' g Φ := by
   funext c g0
   by_cases hx : (c, g0) ∈ DomR k r z z' <;> simp [mulZ, Pi.add_apply, hx, add_smul]
+end
 
 theorem mulZ_add_right (f : ℂ → ℂ) (Φ Ψ : Fn k r (Wq →L[ℂ] Wp)) :
     mulZ k r z z' f (Φ + Ψ) = mulZ k r z z' f Φ + mulZ k r z z' f Ψ := by
@@ -486,7 +463,3 @@ theorem radical_order_zero : Formalism.FourierDecayAlt.NF.RadOrder0 :=
   _root_.Formalism.FourierDecayAlt.P.NFRO.radOrder0_of _root_.Formalism.FourierDecayAlt.P.NFRadRedA.radRedMem _root_.Formalism.FourierDecayAlt.P.NFRadRedA.radRedInj
 
 end Formalism.FourierDecayAlt.P
-end -- clump:auto
-end -- clump:auto
-end -- clump:auto
--- ===== end clump member: Formalism.HermitianCurvature.HermitianCurvatureProofs.NfRadOrder0OfRadRed =====
