@@ -23,7 +23,7 @@ A linear substitution makes the couplings that matter in the degree of the jet d
 so that the series becomes integral in that degree. Legendre's bound applies, and the chain rule
 gives the factor whose valuation is deducted. Each box gains about `γ_p`, and the deduction is
 `v(π_p)` times a sum of numbers `New.deductionTerm`. The argument is carried out once, with charges
-(`New.Parameters.norm_jet_minorProd_le_of_isChargeExponent`); the count itself is the case without
+(`New.Parameters.norm_jet_minorProd_le_of_charges`); the count itself is the case without
 marked places and with all charges equal to one.
 
 Notions from other files:
@@ -245,68 +245,7 @@ lemma jet_columnDetProd_subst [DecidableEq Φ] (i' : WeylIndex n' κ) (c : Φ �
 end Directions
 
 section Couplings
-variable {p : ℕ} [Fact p.Prime] {Φ n n' : Type} [Fintype Φ] [DecidableEq Φ] [Fintype n] [Fintype n']
-  [DecidableEq n'] {π : valRingCp p} {pr : ℕ → Φ → Φ} {e : ℕ}
-
-omit [DecidableEq Φ] in
-/-- Let `π` divide `p`, let `α` be the index type of the entries at one place, and substitute linear
-forms `∑_o z x o * s_o` for the variables `X_x`, `x = (τ, a) ∈ Φ × α`, of the coupling
-`Γ_e = ∑ X_(τ, a) ^ p ^ e * X_(pr e τ, a)`. Modulo `p` the result is a combination of the
-`s_o ^ p ^ e * s_q`. If `π` divides all coefficients of this combination, it divides the result. -/
-lemma dvd_subst_coupling {α ι : Type} [Fintype α] [Fintype ι] (hπ : π ∣ p)
-    {z : Φ × α → ι → valRingCp p}
-    (hz : ∀ o q : ι, π ∣ ∑ x : Φ × α, z x o ^ p ^ e * z (pr e x.1, x.2) q) :
-    MvPowerSeries.C π ∣ (coupling pr e : MvPowerSeries (Φ × α) (valRingCp p)).subst
-      fun x : Φ × α ↦ linearSeries (z x) := by
-  classical
-  have hp : MvPowerSeries.C π ∣ (p : MvPowerSeries ι (valRingCp p)) := by
-    simpa using map_dvd MvPowerSeries.C hπ
-  have h_pow (x : Φ × α) : MvPowerSeries.C π ∣
-      linearSeries (z x) ^ p ^ e - ∑ o, (z x o • MvPowerSeries.X o) ^ p ^ e :=
-    dvd_sum_pow_sub_sum hp _ _ e
-  have h_expand :
-      ∑ x, (∑ o, (z x o • MvPowerSeries.X o) ^ p ^ e) * linearSeries (z (pr e x.1, x.2)) =
-        ∑ o, ∑ q, (∑ x, z x o ^ p ^ e * z (pr e x.1, x.2) q) •
-          (MvPowerSeries.X o ^ p ^ e * MvPowerSeries.X q) := by
-    simp only [linearSeries, Finset.sum_mul_sum, smul_pow, smul_mul_smul_comm, sum_smul]
-    exact sum_comm.trans (sum_congr rfl fun o _ ↦ sum_comm)
-  have h_comb : MvPowerSeries.C π ∣
-      ∑ x, (∑ o, (z x o • MvPowerSeries.X o) ^ p ^ e) * linearSeries (z (pr e x.1, x.2)) := by
-    rw [h_expand]
-    exact dvd_sum fun o _ ↦ dvd_sum fun q _ ↦ by
-      simpa only [MvPowerSeries.smul_eq_C_mul] using (map_dvd _ (hz o q)).mul_right _
-  rw [subst_coupling (MvPowerSeries.hasSubst_of_constantCoeff_zero (by simp [linearSeries])),
-    ← dvd_sub_left h_comb, ← sum_sub_distrib]
-  simpa only [← sub_mul] using dvd_sum fun x (_ : x ∈ univ) ↦ (h_pow x).mul_right _
-
-/-- Let `π` divide `p`. The source variables `s_(τ h k b)` are indexed by a height `h < N`, a
-direction `k < h`, a place `τ` and a row `b`. The matrix `directionSubst c β` defines the
-substitution `z_(τ b a) = ∑_(h, k) c_(τ h b) * β_(τ h k a) * s_(τ h k b)`, with row factors `c` and
-directions `β`. If `π` divides `c ^ p ^ e * c'` times the pairing `[β, β']_e = ∑ β_a ^ p ^ e * β'_a`
-for each place `τ` and its partner `pr e τ`, each row and all directions `β` at `τ` and `β'` at the
-partner, then `π` divides `Γ_e(z(s))`. -/
-lemma dvd_subst_coupling_directionSubst (hπ : π ∣ p) {N : ℕ} {c : Φ → ℕ → n' → valRingCp p}
-    {β : Φ → ∀ h : ℕ, Fin h → n → valRingCp p}
-    (h_pair : ∀ (τ : Φ) (b : n') (h : ℕ) (k : Fin h) (h' : ℕ) (k' : Fin h'),
-      π ∣ c τ h b ^ p ^ e * c (pr e τ) h' b * ∑ a : n, β τ h k a ^ p ^ e * β (pr e τ) h' k' a) :
-    MvPowerSeries.C π ∣ (coupling pr e : MvPowerSeries (Φ × n' × n) (valRingCp p)).subst
-      fun x : Φ × n' × n ↦ linearSeries (directionSubst (N := N) c β x) := by
-  classical
-  refine dvd_subst_coupling hπ fun ⟨⟨h, k⟩, τ, b⟩ ⟨⟨h', k'⟩, τ', b'⟩ ↦ ?_
-  -- The coefficient vanishes unless `τ'` is the partner of `τ` and `b' = b`.
-  have h_coeff : ∑ x : Φ × n' × n, directionSubst c β x (⟨h, k⟩, τ, b) ^ p ^ e *
-      directionSubst c β (pr e x.1, x.2) (⟨h', k'⟩, τ', b') =
-      if τ' = pr e τ ∧ b' = b then
-        c τ h b ^ p ^ e * c (pr e τ) h' b * ∑ a, β τ h k a ^ p ^ e * β (pr e τ) h' k' a
-      else 0 := by
-    simp only [directionSubst, of_apply, ite_pow, zero_pow (NeZero.ne (p ^ e)), ite_mul, zero_mul,
-      Prod.mk.injEq, sum_prod_type, ite_and (τ = _), sum_ite_irrel, sum_const_zero,
-      Fintype.sum_ite_eq]
-    simp only [mul_ite, mul_zero, sum_ite_irrel, sum_const_zero, mul_pow, mul_sum,
-      mul_mul_mul_comm _ (β τ h k _ ^ p ^ e)]
-  rw [h_coeff]
-  split_ifs
-  exacts [h_pair τ b h k h' k', dvd_zero π]
+variable {Φ n' : Type} [Fintype Φ] [DecidableEq Φ] [Fintype n'] [DecidableEq n']
 
 /-- The charges `p ^ w τ h b` (place, height, row) cover the exempt pairs for the set `ev` of marked
 places and the map `partner` on places. A pair consists of the height one at `τ` and a height `h` at
@@ -334,64 +273,6 @@ lemma fillingCharge_congr {κ : Φ → ℕ → ℕ} {w w' : Φ → ℕ → n' �
     fillingCharge w i' = fillingCharge w' i' :=
   sum_congr rfl fun τ _ ↦ sum_congr rfl fun h _ ↦ sum_congr rfl fun j _ ↦
     sum_congr rfl fun b _ ↦ h_eq τ h ((i' τ).val h j b) j.pos.ne'
-
-/-- Let `π` divide `p` and let `marked` be a set of places. A pair of heights `h` at `τ` and `h'` at
-the partner `τ' = pr e τ` is exempt (`IsExemptPair`) if `h = 1`, and `τ ∈ marked` or both `h' = 1`
-and `τ' ∈ marked`. Suppose that `π` divides the pairings `∑ β_a ^ p ^ e * β'_a` of directions `β` at
-`τ` and `β'` at `τ'`, except for the exempt pairs. If one of the two exponents `w` is positive in
-each exempt pair (`IsChargeExponent`), then `π` divides the coupling
-`Γ_e = ∑ z_(τ b a) ^ p ^ e * z_(pr e τ, b a)` after the substitution `directionSubst`. -/
-lemma dvd_subst_coupling_directionSubst_of_charges (hπ : π ∣ p) {N : ℕ} {marked : Finset Φ}
-    {w : Φ → ℕ → n' → ℕ} {β : Φ → ∀ h : ℕ, Fin h → n → valRingCp p}
-    (hw : IsChargeExponent (pr e) marked w)
-    (h_pair : ∀ (τ : Φ) (h : ℕ) (k : Fin h) (h' : ℕ) (k' : Fin h'),
-      ¬IsExemptPair marked τ (pr e τ) h h' →
-        π ∣ ∑ a : n, β τ h k a ^ p ^ e * β (pr e τ) h' k' a) :
-    MvPowerSeries.C π ∣ (coupling pr e : MvPowerSeries (Φ × n' × n) (valRingCp p)).subst
-      fun x : Φ × n' × n ↦ linearSeries (directionSubst (N := N)
-        (fun (τ : Φ) (h : ℕ) (b : n') ↦ (p : valRingCp p) ^ w τ h b) β x) := by
-  refine dvd_subst_coupling_directionSubst hπ fun τ b h k h' k' ↦ ?_
-  by_cases h_exempt : IsExemptPair marked τ (pr e τ) h h'
-  · obtain ⟨rfl, h_place⟩ := h_exempt
-    have h_factor : (p : valRingCp p) ∣ (p ^ w τ 1 b) ^ p ^ e * p ^ w (pr e τ) h' b := by
-      obtain h_left | h_right := hw τ h' b h_place
-      · exact (dvd_pow (dvd_pow_self _ h_left) (pow_ne_zero e (Nat.Prime.ne_zero Fact.out))
-          ).mul_right _
-      · exact (dvd_pow_self _ h_right).mul_left _
-    exact (hπ.trans h_factor).mul_right _
-  · exact (h_pair τ h k h' k' h_exempt).mul_left _
-
-/-- The chain rule in norms for `F(ϖ z)`. Here `z` is the linear substitution `directionSubst`, that
-is `z_(τ r a) = ∑_(h, k) p ^ (w τ h r) * β_(τ h k a) * s_(τ h k r)` with the new directions
-`β_(τ h k a) = ∑_k' (g τ h)_(k k') y_(τ a k')`, and `seriesToCp` reads an integral series as one
-over `ℂ_[p]`. The filling `i'` puts a row `r` into each box of the `κ τ h` columns of height `h` at
-the place `τ`. The polynomial `columnDetProd` is the product over the columns with `h < card n'` of
-the determinants `det (s_(τ h k r))`, with `k < h` and `r` among the rows of the column, and
-`minorProd` is the product of the corresponding minors of `z_τ y_τ`. The norm of the jet along the
-former is that of the jet of `F` along the latter up to factors: each box gives `ϖ` and its row
-factor, and each column gives `det (g τ h)`. -/
-lemma norm_jet_columnDetProd_subst {κ : Φ → ℕ → ℕ} (i' : WeylIndex n' κ) (w : Φ → ℕ → n' → ℕ)
-    (g : Φ → ∀ h : ℕ, Matrix (Fin h) (Fin h) (valRingCp p)) (y : Φ → n → ℕ → valRingCp p)
-    (ϖ : ℂ_[p]) (F : MvPowerSeries (Φ × n' × n) ℂ_[p]) :
-    ‖jet ℂ_[p] (columnDetProd ℂ_[p] i') (F.subst fun x : Φ × n' × n ↦ ϖ • seriesToCp
-        (linearSeries (directionSubst (fun (τ : Φ) (h : ℕ) (b : n') ↦ p ^ w τ h b)
-          (newDirection g y) x)))‖ =
-      ‖ϖ‖ ^ boxes κ (card n') * (p : ℝ)⁻¹ ^ fillingCharge w i' *
-        (∏ τ : Φ, ∏ h : Fin (card n'), ‖((g τ h).det : ℂ_[p])‖ ^ κ τ h) *
-        ‖jet ℂ_[p] (minorProd i' fun (τ : Φ) (a : n) (k : ℕ) ↦ (y τ a k : ℂ_[p])) F‖ := by
-  let g' (τ : Φ) (h : ℕ) : Matrix (Fin h) (Fin h) ℂ_[p] := (valRingCp p).subtype.mapMatrix (g τ h)
-  have h_subst (x : Φ × n' × n) : ϖ • seriesToCp
-      (linearSeries (directionSubst (fun τ h b ↦ p ^ w τ h b) (newDirection g y) x)) =
-      linearSeries (directionSubst (N := card n') (fun τ h b ↦ ϖ * p ^ w τ h b)
-        (newDirection g' fun τ a k ↦ (y τ a k : ℂ_[p])) x) := by
-    simp only [linearSeries, map_sum, seriesToCp_smul, MvPowerSeries.map_X, smul_sum, smul_smul]
-    refine sum_congr rfl fun o _ ↦ congrArg (· • _) ?_
-    simp only [directionSubst, of_apply]
-    split_ifs <;> simp [g', newDirection, dotProduct, mul_assoc]
-  simp only [h_subst, jet_columnDetProd_subst, g', ← RingHom.map_det, Subring.subtype_apply, boxes,
-    sum_range, fillingCharge, norm_prod, norm_mul, norm_pow, norm_p_eq_inv, prod_mul_distrib,
-    prod_const, card_univ, Fintype.card_fin, ← pow_mul, prod_pow_eq_pow_sum]
-  ring
 
 end Couplings
 
@@ -435,38 +316,10 @@ noncomputable def predictedDivisibility [Fact d.Prime] : ℝ :=
     1 / 2 * ∑ τ : Φ, (min (a τ) (a (pr 0 τ) + a' (pr 0 τ)) + a' τ + min (l τ) (l (pr 0 τ)))
   else 0
 
-/-- The sum of the deduction terms for the couplings of the places `τ` with their partners `pr e τ`,
-without marked places; it is zero unless `e` lies in `I_p° = partnerExponents d p`. -/
-noncomputable def deductionAt [Fact d.Prime] (e : ℕ) : ℝ :=
-  if e ∈ partnerExponents d p then ∑ τ : Φ, deductionTerm p κ N ∅ τ (pr e τ) e else 0
-
 omit [Fintype Φ] in
 lemma eraseHeightOne_empty : eraseHeightOne κ ∅ = κ := by
   ext τ h
   simp [eraseHeightOne]
-
-omit [Fintype Φ] in
-/-- The deduction term without marked places, in terms of the numbers of columns of height one, of
-low columns (those of other height) and of boxes in the low columns. -/
-lemma deductionTerm_empty (τ τ' : Φ) (e : ℕ) :
-    deductionTerm p κ N ∅ τ τ' e =
-      min (heightOneColumns κ N τ / p ^ e : ℝ) (heightOneColumns κ N τ' + lowColumnCount κ N τ') +
-        lowColumnCount κ N τ / p ^ e +
-        min (lowBoxCount κ N τ / p ^ e : ℝ) (lowBoxCount κ N τ') := by
-  simp only [deductionTerm, heightOneColumns, lowColumnCount, lowBoxCount, notMem_empty,
-    not_false_eq_true, and_true, add_comm]
-
-omit [Fintype Φ] in
-/-- Marking the places of `marked` has the same effect on the deduction terms as removing their
-columns of height one. -/
-lemma deductionTerm_eraseHeightOne (marked : Finset Φ) (τ τ' : Φ) (e : ℕ) :
-    deductionTerm p (eraseHeightOne κ marked) N ∅ τ τ' e = deductionTerm p κ N marked τ τ' e := by
-  have h_one (σ : Φ) (h : ℕ) :
-      (if h = 1 ∧ σ ∉ (∅ : Finset Φ) then eraseHeightOne κ marked σ h else 0) =
-        if h = 1 ∧ σ ∉ marked then κ σ h else 0 := by grind [eraseHeightOne]
-  have h_low (σ : Φ) (h : ℕ) : (if h = 1 then 0 else eraseHeightOne κ marked σ h) =
-      if h = 1 then 0 else κ σ h := by grind [eraseHeightOne]
-  simp only [deductionTerm, h_one, h_low]
 
 omit [DecidableEq Φ] in
 /-- The number `boxes κ N` of boxes in the columns of height below `N` is the sum over the places
@@ -479,172 +332,12 @@ lemma boxes_eq_sum :
   simp only [boxes, heightOneColumns, lowBoxCount, ← Nat.cast_add, ← Nat.cast_sum,
     ← sum_add_distrib, ← h_split]
 
-lemma deductionAt_nonneg [Fact d.Prime] (e : ℕ) : 0 ≤ deductionAt d p pr κ N e := by
-  simp only [deductionAt, deductionTerm_empty]
-  positivity
-
-/-- The sums of deduction terms are summable over `e`: they are bounded by a constant times `p⁻ᵉ`.
-The term `deductionAt d p pr κ N e` is the sum over `τ` of `deductionTerm p κ N ∅ τ (pr e τ) e` if
-`e ∈ partnerExponents d p` (odd if `p` is inert in `ℚ(√-d)`, arbitrary if `p = d`, none if `p`
-splits), and zero otherwise. -/
-lemma summable_deductionAt [Fact p.Prime] [Fact d.Prime] :
-    Summable (deductionAt d p pr κ N) := by
-  have hp : (1 : ℝ) < p := mod_cast Nat.Prime.one_lt Fact.out
-  let c : ℝ := ∑ τ : Φ, (heightOneColumns κ N τ + lowColumnCount κ N τ + lowBoxCount κ N τ : ℝ)
-  -- Term by term the count at `e` is at most `c / p ^ e`, a geometric series.
-  refine ((summable_geometric_of_lt_one (by positivity) (inv_lt_one_of_one_lt₀ hp)).mul_left c
-    ).of_nonneg_of_le (deductionAt_nonneg d p pr κ N) fun e ↦ ?_
-  rw [deductionAt]
-  split_ifs
-  · rw [inv_pow, ← div_eq_mul_inv, sum_div]
-    refine sum_le_sum fun τ _ ↦ ?_
-    rw [deductionTerm_empty, add_div, add_div]
-    gcongr <;> exact min_le_left _ _
-  · positivity
-
-/-- The deduction is `γ_p B` less the predicted divisibility. Here `d` is the prime of `ℚ(√-d)`, `p`
-the prime at which one counts, `pr e τ` the partner of the place `τ`, `κ τ h` the number of columns
-of height `h` at `τ`, `B` the number of boxes in the columns of height below `N`, and as usual
-`v(π_p) = piPrimeValuation d p`, `γ_p = gammaPrime d p`. -/
-lemma mul_tsum_deductionAt [Fact p.Prime] [Fact d.Prime] :
-    piPrimeValuation d p * ∑' e : ℕ, deductionAt d p pr κ N e =
-      gammaPrime d p * boxes κ N - predictedDivisibility d p pr κ N := by
-  unfold predictedDivisibility
-  extract_lets a a' l
-  -- `a`, `a'`, `l` count columns of height one, low columns and their boxes. `zerothTerm` is the
-  -- count at `e = 0`. Term by term, `u - min (u, u') = (u - u')₊`.
-  let zerothTerm : ℝ := if p = d then
-    ∑ τ : Φ, (min (a τ) (a (pr 0 τ) + a' (pr 0 τ)) + a' τ + min (l τ) (l (pr 0 τ))) else 0
-  have h_posPart (u u' : ℝ) : (u - u')⁺ = u - min u u' := by
-    rw [posPart_def, ← max_sub_sub_left, sub_self, max_comm]
-  have h_term (e : ℕ) : (if e ∈ positivePartnerExponents d p then ∑ τ : Φ,
-      ((a τ / p ^ e - a (pr e τ) - a' (pr e τ))⁺ + (l τ / p ^ e - l (pr e τ))⁺ - a' τ / p ^ e)
-      else 0) =
-      (if e ∈ positivePartnerExponents d p then (boxes κ N / p ^ e : ℝ) else 0) +
-        (if e = 0 then zerothTerm else 0) - deductionAt d p pr κ N e := by
-    simp only [deductionAt, deductionTerm_empty, boxes_eq_sum, sum_div, sub_sub, h_posPart,
-      mem_positivePartnerExponents]
-    obtain rfl | he := e.eq_zero_or_pos
-    · simp [zerothTerm, a, a', l, mem_partnerExponents]
-    · simp only [he, he.ne', true_and, ite_false, add_zero]
-      split_ifs
-      · rw [← sum_sub_distrib]
-        exact sum_congr rfl fun τ _ ↦ by ring
-      · rw [sub_zero]
-  have h_sum : HasSum (fun e : ℕ ↦
-      (if e ∈ positivePartnerExponents d p then (boxes κ N / p ^ e : ℝ) else 0) +
-        (if e = 0 then zerothTerm else 0) - deductionAt d p pr κ N e)
-      (boxes κ N * gammaPrime d p / piPrimeValuation d p + zerothTerm -
-        ∑' e : ℕ, deductionAt d p pr κ N e) :=
-    ((hasSum_div_pow_positivePartnerExponents d p (boxes κ N)).add (hasSum_ite_eq 0 zerothTerm)).sub
-      (summable_deductionAt d p pr κ N).hasSum
-  rw [tsum_congr h_term, h_sum.tsum_eq]
-  simp only [zerothTerm, piPrimeValuation]
-  split_ifs <;> ring
-
-/-- Let `d` and `p` be primes, `pr e τ` the partner of the place `τ` and `κ τ h` the number of
-columns of height `h` at `τ`; only heights below `N` count. The deduction for the set `marked` of
-places is `v(π_p) = piPrimeValuation d p` times the sum of `deductionTerm p κ N marked τ (pr e τ) e`
-over all `τ` and the `e ≤ e₀` in `I_p° = partnerExponents d p`. It is at most `γ_p B°` less the
-predicted divisibility of `κ° = eraseHeightOne κ marked`, which is `κ` without its columns of height
-one at the marked places. Here `B°` is the number of boxes of `κ°` and `γ_p = gammaPrime d p`. -/
-lemma mul_sum_deductionTerm_le [Fact p.Prime] [Fact d.Prime] (marked : Finset Φ) (e₀ : ℕ) :
-    piPrimeValuation d p *
-        ∑ e ≤ e₀ with e ∈ partnerExponents d p, ∑ τ : Φ, deductionTerm p κ N marked τ (pr e τ) e ≤
-      gammaPrime d p * boxes (eraseHeightOne κ marked) N -
-        predictedDivisibility d p pr (eraseHeightOne κ marked) N := by
-  rw [← mul_tsum_deductionAt]
-  refine mul_le_mul_of_nonneg_left ?_ (piPrimeValuation_pos d p).le
-  calc
-    _ = ∑ e ≤ e₀, deductionAt d p pr (eraseHeightOne κ marked) N e := by
-      simp only [sum_filter, deductionAt, deductionTerm_eraseHeightOne]
-    _ ≤ _ := (summable_deductionAt d p pr _ N).sum_le_tsum (Iic e₀)
-      fun e _ ↦ deductionAt_nonneg d p pr _ N e
-
 end Predicted
 
 namespace Parameters
 variable (P : Parameters) (s : ℕ) {p : ℕ} [Fact p.Prime] [PadicPlace p] {n n' : Type} [Fintype n]
   [Fintype n'] {κ : P.Φ s → ℕ → ℕ} {ϖ : ℂ_[p]} {l : ℕ → ℕ → valRingCp p}
   {F : MvPowerSeries (P.Φ s × n' × n) ℂ_[p]}
-
-/-- The count with charges, with the deduction cut at `⌊log_p B⌋`. Here `P` fixes the prime `d` of
-`K = ℚ(√-d)`, `P.Φ s` is the set of infinite places of the field of level `s`, the instance
-`PadicPlace p` is an embedding of `ℂ` into `ℂ_[p]`, and `κ τ h` is the number of columns of height
-`h` at the place `τ`. Let `p` be non-split (`chiK P.d p ≠ 1`), let `v(ϖ) = ρ_p`, where
-`ρ_p = varpiValuation P.d p = v(π_p) / (q_p - 1)` for the norm `q_p` of a prime above `p`, and let
-`F` have the normal form for the exponents `e ∈ I_p°` (odd; all `e` if `p = d`): `F(ϖ z)` is an
-integral series times the exponential of the product of `ϖ ^ (p + 1) / p` with a combination of
-powers `Γ_e ^ p ^ j` of couplings, whose integral coefficients are given by `l`. Mark a set `marked`
-of places, and give row `b` of the columns of height `h` at `τ` a charge `p ^ w τ h b`. For a
-partner `τ'` of `τ`, one of `w τ 1 b` and `w τ' h b` is positive if `τ ∈ marked`, or if `h = 1` and
-`τ' ∈ marked` (`IsChargeExponent`). The filling `i'` puts a row into each box of `κ`, and with the
-integral matrices `y_τ` it defines the product of minors `P_y = minorProd i' y`: over the columns,
-the minor of `z_τ y_τ` on the rows of the column and the first `h` columns. Let `B` be the number of
-boxes. Then the valuation of `jet` of `F` along `P_y`, plus the sum `fillingCharge w i'` of the
-exponents over the boxes, is at least `gammaPrime P.d p * B`, less `v(π_p) = piPrimeValuation P.d p`
-times the sum of `deductionTerm` over all places and the exponents `e ∈ I_p°` with `e ≤ ⌊log_p B⌋`,
-and less `f N ^ 3 (1 + ⌊log_p B⌋)`. Here `f` is the number of infinite places, `N` the number of
-rows, and only columns of height below `N` are counted. -/
-theorem norm_jet_minorProd_le_of_isChargeExponent [DecidableEq n'] (hp : chiK P.d p ≠ 1)
-    (hϖ : ‖ϖ‖ = p ^ (-varpiValuation P.d p))
-    (hF : HasNormalForm (partnerExponents P.d p) (P.partner s p) ϖ l F)
-    (marked : Finset (P.Φ s)) (w : P.Φ s → ℕ → n' → ℕ)
-    (hw : ∀ e ∈ partnerExponents P.d p, IsChargeExponent (P.partner s p e) marked w)
-    (i' : WeylIndex n' κ) (y : P.Φ s → n → ℕ → valRingCp p) :
-    let N : ℕ := card n'
-    let B : ℕ := boxes κ N
-    ‖jet ℂ_[p] (minorProd i' fun (τ : P.Φ s) (a : n) (k : ℕ) ↦ (y τ a k : ℂ_[p])) F‖ ≤
-      p ^ (fillingCharge w i' - (gammaPrime P.d p * B -
-        piPrimeValuation P.d p * ∑ e ≤ p.log B with e ∈ partnerExponents P.d p,
-          ∑ τ : P.Φ s, deductionTerm p κ N marked τ (P.partner s p e τ) e -
-        card (P.Φ s) * N ^ 3 * (p.log B + 1)) : ℝ) := by
-  classical
-  intro N B
-  set m : ℕ := fillingCharge w i'
-  have hp_pos : (0 : ℝ) < p := mod_cast Nat.Prime.pos Fact.out
-  let π : valRingCp p := piPrimeInt P.d
-  have hπ_dvd : π ∣ p := piPrimeInt_dvd_natCast P.d
-  have hπ : ‖(π : ℂ_[p])‖ = p ^ (-piPrimeValuation P.d p) := norm_piPrimeInt P.d
-  -- Step 1: new directions, and the chain rule.
-  let S : Finset ℕ := {e ≤ p.log B | e ∈ partnerExponents P.d p}
-  let D : ℝ := ∑ e ∈ S, ∑ τ : P.Φ s, deductionTerm p κ N marked τ (P.partner s p e τ) e
-  obtain ⟨g, h_pair, h_det : ‖(π : ℂ_[p])‖ ^ D ≤
-      ∏ τ : P.Φ s, ∏ h : Fin N, ‖((g τ h).det : ℂ_[p])‖ ^ κ τ h⟩ :=
-    exists_newDirection_dvd hπ_dvd (P.partner s p) S N κ marked y
-  let z := directionSubst (N := N) (fun τ h b ↦ (p : valRingCp p) ^ w τ h b) (newDirection g y)
-  let G : MvPowerSeries (DirectionVar (P.Φ s) n' N) ℂ_[p] :=
-    F.subst fun x ↦ ϖ • seriesToCp (linearSeries (z x))
-  let c : ℝ := ‖ϖ‖ ^ B * (p : ℝ)⁻¹ ^ m * ∏ τ, ∏ h : Fin N, ‖((g τ h).det : ℂ_[p])‖ ^ κ τ h
-  have h_chain : ‖jet ℂ_[p] (columnDetProd ℂ_[p] i') G‖ =
-      c * ‖jet ℂ_[p] (minorProd i' fun τ a k ↦ (y τ a k : ℂ_[p])) F‖ :=
-    norm_jet_columnDetProd_subst i' w g y ϖ F
-  -- Step 2: `G` is integral in degree `B`, as `π` divides the couplings of `z` for `e ∈ S`.
-  have hG (d : DirectionVar (P.Φ s) n' N →₀ ℕ) (hd : d.degree = B) : ‖G.coeff d‖ ≤ 1 :=
-    hF.norm_coeff_subst_le_one (P.norm_pow_succ_div_mul_piPrimeInt hp hϖ).le
-      (by simp [linearSeries]) (fun e he he_le ↦ dvd_subst_coupling_directionSubst_of_charges
-        hπ_dvd (hw e he) (h_pair e (by simpa [S] using And.intro he_le he))) hd.le
-  -- Step 3: Legendre's bound for `G`, divided by the factor `c` of the chain rule.
-  have h_legendre : ‖jet ℂ_[p] (columnDetProd ℂ_[p] i') G‖ ≤
-      p ^ (card (P.Φ s) * N ^ 3 * (p.log B + 1) - B / (p - 1) : ℝ) := by
-    rw [← map_columnDetProd (valRingCp p).subtype]
-    refine (norm_jet_le_of_isHomogeneous hG (isHomogeneous_columnDetProd i')).trans ?_
-    gcongr
-    exacts [mod_cast Nat.Prime.one_le Fact.out, mod_cast card_directionVar_le]
-  have h_factor : p ^ (-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D : ℝ) ≤ c := by
-    rw [Real.rpow_add hp_pos, Real.rpow_sub hp_pos, Real.rpow_mul_natCast hp_pos.le, ← hϖ,
-      Real.rpow_natCast, div_eq_mul_inv, ← inv_pow, Real.rpow_mul hp_pos.le, ← hπ]
-    exact mul_le_mul_of_nonneg_left h_det (by positivity)
-  refine le_of_mul_le_mul_left ?_ (h_factor.trans_lt' (by positivity))
-  calc
-    _ ≤ (p : ℝ) ^ (card (P.Φ s) * N ^ 3 * (p.log B + 1) - B / (p - 1) : ℝ) :=
-      h_chain.symm.trans_le h_legendre
-    _ = p ^ (-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D : ℝ) *
-        p ^ (m - (gammaPrime P.d p * B - piPrimeValuation P.d p * D -
-          card (P.Φ s) * N ^ 3 * (p.log B + 1)) : ℝ) := by
-      rw [← Real.rpow_add hp_pos, gammaPrime]
-      ring_nf
-    _ ≤ _ := by gcongr
 
 /-- **The count with charges.** Here `P` fixes the prime `d` of `K = ℚ(√-d)`, `P.Φ s` is the set of
 infinite places of the field of level `s`, the instance `PadicPlace p` is an embedding of `ℂ` into
@@ -678,18 +371,208 @@ theorem norm_jet_minorProd_le_of_charges [DecidableEq n'] (hp : chiK P.d p ≠ 1
         (predictedDivisibility P.d p (P.partner s p) (eraseHeightOne κ marked) N +
           gammaPrime P.d p * (B - boxes (eraseHeightOne κ marked) N) -
           card (P.Φ s) * N ^ 3 * (1 + Real.logb p (max B 1 : ℕ))) : ℝ) := by
+  classical
   intro N B
-  -- Heights that do not occur may carry any charge.
+  set m : ℕ := fillingCharge w i'
+  have hp_pos : (0 : ℝ) < p := mod_cast Nat.Prime.pos Fact.out
+  let π : valRingCp p := piPrimeInt P.d
+  have hπ_dvd : π ∣ p := piPrimeInt_dvd_natCast P.d
+  have hπ : ‖(π : ℂ_[p])‖ = p ^ (-piPrimeValuation P.d p) := norm_piPrimeInt P.d
+  -- Extend the charges to heights that do not occur, without changing `fillingCharge`.
   let w' (τ : P.Φ s) (h : ℕ) (b : n') : ℕ := if κ τ h = 0 then 1 else w τ h b
   have hw' (e : ℕ) (he : e ∈ partnerExponents P.d p) :
-      IsChargeExponent (P.partner s p e) marked w' := fun τ h b h_exempt ↦ by grind [hw e he τ h b]
-  have h_error : (card (P.Φ s) * N ^ 3 * (p.log B + 1) : ℝ) ≤
-      card (P.Φ s) * N ^ 3 * (1 + Real.logb p (max B 1 : ℕ)) := by
-    grw [Nat.log_mono_right (le_max_left B 1), Real.natLog_le_logb, add_comm]
-  refine (P.norm_jet_minorProd_le_of_isChargeExponent s hp hϖ hF marked w' hw' i' y).trans
-    (Real.rpow_le_rpow_of_exponent_le (mod_cast Nat.Prime.one_le Fact.out) ?_)
-  rw [fillingCharge_congr (w := w') (fun τ h b h_occurs ↦ ite_eq_right h_occurs) i']
-  linarith [h_error, mul_sum_deductionTerm_le P.d p (P.partner s p) κ N marked (p.log B)]
+      IsChargeExponent (P.partner s p e) marked w' :=
+    fun τ h b h_exempt ↦ by grind [hw e he τ h b]
+  have h_charge : fillingCharge w' i' = fillingCharge w i' :=
+    sum_congr rfl fun τ _ ↦ sum_congr rfl fun h _ ↦ sum_congr rfl fun j _ ↦
+      sum_congr rfl fun b _ ↦ ite_eq_right j.pos.ne'
+  -- Step 1: new directions, and the chain rule.
+  let S : Finset ℕ := {e ≤ p.log B | e ∈ partnerExponents P.d p}
+  let D : ℝ := ∑ e ∈ S, ∑ τ : P.Φ s, deductionTerm p κ N marked τ (P.partner s p e τ) e
+  obtain ⟨g, h_pair, h_det : ‖(π : ℂ_[p])‖ ^ D ≤
+      ∏ τ : P.Φ s, ∏ h : Fin N, ‖((g τ h).det : ℂ_[p])‖ ^ κ τ h⟩ :=
+    exists_newDirection_dvd hπ_dvd (P.partner s p) S N κ marked y
+  let z := directionSubst (N := N) (fun τ h b ↦ (p : valRingCp p) ^ w' τ h b) (newDirection g y)
+  let G : MvPowerSeries (DirectionVar (P.Φ s) n' N) ℂ_[p] :=
+    F.subst fun x ↦ ϖ • seriesToCp (linearSeries (z x))
+  let c : ℝ := ‖ϖ‖ ^ B * (p : ℝ)⁻¹ ^ m * ∏ τ, ∏ h : Fin N, ‖((g τ h).det : ℂ_[p])‖ ^ κ τ h
+  have h_chain : ‖jet ℂ_[p] (columnDetProd ℂ_[p] i') G‖ =
+      c * ‖jet ℂ_[p] (minorProd i' fun τ a k ↦ (y τ a k : ℂ_[p])) F‖ := by
+    let g' (τ : P.Φ s) (h : ℕ) : Matrix (Fin h) (Fin h) ℂ_[p] :=
+      (valRingCp p).subtype.mapMatrix (g τ h)
+    have h_subst (x : P.Φ s × n' × n) : ϖ • seriesToCp (linearSeries (z x)) =
+        linearSeries (directionSubst (N := N) (fun τ h b ↦ ϖ * (p : ℂ_[p]) ^ w' τ h b)
+          (newDirection g' fun τ a k ↦ (y τ a k : ℂ_[p])) x) := by
+      simp only [linearSeries, map_sum, seriesToCp_smul, MvPowerSeries.map_X, smul_sum, smul_smul]
+      refine sum_congr rfl fun o _ ↦ congrArg (· • _) ?_
+      simp only [z, directionSubst, of_apply]
+      split_ifs <;> simp [g', newDirection, dotProduct, mul_assoc]
+    simp only [G, c, m, B, N, h_subst, jet_columnDetProd_subst, g', ← RingHom.map_det,
+      Subring.subtype_apply, boxes, sum_range, ← h_charge, fillingCharge, norm_prod, norm_mul,
+      norm_pow, norm_p_eq_inv, prod_mul_distrib, prod_const, card_univ, Fintype.card_fin,
+      ← pow_mul, prod_pow_eq_pow_sum]
+    ring
+  -- Step 2: `G` is integral in degree `B`, as `π` divides the couplings of `z` for `e ∈ S`.
+  have hG (d : DirectionVar (P.Φ s) n' N →₀ ℕ) (hd : d.degree = B) : ‖G.coeff d‖ ≤ 1 := by
+    refine hF.norm_coeff_subst_le_one (P.norm_pow_succ_div_mul_piPrimeInt hp hϖ).le
+      (by simp [linearSeries]) (fun e he he_le ↦ ?_) hd.le
+    let c₀ (τ : P.Φ s) (h : ℕ) (b : n') : valRingCp p := (p : valRingCp p) ^ w' τ h b
+    let β := newDirection g y
+    have h_lin (τ : P.Φ s) (b : n') (a : n) :
+        linearSeries (z (τ, b, a)) =
+          ∑ hk : Σ h : Fin N, Fin h,
+            (c₀ τ hk.1 b * β τ hk.1 hk.2 a) • MvPowerSeries.X (hk, τ, b) := by
+      simp [z, c₀, β, linearSeries, directionSubst, sum_prod_type]
+    have hπ_C : MvPowerSeries.C π ∣
+        (p : MvPowerSeries (DirectionVar (P.Φ s) n' N) (valRingCp p)) := by
+      simpa using map_dvd MvPowerSeries.C hπ_dvd
+    rw [subst_coupling (MvPowerSeries.hasSubst_of_constantCoeff_zero (by simp [linearSeries]))]
+    simp_rw [sum_prod_type]
+    refine dvd_sum fun τ _ ↦ dvd_sum fun b _ ↦ ?_
+    have h_pair_c (hk hk' : Σ h : Fin N, Fin h) :
+        π ∣ c₀ τ hk.1 b ^ p ^ e * c₀ (P.partner s p e τ) hk'.1 b *
+          ∑ a : n, β τ hk.1 hk.2 a ^ p ^ e * β (P.partner s p e τ) hk'.1 hk'.2 a := by
+      by_cases h_ex : IsExemptPair marked τ (P.partner s p e τ) hk.1 hk'.1
+      · obtain ⟨h1, h_place⟩ := h_ex
+        have h_fac : (p : valRingCp p) ∣
+            c₀ τ hk.1 b ^ p ^ e * c₀ (P.partner s p e τ) hk'.1 b := by
+          dsimp only [c₀]
+          rw [h1]
+          obtain hL | hR := hw' e he τ hk'.1 b h_place
+          · exact (dvd_pow (dvd_pow_self _ hL)
+              (pow_ne_zero e (Nat.Prime.ne_zero Fact.out))).mul_right _
+          · exact (dvd_pow_self _ hR).mul_left _
+        exact (hπ_dvd.trans h_fac).mul_right _
+      · exact (h_pair e (by simpa [S] using And.intro he_le he)
+          τ hk.1 hk.2 hk'.1 hk'.2 h_ex).mul_left _
+    have h_main : MvPowerSeries.C π ∣
+        ∑ a : n, (∑ hk : Σ h : Fin N, Fin h,
+            ((c₀ τ hk.1 b * β τ hk.1 hk.2 a) • MvPowerSeries.X (hk, τ, b)) ^ p ^ e) *
+          linearSeries (z (P.partner s p e τ, b, a)) := by
+      have h_eq : ∑ a : n, (∑ hk : Σ h : Fin N, Fin h,
+            ((c₀ τ hk.1 b * β τ hk.1 hk.2 a) • MvPowerSeries.X (hk, τ, b)) ^ p ^ e) *
+          linearSeries (z (P.partner s p e τ, b, a)) =
+          ∑ hk : Σ h : Fin N, Fin h, ∑ hk' : Σ h : Fin N, Fin h,
+            (c₀ τ hk.1 b ^ p ^ e * c₀ (P.partner s p e τ) hk'.1 b *
+              ∑ a : n, β τ hk.1 hk.2 a ^ p ^ e * β (P.partner s p e τ) hk'.1 hk'.2 a) •
+            (MvPowerSeries.X (hk, τ, b) ^ p ^ e *
+              MvPowerSeries.X (hk', P.partner s p e τ, b)) := by
+        simp_rw [h_lin, smul_pow, mul_pow, sum_mul, mul_sum, sum_smul, smul_mul_smul_comm]
+        rw [sum_comm]
+        refine sum_congr rfl fun hk _ ↦ ?_
+        rw [sum_comm]
+        refine sum_congr rfl fun hk' _ ↦ sum_congr rfl fun a _ ↦ ?_
+        congr 1
+        ring
+      rw [h_eq]
+      refine dvd_sum fun hk _ ↦ dvd_sum fun hk' _ ↦ ?_
+      simpa only [MvPowerSeries.smul_eq_C_mul] using
+        (map_dvd MvPowerSeries.C (h_pair_c hk hk')).mul_right _
+    rw [← dvd_sub_left h_main, ← sum_sub_distrib]
+    refine dvd_sum fun a _ ↦ ?_
+    rw [← sub_mul, h_lin τ b a]
+    exact (dvd_sum_pow_sub_sum hπ_C _ _ e).mul_right _
+  -- Step 3: bound the finite deduction sum `D` by `γ_p B° - predictedDivisibility κ°`.
+  let κ' : P.Φ s → ℕ → ℕ := eraseHeightOne κ marked
+  let a (τ : P.Φ s) : ℝ := heightOneColumns κ' N τ
+  let a' (τ : P.Φ s) : ℝ := lowColumnCount κ' N τ
+  let l' (τ : P.Φ s) : ℝ := lowBoxCount κ' N τ
+  have h_dedTerm (τ τ' : P.Φ s) (e : ℕ) : deductionTerm p κ N marked τ τ' e =
+      min (a τ / p ^ e) (a τ' + a' τ') + a' τ / p ^ e + min (l' τ / p ^ e) (l' τ') := by
+    have h₁ (σ : P.Φ s) (h : ℕ) :
+        (if h = 1 ∧ σ ∉ marked then κ σ h else 0) = if h = 1 then κ' σ h else 0 := by
+      grind [eraseHeightOne]
+    have h₂ (σ : P.Φ s) (h : ℕ) :
+        (if h = 1 then 0 else κ σ h) = if h = 1 then 0 else κ' σ h := by
+      grind [eraseHeightOne]
+    simp only [deductionTerm, a, a', l', heightOneColumns, lowColumnCount, lowBoxCount, h₁, h₂,
+      add_comm]
+  let f (e : ℕ) : ℝ := if e ∈ partnerExponents P.d p then ∑ τ : P.Φ s,
+    (min (a τ / p ^ e) (a (P.partner s p e τ) + a' (P.partner s p e τ)) +
+      a' τ / p ^ e + min (l' τ / p ^ e) (l' (P.partner s p e τ))) else 0
+  have hf_nonneg (e : ℕ) : 0 ≤ f e := by
+    dsimp only [f]
+    positivity
+  have hf_sum : Summable f := by
+    have hp1 : (1 : ℝ) < p := mod_cast Nat.Prime.one_lt Fact.out
+    refine ((summable_geometric_of_lt_one (by positivity) (inv_lt_one_of_one_lt₀ hp1)).mul_left
+      (∑ τ : P.Φ s, (a τ + a' τ + l' τ))).of_nonneg_of_le hf_nonneg fun e ↦ ?_
+    dsimp only [f]
+    split_ifs
+    · rw [inv_pow, ← div_eq_mul_inv, sum_div]
+      refine sum_le_sum fun τ _ ↦ ?_
+      rw [add_div, add_div]
+      gcongr <;> exact min_le_left _ _
+    · positivity
+  have h_ded : piPrimeValuation P.d p * D ≤
+      gammaPrime P.d p * boxes κ' N - predictedDivisibility P.d p (P.partner s p) κ' N := by
+    let zeroth : ℝ := if p = P.d then
+      ∑ τ : P.Φ s, (min (a τ) (a (P.partner s p 0 τ) + a' (P.partner s p 0 τ)) +
+        a' τ + min (l' τ) (l' (P.partner s p 0 τ))) else 0
+    have h_posPart (u u' : ℝ) : (u - u')⁺ = u - min u u' := by
+      rw [posPart_def, ← max_sub_sub_left, sub_self, max_comm]
+    have h_term (e : ℕ) : (if e ∈ positivePartnerExponents P.d p then ∑ τ : P.Φ s,
+        ((a τ / p ^ e - a (P.partner s p e τ) - a' (P.partner s p e τ))⁺ +
+          (l' τ / p ^ e - l' (P.partner s p e τ))⁺ - a' τ / p ^ e) else 0) =
+        (if e ∈ positivePartnerExponents P.d p then (boxes κ' N / p ^ e : ℝ) else 0) +
+          (if e = 0 then zeroth else 0) - f e := by
+      simp only [f, boxes_eq_sum, sum_div, sub_sub, h_posPart, mem_positivePartnerExponents]
+      obtain rfl | he := e.eq_zero_or_pos
+      · simp [zeroth, mem_partnerExponents]
+      · simp only [he, he.ne', true_and, ite_false, add_zero]
+        split_ifs
+        · rw [← sum_sub_distrib]
+          refine sum_congr rfl fun τ _ ↦ ?_
+          dsimp only [a, a', l']
+          ring
+        · rw [sub_zero]
+    have h_hasSum := ((hasSum_div_pow_positivePartnerExponents P.d p (boxes κ' N)).add
+      (hasSum_ite_eq 0 zeroth)).sub hf_sum.hasSum
+    have h_eq : piPrimeValuation P.d p * ∑' e : ℕ, f e =
+        gammaPrime P.d p * boxes κ' N - predictedDivisibility P.d p (P.partner s p) κ' N := by
+      dsimp only [predictedDivisibility]
+      rw [tsum_congr h_term, h_hasSum.tsum_eq]
+      simp only [zeroth, piPrimeValuation, a, a', l']
+      split_ifs <;> ring
+    have h_le : D ≤ ∑' e : ℕ, f e := by
+      calc D = ∑ e ≤ p.log B, f e := by simp only [D, S, sum_filter, f, h_dedTerm]
+        _ ≤ ∑' e : ℕ, f e := hf_sum.sum_le_tsum (Iic (p.log B)) fun e _ ↦ hf_nonneg e
+    exact h_eq ▸ mul_le_mul_of_nonneg_left h_le (piPrimeValuation_pos P.d p).le
+  -- Step 4: Legendre's bound for `G`, divided by the factor `c` of the chain rule.
+  let E : ℝ := m - (predictedDivisibility P.d p (P.partner s p) κ' N +
+    gammaPrime P.d p * (B - boxes κ' N) -
+    card (P.Φ s) * N ^ 3 * (1 + Real.logb p (max B 1 : ℕ)))
+  have h_legendre : ‖jet ℂ_[p] (columnDetProd ℂ_[p] i') G‖ ≤
+      p ^ (card (P.Φ s) * N ^ 3 * (p.log B + 1) - B / (p - 1) : ℝ) := by
+    rw [← map_columnDetProd (valRingCp p).subtype]
+    refine (norm_jet_le_of_isHomogeneous hG (isHomogeneous_columnDetProd i')).trans ?_
+    gcongr
+    exacts [mod_cast Nat.Prime.one_le Fact.out, mod_cast card_directionVar_le]
+  have h_factor : p ^ (-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D : ℝ) ≤ c := by
+    rw [Real.rpow_add hp_pos, Real.rpow_sub hp_pos, Real.rpow_mul_natCast hp_pos.le, ← hϖ,
+      Real.rpow_natCast, div_eq_mul_inv, ← inv_pow, Real.rpow_mul hp_pos.le, ← hπ]
+    exact mul_le_mul_of_nonneg_left h_det (by positivity)
+  have h_exp : (card (P.Φ s) * N ^ 3 * (p.log B + 1) - B / (p - 1) : ℝ) ≤
+      (-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D) + E := by
+    have h_err : (card (P.Φ s) * N ^ 3 * (p.log B + 1) : ℝ) ≤
+        card (P.Φ s) * N ^ 3 * (1 + Real.logb p (max B 1 : ℕ)) := by
+      grw [Nat.log_mono_right (le_max_left B 1), Real.natLog_le_logb, add_comm]
+    have h_split : (-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D) + E =
+        (card (P.Φ s) * N ^ 3 * (1 + Real.logb p (max B 1 : ℕ)) - B / (p - 1)) +
+          ((gammaPrime P.d p * boxes κ' N - predictedDivisibility P.d p (P.partner s p) κ' N) -
+            piPrimeValuation P.d p * D) := by
+      simp only [E, gammaPrime]
+      ring
+    linarith
+  refine le_of_mul_le_mul_left ?_ (h_factor.trans_lt' (by positivity))
+  calc
+    _ ≤ (p : ℝ) ^ (card (P.Φ s) * N ^ 3 * (p.log B + 1) - B / (p - 1) : ℝ) :=
+      h_chain.symm.trans_le h_legendre
+    _ ≤ p ^ ((-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D) + E : ℝ) :=
+      Real.rpow_le_rpow_of_exponent_le (mod_cast Nat.Prime.one_le Fact.out) h_exp
+    _ = p ^ (-varpiValuation P.d p * B - m + -piPrimeValuation P.d p * D : ℝ) * p ^ E :=
+      Real.rpow_add hp_pos _ _
+    _ ≤ _ := by gcongr
 
 /-- **The count.** Here `P` fixes the prime `d` of `K = ℚ(√-d)`, `P.Φ s` is the set of infinite
 places of the field of level `s`, and the instance `PadicPlace p` is an embedding of `ℂ` into
@@ -766,35 +649,6 @@ lemma exists_norm_le_norm_sum_mul_eval {ι σ : Type} [Fintype ι]
   refine ⟨y, (h_max t₁).trans_eq ?_⟩
   rw [h_eq, norm_mul, isUnit_integer_iff_norm_eq_one.1 h_unit, mul_one]
 
-/-- Expansion of the product of minors `P_y(z) = minorProd i' y`: the entries of row `i'` of the
-Schur matrix of the variables `z_τ` are its coefficients in the family `nablaBasis i * detPow`
-evaluated at `y`. Here `nablaBasis i` is the product of minors for the filling `i`, and `detPow` is
-the product, over the places `τ`, of the determinant of the first `card n` columns of `y_τ`, each to
-the power `schurDetExp`: the number `κ τ (card n)` if `card n < card n'`, and zero otherwise. The
-hypothesis `FitsRanks` says `card n ≤ card n'` and that `κ` has no column of height strictly between
-the two. -/
-lemma minorProd_eq_sum (hκ : FitsRanks (fun _ : Φ ↦ n) (fun _ : Φ ↦ n') κ) (i' : WeylIndex n' κ)
-    (y : (Σ _ : Φ, n) × ℕ → R) :
-    minorProd i' (fun (τ : Φ) (a : n) (k : ℕ) ↦ y (⟨τ, a⟩, k)) =
-      ∑ i : WeylIndex n κ, eval y (nablaBasis R (fun _ : Φ ↦ n) κ i *
-          detPow R (fun _ : Φ ↦ n) (schurDetExp (fun _ : Φ ↦ n) (fun _ : Φ ↦ n') κ)) •
-        schur κ (fun τ : Φ ↦ of fun (b : n') (a : n) ↦ X (τ, b, a)) i' i := by
-  -- Evaluate at `y` the defining expansion of the Schur matrix of the variables `z`.
-  let z (τ : Φ) : Matrix n' n (MvPolynomial (Φ × n' × n) R) := of fun b a ↦ X (τ, b, a)
-  calc
-    minorProd i' (fun τ a k ↦ y (⟨τ, a⟩, k))
-      = eval (C ∘ y) (rowSubst z (nablaBasis _ (fun _ : Φ ↦ n') κ i')) := by
-      simp only [minorProd, nablaBasis, tableauPoly, minor, map_prod, AlgHom.map_det,
-        RingHom.map_det]
-      congr! 4
-      ext b k : 1
-      simp [z, rowSubst, smul_eq_C_mul, mul_comm]
-    _ = _ := by
-      rw [← sum_schur_smul_nablaBasis hκ z i', map_sum]
-      refine sum_congr rfl fun i _ ↦ ?_
-      rw [smul_eval, ← map_nablaBasis C, ← map_detPow C, ← map_mul, ← map_eval, smul_eq_C_mul,
-        mul_comm]
-
 /-- An entry of the Schur matrix `schur κ z` may be replaced by a product of minors. Suppose
 `card n ≤ card n'` and that `κ` has no column of height strictly between the two (`FitsRanks`). Take
 a power series `F` and standard fillings `i'`, `i`. Let `P` be the polynomial entry of `schur κ z`
@@ -820,13 +674,27 @@ lemma exists_norm_schurJet_le_norm_jet_minorProd
   have h_eval (t : WeylIndex n κ) : ((eval y (b t) : valRingCp p) : ℂ_[p]) =
       eval (fun x ↦ (y x : ℂ_[p])) ((b t).map (valRingCp p).subtype) :=
     map_eval (valRingCp p).subtype y (b t)
-  have h_entry (t : WeylIndex n κ) : schurJet κ F i' t =
-      jet ℂ_[p] (schur κ (fun τ : Φ ↦ of fun (r : n') (a : n) ↦ X (τ, r, a)) i' t) F := rfl
+  let z (τ : Φ) : Matrix n' n (MvPolynomial (Φ × n' × n) ℂ_[p]) := of fun r a ↦ X (τ, r, a)
+  have h_minor : minorProd i' (fun τ a k ↦ (y (⟨τ, a⟩, k) : ℂ_[p])) =
+      ∑ t : WeylIndex n κ, ((eval y (b t) : valRingCp p) : ℂ_[p]) • schur κ z i' t := by
+    have h_step1 : minorProd i' (fun τ a k ↦ (y (⟨τ, a⟩, k) : ℂ_[p])) =
+        eval (C ∘ fun x ↦ (y x : ℂ_[p]))
+          (rowSubst z (nablaBasis _ (fun _ : Φ ↦ n') κ i')) := by
+      simp only [minorProd, nablaBasis, tableauPoly, minor, map_prod, AlgHom.map_det,
+        RingHom.map_det]
+      congr! 4
+      ext r k : 1
+      simp [z, rowSubst, smul_eq_C_mul, mul_comm]
+    rw [h_step1, ← sum_schur_smul_nablaBasis hκ z i', map_sum]
+    refine sum_congr rfl fun t _ ↦ ?_
+    rw [smul_eval, ← map_nablaBasis C, ← map_detPow C, ← map_mul, ← map_eval, smul_eq_C_mul,
+      mul_comm, h_eval]
+    simp only [b, map_mul, map_nablaBasis, map_detPow]
   refine ⟨fun τ a k ↦ y (⟨τ, a⟩, k), hy.trans_eq ?_⟩
-  rw [minorProd_eq_sum hκ i' fun x ↦ (y x : ℂ_[p]), map_sum, LinearMap.sum_apply]
+  rw [h_minor, map_sum, LinearMap.sum_apply]
   refine congrArg norm (sum_congr rfl fun t _ ↦ ?_)
-  rw [LinearMap.map_smul₂, smul_eq_mul, mul_comm, h_entry, h_eval, map_mul, map_nablaBasis,
-    map_detPow]
+  rw [LinearMap.map_smul₂, smul_eq_mul, mul_comm]
+  rfl
 
 end SchurEntries
 
