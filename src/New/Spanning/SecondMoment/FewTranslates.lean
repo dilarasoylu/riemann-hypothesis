@@ -125,12 +125,12 @@ lemma orthoProj_comp_self (U : Submodule ℂ S) : orthoProj U ∘ₗ orthoProj U
 
 /-- The squared Hilbert–Schmidt norm of the orthogonal projection onto `U` is `dim U`. -/
 lemma hilbertSchmidtNorm_orthoProj_sq (U : Submodule ℂ S) :
-    hilbertSchmidtNorm (orthoProj U) ^ 2 = finrank ℂ U := by
-  have h_proj : IsProj U (orthoProj U) :=
-    ⟨U.starProjection_apply_mem, fun _ ↦ Submodule.starProjection_eq_self_iff.2⟩
-  apply ofReal_injective
-  rw [hilbertSchmidtNorm_sq_eq_trace, adjoint_orthoProj, orthoProj_comp_self, h_proj.trace,
-    ofReal_natCast]
+    hilbertSchmidtNorm (orthoProj U) ^ 2 = finrank ℂ U :=
+  ofReal_injective <| by
+    have h_proj : IsProj U (orthoProj U) :=
+      ⟨U.starProjection_apply_mem, fun _ ↦ Submodule.starProjection_eq_self_iff.2⟩
+    rw [hilbertSchmidtNorm_sq_eq_trace, adjoint_orthoProj, orthoProj_comp_self, h_proj.trace,
+      ofReal_natCast]
 
 lemma hilbertSchmidtNorm_comp_orthoProj_le (A : S →ₗ[ℂ] T) (U : Submodule ℂ S) :
     hilbertSchmidtNorm (A ∘ₗ orthoProj U) ≤ hilbertSchmidtNorm A := by
@@ -144,11 +144,9 @@ maps. -/
 lemma hilbertSchmidtNorm_orthoProj_comp_sq (W : Submodule ℂ T) (A : S →ₗ[ℂ] T) :
     hilbertSchmidtNorm (orthoProj W ∘ₗ A) ^ 2 = re ⟪hilbertSchmidtVector (orthoProj W),
       hilbertSchmidtVector (A ∘ₗ A.adjoint)⟫_ℂ := by
-  set p : T →ₗ[ℂ] T := orthoProj W
-  have h_adjoint : (p ∘ₗ A).adjoint ∘ₗ (p ∘ₗ A) = A.adjoint ∘ₗ p ∘ₗ A := by
-    rw [adjoint_comp, adjoint_orthoProj, comp_assoc, ← comp_assoc A p, orthoProj_comp_self]
-  rw [inner_hilbertSchmidtVector, adjoint_orthoProj, ← comp_assoc, trace_comp_comm', ← h_adjoint,
-    ← hilbertSchmidtNorm_sq_eq_trace, ofReal_re]
+  rw [inner_hilbertSchmidtVector, ← ofReal_re (hilbertSchmidtNorm _ ^ 2),
+    hilbertSchmidtNorm_sq_eq_trace, adjoint_comp, adjoint_orthoProj, comp_assoc,
+    ← comp_assoc A (orthoProj W), orthoProj_comp_self, ← comp_assoc A.adjoint, trace_comp_comm']
 
 /-- `A` is almost an isometry from below in mean square, with the error `ε`: on every subspace `U`
 its squared Hilbert–Schmidt norm `‖A pr_U‖²` is at least `dim U - ε dim S`. -/
@@ -163,30 +161,21 @@ lemma isNearIsometry_of_hilbertSchmidtNorm_le {A : S →ₗ[ℂ] T} {ε : ℝ} (
       IsNearIsometry A ε := by
   intro U
   set p : S →ₗ[ℂ] S := orthoProj U
-  have h_norm : hilbertSchmidtNorm (A ∘ₗ p) ^ 2 = re ⟪hilbertSchmidtVector p,
-    hilbertSchmidtVector (A.adjoint ∘ₗ A)⟫_ℂ := by
-    rw [← hilbertSchmidtNorm_adjoint, adjoint_comp, adjoint_orthoProj,
-      hilbertSchmidtNorm_orthoProj_comp_sq,
-      adjoint_adjoint]
-  have h_dim : (finrank ℂ U : ℝ) = re ⟪hilbertSchmidtVector p,
-    hilbertSchmidtVector (1 : S →ₗ[ℂ] S)⟫_ℂ := by
-    simpa [hilbertSchmidtNorm_orthoProj_sq, End.one_eq_id] using
-      hilbertSchmidtNorm_orthoProj_comp_sq U (1 : S →ₗ[ℂ] S)
   have h_diff : hilbertSchmidtNorm (A ∘ₗ p) ^ 2 - finrank ℂ U =
       re ⟪hilbertSchmidtVector p, hilbertSchmidtVector (A.adjoint ∘ₗ A - 1)⟫_ℂ := by
-    rw [map_sub, inner_sub_right, sub_re, h_norm, h_dim]
-  have h_bound : hilbertSchmidtNorm p * hilbertSchmidtNorm (A.adjoint ∘ₗ A - 1) ≤ ε * finrank ℂ
-    S := by
+    rw [map_sub, inner_sub_right, sub_re, ← hilbertSchmidtNorm_adjoint (A ∘ₗ p), adjoint_comp,
+      adjoint_orthoProj, hilbertSchmidtNorm_orthoProj_comp_sq, adjoint_adjoint,
+      ← hilbertSchmidtNorm_orthoProj_sq U]
+    congr 1
+    simpa [End.one_eq_id] using hilbertSchmidtNorm_orthoProj_comp_sq U (1 : S →ₗ[ℂ] S)
+  have h_bound : hilbertSchmidtNorm p * hilbertSchmidtNorm (A.adjoint ∘ₗ A - 1) ≤
+      ε * finrank ℂ S := by
     refine (abs_le_of_sq_le_sq' ?_ (by positivity)).2
-    calc (hilbertSchmidtNorm p * hilbertSchmidtNorm (A.adjoint ∘ₗ A - 1)) ^ 2
-        ≤ finrank ℂ S * (ε ^ 2 * finrank ℂ S) := by
-          rw [mul_pow, hilbertSchmidtNorm_orthoProj_sq]
-          gcongr
-          exact U.finrank_le
-      _ = (ε * finrank ℂ S) ^ 2 := by ring
-  have h_cs : |re ⟪hilbertSchmidtVector p,
-    hilbertSchmidtVector (A.adjoint ∘ₗ A - 1)⟫_ℂ| ≤ ε * finrank ℂ S :=
-    (abs_re_le_norm _).trans ((norm_inner_le_norm _ _).trans h_bound)
+    rw [mul_pow, hilbertSchmidtNorm_orthoProj_sq]
+    exact (mul_le_mul (mod_cast U.finrank_le) h_defect (sq_nonneg _) (Nat.cast_nonneg _)).trans_eq
+      (by ring)
+  have h_cs : |re ⟪hilbertSchmidtVector p, hilbertSchmidtVector (A.adjoint ∘ₗ A - 1)⟫_ℂ| ≤
+      ε * finrank ℂ S := (abs_re_le_norm _).trans ((norm_inner_le_norm _ _).trans h_bound)
   linarith [(abs_le.1 h_cs).1]
 
 omit [FiniteDimensional ℂ T] in
@@ -245,16 +234,14 @@ lemma IsNearIsometry.proj_comp {A : S →ₗ[ℂ] T} {ε δ : ℝ} (hA : IsNearI
     (h_rest : hilbertSchmidtNorm ((1 - pr) ∘ₗ A) ^ 2 ≤ δ * finrank ℂ S) :
     IsNearIsometry (pr ∘ₗ A) (ε + δ) := by
   intro U
-  have h_split : hilbertSchmidtNorm (A ∘ₗ orthoProj U) ^ 2 = hilbertSchmidtNorm
-    ((pr ∘ₗ A) ∘ₗ orthoProj U) ^ 2 +
+  have h_split : hilbertSchmidtNorm (A ∘ₗ orthoProj U) ^ 2 =
+      hilbertSchmidtNorm ((pr ∘ₗ A) ∘ₗ orthoProj U) ^ 2 +
       hilbertSchmidtNorm (((1 - pr) ∘ₗ A) ∘ₗ orthoProj U) ^ 2 := by
     simp only [hilbertSchmidtNorm_sq_eq_sum (stdOrthonormalBasis ℂ S), ← sum_add_distrib,
       comp_apply]
     exact sum_congr rfl fun i _ ↦ norm_sq_eq_add_of_isSymmetricProjection hpr _
-  have h_cut : hilbertSchmidtNorm (((1 - pr) ∘ₗ A) ∘ₗ orthoProj U) ^ 2 ≤ hilbertSchmidtNorm
-    ((1 - pr) ∘ₗ A) ^ 2 :=
-    pow_le_pow_left₀ (hilbertSchmidtNorm_nonneg _) (hilbertSchmidtNorm_comp_orthoProj_le _ U) 2
-  linarith [hA U]
+  linarith [hA U, pow_le_pow_left₀ (hilbertSchmidtNorm_nonneg _)
+    (hilbertSchmidtNorm_comp_orthoProj_le ((1 - pr) ∘ₗ A) U) 2]
 
 variable {Γ : Type} [Group Γ] {ρ : Representation ℂ Γ T}
 
@@ -273,17 +260,13 @@ lemma inner_hilbertSchmidtVector_translate (hρ : ∀ (s : Γ) (x y : T), ⟪ρ 
     ⟪hilbertSchmidtVector ((ρ s ∘ₗ B) ∘ₗ (ρ s ∘ₗ B).adjoint),
       hilbertSchmidtVector ((ρ t ∘ₗ B) ∘ₗ (ρ t ∘ₗ B).adjoint)⟫_ℂ =
       (hilbertSchmidtNorm (B.adjoint ∘ₗ ρ (s⁻¹ * t) ∘ₗ B) ^ 2 : ℝ) := by
-  set X : S →ₗ[ℂ] T := ρ s ∘ₗ B with hX
-  set Y : S →ₗ[ℂ] T := ρ t ∘ₗ B with hY
+  set X : S →ₗ[ℂ] T := ρ s ∘ₗ B
+  set Y : S →ₗ[ℂ] T := ρ t ∘ₗ B
   have h_factor : B.adjoint ∘ₗ ρ (s⁻¹ * t) ∘ₗ B = X.adjoint ∘ₗ Y := by
-    simp [hX, hY, adjoint_comp, adjoint_rep_of_unitary hρ, End.mul_eq_comp, comp_assoc]
-  rw [h_factor, hilbertSchmidtNorm_sq_eq_trace, inner_hilbertSchmidtVector]
-  calc trace ℂ T ((X ∘ₗ X.adjoint).adjoint ∘ₗ Y ∘ₗ Y.adjoint)
-      = trace ℂ T (((X ∘ₗ X.adjoint) ∘ₗ Y) ∘ₗ Y.adjoint) := by
-        rw [adjoint_comp, adjoint_adjoint, comp_assoc _ Y]
-    _ = trace ℂ S (Y.adjoint ∘ₗ (X ∘ₗ X.adjoint) ∘ₗ Y) := trace_comp_comm' _ _
-    _ = trace ℂ S ((X.adjoint ∘ₗ Y).adjoint ∘ₗ X.adjoint ∘ₗ Y) := by
-        simp only [adjoint_comp, adjoint_adjoint, comp_assoc]
+    simp [X, Y, adjoint_comp, adjoint_rep_of_unitary hρ, End.mul_eq_comp, comp_assoc]
+  rw [h_factor, hilbertSchmidtNorm_sq_eq_trace, inner_hilbertSchmidtVector, adjoint_comp,
+    adjoint_adjoint, ← comp_assoc Y.adjoint, trace_comp_comm']
+  simp only [adjoint_comp, adjoint_adjoint, comp_assoc]
 
 /-- Cauchy–Schwarz for the projection onto `W` and the sum of the operators `s B B* s⁻¹`, where
 `s` runs through a finite group that acts unitarily: the sum of the squared Hilbert–Schmidt norms
@@ -293,27 +276,19 @@ lemma sq_sum_hilbertSchmidtNorm_orthoProj_comp_le [Fintype Γ]
     (hρ : ∀ (s : Γ) (x y : T), ⟪ρ s x, ρ s y⟫_ℂ = ⟪x, y⟫_ℂ) (B : S →ₗ[ℂ] T) (W : Submodule ℂ T) :
     (∑ s : Γ, hilbertSchmidtNorm (orthoProj W ∘ₗ ρ s ∘ₗ B) ^ 2) ^ 2 ≤
       finrank ℂ W * (Fintype.card Γ * ∑ s : Γ, hilbertSchmidtNorm (B.adjoint ∘ₗ ρ s ∘ₗ B) ^ 2) := by
-  set sumBB : PiLp 2 fun _ : Fin (finrank ℂ T) ↦ T :=
-    ∑ s : Γ, hilbertSchmidtVector ((ρ s ∘ₗ B) ∘ₗ (ρ s ∘ₗ B).adjoint)
-  have h_norm : ‖sumBB‖ ^ 2 = Fintype.card Γ * ∑ s,
-    hilbertSchmidtNorm (B.adjoint ∘ₗ ρ s ∘ₗ B) ^ 2 := by
-    rw [norm_sq_eq_re_inner (𝕜 := ℂ), inner_sum_sum_eq_card_mul
-      (fun s ↦ ((hilbertSchmidtNorm (B.adjoint ∘ₗ ρ s ∘ₗ B) ^ 2 : ℝ) : ℂ))
-        (inner_hilbertSchmidtVector_translate hρ B),
-      ← ofReal_sum, ← ofReal_natCast, ← ofReal_mul]
-    exact ofReal_re _
-  have h_inner : ∑ s, hilbertSchmidtNorm (orthoProj W ∘ₗ ρ s ∘ₗ B) ^ 2 =
-      re ⟪hilbertSchmidtVector (orthoProj W), sumBB⟫_ℂ := by
-    simp only [sumBB, hilbertSchmidtNorm_orthoProj_comp_sq, inner_sum, re_sum]
-  have h_cs : re ⟪hilbertSchmidtVector (orthoProj W),
-    sumBB⟫_ℂ ≤ hilbertSchmidtNorm (orthoProj W) * ‖sumBB‖ :=
-    (re_le_norm _).trans (norm_inner_le_norm _ _)
-  calc (∑ s : Γ, hilbertSchmidtNorm (orthoProj W ∘ₗ ρ s ∘ₗ B) ^ 2) ^ 2
-      ≤ (hilbertSchmidtNorm (orthoProj W) * ‖sumBB‖) ^ 2 :=
-        pow_le_pow_left₀ (sum_nonneg fun _ _ ↦ sq_nonneg _) (h_inner.trans_le h_cs) 2
-    _ = finrank ℂ W * (Fintype.card Γ * ∑ s : Γ,
-      hilbertSchmidtNorm (B.adjoint ∘ₗ ρ s ∘ₗ B) ^ 2) := by
-        rw [mul_pow, hilbertSchmidtNorm_orthoProj_sq, h_norm]
+  set sumBB := ∑ s : Γ, hilbertSchmidtVector ((ρ s ∘ₗ B) ∘ₗ (ρ s ∘ₗ B).adjoint)
+  have h_norm : ‖sumBB‖ ^ 2 =
+      Fintype.card Γ * ∑ s, hilbertSchmidtNorm (B.adjoint ∘ₗ ρ s ∘ₗ B) ^ 2 := by
+    rw [norm_sq_eq_re_inner (𝕜 := ℂ),
+      inner_sum_sum_eq_card_mul (fun s ↦ ofReal (hilbertSchmidtNorm (B.adjoint ∘ₗ ρ s ∘ₗ B) ^ 2))
+        (inner_hilbertSchmidtVector_translate hρ B)]
+    simp [-ofReal_pow]
+  have h_le : ∑ s, hilbertSchmidtNorm (orthoProj W ∘ₗ ρ s ∘ₗ B) ^ 2 ≤
+      hilbertSchmidtNorm (orthoProj W) * ‖sumBB‖ := by
+    simp only [hilbertSchmidtNorm_orthoProj_comp_sq, ← re_sum, ← inner_sum]
+    exact (re_le_norm _).trans (norm_inner_le_norm _ _)
+  rw [← h_norm, ← hilbertSchmidtNorm_orthoProj_sq, ← mul_pow]
+  exact pow_le_pow_left₀ (sum_nonneg fun _ _ ↦ sq_nonneg _) h_le 2
 
 /-- **One translate.** Let a finite group `Γ` act unitarily on `T` by `ρ`, and let `pr₀` be the
 orthogonal projection onto a stable subspace `T₀`, so that `pr₀ s = s pr₀`. Suppose that `pr₀ B` is
@@ -369,20 +344,13 @@ theorem isSpread_of_second_moment [Fintype Γ]
       simp [← hpr₀.isSymmetric _ y, ← End.mul_apply pr₀ pr₀, hpr₀.isIdempotentElem.eq]
     rw [← End.mul_apply, ← (h_comm s).eq, End.mul_apply]
     exact (Submodule.eq_starProjection_of_mem_of_inner_eq_zero h_mem h_orth).symm
-  have h_preimage : hilbertSchmidtNorm ((pr₀ ∘ₗ B) ∘ₗ orthoProj W') ≤ hilbertSchmidtNorm
-    (orthoProj W ∘ₗ ρ s ∘ₗ B) := by
+  have h_preimage : hilbertSchmidtNorm ((pr₀ ∘ₗ B) ∘ₗ orthoProj W') ≤
+      hilbertSchmidtNorm (orthoProj W ∘ₗ ρ s ∘ₗ B) := by
     refine (hilbertSchmidtNorm_le_of_norm_le fun x ↦ ?_).trans
       (hilbertSchmidtNorm_comp_orthoProj_le _ W')
-    have h_isometry (y : T) : ‖ρ s y‖ = ‖y‖ := by
-      rw [norm_eq_sqrt_re_inner (𝕜 := ℂ), hρ, ← norm_eq_sqrt_re_inner]
-    calc ‖pr₀ (B (orthoProj W' x))‖
-        = ‖ρ s (pr₀ (B (orthoProj W' x)))‖ := (h_isometry _).symm
-      _ ≤ ‖orthoProj W (ρ s (B (orthoProj W' x)))‖ := by
-          rw [h_agree (orthoProj W' x) (W'.starProjection_apply_mem x)]
-  have h_near : finrank ℂ W' - ε * finrank ℂ S ≤ hilbertSchmidtNorm ((pr₀ ∘ₗ B) ∘ₗ orthoProj W') ^
-    2 :=
-    h_isom W'
-  linarith [pow_le_pow_left₀ (hilbertSchmidtNorm_nonneg _) h_preimage 2]
+    simp only [comp_apply, ← h_agree (orthoProj W' x) (W'.starProjection_apply_mem x),
+      norm_eq_sqrt_re_inner (𝕜 := ℂ), hρ, le_rfl]
+  linarith [h_isom W', pow_le_pow_left₀ (hilbertSchmidtNorm_nonneg _) h_preimage 2]
 
 end HilbertSchmidt
 
@@ -493,13 +461,11 @@ theorem IsSpread.exists_few_le_finrank_iSup_range [Nontrivial V] (h_spread : IsS
   have h_rate_pos : 0 < rate := by positivity
   -- The first step shows `rate ≤ 1`.
   have h_rate_le : rate ≤ 1 := by
-    have h_start : 16 * ε * finrank ℂ W < finrank ℂ W - finrank ℂ (⊥ : Submodule ℂ W) := by
-      simpa using mul_lt_of_lt_one_left hW' (by linarith : 16 * ε < 1)
-    obtain ⟨s, h_step⟩ := h_spread.exists_codim_le ⊥ hW h_start
-    have h_codim_nonneg : (0 : ℝ) ≤ finrank ℂ W - finrank ℂ ↥(⊥ ⊔ range (B s)) :=
-      sub_nonneg.2 (by exact_mod_cast Submodule.finrank_le _)
-    have h_nonneg : 0 ≤ (1 - rate) * finrank ℂ W := by simpa using h_codim_nonneg.trans h_step
-    exact sub_nonneg.1 (nonneg_of_mul_nonneg_left h_nonneg hW')
+    obtain ⟨s, h_step⟩ := h_spread.exists_codim_le ⊥ hW
+      (by simpa using mul_lt_of_lt_one_left hW' (by linarith : 16 * ε < 1))
+    have h_le : (finrank ℂ ↥(⊥ ⊔ range (B s)) : ℝ) ≤ finrank ℂ W := mod_cast Submodule.finrank_le _
+    simp only [finrank_bot, Nat.cast_zero, sub_zero, ← h_rate] at h_step
+    nlinarith
   -- Stop at the least `l` with `l rate ≥ log (1 / (16 ε))`; then `l rate ≤ 1 + log (1 / (16 ε))`.
   have h_log : 0 ≤ log (16 * ε)⁻¹ :=
     log_nonneg ((one_le_inv₀ (by positivity)).2 (by linarith))
