@@ -429,26 +429,18 @@ lemma partnerMinSum_le (D : Data P) {p : ℕ} [Fact p.Prime] {τ : D.Φ} {e₀ :
     (h_near : ∀ e : ℕ, D.IsNearPair p τ e → e = e₀ ∧ (D.weight τ : ℝ) / p ^ e ≤ c + 1) :
     D.partnerMinSum p τ ≤ c + 1 + l₀ D.towerExp * (D.a / D.x₁) + 2 * D.b / (D.k * p) := by
   -- Cut the series at `n = ⌈l₀ / 2⌉`.
-  obtain ⟨n, hn_lower, hn_upper⟩ : ∃ n : ℕ, l₀ D.towerExp ≤ 2 * n ∧ 2 * n ≤ l₀ D.towerExp + 1 :=
-    ⟨(l₀ D.towerExp + 1) / 2, by lia, by lia⟩
-  have h_term_le (e : ℕ) (he : e ∈ range n) :
-      D.partnerMinTerm p τ e ≤ (if e = e₀ then c + 1 else 0) + D.a / D.x₁ := by
-    by_cases h_pair : D.IsNearPair p τ e
-    · obtain ⟨rfl, h_term⟩ := h_near e h_pair
-      rw [ite_eq_left rfl]
-      exact le_add_of_le_of_nonneg ((D.partnerMinTerm_le_div p τ e).trans h_term) (by positivity)
+  let n := (l₀ D.towerExp + 1) / 2
+  rw [partnerMinSum, ← (D.summable_partnerMinTerm τ).sum_add_tsum_nat_add n]
+  refine add_le_add ((sum_le_sum (g := fun e => (if e = e₀ then c + 1 else 0) + D.a / D.x₁)
+    fun e he => ?_).trans ?_) (D.tsum_partnerMinTerm_add_le τ (by lia))
+  · by_cases h : D.IsNearPair p τ e
+    · obtain ⟨rfl, ht⟩ := h_near e h
+      simpa using le_add_of_le_of_nonneg ((D.partnerMinTerm_le_div p τ e).trans ht) (by positivity)
     · exact le_add_of_nonneg_of_le (by positivity)
-        (D.partnerMinTerm_le_of_not_isNearPair (by grind) h_pair)
-  have h_single : ∑ e ∈ range n, (if e = e₀ then c + 1 else 0) ≤ c + 1 := by
+        (D.partnerMinTerm_le_of_not_isNearPair (by grind) h)
+  · grw [sum_add_distrib, sum_const, card_range, nsmul_eq_mul, show n ≤ l₀ D.towerExp by lia]
+    gcongr
     simp [sum_ite_eq', apply_ite (· ≤ c + 1), add_nonneg hc zero_le_one]
-  calc D.partnerMinSum p τ = ∑ e ∈ range n, D.partnerMinTerm p τ e + ∑' e : ℕ,
-         D.partnerMinTerm p τ (e + n) :=
-        ((D.summable_partnerMinTerm τ).sum_add_tsum_nat_add n).symm
-    _ ≤ ∑ e ∈ range n, ((if e = e₀ then c + 1 else 0) + D.a / D.x₁) + 2 * D.b / (D.k * p) :=
-        add_le_add (sum_le_sum h_term_le) (D.tsum_partnerMinTerm_add_le τ hn_lower)
-    _ ≤ c + 1 + l₀ D.towerExp * (D.a / D.x₁) + 2 * D.b / (D.k * p) := by
-        grw [sum_add_distrib, sum_const, card_range, nsmul_eq_mul, h_single,
-          show n ≤ l₀ D.towerExp by lia]
 
 /-- For a prime `p ≤ k` and any `l`, the errors at one place add up to at most
 `3 b / (k p) ≤ n♯ / p - 1 ≤ v(B)`. There are three errors: `3 (log b + 2) + x ^ 42 + 1`, which is at

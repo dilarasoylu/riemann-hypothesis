@@ -263,19 +263,13 @@ lemma maxDerivNorm_add_le (m n : ℕ) :
     C.maxDerivNorm (p := p) (m + n) ≤ C.maxDerivNorm (p := p) m * C.maxDerivNorm (p := p) n := by
   -- Differentiate `y(z₀ + z₁) ^ j`, an integral series in `y(z₀)` and `y(z₁)`, `m` times in `z₀`
   -- and `n` times in `z₁`.
-  let y : ℂ_[p]⟦X⟧ := taylorVia ιₚ C.translatedY
-  have hy : y ∈ C.integralSeriesRing := C.isSeriesGenerator_translatedY.generator_mem
+  have hy := (C.isSeriesGenerator_translatedY (p := p)).generator_mem
   obtain ⟨j, hj⟩ := C.exists_isGreatest_norm_deriv (p := p) (m + n)
-  obtain ⟨a, b, h_coeff⟩ := C.exists_norm_coeff_subst_add_le (p := p) j m n
-  calc C.maxDerivNorm (m + n) = ‖(m + n)! * coeff (m + n) (y ^ j)‖ := hj.csSup_eq
-    _ = ‖(m ! * n ! : ℂ_[p])‖ * ‖MvPowerSeries.coeff (.single 0 m + .single 1 n)
-          ((y ^ j).subst (linearSeries ![(1 : ℂ_[p]), 1]))‖ := by
-      rw [← factorial_mul_coeff_subst_add, norm_mul]
-    _ ≤ ‖(m ! * n ! : ℂ_[p])‖ * ‖coeff m (y ^ a) * coeff n (y ^ b)‖ := by gcongr
-    _ = ‖m ! * coeff m (y ^ a)‖ * ‖n ! * coeff n (y ^ b)‖ := by simp [mul_mul_mul_comm]
-    _ ≤ C.maxDerivNorm m * C.maxDerivNorm n :=
-      mul_le_mul (norm_deriv_le_maxDerivNorm (pow_mem hy a) m)
-        (norm_deriv_le_maxDerivNorm (pow_mem hy b) n) (norm_nonneg _) (C.maxDerivNorm_nonneg m)
+  obtain ⟨a, b, hc⟩ := C.exists_norm_coeff_subst_add_le (p := p) j m n
+  refine le_trans ?_ (mul_le_mul (norm_deriv_le_maxDerivNorm (pow_mem hy a) m)
+    (norm_deriv_le_maxDerivNorm (pow_mem hy b) n) (norm_nonneg _) (C.maxDerivNorm_nonneg m))
+  rw [maxDerivNorm, hj.csSup_eq, ← factorial_mul_coeff_subst_add, norm_mul]
+  simpa [mul_mul_mul_comm] using mul_le_mul_of_nonneg_left hc (norm_nonneg (m ! * n ! : ℂ_[p]))
 
 /-- Let `π_p` be `√-d` if `p = d` and `p` otherwise, and let `piPrimeInt d` be its image under the
 map `ιₚ : ℂ →+* ℂ_[p]` of `PadicPlace p`, an integer of norm less than `1`. An integer of `ℂ_p`

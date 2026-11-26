@@ -310,21 +310,16 @@ lemma omega_finHeisenbergOp_intVacuum (g : Gf (P.E s) n) (x : n → 𝔸f (P.E s
 point `g` in `integralAbove n p`. -/
 lemma omega_mem_standardData {g : Gf (P.E s) n} (hg : g ∈ integralAbove n p)
     (hf : f ∈ standardData V δ) : V.ω (1, g) f ∈ standardData V δ := by
-  induction hf using span_induction with
-  | mem _ h_gen =>
-    obtain ⟨x, hx, rfl⟩ := h_gen
-    -- The image is a multiple of the translate by `g x` of a sum of translates of the vacuum by the
-    -- `g y`, with `y` integral. The factor is a unit, as `g⁻¹` is integral above `p` too.
-    have h_unit : ‖ιₚ (finMultiplier g⁻¹)⁻¹‖ = 1 := by
-      simp [norm_finMultiplier_eq_one (inv_mem hg)]
-    rw [omega_finHeisenbergOp_intVacuum]
-    refine smul_mem_standardData_of_norm_le_one h_unit.le
-      (finHeisenbergOp_mem_standardData (mulVec_mem_integralAfter hg hx) ?_)
-    exact finsum_induction (· ∈ standardData V δ) (zero_mem _) (fun _ _ ↦ add_mem) fun y ↦
-      finHeisenbergOp_intVacuum_mem_standardData
-        (mulVec_mem_integralAfter hg (integralAfter.stdLattice_le y.out.property))
-  | zero => simp
-  | add f f' _ _ hf hf' => simpa using add_mem hf hf'
-  | smul c f _ hf => simpa using smul_mem _ c hf
+  refine span_induction ?_ (by simp) (fun _ _ _ _ hf hf' ↦ by simpa using add_mem hf hf')
+    (fun c _ _ hf ↦ by simpa using smul_mem _ c hf) hf
+  rintro _ ⟨x, hx, rfl⟩
+  -- The image is a multiple of the translate by `g x` of a sum of translates of the vacuum by the
+  -- `g y`, with `y` integral. The factor is a unit, as `g⁻¹` is integral above `p` too.
+  rw [omega_finHeisenbergOp_intVacuum]
+  refine smul_mem_standardData_of_norm_le_one (by simp [norm_finMultiplier_eq_one (inv_mem hg)])
+    (finHeisenbergOp_mem_standardData (mulVec_mem_integralAfter hg hx) ?_)
+  exact finsum_induction (· ∈ standardData V δ) (zero_mem _) (fun _ _ ↦ add_mem) fun y ↦
+    finHeisenbergOp_intVacuum_mem_standardData
+      (mulVec_mem_integralAfter hg (integralAfter.stdLattice_le y.out.property))
 
 end New.Parameters

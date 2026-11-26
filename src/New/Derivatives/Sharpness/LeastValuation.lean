@@ -472,19 +472,13 @@ scaled copies of `Θ = ∏ θ(μ_j z) ^ m j` has an inverse in `C.multiSeriesRin
 lemma exists_scaledThetaProd_mul_eq_one (C : CMLattice d) (μ : J → X → ℂ_[p]) (m : J → ℕ) {n : ℕ}
     {δ : Fin n → ℤ_[p]} (hδ : ∑ c : Fin n, δ c ^ 2 = 0) :
     ∃ V ∈ C.multiSeriesRing μ, C.scaledThetaProd μ m δ * V = 1 := by
-  -- invert `u(z) = ∏ θ(δ_c z)` in one variable, put `μ_j z` for `z` and multiply over `j`
-  rw [scaledThetaProd_eq_prod_subst]
-  set u : PowerSeries ℂ_[p] :=
-    ∏ c : Fin n, (taylorVia ιₚ C.θ).rescale (algebraMap ℚ_[p] ℂ_[p] (δ c)) with hu_def
-  have hu : u ∈ C.integralSeriesRing := C.prod_rescale_theta_mem hδ
-  have hu₀ : PowerSeries.constantCoeff u = 1 := by simp [hu_def]
-  obtain ⟨v, hv, huv⟩ : ∃ v ∈ C.integralSeriesRing, u * v = 1 :=
-    C.isSeriesGenerator_translatedY.exists_mul_eq_one hu (by simp [hu₀])
-  have h_mul (i : J) : u.subst (linearSeries (μ i)) * v.subst (linearSeries (μ i)) = 1 := by
-    rw [← PowerSeries.coe_substAlgHom (hasSubst_linearSeries _), ← map_mul, huv, map_one]
+  -- invert `∏ θ(δ_c z)` in one variable, put `μ_j z` for `z` and multiply over `j`
+  obtain ⟨v, hv, huv⟩ := C.isSeriesGenerator_translatedY.exists_mul_eq_one
+    (C.prod_rescale_theta_mem hδ) (by simp)
   refine ⟨∏ i : J, v.subst (linearSeries (μ i)) ^ m i,
     prod_mem fun i _ ↦ pow_mem (subst_mem_multiSeriesRing μ hv i) _, ?_⟩
-  simp only [← prod_mul_distrib, ← mul_pow, h_mul, one_pow, prod_const_one]
+  simp only [scaledThetaProd_eq_prod_subst, ← prod_mul_distrib, ← mul_pow, hasSubst_linearSeries,
+    ← PowerSeries.coe_substAlgHom, ← map_mul, huv, map_one, one_pow, prod_const_one]
 
 /-- There are six `p`-adic integers `δ 0 = 1, δ 1, …, δ 5` such that the product
 `C.scaledThetaProd μ m δ` of the scaled copies `Θ(δ_c z)` of `Θ = ∏ θ(μ_j z) ^ m j` is a unit of
