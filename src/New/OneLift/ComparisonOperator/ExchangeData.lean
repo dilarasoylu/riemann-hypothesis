@@ -587,18 +587,12 @@ lemma isKDominant_conjHolomorphicWeight {P : Parameters} {D : Data P} (j : D.Lif
   -- On positive vectors the weight is a constant minus a staircase sum; on negative vectors it is
   -- a constant plus the kernel weight.
   intro a b h_sign h_order
-  show conjHolomorphicWeight j τ b ≤ conjHolomorphicWeight j τ a
   obtain pos | neg := units_eq_one_or (D.signsW j b)
-  · have numbering_lt :
-        (untwistedDescentPair j).numbering b < (untwistedDescentPair j).numbering a := by
-      simpa [orderW, pos, h_sign.trans pos] using h_order
-    rw [conjHolomorphicWeight_of_eq_one j τ pos,
-      conjHolomorphicWeight_of_eq_one j τ (h_sign.trans pos)]
+  · simp only [conjHolomorphicWeight_of_eq_one j τ, pos, h_sign.trans pos]
     gcongr
-  · rw [conjHolomorphicWeight_of_eq_neg_one j τ neg,
-      conjHolomorphicWeight_of_eq_neg_one j τ (h_sign.trans neg)]
-    gcongr
-    exact isKDominant_kernelWeight j τ a b h_sign h_order
+    exact Nat.le_of_lt (by simpa [orderW, pos, h_sign.trans pos] using h_order)
+  · simpa [conjHolomorphicWeight_of_eq_neg_one j τ, neg, h_sign.trans neg] using
+      isKDominant_kernelWeight j τ a b h_sign h_order
 
 /-- Every entry of the weight `kernelWeight j τ` at an index of sign `-1` in `D.signsW j` exceeds
 every entry at an index of sign `+1` by at least `300 * nStar D`. -/

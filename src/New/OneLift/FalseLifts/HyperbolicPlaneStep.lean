@@ -202,18 +202,12 @@ lemma exists_col_k_mem_latticeBall (D : W'.Splitting W Unit) (g : G E t) :
   · exact ⟨1, fun h ↦ absurd h h_low.not_gt⟩
   -- By Witt's theorem a rational `γ` carries a short isotropic vector `ξ` at `g` to `k`.
   obtain ⟨ξ, hξ_ne, hξ_iso, hξ_short⟩ := W'.exists_short_isotropic h_high
-  have hξ_inv : HasLeftInv ξ := .of_ne_zero fun h_col ↦ hξ_ne (ext_col fun () ↦ h_col)
-  obtain ⟨γ, hγ⟩ : ∃ γ : U W'.J, (γ : Matrix m m E) * ξ = D.k :=
-    W'.witt hξ_inv ⟨_, D.gram_lk⟩ (hξ_iso.trans D.gram_kk.symm)
-  refine ⟨γ, fun _ j ↦ ?_⟩
+  obtain ⟨γ, hγ⟩ := W'.witt (.of_ne_zero fun h ↦ hξ_ne (ext_col fun () ↦ h))
+    ⟨_, D.gram_lk⟩ (hξ_iso.trans D.gram_kk.symm)
   -- `γ` carries the lattice and the length at `g` to those at `γ g`.
-  obtain ⟨h_mem, h_short⟩ := hξ_short j
-  rw [← hγ]
-  change (γ : Matrix m m E) *ᵥ ξ.col j ∈ _
-  constructor
-  · rw [← SetLike.mem_coe, baseLattice_move_ratEmbed_mul]
-    exact Set.mem_image_of_mem _ h_mem
-  · rwa [norm_archCoords_move_ratEmbed_mul_mulVec]
+  refine ⟨γ, fun _ j ↦ hγ ▸ ⟨?_,
+    (norm_archCoords_move_ratEmbed_mul_mulVec ..).trans_le (hξ_short j).2⟩⟩
+  simpa only [← SetLike.mem_coe, baseLattice_move_ratEmbed_mul] using ⟨ξ.col j, (hξ_short j).1, rfl⟩
 
 open IsDualFamily in
 /-- Let `D` split one hyperbolic plane off `W'`, with isotropic vector `k`, and let the columns `dⱼ`

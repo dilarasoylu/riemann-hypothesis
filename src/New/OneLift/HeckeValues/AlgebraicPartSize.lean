@@ -144,23 +144,16 @@ lemma New.Data.CriticalPair.norm_map_integralAlgebraicPart_le {P : Parameters} {
     [Fintype n] [DecidableEq n] (hp : p.HasEmptyRow n) (σ : ℂ ≃+* ℂ) :
     ‖σ (integralAlgebraicPart hp.2 TameChar.one)‖ ≤ exp (D.x ^ 34) := by
   -- Cauchy–Schwarz bounds the conjugates of `‖φ‖²` by the class sums `φ.normSqAt`, and these are
-  -- bounded through the bound `C` for one kernel value.
-  let φ : (lValueData hp.2 .one).descentPair.FormV := trivialLift hp.2 .one
-  let C : ℝ := (D.M ^ D.f : ℝ) ^ card n *
-    exp (P.constantBound * (P.q₁ D.towerExp * card n + 1) ^ 2 + D.f * card n * log 4)
-  have h_normSq (σ : ℂ ≃+* ℂ) : φ.normSqAt σ ≤ exp (D.x ^ 30) * (exp (D.x ^ 30) * C) ^ 2 :=
-    normSqAt_trivialLift_le hp.2 σ (sqrt_weylNormSq_pointKernel_le hp σ)
-  have h_inner : ‖σ (inner ℂ φ φ)‖ ≤ exp (D.x ^ 30) * (exp (D.x ^ 30) * C) ^ 2 := by
-    grw [φ.norm_map_inner_le φ, h_normSq, h_normSq, mul_self_sqrt (by positivity)]
+  -- bounded through the kernel bound.
+  let φ := trivialLift hp.2 .one
+  have h_normSq τ := normSqAt_trivialLift_le hp.2 τ (sqrt_weylNormSq_pointKernel_le hp τ)
+  rw [show ‖σ (integralAlgebraicPart hp.2 .one)‖ =
+      D.chosenGroupOrder * p.denomBound ^ 2 * ‖σ (inner ℂ φ φ)‖ by
+    simp [integralAlgebraicPart, toAutChar_one_and_toTwist_one_and_Q_one, φ]]
+  grw [chosenGroupOrder_mul_denomBound_sq_le hp, φ.norm_map_inner_le φ,
+    h_normSq, h_normSq, mul_self_sqrt (by positivity)]
   -- Every term of the logarithm is small against `x ^ 34`.
-  have h_log : log (exp (D.x ^ 33) * (exp (D.x ^ 30) * (exp (D.x ^ 30) * C) ^ 2)) ≤ D.x ^ 34 := by
-    simpa [C, hp, log_mul, NeZero.ne] using D.le_of_hasLogBound
-  calc ‖σ (integralAlgebraicPart hp.2 .one)‖
-      = D.chosenGroupOrder * p.denomBound ^ 2 * ‖σ (inner ℂ φ φ)‖ := by
-        simp [integralAlgebraicPart, toAutChar_one_and_toTwist_one_and_Q_one, φ]
-    _ ≤ exp (D.x ^ 33) * (exp (D.x ^ 30) * (exp (D.x ^ 30) * C) ^ 2) := by
-        grw [h_inner, chosenGroupOrder_mul_denomBound_sq_le hp]
-    _ ≤ exp (D.x ^ 34) := le_exp_of_log_le h_log
+  exact le_exp_of_log_le (by simpa [hp, log_mul, NeZero.ne] using D.le_of_hasLogBound)
 
 end AlgebraicPartSize
 
@@ -414,30 +407,19 @@ lemma exists_hasEmptyRow (n : Type) [Fintype n] (h_four_le : 4 ≤ card n) (h_le
     ∃ p : D.CriticalPair, (rankTwist p.character n = χ.val.1 ∧ p.tamePart = χ.val.2) ∧ p.HasEmptyRow
       n := by
   -- Take `p.character = ν υ ^ (-z)` and the constant `negWeight` `z`, with `z = card n / 2`.
-  obtain ⟨⟨ν, ψ⟩, h_weight : ν.HasWeight 0 ψ,
-    h_tame : ∀ w ∉ D.finite_isChosen.toFinset, ψ w = 1⟩ := χ
-  obtain ⟨z, hz : card n = 2 * z⟩ := h_even
-  have h_weight_twist : (ν * (upsilonU1 ^ z)⁻¹).HasWeight (fun _ ↦ -(z : ℤ)) ψ := by
-    have h_mul : (ν * (upsilonU1 ^ z)⁻¹).HasWeight (0 + -fun _ ↦ (z : ℤ)) (ψ * 1⁻¹) :=
-      h_weight.mul (hasWeight_upsilonU1_pow z).inv
-    rwa [zero_add, inv_one, mul_one] at h_mul
-  have hz_mem : z ∈ Set.Icc 1 D.t := ⟨by lia, by lia⟩
-  have hz_le : (z : ℝ) ≤ 4 * D.b :=
-    calc (z : ℝ) ≤ D.t := mod_cast hz_mem.2
-      _ ≤ 4 * D.b := D.le_of_hasLogBound
-  let p : D.CriticalPair :=
+  obtain ⟨⟨ν, ψ⟩, h_weight, h_tame⟩ := χ
+  obtain ⟨z, hz⟩ := h_even
+  refine ⟨
     { character := ν * (upsilonU1 ^ z)⁻¹
       negWeight _ := z
       tamePart := ψ
       z := z
-      hasWeight := h_weight_twist
+      hasWeight := by simpa [Pi.neg_def] using h_weight.mul (hasWeight_upsilonU1_pow z).inv
       tamePart_eq_one w hw := h_tame w (by simpa using hw)
-      z_mem := hz_mem
+      z_mem := ⟨by lia, by lia⟩
       le_negWeight _ := le_rfl
-      negWeight_le _ := hz_le }
-  have h_twist : rankTwist p.character n = ν := by simp [p, rankTwist, hz]
-  have h_rank : p.HasLiftRank n := ⟨hz, show 2 ≤ z by lia⟩
-  exact ⟨p, ⟨h_twist, rfl⟩, fun _ ↦ rfl, h_rank⟩
+      negWeight_le _ := (Nat.cast_le.mpr (by lia : z ≤ D.t)).trans D.le_of_hasLogBound },
+    ⟨by simp [rankTwist, hz], rfl⟩, fun _ ↦ rfl, hz, by lia⟩
 
 lemma CriticalPair.HasEmptyRow.hasLiftRank {p : D.CriticalPair} {n : Type} [Fintype n]
     (h_flat : p.HasEmptyRow n) :

@@ -100,22 +100,16 @@ lemma exists_isPointLift {Y : ∀ i : O.ChosenIndex, Matrix n r (ResField (O.pla
   -- At the places of `O.ChosenIndex` extend `Y i` to an invertible matrix `A i`; at those of
   -- `O.TwistIndex` take `B i` whose columns `e` are the unit vectors `O.incl`. Lift the family
   -- `(A, Bᵀ)` to one element of `stdLevel`.
-  have h_chosen (i : O.ChosenIndex) : ∃ A : GL n (ResField (O.placeAt (.inl i))),
-      A.val * inclMatrix _ O.incl = Y i :=
-    exists_GL_mul_inclMatrix O.incl (hY i)
-  choose A hA using h_chosen
-  have h_twist (i : O.TwistIndex) : ∃ B : GL n (ResField (O.placeAt (.inr i))),
-      B.val * inclMatrix _ e = inclMatrix _ O.incl :=
-    exists_GL_mul_inclMatrix e (inclMatrix_mulVecLin_injective O.incl _)
-  choose B hB using h_twist
-  obtain ⟨k, hk_supp, h_red⟩ : ∃ k : stdLevel E n, k.val ∈ Gf.supportedOn n O.places ∧
-      stdLevel.reduceFamily O.placeAt k = Sum.rec A fun i ↦ transposeGL (B i) :=
-    exists_reduceFamily_eq _
+  choose A hA using fun i ↦ exists_GL_mul_inclMatrix O.incl (hY i)
+  choose B hB using fun i : O.TwistIndex ↦
+    exists_GL_mul_inclMatrix e
+      (inclMatrix_mulVecLin_injective O.incl (ResField (O.placeAt (.inr i))))
+  obtain ⟨k, hk_supp, h⟩ := exists_reduceFamily_eq
+    (Sum.rec (motive := fun j ↦ GL n (ResField (O.placeAt j))) A fun i ↦ transposeGL (B i))
   refine ⟨k, hk_supp, fun i ↦ ?_, fun i ↦ ?_⟩
-  · rw [show stdLevel.reduceAt (O.placeAt (.inl i)) k = A i from congrFun h_red (.inl i)]
+  · rw [show stdLevel.reduceAt (O.placeAt (.inl i)) k = A i from congrFun h (.inl i)]
     exact hA i
-  · rw [show stdLevel.reduceAt (O.placeAt (.inr i)) k = transposeGL (B i)
-      from congrFun h_red (.inr i)]
+  · rw [show stdLevel.reduceAt (O.placeAt (.inr i)) k = transposeGL (B i) from congrFun h (.inr i)]
     exact hB i
 
 variable (O) in
