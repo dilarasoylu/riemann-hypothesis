@@ -63,28 +63,30 @@ theorem deepIndicator_eq_zero_or_eq_one (r : ℕ) (v : Fin k × ZMod N) :
 /-- For every `r` and every index `b`, the variable `(b, s)` is deep for half of the letters `s` in
 `ZMod N`: even and odd letters (`T.isEven`) alternate, and `T.deepIndicator r (b, s)` is `1` if `s`
 is even and `r ≤ b`, or `s` is odd and `b < r`, and `0` otherwise. -/
-theorem sum_deepIndicator [NeZero N]
-    (r : ℕ) (b : Fin k) : ∑ s : ZMod N, T.deepIndicator r (b, s) = N / 2 := by
+theorem sum_deepIndicator [NeZero N] (r : ℕ) (b : Fin k) :
+    ∑ s : ZMod N, T.deepIndicator r (b, s) = N / 2 := by
   -- Shifting `s` by one swaps deep and shallow, so twice the sum is `N`.
   have h_pair (s : ZMod N) : T.deepIndicator r (b, s + 1) + T.deepIndicator r (b, s) = 1 := by
-    cases h_even : T.isEven s <;> by_cases hb : r ≤ b <;>
-      simp [deepIndicator, T.isEven_succ, h_even, hb]
-  have h_shift : ∑ s : ZMod N, T.deepIndicator r (b, s + 1) = ∑ s, T.deepIndicator r (b, s) :=
-    Equiv.sum_comp (Equiv.addRight (1 : ZMod N)) fun s ↦ T.deepIndicator r (b, s)
+    cases h : T.isEven s <;> by_cases hb : r ≤ b <;> simp [deepIndicator, T.isEven_succ, h, hb]
+  have h_shift : ∑ s : ZMod N, T.deepIndicator r (b, s + 1) =
+      ∑ s : ZMod N, T.deepIndicator r (b, s) :=
+    Fintype.sum_equiv (Equiv.addRight (1 : ZMod N)) _ _ fun _ ↦ rfl
   have h_twice : ∑ s : ZMod N, (T.deepIndicator r (b, s + 1) + T.deepIndicator r (b, s)) = N := by
     simp [h_pair]
-  simp only [sum_add_distrib, h_shift] at h_twice
+  rw [sum_add_distrib, h_shift] at h_twice
   lia
 
 /-- Even and odd letters alternate, so for every `b` the letter `i - j` is even for one of
 `j = 2 b` and `j = 2 b + 1`. -/
 theorem exists_div_two_eq_and_isEven_sub (i : ZMod N) (b : ℕ) :
     ∃ j : ℕ, j / 2 = b ∧ T.isEven (i - j) := by
-  have h_succ : T.isEven (i - (2 * b : ℕ)) = !T.isEven (i - (2 * b + 1 : ℕ)) := by
-    rw [← T.isEven_succ, Nat.cast_succ, sub_add_eq_sub_sub, sub_add_cancel]
-  cases h_even : T.isEven (i - (2 * b : ℕ))
-  · exact ⟨2 * b + 1, by lia, by rwa [h_even, eq_comm, Bool.not_eq_false'] at h_succ⟩
-  · exact ⟨2 * b, by lia, h_even⟩
+  cases h : T.isEven (i - (2 * b : ℕ))
+  · refine ⟨2 * b + 1, by lia, ?_⟩
+    have h' := T.isEven_succ (i - (2 * b + 1 : ℕ))
+    rw [show i - (2 * b + 1 : ℕ) + 1 = i - (2 * b : ℕ) by
+      rw [Nat.cast_succ, sub_add_eq_sub_sub, sub_add_cancel], h] at h'
+    cases h'' : T.isEven (i - (2 * b + 1 : ℕ)) <;> simp_all
+  · exact ⟨2 * b, by lia, h⟩
 
 /-- Elements of the local ring `W` with the same image under the ring map `T.embedding s` to the
 field `K` have the same residue. -/
@@ -110,19 +112,14 @@ theorem prod_deepOrder_le {r m : ℕ} (hm : 2 * r + m = k) :
     ∏ v : Fin k × ZMod N, T.deepOrder r v ≤ T.q ^ (r * (m + 1)) := by
   subst hm
   -- Each index `b` has `N / 2` deep variables; `2 r` indices are below `2 r`, and `m` are not.
-  have h_sum : ∑ v : Fin (2 * r + m) × ZMod N,
-      (T.deepIndicator r v * if 2 * r ≤ v.1 then 2 * r else 1) =
-        2 * r * (N / 2) + m * (N / 2 * (2 * r)) := by
-    rw [sum_prod_type, Fin.sum_univ_add]
-    simp [← Finset.sum_mul, sum_deepIndicator, Nat.not_le_of_lt (Fin.is_lt _)]
-  calc ∏ v : Fin (2 * r + m) × ZMod N, T.deepOrder r v
-      = T.P ^ (N / 2 * 2 * (r * (m + 1))) := by
-        simp only [deepOrder, prod_pow_eq_pow_sum, h_sum]
-        ring
-    _ ≤ T.P ^ (N * (r * (m + 1))) := by
-        gcongr
-        exacts [mod_cast T.one_lt_P.le, N.div_mul_le_self 2]
-    _ = T.q ^ (r * (m + 1)) := by rw [q, pow_mul T.P]
+  simp only [deepOrder, prod_pow_eq_pow_sum, q, ← pow_mul]
+  refine Nat.pow_le_pow_right T.prime.pos ?_
+  rw [← Finset.mul_sum, mul_assoc]
+  refine Nat.mul_le_mul_left _ ?_
+  rw [sum_prod_type, Fin.sum_univ_add]
+  simp [← Finset.sum_mul, sum_deepIndicator, Nat.not_le_of_lt (Fin.is_lt _)]
+  rw [show 2 * r * (N / 2) + m * (N / 2 * (2 * r)) = N / 2 * 2 * (r * (m + 1)) by ring]
+  exact Nat.mul_le_mul_right _ (N.div_mul_le_self 2)
 
 /-- If `F` lies in `T.deepForms k n r τ`, the coefficient of its translate by `g` (the matrix of `g`
 on coefficient vectors is `T.letterRep n g`) vanishes at every monomial `β` whose degree in the
@@ -173,10 +170,9 @@ variable `X (b, s)` is deep for `r` if `T.isEven s` and `r ≤ b`, or if `s` is 
 theorem specializeShallow_injective {L : Type} [CommRing L] (r : ℕ)
     {x : MvPolynomial (Fin k × ZMod N) K →+* L} (hx : Function.Injective x) :
     Function.Injective (T.specializeShallow r x) := by
-  have h_factor : x = (eval (x ∘ X)).comp (T.specializeShallow r x) := by
+  have h_factor : (eval (x ∘ X)).comp (T.specializeShallow r x) = x := by
     ext <;> simp [specializeShallow, apply_ite]
-  rw [h_factor, RingHom.coe_comp] at hx
-  exact hx.of_comp
+  exact Function.Injective.of_comp (f := eval (x ∘ X)) (by rwa [← RingHom.coe_comp, h_factor])
 
 /-- If `x` is injective, the ring map `T.specializeShallow r x` does not send the polynomial with
 coefficients `F ≠ 0` to zero. -/
@@ -541,13 +537,9 @@ lemma exists_eval_entryFormValue_eq_pow_deepOrder [CharP K T.p] {r m : ℕ} (hm 
         eval (T.entryFormValue hm x y) g = T.entryFormValue hm x y v ^ T.deepOrder r v := by
   -- `T.deepOrder r v` is a power `P ^ j`, so the value is a linear form in the `ι_i (y t).out`,
   -- where `i` is the letter of `v` plus `j`.
-  let j : ℕ := T.deepIndicator r v * if 2 * r ≤ v.1 then 2 * r else 1
-  have h_pow (y : Fin r × Fin (m + 1) → ResidueField W) :
-      T.entryFormValue hm x y v ^ T.deepOrder r v =
-        (x ∘ T.entryCoeff hm v) ^ T.P ^ j ⬝ᵥ fun t ↦ x (C (T.embedding (v.2 + j) (y t).out)) :=
-    T.entryFormValue_pow hm y v j
-  obtain ⟨g, hg_cost, hg_eval⟩ := T.exists_eval_entryFormValue_eq_dotProduct hm hx (v.2 + j) _
-  exact ⟨g, hg_cost, fun y ↦ (hg_eval y).trans (h_pow y).symm⟩
+  let j := T.deepIndicator r v * if 2 * r ≤ v.1 then 2 * r else 1
+  simpa only [deepOrder, entryFormValue_pow] using
+    T.exists_eval_entryFormValue_eq_dotProduct hm hx (v.2 + j) ((x ∘ T.entryCoeff hm v) ^ T.P ^ j)
 
 /-- Let `x` embed the polynomials over `K` in a field `L`, both fields of characteristic `p`. Then
 the point `z` determines the residues `y t`.
@@ -566,12 +558,9 @@ lemma entryFormValue_injective [CharP K T.p] {r m : ℕ} (hm : 2 * r + m = k)
   ext t
   -- The entry at `t` is the value of one polynomial at the point.
   obtain ⟨g, -, hg⟩ := T.exists_eval_entryFormValue_eq_dotProduct hm hx 0 (Pi.single t 1)
-  have h_entry (y : Fin r × Fin (m + 1) → ResidueField W) :
-      eval (T.entryFormValue hm x y) g = x (C (T.embedding 0 (y t).out)) := by simp [hg]
-  have h_eq : T.embedding 0 (y t).out = T.embedding 0 (y' t).out :=
-    C_injective (Fin k × ZMod N) K (hx (by rw [← h_entry, ← h_entry, h_point]))
   rw [← (y t).out_eq, ← (y' t).out_eq]
-  exact T.residue_eq_of_embedding_eq h_eq
+  exact T.residue_eq_of_embedding_eq <| C_injective _ K <| hx <| by
+    simpa [hg] using congrArg (eval · g) h_point
 
 variable [NeZero N]
 
@@ -630,37 +619,23 @@ theorem exists_le_weight_of_mem_deepForms [CharP K T.p] {n r τ : ℕ}
   let L : Type := FractionRing (MvPolynomial (Fin k × ZMod N) K)
   let x : MvPolynomial (Fin k × ZMod N) K →+* L := algebraMap _ L
   have hx : Function.Injective x := IsFractionRing.injective _ _
-  -- The variable `v` costs `1 / κ v`.
-  let κ : Fin k × ZMod N → ℕ := T.deepOrder r
-  have hκ (v : Fin k × ZMod N) : 0 < κ v := pow_pos (pow_pos T.prime.pos _) _
-  let point : (Fin r × Fin (m + 1) → ResidueField W) → Fin k × ZMod N → L := T.entryFormValue hm x
-  let cost : (Fin k × ZMod N →₀ ℕ) →+ ℝ := weight (fun v : Fin k × ZMod N ↦ (κ v : ℝ))⁻¹
-  have h_eqs (v : Fin k × ZMod N) : ∃ g : MvPolynomial (Fin k × ZMod N) L,
-      (∀ α ∈ g.support, cost α < 1) ∧ ∀ y, eval (point y) g = point y v ^ κ v :=
-    T.exists_eval_entryFormValue_eq_pow_deepOrder hm hx v
-  choose g hg_cost hg_eval using h_eqs
-  have h_card : ∏ v, κ v ≤ Fintype.card (Fin r × Fin (m + 1) → ResidueField W) := by
+  -- The variable `v` costs `1 / T.deepOrder r v`.
+  choose g hg_cost hg_eval using T.exists_eval_entryFormValue_eq_pow_deepOrder hm hx
+  have h_card : ∏ v : Fin k × ZMod N, T.deepOrder r v ≤
+      Fintype.card (Fin r × Fin (m + 1) → ResidueField W) := by
     rw [card_fun, card_eq_nat_card, T.card_residueField]
-    simpa [κ] using T.prod_deepOrder_le hm
-  let f : MvPolynomial (Fin k × ZMod N) L := T.specializeShallow r x (polyOfCoeffs F)
-  have h_ne : f ≠ 0 := T.specializeShallow_polyOfCoeffs_ne_zero r hx hF_ne
-  have h_order (y : Fin r × Fin (m + 1) → ResidueField W) :
-      f ∈ vanishingIdeal L {point y} ^ τ :=
-    T.specializeShallow_polyOfCoeffs_mem_vanishingIdeal_pow hm x hF y
-  obtain ⟨α, hα, h_cost⟩ : ∃ α ∈ f.support, τ ≤ cost α :=
-    exists_le_weight_of_mem_vanishingIdeal_pow κ hκ point (T.entryFormValue_injective hm hx) h_card
-      g hg_cost hg_eval τ f h_ne h_order
-  obtain ⟨β, hβ, hαβ⟩ : ∃ β : Exponents N k n, F β ≠ 0 ∧
-      ∀ v : Fin k × ZMod N, α v = if T.deepIndicator r v = 0 then 0 else exponentOf β v :=
-    T.exists_eq_of_mem_support_specializeShallow hα
+    simpa using T.prod_deepOrder_le hm
+  obtain ⟨α, hα, h_cost⟩ := exists_le_weight_of_mem_vanishingIdeal_pow (T.deepOrder r)
+    (fun _ ↦ pow_pos (pow_pos T.prime.pos _) _) (T.entryFormValue hm x)
+    (T.entryFormValue_injective hm hx) h_card g hg_cost hg_eval τ _
+    (T.specializeShallow_polyOfCoeffs_ne_zero r hx hF_ne)
+    (T.specializeShallow_polyOfCoeffs_mem_vanishingIdeal_pow hm x hF)
+  obtain ⟨β, hβ, hαβ⟩ := T.exists_eq_of_mem_support_specializeShallow hα
   -- `α` is the deep part of `exponentOf β`, so its cost is the weight of `β`.
-  have h_term (v : Fin k × ZMod N) : (α v : ℝ) * (κ v : ℝ)⁻¹ =
-      exponentOf β v * (T.deepIndicator r v / T.P ^ (if 2 * r ≤ v.1 then 2 * r else 1) : ℝ) := by
-    obtain h_shallow | h_deep := T.deepIndicator_eq_zero_or_eq_one r v
-    · simp [hαβ, h_shallow]
-    · simp [hαβ, κ, deepOrder, h_deep]
   refine ⟨β, hβ, h_cost.trans_eq ?_⟩
-  simp only [cost, weight_eq_sum, nsmul_eq_mul, Pi.inv_apply, h_term]
+  simp only [weight_eq_sum, nsmul_eq_mul, Pi.inv_apply]
+  refine sum_congr rfl fun v _ ↦ ?_
+  obtain h | h := T.deepIndicator_eq_zero_or_eq_one r v <;> simp [hαβ, deepOrder, h]
 
 end Weight
 
@@ -695,23 +670,20 @@ lemma New.mul_sum_exponentOf {N k : ℕ} [NeZero N] (n : ℕ) (x : Fin k × ZMod
     k * ∑ β : Exponents N k n, (exponentOf β x : ℝ) =
       Fintype.card (Monomials (Fin k) n) ^ N * n := by
   -- Swapping two rows permutes the monomials.
-  have h_symm (a b : Fin k) (s : ZMod N) : ∑ β : Exponents N k n, (exponentOf β (a, s) : ℝ) =
-      ∑ β : Exponents N k n, (exponentOf β (b, s) : ℝ) := by
-    let swapRows : Equiv.Perm (Monomials (Fin k) n) :=
-      Equiv.Perm.subtypePerm (equivCongrLeft (Equiv.swap a b)).symm fun α ↦ by
-        simp only [mem_finsuppAntidiag']
+  have h_symm (b : Fin k) : ∑ β : Exponents N k n, (exponentOf β (b, x.2) : ℝ) =
+      ∑ β : Exponents N k n, (exponentOf β x : ℝ) := by
+    let swap : Equiv.Perm (Monomials (Fin k) n) :=
+      Equiv.Perm.subtypePerm (equivCongrLeft (Equiv.swap b x.1)).symm fun α ↦ by
         simp
-    have h_swap (β : Exponents N k n) : exponentOf (swapRows ∘ β) (a, s) = exponentOf β (b, s) := by
-      simp [swapRows, exponentOf]
-    rw [← swapRows.bijective.comp_left.sum_comp]
-    simp only [h_swap]
+        rw [show ∑ i, equivMapDomain (Equiv.swap b x.1) α i = ∑ i, α i by
+          simpa [equivMapDomain_apply] using Equiv.sum_comp (Equiv.swap b x.1) ⇑α]
+    rw [← swap.bijective.comp_left.sum_comp]
+    simp [swap, exponentOf]
   calc k * ∑ β : Exponents N k n, (exponentOf β x : ℝ)
-      = ∑ b : Fin k, ∑ β : Exponents N k n, (exponentOf β (b, x.2) : ℝ) := by
-        simp [h_symm _ x.1]
-    _ = ∑ β : Exponents N k n, (n : ℝ) := by
+      = ∑ b : Fin k, ∑ β : Exponents N k n, (exponentOf β (b, x.2) : ℝ) := by simp [h_symm]
+    _ = Fintype.card (Monomials (Fin k) n) ^ N * n := by
         simp [Finset.sum_comm (γ := Fin k), exponentOf, ← cast_sum, ← degree_eq_sum,
           Monomials.degree_eq]
-    _ = Fintype.card (Monomials (Fin k) n) ^ N * n := by simp
 
 /-- If every nonzero vector of a subspace `S` of functions on `ι` is nonzero at some point of a
 finite set `s`, then `dim S ≤ #s`. -/
@@ -719,12 +691,10 @@ lemma New.finrank_le_card_of_forall_exists_ne_zero {K ι : Type*} [Field K]
     {S : Submodule K (ι → K)} {s : Finset ι} (hS : ∀ F ∈ S, F ≠ 0 → ∃ β ∈ s, F β ≠ 0) :
     finrank K S ≤ #s := by
   rw [← Fintype.card_coe, ← finrank_fintype_fun_eq_card K]
-  let res : S →ₗ[K] s → K := (LinearMap.funLeft K K ((↑) : s → ι)).domRestrict S
-  refine res.finrank_le_finrank_of_injective
-    ((injective_iff_map_eq_zero res).2 fun F hF ↦ Subtype.ext ?_)
-  by_contra h_ne
-  obtain ⟨β, hβ, h_value⟩ := hS F F.property h_ne
-  exact h_value (by simpa [res] using congrFun hF ⟨β, hβ⟩)
+  refine ((LinearMap.funLeft K K ((↑) : s → ι)).domRestrict S).finrank_le_finrank_of_injective
+    ((injective_iff_map_eq_zero _).2 fun F hF ↦ Subtype.ext <| not_ne_iff.1 fun h_ne ↦ ?_)
+  obtain ⟨β, hβ, h_value⟩ := hS F F.2 h_ne
+  exact h_value (congrFun hF ⟨β, hβ⟩)
 
 variable {N k : ℕ} [NeZero N] {W K : Type} [CommRing W] [IsLocalRing W] [Field K]
 
