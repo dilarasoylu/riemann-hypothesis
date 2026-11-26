@@ -166,24 +166,17 @@ lemma mem_of_locIdele_mem {H : Subgroup (𝔸f K)ˣ} (hH : IsClosed H.carrier)
   -- `b ∈ H` is the product of the components of `a` at enough places; this says `b ∉ H`.
   by_contra ha_notMem
   -- An idele that is a unit everywhere and `1` at the places of `T` lies in `a⁻¹ Hᶜ`.
-  obtain ⟨T, hT⟩ : ∃ T : Finset (FinPlace K),
-      (idelesUnitOff ∅).carrier \ (fun x ↦ a⁻¹ * x) '' H.carrierᶜ ⊆
-        ⋃ v ∈ T, (⇑(ideleAt v)).mulSupport :=
-    exists_finset_cover_mulSupport_ideleAt (isOpenMap_mul_left a⁻¹ _ hH.isOpen_compl)
-      ⟨a, ha_notMem, inv_mul_cancel a⟩
+  obtain ⟨T, hT⟩ := exists_finset_cover_mulSupport_ideleAt
+    (isOpenMap_mul_left a⁻¹ _ hH.isOpen_compl) ⟨a, ha_notMem, inv_mul_cancel a⟩
   -- Enlarge `T` by the places where `a` is not a unit.
-  set T' : Finset (FinPlace K) := T ∪ (finite_setOf_valued_val_ne_one a).toFinset with hT'
-  set b : (𝔸f K)ˣ := ∏ v ∈ T', locIdele v (ideleAt v a) with hb
-  have hb_mem : b ∈ H := prod_mem fun v _ ↦ ha v
-  have hb_at (w : FinPlace K) : ideleAt w b = if w ∈ T' then ideleAt w a else 1 := by
-    rw [hb, map_prod, Finset.prod_eq_ite _ fun v _ hv ↦ ideleAt_locIdele_of_ne hv.symm _]
+  let T' := T ∪ (finite_setOf_valued_val_ne_one a).toFinset
+  let b := ∏ v ∈ T', locIdele v (ideleAt v a)
+  have hb_at (w) : ideleAt w b = if w ∈ T' then ideleAt w a else 1 := by
+    rw [map_prod, Finset.prod_eq_ite _ fun v _ hv ↦ ideleAt_locIdele_of_ne hv.symm _]
     simp
   -- `a⁻¹ b` is `1` on `T'` and equals `a⁻¹`, a unit, elsewhere.
-  have h_unit : a⁻¹ * b ∈ idelesUnitOff ∅ := by aesop (add simp [idelesUnitOff, hb_at, hT'])
-  have h_notMem : a⁻¹ * b ∉ (fun x ↦ a⁻¹ * x) '' H.carrierᶜ := by simpa using hb_mem
-  obtain ⟨v, hv, hv_ne⟩ : ∃ v ∈ T, ideleAt v (a⁻¹ * b) ≠ 1 := by simpa using hT ⟨h_unit, h_notMem⟩
-  have h_one : ideleAt v (a⁻¹ * b) = 1 := by simp [hb_at, hT', hv]
-  exact hv_ne h_one
+  simpa +contextual [hb_at, T'] using @hT (a⁻¹ * b)
+    ⟨by aesop (add simp [idelesUnitOff, hb_at, T']), by simpa using prod_mem fun v _ ↦ ha v⟩
 
 /-- The idele with component `x` at `v` and `1` elsewhere is a unit outside any `S` when `x` is a
 unit of the integers at `v`. -/
@@ -348,14 +341,11 @@ lemma exists_sup_idelesUnitOff_eq_top (hR : R.Finite) (R' : Set (FinPlace K)) (h
   obtain ⟨c, hc⟩ := exists_idele_classGroup_hom (K := K)
   let r : ClassGroup (𝓞 K) → (𝔸f K)ˣ := invFun c
   -- By density of `K` in the finite adeles, `r y` has the same valuations on `R'` as some `x y`.
-  have h_approx (y : ClassGroup (𝓞 K)) :
-      ∃ x : Kˣ, ∀ w ∈ R', w.valuation K x.val = v ((r y).val w) := by
-    have h_near : ∀ᶠ z in nhds (r y).val, z ≠ 0 ∧ ∀ w ∈ R', v (z w) = v ((r y).val w) := by
-      refine (eventually_ne_nhds (r y).ne_zero).and (hR'.eventually_all.mpr fun w _ ↦ ?_)
-      -- the valuation at `w` is locally constant away from `0`
-      exact (continuous_evalAt w).tendsto _ (locally_const (by simp [isUnit_iff.mp]))
-    simpa [exists0] using denseRange_algebraMap_finAdele.mem_nhds h_near
-  choose x hx using h_approx
+  choose x hx using fun y : ClassGroup (𝓞 K) ↦
+    show ∃ x : Kˣ, ∀ w ∈ R', w.valuation K x.val = v ((r y).val w) by
+      simpa [exists0] using denseRange_algebraMap_finAdele.mem_nhds <|
+        (eventually_ne_nhds (r y).ne_zero).and <| hR'.eventually_all.mpr fun w _ ↦
+          (continuous_evalAt w).tendsto _ (locally_const (by simp [isUnit_iff.mp]))
   let q (y : ClassGroup (𝓞 K)) : (𝔸f K)ˣ := (principalIdele (x y))⁻¹ * r y
   let T : Set (FinPlace K) := R ∪ ⋃ y, {w | v ((q y).val w) ≠ 1}
   refine ⟨T, hR.union (Set.finite_iUnion fun y ↦ finite_setOf_valued_val_ne_one (q y)),
@@ -363,17 +353,12 @@ lemma exists_sup_idelesUnitOff_eq_top (hR : R.Finite) (R' : Set (FinPlace K)) (h
   · -- On `R'` each quotient is a unit, so `T` meets `R'` only inside `R`.
     simp +contextual [T, q, principalIdele, hx, isUnit_iff.mp]
   -- The subgroup contains the kernel of `c` and the representative of the class of `a`, hence `a`.
-  have h_ker_le : c.ker ≤ principalIdele.range ⊔ idelesUnitOff T :=
-    hc.trans_le (sup_le_sup_left (idelesUnitOff_mono (Set.empty_subset T)) _)
-  have hq_mem : q (c a) ∈ idelesUnitOff T := by simp +contextual [T, mem_idelesUnitOff]
+  rw [← comap_map_eq_self <|
+    hc.trans_le (sup_le_sup_left (idelesUnitOff_mono (Set.empty_subset T)) _)]
   -- `r (c a)` is the principal idele of `x (c a)` times `q (c a)`.
-  have h_rep_mem : r (c a) ∈ principalIdele.range ⊔ idelesUnitOff T :=
-    mem_sup.mpr ⟨_, ⟨x (c a), rfl⟩, q (c a), hq_mem, mul_eq_of_eq_inv_mul rfl⟩
-  have h_mem_map : c a ∈ (principalIdele.range ⊔ idelesUnitOff T).map c :=
-    ⟨r (c a), h_rep_mem, apply_invFun_apply⟩
-  -- a subgroup that contains `c.ker` is the preimage of its image
-  rw [← comap_map_eq_self h_ker_le]
-  exact h_mem_map
+  refine ⟨r (c a), mem_sup.mpr ⟨_, ⟨x (c a), rfl⟩, q (c a), ?_, mul_eq_of_eq_inv_mul rfl⟩,
+    apply_invFun_apply⟩
+  simp +contextual [T, mem_idelesUnitOff]
 
 /-- Every finite set of places `R` lies in a finite set `S` such that every finite idele is a
 principal idele times an idele that is a unit outside `S`. -/

@@ -315,55 +315,44 @@ lemma hasPrimeDensity_of_tendsto (ha : ∀ v : FinPlace K, ‖a v‖ ≤ 1) {l :
   -- Euler product differs from the sum over the primes of degree one by a bounded error.
   let L (s : ℝ) (v : FinPlace K) : ℂ := log (1 + -(a v * v.q ^ (-s : ℂ)))
   let logProd (s : ℝ) : ℂ := (s - 1).log * l + -∑' v, L s v
-  have h_exp_logProd (s : ℝ) (hs_gt : 1 < s) : (s - 1) ^ l * eulerProd a s = exp (logProd s) := by
-    have h_ne : (s : ℂ) - 1 ≠ 0 := sub_ne_zero.mpr (mod_cast hs_gt.ne')
-    rw [eulerProd_eq_exp_neg_tsum_log_of_norm_le_one ha hs_gt, cpow_def_of_ne_zero h_ne, ← exp_add]
-    simp [logProd, L, ofReal_log (sub_nonneg.mpr hs_gt.le)]
   have h_exp : Tendsto (fun s : ℝ ↦ exp (logProd s) / c) (𝓝[>] 1) (𝓝 (c / c)) :=
-    (tendsto_nhdsWithin_congr h_exp_logProd h_lim).div_const c
+    (tendsto_nhdsWithin_congr (fun s (hs : 1 < s) ↦ by
+      rw [eulerProd_eq_exp_neg_tsum_log_of_norm_le_one ha hs,
+        cpow_def_of_ne_zero (sub_ne_zero.mpr (mod_cast hs.ne')), ← exp_add]
+      simp [logProd, L, ofReal_log (sub_nonneg.mpr hs.le)]) h_lim).div_const c
   have h_one : c / c ∈ slitPlane := by simp [div_self hc]
-  obtain ⟨s₁, hs₁, h_slit⟩ :
-      ∃ s₁ ∈ Set.Ioi (1 : ℝ), ∀ s ∈ Set.Ioc 1 s₁, exp (logProd s) / c ∈ slitPlane :=
+  obtain ⟨s₁, hs₁, h_slit⟩ :=
     mem_nhdsGT_iff_exists_Ioc_subset.mp (h_exp (isOpen_slitPlane.mem_nhds h_one))
-  have hlog_cont : ContinuousOn logProd (Ioc 1 s₁) := by
-    refine .add (by fun_prop (disch := grind)) fun s ⟨hs_gt, _⟩ ↦ ?_
-    obtain ⟨-, -, h_cont⟩ := eulerProd_eq_exp ha hs_gt
-    exact h_cont.continuousWithinAt
+  have hlog_cont : ContinuousOn logProd (Ioc 1 s₁) := .add (by fun_prop (disch := grind))
+    fun s ⟨hs, _⟩ ↦ (eulerProd_eq_exp ha hs).2.2.continuousWithinAt
   -- On `(1, s₁]` the function `logProd - log (exp logProd / c)` is a continuous logarithm of the
   -- constant `c`, so it is constant.
-  have h_exp_eq (t : ℝ) (ht : t ∈ Ioc 1 s₁) : exp (logProd t - log (exp (logProd t) / c)) = c := by
-    rw [exp_sub, exp_log (slitPlane_ne_zero (h_slit t ht)), div_div_cancel₀ (exp_ne_zero _)]
-  have hlog_const (s : ℝ) (hs : s ∈ Set.Ioc 1 s₁) :
-      logProd s - log (exp (logProd s) / c) = logProd s₁ - log (exp (logProd s₁) / c) :=
+  let C : ℂ := logProd s₁ - log (exp (logProd s₁) / c)
+  have hlog_const (s : ℝ) (hs : s ∈ Ioc 1 s₁) : logProd s - log (exp (logProd s) / c) = C :=
     isCoveringMap_exp.constOn_of_comp isPreconnected_Ioc
       (hlog_cont.fun_sub ((hlog_cont.cexp.div_const c).clog h_slit))
-      (fun t ht t' ht' ↦ Subtype.ext ((h_exp_eq t ht).trans (h_exp_eq t' ht').symm)) hs
-      ⟨hs₁, le_rfl⟩
-  let C : ℂ := logProd s₁ - log (exp (logProd s₁) / c)
-  have hlog_bdd : (fun s ↦ C + log (exp (logProd s) / c)) =O[𝓝[>] 1] (1 : ℝ → ℝ) :=
-    ((h_exp.clog h_one).const_add C).isBigO_one ℝ
+      (fun t ht t' ht' ↦ Subtype.ext <| by
+        simp [exp_sub, exp_log (slitPlane_ne_zero (h_slit ht)),
+          exp_log (slitPlane_ne_zero (h_slit ht')), div_div_cancel₀ (exp_ne_zero _)])
+      hs ⟨hs₁, le_rfl⟩
   -- The error terms `E s v` are bounded, uniformly in `s > 1`, by a convergent series.
   let E (s : ℝ) (v : FinPlace K) : ℂ := L s v - ite v.q.Prime (-(a v * v.q ^ (-s : ℂ))) 0
-  have hE_le (s : ℝ) (hs : 1 < s) (v : FinPlace K) : ‖E s v‖ ≤ 2 * (v.q.minFac ^ 2 : ℝ)⁻¹ :=
-    (norm_log_one_add_neg_mul_cpow_sub_ite_le_of_norm_le_one ha hs.le v).trans_eq
-      (div_eq_mul_inv _ _)
+  have hE_le (s : ℝ) (hs : 1 < s) (v : FinPlace K) : ‖E s v‖ ≤ 2 * (v.q.minFac ^ 2 : ℝ)⁻¹ := by
+    simpa [div_eq_mul_inv] using norm_log_one_add_neg_mul_cpow_sub_ite_le_of_norm_le_one ha hs.le v
   have h_sum : Summable fun v : FinPlace K ↦ 2 * (v.q.minFac ^ 2 : ℝ)⁻¹ :=
-    (summable_of_sum_le (fun v ↦ by positivity) sum_inv_minFac_sq_le_finrank).mul_left 2
-  have hE_bdd : (fun s ↦ ∑' v, E s v) =O[𝓝[>] 1] (1 : ℝ → ℝ) :=
-    (isBoundedUnder_of_eventually_le <| eventually_mem_nhdsWithin.mono fun s hs ↦
-      tsum_of_norm_bounded h_sum.hasSum (hE_le s hs)).isBigO_one ℝ
+    (summable_of_sum_le (fun _ ↦ by positivity) sum_inv_minFac_sq_le_finrank).mul_left 2
   -- The bounded error term: the sum of the `E s v` plus `logProd s`, written as the constant
   -- logarithm `C` of `c` plus `log (exp (logProd s) / c)`.
-  let err (s : ℝ) : ℂ := ∑' v, E s v + (C + log (exp (logProd s) / c))
-  refine ⟨err, hE_bdd.add hlog_bdd, .mono (Ioc_mem_nhdsGT hs₁) fun s ⟨hs_gt, hs_le⟩ ↦ ?_⟩
+  refine ⟨fun s ↦ ∑' v, E s v + (C + log (exp (logProd s) / c)),
+    ((isBoundedUnder_of_eventually_le <| eventually_mem_nhdsWithin.mono fun s hs ↦
+      tsum_of_norm_bounded h_sum.hasSum (hE_le s hs)).isBigO_one ℝ).add
+      (((h_exp.clog h_one).const_add C).isBigO_one ℝ),
+    .mono (Ioc_mem_nhdsGT hs₁) fun s ⟨hs_gt, hs_le⟩ ↦ ?_⟩
   -- The terms are `E s v - L s v`, and `-∑' v, L s v = logProd s - log (s - 1) * l`.
-  have h_terms : (fun v : FinPlace K ↦ ite v.q.Prime (a v) 0 * v.q ^ (-s : ℂ)) =
-      fun v ↦ E s v - L s v := by grind
-  have h_value : err s - l * Real.log (s - 1) = ∑' v, E s v - ∑' v, L s v := by
-    linear_combination -hlog_const s ⟨hs_gt, hs_le⟩
-  rw [h_terms, h_value]
-  exact (h_sum.of_norm_bounded (hE_le s hs_gt)).hasSum.sub
-    (summable_log_one_add_neg_mul_cpow_of_norm_le_one ha hs_gt).hasSum
+  convert (h_sum.of_norm_bounded (hE_le s hs_gt)).hasSum.sub
+    (summable_log_one_add_neg_mul_cpow_of_norm_le_one ha hs_gt).hasSum using 1
+  · grind
+  · linear_combination -hlog_const s ⟨hs_gt, hs_le⟩
 
 open Real
 
@@ -373,31 +362,25 @@ nonzero at `s`, and the logarithm of its modulus has absolute value at most
 lemma eulerProd_ne_zero_and_abs_log_norm_le (ha : ∀ v : FinPlace K, ‖a v‖ ≤ 1) {σ : ℝ} (hσ : 2 ≤ σ)
     (hs : σ ≤ s) :
     eulerProd a s ≠ 0 ∧ |Real.log ‖eulerProd a s‖| ≤ 2 * finrank ℚ K * 2 ^ (2 - σ) := by
-  have hs_one : 1 < s := by linarith
-  have h_summable := summable_log_one_add_neg_mul_cpow_of_norm_le_one ha hs_one
+  -- The product is `exp (-z)` for the sum `z` of the logarithms: it is nonzero, and
+  -- `|log ‖exp (-z)‖| = |re z| ≤ ‖z‖`.
+  rw [eulerProd_eq_exp_neg_tsum_log_of_norm_le_one ha (by linarith)]
+  refine ⟨exp_ne_zero _, ?_⟩
+  rw [norm_exp, Real.log_exp, neg_re, abs_neg]
+  refine (abs_re_le_norm _).trans (le_of_tendsto'
+    (summable_log_one_add_neg_mul_cpow_of_norm_le_one ha (by linarith)).hasSum.norm fun u ↦ ?_)
   -- Each logarithm is at most `2 * q ^ (-σ) ≤ 2 * 2 ^ (2 - σ) / p ^ 2`, as `q ≥ 2` and `p ≤ q` for
   -- the least prime factor `p` of `q`.
   have h_term (v : FinPlace K) :
       ‖log (1 + -(a v * v.q ^ (-s : ℂ)))‖ ≤ 2 * 2 ^ (2 - σ) * (v.q.minFac ^ 2 : ℝ)⁻¹ := by
-    have hq : (2 : ℝ) ≤ v.q := mod_cast v.one_lt_q
-    have hp : 0 < v.q.minFac := v.q.minFac_pos
+    have hp := v.q.minFac_pos
     calc _ ≤ 2 * (v.q : ℝ) ^ (-σ) :=
           norm_log_one_add_neg_mul_cpow_le_of_norm_le_one ha (by linarith) hs v
       _ = 2 * v.q ^ (2 - σ) * (v.q ^ 2 : ℝ)⁻¹ := by simp [rpow_sub, v.q_bounds, field, rpow_neg]
-      _ ≤ _ := by
-        grw [rpow_le_rpow_of_nonpos two_pos hq (sub_nonpos.mpr hσ), Nat.minFac_le v.one_lt_q.le]
+      _ ≤ _ := by grw [rpow_le_rpow_of_nonpos two_pos (mod_cast v.one_lt_q) (sub_nonpos.mpr hσ),
+        Nat.minFac_le v.one_lt_q.le]
   -- Sum over the primes, using `∑ p⁻² ≤ [K : ℚ]`.
-  have h_sum : ‖∑' v, log (1 + -(a v * v.q ^ (-s : ℂ)))‖ ≤ 2 * finrank ℚ K * 2 ^ (2 - σ) := by
-    refine le_of_tendsto' h_summable.hasSum.norm fun u ↦ ?_
-    grw [norm_sum_le, h_term, ← Finset.mul_sum, sum_inv_minFac_sq_le_finrank u, mul_right_comm]
-  -- The product is `exp (-z)` for the sum `z` of the logarithms: it is nonzero, and
-  -- `|log ‖exp (-z)‖| = |re z| ≤ ‖z‖`.
-  rw [eulerProd_eq_exp_neg_tsum_log_of_norm_le_one ha hs_one]
-  refine ⟨exp_ne_zero _, ?_⟩
-  set z : ℂ := ∑' v : FinPlace K, Complex.log (1 + -(a v * v.q ^ (-s : ℂ)))
-  calc |Real.log ‖exp (-z)‖| = |z.re| := by rw [norm_exp, Real.log_exp, neg_re, abs_neg]
-    _ ≤ ‖z‖ := abs_re_le_norm z
-    _ ≤ 2 * finrank ℚ K * 2 ^ (2 - σ) := h_sum
+  grw [norm_sum_le, h_term, ← Finset.mul_sum, sum_inv_minFac_sq_le_finrank u, mul_right_comm]
 
 /-- Euler product: for `χ` multiplicative on the ideals of `𝓞 K` with `‖χ I‖ ≤ 1` and real `s > 1`,
 the series `∑ I, χ I * N(I) ^ (-s)` converges to the Euler product with coefficients `χ v`. -/
@@ -587,39 +570,28 @@ lemma hasPrimeDensity_card_degree_one (L : Type*) [Field L] [NumberField L] [Alg
       c := by
   -- The constant family `c` on the primes of `L` has mean `c`; group its series by the prime of
   -- `K` below.
-  obtain ⟨x, hx, h_sum⟩ : HasPrimeDensity (fun _ : FinPlace L ↦ c) c := hasPrimeDensity_const c
-  refine ⟨x, hx, h_sum.mono fun s hs ↦ ?_⟩
+  obtain ⟨x, hx, h_sum⟩ := hasPrimeDensity_const (K := L) c
+  refine ⟨x, hx, h_sum.mono fun s hs ↦ (hs.tsum_fiberwise fun w ↦ w.below K).congr_fun fun v ↦ ?_⟩
   -- It remains to compare, for each `v`, the term of `v` with the sum over the primes above `v`.
-  have h_fiber (v : FinPlace K) :
-      ite v.q.Prime (c * {w : FinPlace L | w.below K = v ∧ w.q = v.q}.ncard) 0 * v.q ^ (-s : ℂ) =
-        ∑' w : (fun w : FinPlace L ↦ w.below K) ⁻¹' {v},
-          ite (w : FinPlace L).q.Prime c 0 * (w : FinPlace L).q ^ (-s : ℂ) := by
-    set S : Set (FinPlace L) := {w : FinPlace L | w.below K = v ∧ w.q = v.q}
-    have hS : S ⊆ (fun w : FinPlace L ↦ w.below K) ⁻¹' {v} := fun _ ⟨h_below, _⟩ ↦ h_below
-    -- A prime `w` above `v` of prime norm lies in `S`, because `w.q` is a power of `v.q`.
-    have h_prime (w : FinPlace L) (hw : w.below K = v) (hq : w.q.Prime) : w ∈ S := by
-      subst hw
-      obtain ⟨h_q_eq, -⟩ :=
-        hq.pow_eq_iff.mp ((Ideal.under (𝓞 K) w.asIdeal).absNorm_pow_inertiaDeg w.asIdeal)
-      exact ⟨rfl, h_q_eq.symm⟩
-    -- On `S` every term is the same, since `w.q = v.q` there.
-    have h_term (w : S) : ite (w : FinPlace L).q.Prime c 0 * ((w : FinPlace L).q : ℂ) ^ (-s : ℂ) =
-        ite v.q.Prime c 0 * (v.q : ℂ) ^ (-s : ℂ) := by
-      obtain ⟨w, -, hw_q⟩ := w
-      rw [hw_q]
-    -- Only the `w ∈ S` contribute to the sum over the primes above `v`.
-    have h_support : Function.support (fun w : (fun w : FinPlace L ↦ w.below K) ⁻¹' {v} ↦
-        ite (w : FinPlace L).q.Prime c 0 * ((w : FinPlace L).q : ℂ) ^ (-s : ℂ)) ⊆
-          Set.range (Set.inclusion hS) := fun w hw ↦
-      have hq : (w : FinPlace L).q.Prime := of_not_not fun hq ↦ by simp [hq] at hw
-      ⟨⟨w, h_prime w w.property hq⟩, rfl⟩
-    calc ite v.q.Prime (c * S.ncard) 0 * (v.q : ℂ) ^ (-s : ℂ)
-        = S.ncard • (ite v.q.Prime c 0 * (v.q : ℂ) ^ (-s : ℂ)) := by
-          by_cases hq : v.q.Prime <;> simp [hq, mul_left_comm, mul_assoc]
-      _ = ∑' w : S, ite (w : FinPlace L).q.Prime c 0 * ((w : FinPlace L).q : ℂ) ^ (-s : ℂ) := by
-          rw [tsum_congr h_term, tsum_const, Nat.card_coe_set_eq]
-      _ = _ := (Set.inclusion_injective hS).tsum_eq h_support
-  exact (hs.tsum_fiberwise fun w : FinPlace L ↦ w.below K).congr_fun h_fiber
+  set S : Set (FinPlace L) := {w : FinPlace L | w.below K = v ∧ w.q = v.q}
+  have hS : S ⊆ (fun w : FinPlace L ↦ w.below K) ⁻¹' {v} := fun _ h ↦ h.1
+  -- Only the `w ∈ S` contribute to the sum over the primes above `v`, since `w.q` is a power of
+  -- `v.q`, and on `S` every term is the same.
+  have h_supp : Function.support (fun w : (fun w : FinPlace L ↦ w.below K) ⁻¹' {v} ↦
+      ite (w : FinPlace L).q.Prime c 0 * ((w : FinPlace L).q : ℂ) ^ (-s : ℂ)) ⊆
+        Set.range (Set.inclusion hS) := fun ⟨w, hw⟩ hw_mem ↦ by
+    have hq : w.q.Prime := of_not_not fun hq ↦ by simp [hq] at hw_mem
+    subst hw
+    obtain ⟨h_eq, -⟩ :=
+      hq.pow_eq_iff.mp ((Ideal.under (𝓞 K) w.asIdeal).absNorm_pow_inertiaDeg w.asIdeal)
+    exact ⟨⟨w, rfl, h_eq.symm⟩, rfl⟩
+  calc ite v.q.Prime (c * S.ncard) 0 * (v.q : ℂ) ^ (-s : ℂ)
+      = S.ncard • (ite v.q.Prime c 0 * (v.q : ℂ) ^ (-s : ℂ)) := by
+        by_cases hq : v.q.Prime <;> simp [hq, mul_left_comm, mul_assoc]
+    _ = ∑' w : S, ite (w : FinPlace L).q.Prime c 0 * ((w : FinPlace L).q : ℂ) ^ (-s : ℂ) := by
+        rw [← Nat.card_coe_set_eq, ← tsum_const]
+        exact tsum_congr fun w ↦ by rw [w.2.2]
+    _ = _ := (Set.inclusion_injective hS).tsum_eq h_supp
 
 end New
 

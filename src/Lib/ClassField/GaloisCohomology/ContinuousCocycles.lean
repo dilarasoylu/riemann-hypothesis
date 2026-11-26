@@ -698,23 +698,17 @@ lemma Hom.card_eq_card_comap_mul_card_map (hι : Injective ι) (h_exact : Exact 
     (W : AddSubgroup (New.Z1 N.ρ)) :
     Nat.card W = Nat.card (comap ι.mapZ1 W) * Nat.card (map π.mapZ1 W) := by
   -- Injectivity and exactness pass from `M → N → P` to the cocycles.
-  have h_inj_Z1 : Injective ⇑ι.mapZ1 := fun a b h_eq ↦
-    Subtype.ext (funext fun x ↦ hι (congrFun (congrArg Subtype.val h_eq) x))
-  have h_exact_Z1 : Exact ⇑ι.mapZ1 ⇑π.mapZ1 := by
-    refine fun c ↦ ⟨fun h_zero ↦ ?_, ?_⟩
-    · -- If `π ∘ c = 0`, every value of `c` comes from `M`, and the chosen preimages form a cocycle.
-      have h_pt (x : Γ) : ∃ m : M, ι m = (c : Γ → N) x :=
-        (h_exact _).mp (congrFun (congrArg Subtype.val h_zero) x)
-      choose f hf using h_pt
-      have h_comp : ⇑ι ∘ f = (c : Γ → N) := funext hf
-      have hf_mem : f ∈ New.Z1 M.ρ :=
-        mem_Z1_of_injective_of_comp_mem_Z1 ι hι f (by simp [h_comp])
-      exact ⟨⟨f, hf_mem⟩, Subtype.ext h_comp⟩
-    · -- A cocycle `ι ∘ a` goes to `π ∘ ι ∘ a = 0`.
-      rintro ⟨a, rfl⟩
-      ext x
-      exact h_exact.apply_apply_eq_zero ((a : Γ → M) x)
-  exact card_eq_mul_of_exact ι.mapZ1 π.mapZ1 h_inj_Z1 h_exact_Z1 W
+  refine card_eq_mul_of_exact ι.mapZ1 π.mapZ1
+    (fun a b h ↦ Subtype.ext <| funext fun x ↦ hι <| congrFun (congrArg Subtype.val h) x)
+    (fun c ↦ ⟨fun h ↦ ?_, ?_⟩) W
+  · -- If `π ∘ c = 0`, every value of `c` comes from `M`, and the chosen preimages form a cocycle.
+    choose f hf using fun x ↦ (h_exact _).mp (congrFun (congrArg Subtype.val h) x)
+    have h_comp : ⇑ι ∘ f = (c : Γ → N) := funext hf
+    exact ⟨⟨f, mem_Z1_of_injective_of_comp_mem_Z1 ι hι f (h_comp.symm ▸ c.2)⟩,
+      Subtype.ext h_comp⟩
+  · -- A cocycle `ι ∘ a` goes to `π ∘ ι ∘ a = 0`.
+    rintro ⟨a, rfl⟩
+    exact Subtype.ext <| funext fun x ↦ h_exact.apply_apply_eq_zero ((a : Γ → M) x)
 
 end New.DiscreteModule
 

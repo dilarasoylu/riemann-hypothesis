@@ -472,26 +472,20 @@ instance HasWeight.one : HasWeight (1 : AutChar E) 0 1 where
 has weight `e + e'` and tame part `ψ ψ'`. -/
 lemma HasWeight.mul (h : μ.HasWeight e ψ) (h' : ν.HasWeight e' ψ') :
     (μ * ν).HasWeight (e + e') (ψ * ψ') := by
-  have h_fin : ({w | ψ w ≠ 1} ∪ {w | ψ' w ≠ 1} : Set (FinPlace E)).Finite :=
-    h.finite_ramification.union h'.finite_ramification
+  have h_fin := h.finite_ramification.union h'.finite_ramification
   refine ⟨h_fin.subset (by grind [Pi.mul_def]), fun u hu ↦ ?_⟩
   -- Write all three tame products over the finite set `T` where `ψ` or `ψ'` is nontrivial.
-  set T : Finset (FinPlace E) := h_fin.toFinset
-  have hψ : ∀ w : FinPlace E, w ∉ T → ψ w = 1 := by simp +contextual [T]
-  have hψ' : ∀ w : FinPlace E, w ∉ T → ψ' w = 1 := by simp +contextual [T]
-  have hψψ' : ∀ w : FinPlace E, w ∉ T → (ψ * ψ') w = 1 := by simp +contextual [hψ, hψ']
+  set T := h_fin.toFinset
+  have hψ : ∀ w ∉ T, ψ w = 1 := by simp +contextual [T]
+  have hψ' : ∀ w ∉ T, ψ' w = 1 := by simp +contextual [T]
+  have hψψ' : ∀ w ∉ T, (ψ * ψ') w = 1 := by simp +contextual [hψ, hψ']
   have h_ne (v : InfinitePlace E) : (u : 𝔸 E).fst v ≠ 0 := by simp [← norm_ne_zero_iff]
-  have h_μν : ((μ * ν).val u : ℂ) = μ.val u * ν.val u := rfl
   -- Both products of the weight `e + e'` and of the tame part `ψ ψ'` split into two.
-  have h_arch : ∏ v, (u : 𝔸 E).fst v ^ (e + e') v =
-      (∏ v, (u : 𝔸 E).fst v ^ e v) * ∏ v, (u : 𝔸 E).fst v ^ e' v := by
-    simp [zpow_add₀ (h_ne _), Finset.prod_mul_distrib]
-  have h_tame (r : ∀ w : FinPlace E, ResField w) :
-      ∏ w ∈ T, (ψ * ψ') w (r w) = (∏ w ∈ T, ψ w (r w)) * ∏ w ∈ T, ψ' w (r w) := by
-    simp only [Pi.mul_apply, MulChar.mul_apply, Finset.prod_mul_distrib]
-  rw [h_μν, h.apply_eq u hu, h'.apply_eq u hu, finprod_tame_eq_prod_reduceU1 u hψ hu,
-    finprod_tame_eq_prod_reduceU1 u hψ' hu, finprod_tame_eq_prod_reduceU1 u hψψ' hu, h_arch,
-    h_tame fun w ↦ reduceU1 w ⟨u, mem_integralU1_empty_of_snd_mem_Ô hu⟩]
+  change (μ.val u : ℂ) * ν.val u = _
+  rw [h.apply_eq u hu, h'.apply_eq u hu, finprod_tame_eq_prod_reduceU1 u hψ hu,
+    finprod_tame_eq_prod_reduceU1 u hψ' hu, finprod_tame_eq_prod_reduceU1 u hψψ' hu]
+  simp only [Pi.add_apply, Pi.mul_apply, MulChar.mul_apply, zpow_add₀ (h_ne _),
+    Finset.prod_mul_distrib]
   ring
 
 /-- If `μ` has weight `e` and tame part `ψ`, then `μ⁻¹` has weight `-e` and tame part `ψ⁻¹`. -/

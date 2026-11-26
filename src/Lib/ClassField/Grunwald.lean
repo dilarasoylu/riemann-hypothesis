@@ -533,20 +533,13 @@ lemma New.prod_Φ_eq_Φ_norm {E L : Type} [Field E] [CMType E] [Field L] [Algebr
     ∏ u : InfinitePlace L with u.comap (algebraMap E L) = w, Φ u x = Φ w (Algebra.norm E x) := by
   algebraize [Φ w]
   -- with `ℂ` an `E`-algebra through `Φ w`, the norm is the product over the `E`-embeddings
-  have h_norm : Φ w (Algebra.norm E x) = ∏ σ : L →ₐ[E] ℂ, σ x :=
-    Algebra.norm_eq_prod_embeddings E ℂ x
-  rw [h_norm]
-  have h_chosen (σ : L →ₐ[E] ℂ) : Φ (InfinitePlace.mk σ) = (σ : L →+* ℂ) := by
-    rw [eq_comm, h.eq_chosen_iff]
-    simp [algebraMap_toAlgebra]
+  rw [show Φ w (Algebra.norm E x) = _ from Algebra.norm_eq_prod_embeddings E ℂ x]
   -- the bijection sends `u` to `Φ u` as an `E`-embedding, and an `E`-embedding `σ` to its place
-  refine prod_bij' (fun u hu ↦ ⟨Φ u, fun r ↦ ?_⟩) (fun σ _ ↦ .mk σ) ?_ ?_ ?_
-    (fun σ _ ↦ AlgHom.toRingHom_injective (h_chosen σ)) ?_
-  · simp_all [algebraMap_toAlgebra, Φ_algebraMap_eq_Φ_comap] -- `Φ u` extends `Φ w`
-  · simp
-  · simp_all [algebraMap_toAlgebra] -- the place of an `E`-embedding lies above `w`
-  · simp
-  · simp
+  refine prod_bij'
+    (fun u hu ↦ ⟨Φ u, fun r ↦ by simp_all [algebraMap_toAlgebra, Φ_algebraMap_eq_Φ_comap]⟩)
+    (fun σ _ ↦ .mk σ) (fun _ _ ↦ mem_univ _) (fun σ _ ↦ by simp [algebraMap_toAlgebra])
+    (fun _ _ ↦ by simp) (fun σ _ ↦ AlgHom.toRingHom_injective
+      ((h.eq_chosen_iff σ).mpr (by simp [algebraMap_toAlgebra])).symm) (fun _ _ ↦ rfl)
 
 /-- Let the CM type of `L` restrict to that of `E` (`New.CMTypeOver E L`), and let `E` carry a
 splitting character `υ` (`New.SplittingChar`: a unitary Hecke character with `υ x̄ = (υ x)⁻¹` that
@@ -594,21 +587,13 @@ lemma New.multiplicity_star_differentIdeal {L : Type} [Field L] [CMType L] (u : 
   -- when the different times `y` is, that is (`forall_ψf_mul_eq_one_iff`), when `ψf` is trivial on
   -- `Ô L * y`. As `ψf` is invariant under conjugation, `g * star g⁻¹` is integral, which bounds
   -- the multiplicity at `star u` by the one at `u`; the other bound is this one at `star u`.
-  obtain ⟨g, hg_val, hg_dual⟩ : ∃ g : (𝔸f L)ˣ,
-      (∀ u' : FinPlace L,
-        v (g.val u') = exp (-(multiplicity u'.asIdeal (differentIdeal ℤ (𝓞 L)) : ℤ))) ∧
-      ∀ y : 𝔸f L, (∀ c ∈ differentIdeal ℤ (𝓞 L), c • y ∈ Ô L) ↔ g.val * y ∈ Ô L := by
-    obtain ⟨-, -, -, g, -, hg_val, hg_dual⟩ :=
-      exists_reduction_and_idele_generator (E := L) (differentIdeal_ne_bot (A := ℤ))
-    exact ⟨g, hg_val, hg_dual⟩
+  obtain ⟨-, -, -, g, -, hg_val, hg_dual⟩ :=
+    exists_reduction_and_idele_generator (E := L) (differentIdeal_ne_bot (A := ℤ))
   have hg_star : g.val * star g⁻¹.val ∈ Ô L := by
-    -- `ψf (a * g⁻¹) = 1` for integral `a`, as `g * g⁻¹ = 1` is integral
-    have h_inv_dual : ∀ a ∈ Ô L, ψf L (a * g⁻¹.val) = 1 :=
-      forall_ψf_mul_eq_one_iff.mpr ((hg_dual g⁻¹.val).mpr (by simp))
     refine (hg_dual _).mp (forall_ψf_mul_eq_one_iff.mp fun a ha ↦ ?_)
-    -- conjugation: `ψf (a * star g⁻¹) = ψf (g⁻¹ * star a)`, and `star a` is integral
+    -- conjugation: `ψf (a * star g⁻¹) = ψf (star a * g⁻¹)`, and `g * g⁻¹ = 1` is integral
     rw [← ψf_star, star_mul', star_star]
-    exact h_inv_dual (star a) (star_mem_Ô ha)
+    exact forall_ψf_mul_eq_one_iff.mpr ((hg_dual g⁻¹.val).mpr (by simp)) (star a) (star_mem_Ô ha)
   have h_star_le (u' : FinPlace L) : multiplicity (star u').asIdeal (differentIdeal ℤ (𝓞 L)) ≤
       multiplicity u'.asIdeal (differentIdeal ℤ (𝓞 L)) := by
     simpa [hg_val, ← evalAt_apply _ g⁻¹.val, ← log_le_log] using mem_Ô.mp hg_star u'
