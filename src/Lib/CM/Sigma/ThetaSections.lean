@@ -97,16 +97,13 @@ zero. -/
 lemma deriv_θ_ne_zero (hz : z + C.t ∈ C.Λ) : deriv C.θ z ≠ 0 := by
   -- θ is an exponential times w ↦ σ(w + t), divided by a constant, and σ has a simple zero at the
   -- lattice point z + t.
-  let c : ℂ := C.twistedTranslate 1 C.t C.σ 0
-  let e : ℂ → ℂ := fun w : ℂ ↦ cexp (-(C.hermitianForm C.t w + C.hermitianForm C.t C.t / 2))
-  have h_θ : C.θ = fun w : ℂ ↦ e w * C.σ (w + C.t) / c :=
-    funext fun w ↦ by simp [θ, c, e, thetaShift_apply]
-  have h_deriv : deriv C.θ z = e z * deriv C.σ (z + C.t) / c := by
-    rw [h_θ, deriv_div_const, deriv_fun_mul (by fun_prop) (by fun_prop), deriv_comp_add_const,
-      sigma_eq_zero_iff.mpr hz, mul_zero, zero_add]
-  have hc_ne : c ≠ 0 := by simp [c, thetaShift_apply, t_notMem]
-  rw [h_deriv]
-  exact div_ne_zero (mul_ne_zero (exp_ne_zero _) (deriv_sigma_ne_zero hz)) hc_ne
+  have h_θ : C.θ = fun w ↦ cexp (-(C.hermitianForm C.t w + C.hermitianForm C.t C.t / 2)) *
+      C.σ (w + C.t) / C.twistedTranslate 1 C.t C.σ 0 :=
+    funext fun w ↦ by simp [θ, thetaShift_apply]
+  rw [h_θ, deriv_div_const, deriv_fun_mul (by fun_prop) (by fun_prop), deriv_comp_add_const,
+    sigma_eq_zero_iff.mpr hz, mul_zero, zero_add]
+  exact div_ne_zero (mul_ne_zero (exp_ne_zero _) (deriv_sigma_ne_zero hz))
+    (by simp [thetaShift_apply, t_notMem])
 
 /-- The twisted translation by a point l of the lattice Λ, θ ↦ (z ↦ exp(−H(l, z) − H(l,
 l)/2)·θ(z + l)), multiplies θ by χ(l), the multiplier of θ at l. -/
@@ -134,16 +131,13 @@ the Riemann form of H, E(u, v) = Im(ū v)/area(Λ), and t the point of order two
 sign of 2t + z, that is −1 if t + z/2 lies in Λ and 1 otherwise. -/
 lemma multiplier_eq_neg_sigmaSign (hz : z ∈ C.Λ) :
     C.multiplier z = -sigmaSign C.periodPair (C.t + C.t + z) := by
-  have h_add : sigmaSign C.periodPair (C.t + C.t + z) =
-      sigmaSign C.periodPair (C.t + C.t) * sigmaSign C.periodPair z *
-        cexp (Real.pi * I * C.hermitianForm.riemannForm z (C.t + C.t)) :=
-    isAppellHumbert_hermitianForm.semicharacter _ C.two_t_mem _ hz
-  have h_sign : sigmaSign C.periodPair (C.t + C.t) = -1 := by simp [sigmaSign, t_notMem]
   have h_phase : C.hermitianForm.riemannPhase z C.t =
       cexp (Real.pi * I * C.hermitianForm.riemannForm z (C.t + C.t)) := by
     simp [riemannForm_def]
     ring_nf
-  rw [multiplier, h_add, h_sign, h_phase, neg_one_mul, neg_mul, neg_neg]
+  rw [isAppellHumbert_hermitianForm.semicharacter _ C.two_t_mem _ hz, multiplier, h_phase,
+    show sigmaSign C.periodPair (C.t + C.t) = -1 by simp [sigmaSign, t_notMem]]
+  ring
 
 /-- For a point `l` of the lattice `Λ` of `C`, the twisted translation of degree `1` by `l` is
 `(T f)(z) = exp(−π(z l̄ + |l|²/2)/A)·f(z + l)`, with `A` the area of `Λ`. It takes `C.θ` to `−C.θ`
@@ -166,12 +160,11 @@ lemma twistedTranslate_theta_eq_neg_iff {l : ℂ} (hl : l ∈ C.Λ) :
 lemma sigma_add_two_t (z : ℂ) :
     C.σ (z + (C.t + C.t)) =
       -cexp (2 * C.hermitianForm C.t z + 2 * C.hermitianForm C.t C.t) * C.σ z := by
-  have h_sign : sigmaSign C.periodPair (C.t + C.t) = -1 := by simp [sigmaSign, t_notMem]
-  have h_exponent : C.hermitianForm (C.t + C.t) z + C.hermitianForm (C.t + C.t) (C.t + C.t) / 2 =
-      2 * C.hermitianForm C.t z + 2 * C.hermitianForm C.t C.t := by
-    simp only [map_add, add_apply]
-    ring
-  rw [sigma_mem_thetaSpace.2 _ C.two_t_mem z, h_sign, h_exponent, neg_one_mul]
+  rw [sigma_mem_thetaSpace.2 _ C.two_t_mem z,
+    show sigmaSign C.periodPair (C.t + C.t) = -1 by simp [sigmaSign, t_notMem], neg_one_mul]
+  congr 3
+  simp only [map_add, add_apply]
+  ring
 
 /-- The function θ, the normalised translate of the sigma function of Λ by the point t of order two
 of C, is even: θ(−z) = θ(z). -/
@@ -300,36 +293,21 @@ lemma deriv_translatedY_zero : deriv C.translatedY 0 = 1 := by
 with `K σ(z)² = x(z) θ(z)²` for all `z ∉ Λ − t`, where `x(z) = ℘(z + t) − ℘(t)`. -/
 lemma exists_mul_sigma_sq_eq_translatedX_mul_theta_sq :
     ∃ K : ℂ, ∀ z : ℂ, z + C.t ∉ C.Λ → K * C.σ z ^ 2 = C.translatedX z * C.θ z ^ 2 := by
-  -- The elliptic function xθ²/σ² has at most double poles on Λ, so it is a℘ + K; as x(0) = 0 it has
-  -- no pole at 0, so a = 0. Without denominators: up to the constant c², xθ² is the translate by t
-  -- of P = (℘ − ℘(t))σ², and the theta functions of this type are spanned by ℘σ² and σ².
-  let P : ℂ → ℂ := C.weierstrassPMulSq C.σ - ℘[C.periodPair] C.t • C.σ ^ 2
-  let c : ℂ := C.twistedTranslate 1 C.t C.σ 0
-  have hc_ne : c ≠ 0 := by simp [c, thetaShift_apply, t_notMem]
-  have hP : P ∈ (2 • C.hermitianForm).thetaSpace (sigmaSign C.periodPair ^ 2) :=
-    thetaSpace_two_eq_span_sigma.ge
-      (Submodule.mem_span_pair.2 ⟨1, -℘[C.periodPair] C.t, by module⟩)
-  have h_dual : C.t ∈ (2 • C.hermitianForm).dualLattice := ThetaTori.mem_dualLattice_nsmul.2
-    (isAppellHumbert_hermitianForm.le_dualLattice (by simpa only [two_smul] using C.two_t_mem))
-  have h_translate {z : ℂ} (hz : z + C.t ∉ C.Λ) :
-      C.twistedTranslate 2 C.t P z = c ^ 2 * (C.translatedX z * C.θ z ^ 2) := by
-    have h_sq : C.twistedTranslate 2 C.t (C.σ ^ 2) z = (c * C.θ z) ^ 2 := by
-      rw [θ, mul_div_cancel₀ _ hc_ne, twistedTranslate, twistedTranslate, one_smul, thetaShift_pow,
-        Pi.pow_apply]
-    have h_value : P (z + C.t) = C.translatedX z * (C.σ ^ 2) (z + C.t) := by
-      simp [P, weierstrassPMulSq_of_notMem hz, translatedX, sub_mul]
-    rw [twistedTranslate, thetaShift_apply_apply] at h_sq ⊢
-    linear_combination C.translatedX z * h_sq + cexp (-((2 • C.hermitianForm) C.t z +
-      (2 • C.hermitianForm) C.t C.t / 2)) * h_value
-  obtain ⟨a, b, hab⟩ := Submodule.mem_span_pair.1
-    (thetaSpace_two_eq_span_sigma.le (IsAppellHumbert.thetaShift_mem_of_mem_dualLattice h_dual hP))
-  have ha : a = 0 := by
-    simpa [h_translate (z := 0) (by simpa using C.t_notMem),
-      weierstrassPMulSq_of_mem (zero_mem C.Λ), translatedX] using congrFun hab 0
-  refine ⟨b / c ^ 2, fun z hz ↦ ?_⟩
-  have h_value : b * C.σ z ^ 2 = c ^ 2 * (C.translatedX z * C.θ z ^ 2) := by
-    simpa [ha, h_translate hz] using congrFun hab z
-  rw [div_mul_eq_mul_div, h_value, mul_div_cancel_left₀ _ (pow_ne_zero 2 hc_ne)]
+  -- Apply `theta_sq` at `z + t`, using `sigma_add_two_t` to express `θ(z + t)` via `σ(z)`.
+  refine ⟨cexp (2 * C.hermitianForm C.t C.t) / C.σ C.t ^ 4, fun z hz ↦ ?_⟩
+  have h₁ : C.θ (z + C.t) =
+      -cexp (C.hermitianForm C.t z + C.hermitianForm C.t C.t) * C.σ z / C.σ C.t := by
+    simp [-hermitianForm_apply, θ, thetaShift_apply, add_assoc, C.sigma_add_two_t, two_mul,
+      exp_add, exp_neg, field]
+  have h₂ : C.θ z = cexp (-C.hermitianForm C.t z) * C.σ (z + C.t) / C.σ C.t := by
+    simp [-hermitianForm_apply, θ, thetaShift_apply, exp_add, exp_neg, field]
+  have hθ : C.θ (z + C.t) ^ 2 = C.translatedX z * C.σ (z + C.t) ^ 2 := C.theta_sq hz
+  have hσt : C.σ C.t ≠ 0 := by simp [t_notMem]
+  rw [h₁] at hθ
+  rw [h₂]
+  simp only [two_mul, exp_add, exp_neg] at hθ ⊢
+  field_simp at hθ ⊢
+  linear_combination hθ
 
 /-- The complement of t + Λ, the set on which x and y are holomorphic, is open. -/
 lemma isOpen_setOf_add_t_notMem : IsOpen {w : ℂ | w + C.t ∉ C.Λ} :=
@@ -535,21 +513,18 @@ natural. For l in Λ, the multipliers χ of C and χ′ of C′ satisfy χ′(al
 lemma multiplier_mul_of_isIsogeny {C' : CMLattice d} {a : ℂ} {N : ℕ}
     (h_isog : C.IsIsogeny C'.periodPair a N) {l : ℂ} (hl : l ∈ C.Λ) :
     C'.multiplier (a * l) = C.multiplier l ^ N := by
-  -- The multiplier at l is (−1)ⁿ with n = |l|²√d/(2 area(Λ)); at al the exponent is multiplied
-  -- by N.
-  have h_sign (D : CMLattice d) {w : ℂ} (hw : w ∈ D.Λ) :
-      ∃ n : ℤ, (n : ℝ) = ‖w‖ ^ 2 * √(d : ℝ) / (2 * D.area) ∧ D.multiplier w = (-1 : ℂ) ^ n := by
-    obtain ⟨n, hn, h_translate⟩ := D.exists_int_twistedTranslate_theta_eq_neg_one_zpow hw
-    exact ⟨n, hn, by simpa [D.twistedTranslate_theta_of_mem hw] using congrFun h_translate 0⟩
-  obtain ⟨n, hn, hχ⟩ := h_sign C hl
-  obtain ⟨n', hn', hχ'⟩ := h_sign C' (h_isog.1 l hl)
-  have h_area : ‖a‖ ^ 2 * C.area = N * C'.area :=
-    ofReal_injective (by simpa [mul_conj'] using h_isog.2)
-  have h_exponent : (n' : ℝ) = n * N := by
-    rw [hn, hn', norm_mul, div_mul_eq_mul_div, div_eq_div_iff
-      (mul_ne_zero two_ne_zero (area_pos _).ne') (mul_ne_zero two_ne_zero (area_pos _).ne')]
-    linear_combination 2 * ‖l‖ ^ 2 * √(d : ℝ) * h_area
-  rw [hχ, hχ', show n' = n * N by exact_mod_cast h_exponent, zpow_mul, zpow_natCast]
+  -- The multiplier is `exp (π i E(ω̄ l, l))`, and the isogeny scales `E` by `N`.
+  have hE : C'.hermitianForm.riemannForm (conj (quadGen d) * (a * l)) (a * l) =
+      N * C.hermitianForm.riemannForm (conj (quadGen d) * l) l := by
+    rw [mul_left_comm (conj (quadGen d)) a l]
+    simp [riemannForm_def, -hermitianForm_apply, C.hermitianForm_mul_of_isIsogeny h_isog,
+      ← mul_sub, mul_div_assoc]
+  have h_canon (D : CMLattice d) {w : ℂ} (hw : w ∈ D.Λ) : D.multiplier w =
+      cexp (Real.pi * I * D.hermitianForm.riemannForm (conj (quadGen d) * w) w) := by
+    simp [D.multiplier_eq_canonicalMultiplier hw, ThetaTori.canonicalMultiplier]
+  rw [h_canon C' (h_isog.1 l hl), h_canon C hl, hE, ofReal_mul, ofReal_natCast, ← exp_natCast_mul]
+  congr 1
+  ring
 
 /-- Let C, C′ be CM data for a prime d ≡ 7 mod 8, with aΛ ⊂ Λ′ and a·ā·area(Λ) = N·area(Λ′), N
 natural. If g is a section of degree k for C′, that is a theta function for Λ′ with form kH′ and
@@ -561,12 +536,8 @@ lemma comp_mul_mem_sections {C' : CMLattice d} {a : ℂ} {N : ℕ}
   -- χ′(al)^k = χ(l)^(kN).
   obtain ⟨hg_diff, hg_law⟩ := C'.mem_sections_iff_twistedTranslate.1 hg
   refine C.mem_sections_iff_twistedTranslate.2 ⟨by fun_prop, fun l hl ↦ ?_⟩
-  calc _ = fun z : ℂ ↦ C'.twistedTranslate k (a * l) g (a * z) :=
-        C.twistedTranslate_comp_isogeny h_isog k g l
-    _ = fun z : ℂ ↦ C'.multiplier (a * l) ^ k * g (a * z) := by
-        simp only [hg_law (a * l) (h_isog.1 l hl), Pi.smul_apply, smul_eq_mul]
-    _ = C.multiplier l ^ (k * N) • fun z : ℂ ↦ g (a * z) := by
-        simp [funext_iff, C.multiplier_mul_of_isIsogeny h_isog hl, pow_mul']
+  rw [C.twistedTranslate_comp_isogeny h_isog k g l, hg_law (a * l) (h_isog.1 l hl)]
+  simp [funext_iff, C.multiplier_mul_of_isIsogeny h_isog hl, pow_mul']
 
 end New.CMLattice
 
@@ -832,27 +803,16 @@ lemma twistedTranslate_comp_mem [PrimeSevenModEight d] {δ u : ℂ} {N : ℕ}
   -- Translate by a point l of Λ. The translation passes through the pull-back, and T_{δ̄l} commutes
   -- with T_u because E(δ̄l, u) = E(l, δu) is an integer, E the Riemann form.
   refine C.mem_sections_iff_twistedTranslate.2 ⟨by fun_prop, fun l hl ↦ ?_⟩
-  have hδl : conj δ * l ∈ C.Λ := h_isog.1 l hl
-  obtain ⟨k, hk⟩ : ∃ k : ℤ, C.hermitianForm.riemannForm l (δ * u) = k :=
-    isAppellHumbert_hermitianForm.le_dualLattice hl (δ * u) hu
-  have h_int : (1 • C.hermitianForm).riemannForm (conj δ * l) u = k := by
-    simp [← hk, riemannForm_hermitianForm, mul_left_comm, mul_assoc, -hermitianForm_apply]
-  have h_comm : C.twistedTranslate 1 (conj δ * l) (C.twistedTranslate 1 u C.θ) =
-      C.twistedTranslate 1 u (C.twistedTranslate 1 (conj δ * l) C.θ) := by
-    have h_phase : (1 • C.hermitianForm).riemannPhase (conj δ * l) u = 1 := by
-      rw [RealComplexForm.riemannPhase, h_int, coe_fourierChar_eq_exp, ofReal_intCast, mul_comm,
-        exp_int_mul_two_pi_mul_I]
-    rw [twistedTranslate, twistedTranslate, (C.isAppellHumbert_multiplier.nsmul 1).thetaShift_comm,
-      h_phase, one_smul]
-  calc C.twistedTranslate N l (fun z : ℂ ↦ C.twistedTranslate 1 u C.θ (conj δ * z))
-      = fun z : ℂ ↦
-          C.twistedTranslate 1 (conj δ * l) (C.twistedTranslate 1 u C.θ) (conj δ * z) := by
-        rw [← C.twistedTranslate_comp_isogeny h_isog, one_mul]
-    _ = fun z : ℂ ↦ C.multiplier (conj δ * l) * C.twistedTranslate 1 u C.θ (conj δ * z) := by
-        simp only [h_comm, C.twistedTranslate_theta_of_mem hδl, map_smul, Pi.smul_apply,
-          smul_eq_mul]
-    _ = C.multiplier l ^ N • fun z : ℂ ↦ C.twistedTranslate 1 u C.θ (conj δ * z) := by
-        simp [funext_iff, C.multiplier_mul_of_isIsogeny h_isog hl]
+  obtain ⟨k, hk⟩ := isAppellHumbert_hermitianForm.le_dualLattice hl (δ * u) hu
+  have h_phase : (1 • C.hermitianForm).riemannPhase (conj δ * l) u = 1 := by
+    have h_int : (1 • C.hermitianForm).riemannForm (conj δ * l) u = k := by
+      simp [← hk, riemannForm_hermitianForm, mul_left_comm, mul_assoc, -hermitianForm_apply]
+    rw [RealComplexForm.riemannPhase, h_int, coe_fourierChar_eq_exp, ofReal_intCast, mul_comm,
+      exp_int_mul_two_pi_mul_I]
+  rw [← one_mul N, C.twistedTranslate_comp_isogeny h_isog, twistedTranslate,
+    (C.isAppellHumbert_multiplier.nsmul 1).thetaShift_comm, h_phase, one_smul,
+    thetaShift_of_mem C.theta_mem (h_isog.1 l hl)]
+  simp [funext_iff, twistedTranslate, C.multiplier_mul_of_isIsogeny h_isog hl]
 
 end New.CMLattice
 
