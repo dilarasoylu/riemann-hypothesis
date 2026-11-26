@@ -389,17 +389,15 @@ lemma exists_isApproximatingMonoid_of_mem_uniformClosure (hf : f ≠ 0)
     { carrier := {p | ∃ T : End K (ι → K),
         (∀ (g : ι → K) (r : ℝ), (∀ x : ι, ‖g x‖ ≤ r) → ∀ x : ι, ‖T g x‖ ≤ r) ∧
         T f = p.fst • f ∧ ∀ i, T (y i.fst i.snd) = p.snd i • y i.fst i.snd}
-      mul_mem' := by
-        rintro p p' ⟨T, hT_le, hT_f, hT_y⟩ ⟨T', hT'_le, hT'_f, hT'_y⟩
-        exact ⟨T' * T, fun g r hg x ↦ hT'_le _ _ (hT_le g r hg) x,
+      mul_mem' := fun ⟨T, hT_le, hT_f, hT_y⟩ ⟨T', hT'_le, hT'_f, hT'_y⟩ ↦
+        ⟨T' * T, fun g r hg x ↦ hT'_le _ _ (hT_le g r hg) x,
           by simp [hT_f, hT'_f, mul_smul], fun i ↦ by simp [hT_y, hT'_y, mul_smul]⟩
       one_mem' := ⟨1, by simp⟩ }
   -- Evaluating at `z` the image under `T` of the approximation of `f / f z`.
   have h_dist (η : Set.Ioi (0 : ℝ)) :
-      ∀ p ∈ N, dist p.fst (∑ j, a η j * (y η j).val z * p.snd ⟨η, j⟩) ≤ η := by
-    rintro p ⟨T, hT, hTf, hTy⟩
-    have h_bound : ‖T ((f z)⁻¹ • f - ∑ j, a η j • (y η j).val) z‖ ≤ η := hT _ _ (hy η) z
-    simpa [hTy ⟨η, _⟩, hTf, hz, ← dist_eq_norm, mul_comm, ← mul_assoc] using h_bound
+      ∀ p ∈ N, dist p.fst (∑ j, a η j * (y η j).val z * p.snd ⟨η, j⟩) ≤ η :=
+    fun _ ⟨T, hT, hTf, hTy⟩ ↦ by
+      simpa [hTy ⟨η, _⟩, hTf, hz, ← dist_eq_norm, mul_comm, ← mul_assoc] using hT _ _ (hy η) z
   refine ⟨s, fun η j ↦ a η j * (y η j).val z, N.topologicalClosure,
     ⟨isClosed_closure, tendstoUniformly_iff.2 fun ε hε ↦ ?_⟩, fun i ↦ y i.fst i.snd,
     fun _ hp ↦ subset_closure hp⟩
@@ -420,13 +418,9 @@ lemma IsApproximatingMonoid.tendstoUniformly_eval {P : Type*} {s : Set.Ioi (0 : 
   induction B using MvPolynomial.induction_on' with
   | monomial m a =>
     -- the monomial `m` is evaluated at a product of points of the monoid `N`; scale by `a`
-    have h_prod : TendstoUniformly
-        (fun (η : Set.Ioi (0 : ℝ)) (p : P) ↦
-          ∑ i : Fin (s η), c η i * (m.prod fun x e ↦ f p x ^ e).val.snd ⟨η, i⟩)
-        (fun p : P ↦ (m.prod fun x e ↦ f p x ^ e).val.fst) atBot :=
-      h_apx.tendstoUniformly.comp fun p ↦ m.prod fun x e ↦ f p x ^ e
     simpa [mul_left_comm, eval_monomial, Finsupp.prod, Function.comp_def, Prod.snd_prod, mul_sum,
-      Prod.fst_prod] using (uniformContinuous_mul_left' a).comp_tendstoUniformly h_prod
+      Prod.fst_prod] using (uniformContinuous_mul_left' a).comp_tendstoUniformly
+        (h_apx.tendstoUniformly.comp fun p ↦ m.prod fun x e ↦ f p x ^ e)
   | add B B' hB hB' => simpa [mul_add, sum_add_distrib, Pi.add_def] using hB.add hB'
 
 /-- The polynomials `newtonPoly j m` over k in X_0, X_1, … are defined by `newtonPoly 0 m = 1` and
@@ -498,33 +492,6 @@ private lemma eval_newtonPoly_eq_pow_mul_prod_of_pow_succ_eq_smul {A : Type*} [R
       map_smul, prod_range_succ _ (j + 1), smul_eq_mul, nsmul_eq_mul]
     ring
 
-/-- Let `τ` be a linear form on a `k`-algebra `A` and `y : A` with `y ^ (m + 1) = l ^ m • y` for all
-`m`. If the Newton polynomial `newtonPoly (d + 1) 1` vanishes at the values `τ (y ^ i)`, then
-`τ y = j * l` for some natural number `j`. -/
-private lemma exists_eq_nat_mul_of_eval_newtonPoly_eq_zero {A : Type*} [Ring A] [Algebra k A]
-    (τ : A →ₗ[k] k) {l : k} {y : A} (hy : ∀ m : ℕ, y ^ (m + 1) = l ^ m • y) {d : ℕ}
-    (h_zero : eval (fun i : ℕ ↦ τ (y ^ i)) (newtonPoly (d + 1) 1) = 0) :
-    ∃ j : ℕ, τ y = j * l := by
-  -- at `m = 0` the Newton polynomial is the product of the `τ y - i * l`, `i ≤ d`, so one vanishes
-  have h_prod : ∏ i ∈ range (d + 1), (τ y - i * l) = 0 := by
-    simpa using (eval_newtonPoly_eq_pow_mul_prod_of_pow_succ_eq_smul τ hy d 0).symm.trans h_zero
-  obtain ⟨i, -, hi⟩ := prod_eq_zero_iff.mp h_prod
-  exact ⟨i, sub_eq_zero.mp hi⟩
-
-/-- More than `card n ^ 2` linear forms `A ↦ trace (M i * A)` on the `n × n` matrices over a
-field are linearly dependent. -/
-private lemma _root_.Matrix.not_linearIndependent_trace_mul_of_card_lt {k n N : Type*} [Field k]
-    [Fintype n] [DecidableEq n] [Fintype N] (M : N → Matrix n n k)
-    (h_card : Fintype.card n * Fintype.card n < Fintype.card N) :
-    ¬LinearIndependent k fun (i : N) (A : Matrix n n k) ↦ (M i * A).trace := by
-  intro h_ind
-  -- the `M i` would be independent in a space of dimension `card n * card n`
-  have h_le : Fintype.card N ≤ Module.finrank k (Matrix n n k) :=
-    (LinearIndependent.of_comp (v := M) (pi fun A ↦ traceLinearMap n k k ∘ₗ mulRight k A)
-      h_ind).fintype_card_le_finrank
-  simp only [finrank_matrix, Module.finrank_self, mul_one] at h_le
-  lia
-
 /-- The linear form on `k[G]` that extends `T : G → k`. -/
 private noncomputable def linearExtension (T : G → k) : k[G] →ₗ[k] k :=
   (aeval T).toLinearMap ∘ₗ Finsupp.lift _ k G X ∘ₗ (coeffLinearEquiv k).toLinearMap
@@ -564,19 +531,21 @@ private lemma finite_quotient_pairingKernel (t : k[G] →ₗ[k] k)
   refine rank_lt_aleph0_iff.mp (not_le.mp fun h_inf ↦ ?_)
   obtain ⟨s, hs⟩ : ∃ s : Fin N → k[G], LinearIndependent k (mk (pairingKernel t t_comm) ∘ s) :=
     mk_surjective.comp_left.exists.mp (le_rank_iff.mp (Cardinal.aleph0_le.mp h_inf N))
-  have h_ltoFun : LinearMap.ker (ltoFun k k[G] k k) = ⊥ := by aesop
   have h_indep : LinearIndependent k fun (i : Fin N) (y : k[G]) ↦ t (s i * y) :=
-    (hs.map' _ (ker_liftQ_eq_bot' _ _ rfl)).map' (ltoFun k k[G] k k) h_ltoFun
+    (hs.map' _ (ker_liftQ_eq_bot' _ _ rfl)).map' (ltoFun k k[G] k k) (by aesop)
   have h_dep (ρ : k[G] →ₐ[k] Matrix n n k) :
-      ¬LinearIndependent k fun (i : Fin N) (A : Matrix n n k) ↦ (ρ (s i) * A).trace :=
-    Matrix.not_linearIndependent_trace_mul_of_card_lt _ (by simp [N])
+      ¬LinearIndependent k fun (i : Fin N) (A : Matrix n n k) ↦ (ρ (s i) * A).trace := fun h ↦ by
+    -- the `ρ (s i)` would be independent in a space of dimension `card n * card n`
+    have h_le : Fintype.card (Fin N) ≤ Module.finrank k (Matrix n n k) :=
+      (LinearIndependent.of_comp (v := ρ ∘ s) (pi fun A ↦ traceLinearMap n k k ∘ₗ mulRight k A)
+        h).fintype_card_le_finrank
+    simp [N, finrank_matrix] at h_le
   refine det_eval_eq_zero_iff_not_linearIndependent.mp (fun b ↦ ?_) h_indep
   -- the minor `det (t (s i * b j))` is `t` at a polynomial that vanishes on traces
-  have h_det_zero : eval t (of fun i j ↦ X (s i * b j) : Matrix (Fin N) (Fin N) _)ᵀ.det = 0 := by
-    refine h_alg _ fun ρ ↦ ?_
-    simpa [det_apply, Function.flip_def] using det_eval_eq_zero_iff_not_linearIndependent.mpr
-      (h_dep ρ) (ρ ∘ b)
-  simpa [det_apply, Function.flip_def] using h_det_zero
+  simpa [det_apply, Function.flip_def] using
+    h_alg (of fun i j ↦ X (s i * b j) : Matrix (Fin N) (Fin N) _)ᵀ.det fun ρ ↦ by
+      simpa [det_apply, Function.flip_def] using
+        det_eval_eq_zero_iff_not_linearIndependent.mpr (h_dep ρ) (ρ ∘ b)
 
 /-- A weak form of the Procesi–Taylor theorem: over an algebraically closed field `k` of
 characteristic `0`, a function `T : G → k` that satisfies every polynomial identity holding among
@@ -605,14 +574,21 @@ lemma exists_rep_of_trace_identities [IsAlgClosed k] [CharZero k] {T : G → k}
   have τ_nat (l : k) (x : k[G] ⧸ I) (hx : ∀ m : ℕ, x ^ (m + 1) = l ^ m • x) :
       ∃ j : ℕ, τ x = j * l := by
     obtain ⟨x, rfl⟩ := mk_surjective (I := I) x
-    have h_zero : eval t (rename (fun i : ℕ ↦ x ^ i) (newtonPoly (Fintype.card n + 1) 1)) = 0 := by
-      refine h_alg _ fun ρ ↦ ?_
-      -- at the traces of the powers of `ρ x` the Newton polynomial is `(card n + 1)!` times the
-      -- elementary symmetric function of degree `card n + 1` of the `card n` eigenvalues: `0`
-      simp [eval_rename, eval_newtonPoly, trace_pow_eq_sum_roots, card_roots_eq_natDegree,
-        Function.comp_def, Multiset.esymm]
+    have h_zero : eval t (rename (x ^ ·) (newtonPoly (Fintype.card n + 1) 1)) = 0 :=
+      h_alg _ fun ρ ↦ by
+        -- at the traces of the powers of `ρ x` the Newton polynomial is `(card n + 1)!` times the
+        -- elementary symmetric function of degree `card n + 1` of the `card n` eigenvalues: `0`
+        simp [eval_rename, eval_newtonPoly, trace_pow_eq_sum_roots, card_roots_eq_natDegree,
+          Function.comp_def, Multiset.esymm]
     rw [eval_rename] at h_zero
-    exact exists_eq_nat_mul_of_eval_newtonPoly_eq_zero τ hx h_zero
+    -- at `m = 0` the Newton polynomial is the product of the `τ (mk I x) - i * l`, `i ≤ card n`,
+    -- so one vanishes
+    have h_prod : ∏ i ∈ range (Fintype.card n + 1), (τ (mk I x) - i * l) = 0 := by
+      simpa using
+        (eval_newtonPoly_eq_pow_mul_prod_of_pow_succ_eq_smul τ hx (Fintype.card n) 0).symm.trans
+          h_zero
+    obtain ⟨i, -, hi⟩ := prod_eq_zero_iff.mp h_prod
+    exact ⟨i, sub_eq_zero.mp hi⟩
   have h_finite : Module.Finite k (k[G] ⧸ I) :=
     finite_quotient_pairingKernel t t_comm h_alg (hI := hI_twoSided)
   -- If `x g x = 0` for all `g`, each `x g` has square zero, so `t (x g) = 0` (`τ_nat` with `l = 0`)
@@ -673,19 +649,16 @@ lemma GaloisRep.exists_continuous_isTraceNondeg_of_tendsto_trace [TopologicalSpa
         ((R g).val.trace, fun x : (η : Set.Ioi (0 : ℝ)) × Fin (s η) ↦ (r x g).val.trace) ∈ N := by
   -- Along `F g` the first components have a limit `T g`. The approximation passes to the limit,
   -- so `T` is continuous and obeys the trace identities: it is a trace.
-  have fst_cauchy (g : G) : Cauchy ((F g).map fun p : N ↦ p.val.fst) := by
-    -- For each `η` the approximating sums converge along `F g`: their differences tend to `0`.
-    -- A uniform limit of such families is again Cauchy.
-    have sum_diff (η : Set.Ioi (0 : ℝ)) :
-        Tendsto (fun q : N × N ↦
-            ∑ i, c η i * q.fst.val.snd ⟨η, i⟩ - ∑ i, c η i * q.snd.val.snd ⟨η, i⟩)
-          (F g ×ˢ F g) (nhds 0) :=
-      ((cauchy_map_iff_tendsto (F g) _).mp
-        (tendsto_finsetSum _ fun i _ ↦ (h_tendsto g _).const_mul _).cauchy_map).right
-    refine (cauchy_map_iff_tendsto (F g) fun p : N ↦ p.val.fst).mpr ⟨map_neBot, ?_⟩
-    exact ((h_apx.tendstoUniformly.comp Prod.fst).sub
-      (h_apx.tendstoUniformly.comp Prod.snd)).tendsto_of_eventually_tendsto
-        (.of_forall sum_diff) tendsto_const_nhds
+  -- For each `η` the approximating sums converge along `F g`: their differences tend to `0`.
+  -- A uniform limit of such families is again Cauchy.
+  have fst_cauchy (g : G) : Cauchy ((F g).map fun p : N ↦ p.val.fst) :=
+    (cauchy_map_iff_tendsto (F g) _).mpr ⟨map_neBot,
+      ((h_apx.tendstoUniformly.comp Prod.fst).sub
+        (h_apx.tendstoUniformly.comp Prod.snd)).tendsto_of_eventually_tendsto
+          (.of_forall fun η ↦ ((cauchy_map_iff_tendsto (F g) _).mp
+            (tendsto_finsetSum univ fun i _ ↦
+              (h_tendsto g ⟨η, i⟩).const_mul (c η i)).cauchy_map).2)
+          tendsto_const_nhds⟩
   have h_lim (g : G) : ∃ t : K, (F g).Tendsto (fun p : N ↦ p.val.fst) (nhds t) :=
     (hL _ (fst_cauchy g) (tendsto_principal.mpr (h_mem g))).imp fun _ ht ↦ ht.2
   choose T hT using h_lim
@@ -699,11 +672,7 @@ lemma GaloisRep.exists_continuous_isTraceNondeg_of_tendsto_trace [TopologicalSpa
   -- A polynomial `D` that vanishes on all traces vanishes on their limit `T`.
   have T_identities (D : MvPolynomial G K)
       (hD : ∀ x : G →* GL n K, eval (fun g : G ↦ (x g).val.trace) D = 0) : eval T D = 0 := by
-    have h_lim : Tendsto (fun η : Set.Ioi (0 : ℝ) ↦
-        ∑ i : Fin (s η), c η i * D.eval fun g : G ↦ (r ⟨η, i⟩ g).val.trace) atBot
-          (nhds (D.eval T)) :=
-      (h_apx.tendstoUniformly_eval D ![point]).tendsto_at 0
-    simpa [hD, eq_comm] using h_lim
+    simpa [point, hD, eq_comm] using (h_apx.tendstoUniformly_eval D ![point]).tendsto_at 0
   obtain ⟨R, hR, trace_R⟩ := exists_rep_of_trace_identities T_identities
   obtain rfl : (fun g ↦ (R g).val.trace) = T := funext trace_R
   exact ⟨R, hR.continuous_of_trace T_cont, hR, fun g ↦ (point g).prop⟩
