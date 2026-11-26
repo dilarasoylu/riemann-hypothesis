@@ -260,29 +260,23 @@ lemma zeroTerm_congr [WeilData E] (D : V.Splitting V₀ p) (D' : V.Splitting V�
   -- The frames `D.kAdelic` and `D'.kAdelic` differ by a rational matrix that is onto, which
   -- preserves the mean.
   have hiA : D'.iAdelic = D.iAdelic := by simp [hi, iAdelic]
-  have hiT : D'.iCoord = D.iCoord := by rw [iCoord, hiA, iCoord]
+  have hiT : D'.iCoord = D.iCoord := by simp [iCoord, hiA]
   -- As `k` and `k'` are orthogonal, each has no `l`-coordinate in the other splitting, so each is
   -- spanned by the other.
+  have h_span := D.kAdelic_mul_kCoord_mul_kAdelic D'
+    ((V.gram_at_point_eq_map D.k D'.k).trans (by simp [hk])) hiT
   have hk_symm : D'.kᴴ * V.J * D.k = 0 := by
     simpa [conjTranspose_J, Matrix.mul_assoc] using congrArg conjTranspose hk
-  have h_span : D.kAdelic * (D.kCoord * D'.kAdelic) = D'.kAdelic :=
-    D.kAdelic_mul_kCoord_mul_kAdelic D' ((V.gram_at_point_eq_map D.k D'.k).trans (by simp [hk])) hiT
-  have h_span_symm : D'.kAdelic * (D'.kCoord * D.kAdelic) = D.kAdelic :=
-    D'.kAdelic_mul_kCoord_mul_kAdelic D
-      ((V.gram_at_point_eq_map D'.k D.k).trans (by simp [hk_symm])) hiT.symm
-  let φ : (p → 𝔸 E) →+ (q → 𝔸 E) := (D'.kCoord * D.kAdelic).toLin'
-  have h_surj : Function.Surjective φ :=
-    fun x ↦ ⟨D.kCoord *ᵥ D'.kAdelic *ᵥ x, by simp [φ, h_span]⟩
+  have h_span_symm := D'.kAdelic_mul_kCoord_mul_kAdelic D
+    ((V.gram_at_point_eq_map D'.k D.k).trans (by simp [hk_symm])) hiT.symm
   -- The change of frame is the rational Gram matrix `D'.lᴴ * V.J * D.k`.
-  have h_change : D'.kCoord * D.kAdelic = (D'.lᴴ * V.J * D.k).map toAdele :=
-    V.gram_at_point_eq_map D'.l D.k
-  have h_rat : ∀ a ∈ New.ratVectors E p, (D'.kCoord * D.kAdelic) *ᵥ a ∈ New.ratVectors E q := by
-    simpa only [h_change] using map_mulVec_mem_ratVectors (D'.lᴴ * V.J * D.k)
   -- Pull the mean over `𝔸^q / E^q` back along the change of frame.
   ext f y
-  rw [zeroTerm_apply, ← quotMean_comp (New.ratVectors E p) φ (isContPeriodic_along_k f _) h_rat
-    h_surj (toLin' _).continuous_on_pi]
-  simp [φ, hiA, h_span_symm, zeroTerm_apply]
+  rw [zeroTerm_apply, ← quotMean_comp (New.ratVectors E p) (D'.kCoord * D.kAdelic).toLin'
+    (isContPeriodic_along_k f _) ((V.gram_at_point_eq_map D'.l D.k).symm ▸
+      map_mulVec_mem_ratVectors _)
+    (fun x ↦ ⟨D.kCoord *ᵥ D'.kAdelic *ᵥ x, by simp [h_span]⟩) (toLin' _).continuous_on_pi]
+  simp [hiA, h_span_symm, zeroTerm_apply]
 
 end Splitting
 

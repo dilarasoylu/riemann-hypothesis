@@ -286,18 +286,12 @@ private lemma besselRow_mul_of_mem_unipotent {q : Type*} (v : q ↪ {l : ι // Y
     {n m : G E ε} (hn : n ∈ Y.unipotent) (hm : m ∈ Y.unipotent) :
     Y.besselRow v (n * m) = Y.besselRow v n + Y.besselRow v m := by
   funext p
-  have cross : HasDegreeGe Y.gradeOf Y.gradeOf (1 + 1)
-      ((V.ratCoordMatrix n - 1) * (V.ratCoordMatrix m - 1)) :=
-    (Y.mem_unipotent.mp hn).mul (Y.mem_unipotent.mp hm) le_rfl
   have h_expand : V.ratCoordMatrix (n * m) - 1 = (V.ratCoordMatrix n - 1) +
-      (V.ratCoordMatrix m - 1) + (V.ratCoordMatrix n - 1) * (V.ratCoordMatrix m - 1) := by
-    rw [map_mul]
-    noncomm_ring
-  have h_grade : Y.gradeOf (v p.fst) < Y.gradeOf (Y.indexEquiv (.inl p.snd)) + (1 + 1) := by
-    simp [(v p.fst).property]
-  have h_cross_entry : ((V.ratCoordMatrix n - 1) * (V.ratCoordMatrix m - 1))
-      (v p.fst) (Y.indexEquiv (.inl p.snd)) = 0 := cross _ _ h_grade
-  simp only [besselRow, h_expand, Matrix.add_apply, h_cross_entry, add_zero, mul_add, Pi.add_apply]
+      (V.ratCoordMatrix m - 1) + (V.ratCoordMatrix n - 1) * (V.ratCoordMatrix m - 1) :=
+    (congrArg (· - 1) (map_mul ..)).trans (by noncomm_ring)
+  have h_cross := ((Y.mem_unipotent.mp hn).mul (Y.mem_unipotent.mp hm) le_rfl)
+    (v p.1) (Y.indexEquiv (.inl p.2)) (by simp [(v p.1).2])
+  simp only [besselRow, h_expand, Matrix.add_apply, h_cross, add_zero, mul_add, Pi.add_apply]
 
 /-- The Eichler map of `x`, the indicator of the grade-1 indices, and of `y`, which on each basis
 vector `x'` of `X` is `Y.genericConst⁻¹` times the sum of the conjugates `b̄ (j, x')` and vanishes

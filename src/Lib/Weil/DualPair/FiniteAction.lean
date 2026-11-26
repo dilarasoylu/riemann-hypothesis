@@ -157,22 +157,16 @@ lemma finMultiplier_onHom_left {g : G E s} :
   -- `finMultiplier g` is `chiFin (det u)` for `u` saturating `g` or its transpose. If `u` saturates
   -- `g⁻¹`, then `1 ⊗ₖ u` saturates `1 ⊗ₖ g⁻¹`, the transpose of `onHom (g, 1)`, and
   -- `det (1 ⊗ₖ u) = det u ^ card n'`.
-  let u : GL n (𝔸f E) := (saturatingElem g.2⁻¹.val).val
   let φ : Matrix n n (𝔸f E) →+* Matrix (n' × n) (n' × n) (𝔸f E) :=
-    { toFun u := (1 : Matrix n' n' (𝔸f E)) ⊗ₖ u
-      map_one' := one_kronecker_one
-      map_mul' u v := by simp [← mul_kronecker_mul]
-      map_zero' := kronecker_zero _
-      map_add' := kronecker_add _ }
-  let Φ : GL n (𝔸f E) →* GL (n' × n) (𝔸f E) := Units.map φ.toMonoidHom
-  have h_sat : IsSaturating (Ô E).matrix (Φ g.2⁻¹.val) (Φ u) :=
-    (saturatingElem g.2⁻¹.val).prop.map_of_le_comap φ fun x hx i ↦ by
+    ⟨⟨⟨((1 : Matrix n' n' (𝔸f E)) ⊗ₖ ·), one_kronecker_one⟩, by simp [← mul_kronecker_mul]⟩,
+      kronecker_zero _, kronecker_add _⟩
+  let Φ := Units.map φ.toMonoidHom
+  have h_sat : IsSaturating (Ô E).matrix (Φ g.2⁻¹.val) (Φ (saturatingElem g.2⁻¹.val).val) :=
+    (saturatingElem g.2⁻¹.val).prop.map_of_le_comap φ fun _ _ _ ↦ by
       aesop (add simp Matrix.one_apply)
-  have h_transpose : (G.onHom (s' := s') (g, 1)).2.val.val = (φ g.2⁻¹.val.val)ᵀ := by
-    aesop (add simp [onHom_snd, Matrix.one_apply])
-  have h_det : (Φ u).det = u.det ^ card n' := by simp [Φ, φ, Units.ext_iff, det_kronecker]
-  rw [finMultiplier, h_sat.glMultiplier_transpose h_transpose, h_det, map_pow]
-  rfl
+  rw [finMultiplier, h_sat.glMultiplier_transpose
+    (by aesop (add simp [onHom_snd, Matrix.one_apply]))]
+  exact (congrArg _ (by simp [Φ, φ, Units.ext_iff, det_kronecker])).trans (map_pow _ _ _)
 
 /-- Let `f` be a vacuum above `A`, that is, fixed by the projection `projOn A`. An integral pair
 `(g, h)` of finite points supported on `A` and its conjugate acts on `f` through `pairWeil` by the

@@ -434,26 +434,19 @@ lemma liftFn_single (x₀ : n → Ô E) :
   by_cases hx : ∀ i : n, idem 𝔪.places * x i ∈ Ô E
   · -- If `x` is integral on `𝔪.places`, the two sides agree since the kernel of `𝔪.reduction` is
     -- `𝔪.generator Ô`.
-    have h_iff (i : n) :
-        𝔪.reduction ⟨idem 𝔪.places * x i, hx i⟩ = 𝔪.reduction (x₀ i) ↔
-          idem 𝔪.places * (𝔪.generator⁻¹.val * (x i - x₀ i)) ∈ Ô E := by
-      rw [← 𝔪.reduction_idem_mul (x₀ i), ← sub_eq_zero, ← map_sub,
-        reduction_eq_zero_iff_generator_inv_mul_mem, mul_left_comm, mul_sub]
-      rfl
-    simp [liftFn_apply, hx, Pi.single_apply, funext_iff, h_iff, mem_integralBox]
+    simp [liftFn_apply, hx, Pi.single_apply, funext_iff, mem_integralBox]
+    refine if_congr (forall_congr' fun i ↦ ?_) rfl rfl
+    rw [← 𝔪.reduction_idem_mul (x₀ i), ← sub_eq_zero, ← map_sub,
+      reduction_eq_zero_iff_generator_inv_mul_mem, mul_left_comm, mul_sub]
+    rfl
   · -- Otherwise both sides vanish: if `t⁻¹ (x - x₀)` were integral on `𝔪.places`, so would be
     -- `x = t (t⁻¹ (x - x₀)) + x₀`.
-    have h_not_mem : 𝔪.generator⁻¹.val • (x - fun i : n ↦ (x₀ i : 𝔸f E)) ∉
-        integralBox n 𝔪.places := by
-      refine fun h_mem ↦ hx fun i ↦ ?_
-      have h_eq : idem 𝔪.places * x i =
-          𝔪.generator.val * (idem 𝔪.places * (𝔪.generator⁻¹.val * (x i - x₀ i))) +
-            idem 𝔪.places * x₀ i := by
-        linear_combination -idem 𝔪.places * 𝔪.generator.mul_inv_cancel_left (x i - x₀ i)
-      rw [h_eq]
-      exact add_mem (mul_mem 𝔪.generator_mem (mem_integralBox.1 h_mem i))
-        (mul_mem (idem_mem_Ô _) (x₀ i).property)
-    rw [liftFn_apply, dite_eq_right hx, cosetIndicator, boxIndicator_apply, ite_eq_right h_not_mem]
+    rw [liftFn_apply, dite_eq_right hx, cosetIndicator, boxIndicator_apply, ite_eq_right]
+    refine fun h_mem ↦ hx fun i ↦ ?_
+    convert add_mem (mul_mem 𝔪.generator_mem (mem_integralBox.1 h_mem i))
+      (mul_mem (idem_mem_Ô 𝔪.places) (x₀ i).property) using 1
+    dsimp only [Pi.smul_apply, Pi.sub_apply, smul_eq_mul]
+    linear_combination -idem 𝔪.places * 𝔪.generator.mul_inv_cancel_left (x i - x₀ i)
 
 /-- Translating a function modulo `𝔪` by the class of an integral vector `z` translates its lift
 by `z`. -/

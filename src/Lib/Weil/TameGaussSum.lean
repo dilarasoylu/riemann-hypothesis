@@ -65,17 +65,12 @@ lemma invOnUnits_uniformizer_mul_add {s : F} (hs : s ∈ O) (x : F) :
     invOnUnits χ ((ϖ : Fˣ) * s + x) = invOnUnits χ x := by
   have h_mem : ((ϖ : Fˣ) : F) * s ∈ O := mul_mem ϖ_mem hs
   by_cases hx : x ∈ O
-  · -- On `O` the function factors through the reduction `h.reduction`, which kills `ϖ * s`.
-    have h_zero : h.reduction ⟨(ϖ : Fˣ) * s, h_mem⟩ = 0 :=
-      (h.reduction_surjective_and_eq_zero_iff.right _).mpr (by simpa using hs)
-    have h_factor : ∀ z : O, invOnUnits χ (z : F) = h.resChar (h.reduction z) :=
-      h.isPrimitive_resChar_and_invOnUnits_eq.right
-    calc
-      _ = h.resChar (h.reduction (⟨(ϖ : Fˣ) * s, h_mem⟩ + ⟨x, hx⟩)) :=
-        h_factor (⟨(ϖ : Fˣ) * s, h_mem⟩ + ⟨x, hx⟩)
-      _ = invOnUnits χ x := by rw [map_add, h_zero, zero_add, ← h_factor]
-  · -- Off `O` both sides vanish, since `ϖ * s + x` is not in `O` either.
-    simp [invOnUnits, IsIntegralUnit, add_mem_cancel_left h_mem, hx]
+  -- On `O` the function factors through the reduction `h.reduction`, which kills `ϖ * s`.
+  · refine (h.isPrimitive_resChar_and_invOnUnits_eq.2 (⟨_, h_mem⟩ + ⟨x, hx⟩)).trans ?_
+    rw [map_add, (h.reduction_surjective_and_eq_zero_iff.2 ⟨_, h_mem⟩).mpr (by simpa using hs),
+      zero_add, ← h.isPrimitive_resChar_and_invOnUnits_eq.2 ⟨x, hx⟩]
+  -- Off `O` both sides vanish, since `ϖ * s + x` is not in `O` either.
+  · simp [invOnUnits, IsIntegralUnit, add_mem_cancel_left h_mem, hx]
 
 /-- A tame character χ has absolute value 1 at every unit t of O. -/
 lemma norm_eq_one {t : F} (ht : IsIntegralUnit t) : ‖χ t‖ = 1 := by

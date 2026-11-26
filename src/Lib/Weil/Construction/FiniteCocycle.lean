@@ -303,20 +303,14 @@ lemma norm_cocycle_eq_one (g s : Gf E ι) : ‖finProjAction.1 g s‖ = 1 := by
   -- The product of the operators of `(g * s)⁻¹`, `g` and `s` is the scalar `finProjAction.1 g s`
   -- (`weilOp_inv_mul_weilOp_mul_weilOp`), and each preserves `modelInner`; apply it to the vacuum,
   -- a unit vector.
-  let A := (finProjAction (E := E) (ι := ι)).2
-  let v : Model (finHeisenberg E ι) := isVacuum_finVac.vacElem
-  have h_isometry (x : Gf E ι) (f : Model (finHeisenberg E ι)) :
-      modelInner (weilOp A x f) (weilOp A x f) = modelInner f f :=
-    modelInner_weilOp A x f f (finProjAction_cocycle_eq_one_of_mem (one_mem _) x)
-  have h_triple :
-      weilOp A (g * s)⁻¹ (weilOp A g (weilOp A s v)) = finProjAction.1 g s • v :=
-    DFunLike.congr_fun (weilOp_inv_mul_weilOp_mul_weilOp A g s) v
-  have h_unit : modelInner v v = 1 := (modelInner_vacElem ..).trans isVacuum_finVac.apply_zero
-  have h_inner : modelInner (finProjAction.1 g s • v) (finProjAction.1 g s • v) = 1 := by
-    rw [← h_triple, h_isometry, h_isometry, h_isometry, h_unit]
-  have h_sq : ((‖finProjAction.1 g s‖ : ℝ) : ℂ) ^ 2 = 1 := by
-    simpa [h_unit, ← Complex.mul_conj', mul_comm] using h_inner
-  exact (pow_eq_one_iff_of_nonneg (norm_nonneg _) two_ne_zero).1 (mod_cast h_sq)
+  have h_iso (x : Gf E ι) (f) :=
+    modelInner_weilOp finProjAction.2 x f f (finProjAction_cocycle_eq_one_of_mem (one_mem _) x)
+  suffices ((‖finProjAction.1 g s‖ : ℝ) : ℂ) ^ 2 = 1 from
+    (pow_eq_one_iff_of_nonneg (norm_nonneg _) two_ne_zero).1 (mod_cast this)
+  simpa [modelInner_vacElem, isVacuum_finVac.apply_zero, ← Complex.mul_conj', mul_comm] using
+    (congrArg (fun f => modelInner f f)
+      (DFunLike.congr_fun (weilOp_inv_mul_weilOp_mul_weilOp finProjAction.2 g s)
+        isVacuum_finVac.vacElem).symm).trans ((h_iso _ _).trans ((h_iso _ _).trans (h_iso _ _)))
 
 /-- For `a`, `s` supported on a split place `w` and its conjugate, `Δ a / Δ (a * s) / Δ s⁻¹` is
 nonnegative, that is real and `≥ 0` in `ComplexOrder`, with `Δ = finMultiplier`: the phase of
