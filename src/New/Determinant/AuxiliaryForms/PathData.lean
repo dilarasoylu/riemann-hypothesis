@@ -106,18 +106,11 @@ product of the chosen places, and `b = D.natB ≥ 1`. The triangle modulus of gr
 `ϖ ^ b Q`; this is stated as an inclusion of ideals. -/
 lemma gridModulus_ideal_le_triangleModulus_ideal (ϑ : D.MFoldTwist) (z : Bool) :
     (gridModulus ϑ).ideal ≤ (triangleModulus z ϑ).ideal := by
-  let M : Ideal (NumberField.RingOfIntegers D.E) :=
-    ∏ i : (k : Fin 2) × D.ChosenPlace k, (D.chosenPlace i).asIdeal
-  let Q : Ideal (NumberField.RingOfIntegers D.E) := ∏ w : ϑ.Q, w.val.asIdeal
   cases z with
-  | false =>
-    change M ^ D.natB * Q ≤ M ^ 1 * Q
-    exact mul_mono_left (pow_le_pow_right NeZero.one_le)
+  | false => exact mul_mono_left (pow_le_pow_right NeZero.one_le)
   | true =>
     -- the trivial twist has no places, so its factor is the empty product `1`
-    change M ^ D.natB * Q ≤ M ^ D.natB * 1
-    rw [mul_one]
-    exact Ideal.mul_le_left
+    exact Ideal.mul_le_left.trans_eq (mul_one _).symm
 
 /-- Reduction from the residue ring of `New.Data.gridModulus` = ϖ^b Q to that of
 `New.Data.triangleModulus`, which is ϖQ for z false and ϖ^b for z true, with b = `D.natB`. -/

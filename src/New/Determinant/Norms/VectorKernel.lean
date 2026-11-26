@@ -73,17 +73,11 @@ Gram pairing `⟨ζ, θ_W(g, h)⟩` is the theta kernel `New.pairTheta` of `O.fo
 lemma gramForm_vectorKernel (g : G E O.signs) (h : Gf E n) (ζ : WeylIndex n O.columnCount → ℂ) :
     gramForm ζ (O.vectorKernel g h) =
       pairTheta O.W (stdSpace E n) O.charW O.charV (O.fockDatum (star ζ)) (g, 1, h) := by
-  have isUnit_det_gram : IsUnit (weylGramOver : Matrix (WeylIndex n O.columnCount)
-    (WeylIndex n O.columnCount) ℂ).det :=
+  have hdet : IsUnit (weylGramOver : Matrix (WeylIndex n O.columnCount) _ ℂ).det :=
     (isUnit_iff_isUnit_det _).1 weylGramOver_posDef.isUnit
-  calc gramForm ζ (O.vectorKernel g h)
-      = conj (∑ i : WeylIndex n O.columnCount, ζ i * O.conjKernel g h (Pi.single i 1)) := by
-        simp [gramForm_apply, vectorKernel, mul_nonsing_inv _ isUnit_det_gram, dotProduct]
-    _ = conj (O.conjKernel g h ζ) := by
-        conv_rhs => rw [pi_eq_sum_univ' ζ, map_sum]
-        simp only [map_smul, smul_eq_mul]
-    _ = pairTheta O.W (stdSpace E n) O.charW O.charV (O.fockDatum (star ζ)) (g, 1, h) :=
-        Complex.conj_conj _
+  refine Eq.trans (b := conj (O.conjKernel g h ζ)) ?_ (Complex.conj_conj _)
+  conv_rhs => rw [pi_eq_sum_univ' ζ, map_sum]
+  simp [gramForm_apply, vectorKernel, mul_nonsing_inv _ hdet, dotProduct]
 
 /-- The pairing of the kernel vector `θ_W(g, h) = O.vectorKernel g h` with `ξ` in the Gram form,
 conjugate linear in its first argument, is `O.conjKernel g h ξ`, the conjugate of the theta kernel

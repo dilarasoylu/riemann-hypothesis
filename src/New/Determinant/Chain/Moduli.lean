@@ -99,16 +99,11 @@ lemma CriticalPair.lValueProd_mul_inv_eq (p : D.CriticalPair) (ϑ : D.TameChar) 
     lValueProd ({w : FinPlace D.E | D.IsChosen w} ∪ ϑ.Q) (p.character * ϑ.toAutChar)⁻¹ p.z =
       lValueProd {w : FinPlace D.E | D.IsChosen w} p.character p.z * (ϑ.normQ : ℝ) ^ p.z ^ 2 *
         D.lRatioProd p.character p.z ϑ ^ 2 := by
+  apply Complex.ofReal_injective
   have h_inv : lValueProd {w : FinPlace D.E | D.IsChosen w} p.character⁻¹ p.z =
       lValueProd {w : FinPlace D.E | D.IsChosen w} p.character p.z := by simp [lValueProd, p.L_inv]
-  have h_eq :
-      (lValueProd ({w : FinPlace D.E | D.IsChosen w} ∪ ϑ.Q) (p.character * ϑ.toAutChar)⁻¹ p.z : ℂ) =
-        (ϑ.normQ : ℂ) ^ p.z ^ 2 *
-          (lValueProd {w : FinPlace D.E | D.IsChosen w} p.character p.z *
-            (D.lRatioProd p.character p.z ϑ : ℂ) ^ 2) := by
-    simpa [prod_pow, ← p.ofReal_lRatioProd, h_inv] using p.lValueProd_eq_mul_prod_ratio_sq 1 ϑ
-  rw [mul_left_comm, ← mul_assoc] at h_eq
-  exact_mod_cast h_eq
+  simpa [prod_pow, ← p.ofReal_lRatioProd, h_inv, mul_comm, mul_left_comm, mul_assoc] using
+    p.lValueProd_eq_mul_prod_ratio_sq 1 ϑ
 
 /-- At the powers of the trivial twist the product of the ratios of Hecke values is `1`. -/
 lemma CriticalPair.lRatioProd_one_pow (p : D.CriticalPair) (n : ℕ) :
