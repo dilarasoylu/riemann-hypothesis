@@ -201,17 +201,12 @@ lemma areMatched_det_mul {𝔪 : Modulus E} (χ : MulChar 𝔪.ResidueRing ℂ)
       (fun y : Matrix (b ⊕ n) b 𝔪.ResidueRing ↦ χ y.toRows₁.det * Ψ' y.toRows₂) := by
   -- `areMatched_block` gives the matched function `χ (det y') Ψ' (-y'' y'⁻¹)`, and the invariance
   -- of `Ψ'` removes the factor `-y'⁻¹`.
-  have h_row : (fun x : Matrix n (b ⊕ n) 𝔪.ResidueRing ↦
-      χ x.toCols₂.det * Ψ' (x.toCols₂⁻¹ * x.toCols₁)) = blockRowDatum (.refl (b ⊕ n)) χ⁻¹ Ψ' := by
-    simp [funext_iff, blockRowDatum]
-  have h_col : (fun y : Matrix (b ⊕ n) b 𝔪.ResidueRing ↦ χ y.toRows₁.det * Ψ' y.toRows₂) =
-      blockColDatum (.refl (b ⊕ n)) χ⁻¹ Ψ' := funext fun y ↦ by
+  convert areMatched_block (.refl (b ⊕ n)) χ⁻¹ Ψ' using 1
+  · simp [funext_iff, blockRowDatum]
+  · refine funext fun y ↦ ?_
     by_cases hy : IsUnit y.toRows₁.det
-    · rw [← hΨ' _ (-(GeneralLinearGroup.mk'' _ hy)⁻¹)]
-      simp [blockColDatum]
+    · simp [blockColDatum, ← hΨ' y.toRows₂ (-(GeneralLinearGroup.mk'' _ hy)⁻¹)]
     · simp [blockColDatum, χ.map_nonunit hy]
-  rw [h_row, h_col]
-  exact areMatched_block (.refl (b ⊕ n)) χ⁻¹ Ψ'
 
 /-- One exchange. Let `V'` and `W'` be hermitian spaces with bases indexed by `b` and `n` and signs
 `t` and `s` at the infinite places, with adelic unitary groups `G E t` and `G E s`. Let `E^b` be the
@@ -230,9 +225,7 @@ lemma integrable_and_mul_stdClassSum_eq_integral_mul {s : n → ℤˣ} {t : b �
     (hΨ' : ∀ (y : Matrix n b 𝔪.ResidueRing) (γ : GL b 𝔪.ResidueRing), Ψ' (y * γ.1) = Ψ' y)
     {P : MvPolynomial (InfinitePlace E × n × b) ℂ} {h' : Gf E b} {g : G E s}
     {K : (Matrix n (b ⊕ n) 𝔪.ResidueRing → ℂ) → Gf E n → ℂ} {c : ℂ}
-    (h_exchange : ∀ (Φ : Matrix n (b ⊕ n) 𝔪.ResidueRing → ℂ)
-      (Ψ : Matrix (b ⊕ n) b 𝔪.ResidueRing → ℂ),
-      AreMatched ⊤ (.refl (b ⊕ n)) χ⁻¹ Φ Ψ →
+    (h_exchange : ∀ Φ Ψ, AreMatched ⊤ (.refl (b ⊕ n)) χ⁻¹ Φ Ψ →
       c * stdClassSum (stdLevel E n) (K Φ) =
         ∫ x : G E t, modKernel V' ((stdSpace E b).sum W') a (β * β') 𝔪 Ψ
           (renameRowsCols .inr id P) x (.sum ((1, h'), g)) ∂V'.quotMeasure) :
@@ -244,18 +237,13 @@ lemma integrable_and_mul_stdClassSum_eq_integral_mul {s : n → ℤˣ} {t : b �
       ∫ x : G E t, modKernelStdSpace V' a β 𝔪 (fun y : Matrix b b 𝔪.ResidueRing ↦ χ y.det) 1 x h' *
         modKernel V' W' a β' 𝔪 Ψ' P x g ∂V'.quotMeasure := by
   -- The function matched with `χ (det x'') Ψ' (x''⁻¹ x')` is the product `χ (det y') Ψ' (y'')`, so
-  -- its kernel factors along `E^b ⊕ W'`.
-  let Ψ (y : Matrix (b ⊕ n) b 𝔪.ResidueRing) : ℂ := χ y.toRows₁.det * Ψ' y.toRows₂
-  have h_factor : (fun x ↦ modKernel V' ((stdSpace E b).sum W') a (β * β') 𝔪 Ψ
-      (renameRowsCols .inr id P) x (.sum ((1, h'), g))) = fun x : G E t ↦
-      modKernelStdSpace V' a β 𝔪 (fun y ↦ χ y.det) 1 x h' * modKernel V' W' a β' 𝔪 Ψ' P x g := by
-    simp [Ψ, ← modKernel_sum_right]
-  -- The integral converges, as `y'` is invertible on the support.
-  have Ψ_supp (y : Matrix (b ⊕ n) b 𝔪.ResidueRing) (hy : Ψ y ≠ 0) : HasLeftInv y :=
-    hasLeftInv_of_isUnit_det_toRows₁ (χ.apply_ne_zero_iff.1 (left_ne_zero_of_mul hy))
-  rw [← h_factor]
-  exact ⟨(isRapid_modKernel V' _ a (β * β') h𝔪 Ψ_supp _ _).integrable (by fun_prop [modKernel]),
-    h_exchange _ Ψ (areMatched_det_mul χ hΨ')⟩
+  -- its kernel factors along `E^b ⊕ W'`, and the integral converges as `y'` is invertible on supp.
+  simpa [← modKernel_sum_right] using
+    ⟨(isRapid_modKernel V' ((stdSpace E b).sum W') a (β * β') h𝔪
+      (Ψ := fun y ↦ χ y.toRows₁.det * Ψ' y.toRows₂) (fun _ hy ↦ hasLeftInv_of_isUnit_det_toRows₁
+        (χ.apply_ne_zero_iff.1 (left_ne_zero_of_mul hy)))
+      (renameRowsCols .inr id P) (.sum ((1, h'), g))).integrable (by fun_prop [modKernel]),
+      h_exchange _ _ (areMatched_det_mul χ hΨ')⟩
 
 /-- One exchange, summed over the classes of `U(E^b)`. Let `V'` and `W'` be hermitian spaces with
 bases indexed by `b` and `n` and signs `t` and `s` at the infinite places, with adelic unitary
