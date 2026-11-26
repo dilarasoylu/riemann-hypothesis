@@ -292,11 +292,9 @@ lemma FrobeniusCycle.polyAction_powerPacking (T : FrobeniusCycle N W K) {n m j :
       ∑ u : Fin k × ZMod N → Fin m, ∑ δ : Exponents N k n,
         monomial (m • exponentOf δ) ((T.letterRep n g *ᵥ F u) δ) *
           T.polyAction g (monomial (residueExponent a u) 1) := by
-  have h_comm (f : MvPolynomial (Fin k × ZMod N) K) :
-      T.polyAction g (expand m f) = expand m (T.polyAction g f) :=
-    AlgHom.congr_fun (T.polyAction_commute_expand hm g).eq f
-  simp only [powerPacking_apply, map_sum, map_mul, h_comm, polyAction_polyOfCoeffs,
-    expand_polyOfCoeffs (m := m) (G := T.letterRep n g *ᵥ _), Finset.sum_mul]
+  simp only [powerPacking_apply, map_sum, map_mul, ← AlgHom.mul_apply,
+    (T.polyAction_commute_expand hm g).eq]
+  simp only [AlgHom.mul_apply, polyAction_polyOfCoeffs, expand_polyOfCoeffs, Finset.sum_mul]
 
 /-- Let `T` be a Frobenius cycle over a field `K` of characteristic `T.p`, and let `m` be a power of
 the number `T.q` of elements of the residue field of `W`. The forms `F u`, of degree `n` in each
@@ -319,13 +317,10 @@ lemma FrobeniusCycle.exists_eq_add_of_coeff_polyAction_powerPacking (T : Frobeni
         T.polyAction g (monomial (residueExponent a u) 1)).coeff α ≠ 0 := by
     by_contra! h_zero
     simp [T.polyAction_powerPacking hm, h_zero] at hα
-  obtain ⟨ε, rfl⟩ : ∃ ε, α = m • exponentOf δ + ε := le_iff_exists_add.1 <| by
-    by_contra h_not_le
-    simp [coeff_monomial_mul', h_not_le] at hδ
-  rw [coeff_monomial_mul] at hδ
-  refine ⟨u, δ, ε, rfl, left_ne_zero_of_mul hδ, fun s ↦ ?_⟩
-  rw [T.sum_eq_of_coeff_polyAction_monomial (right_ne_zero_of_mul hδ) s]
-  exact sum_residueExponent_mem_Icc a u s
+  rw [coeff_monomial_mul', ite_ne_right_iff] at hδ
+  exact ⟨u, δ, α - m • exponentOf δ, (add_tsub_cancel_of_le hδ.1).symm, left_ne_zero_of_mul hδ.2,
+    fun s ↦ (T.sum_eq_of_coeff_polyAction_monomial (right_ne_zero_of_mul hδ.2) s).symm ▸
+      sum_residueExponent_mem_Icc a u s⟩
 
 /-- Let `T` be a Frobenius cycle over a field `K` of characteristic `T.p`, and let `m` be a power of
 the number `T.q` of elements of the residue field of `W`. The forms `F u`, of degree `n` in each
@@ -589,15 +584,12 @@ lemma FrobeniusCycle.smul_add_mem_defectCone_inter_degreeSlab (T : FrobeniusCycl
     h • σ + β ∈
       T.defectCone a 0 ∩ degreeSlab k fun s : ZMod N ↦ d + ∑ b : Fin k, (h • σ) (b, s) := by
   obtain ⟨h_cone, h_nonneg, h_deg⟩ := hβ
-  refine ⟨fun i b b' hb ↦ ?_, add_nonneg (smul_nonneg h_factor hσ_nonneg) h_nonneg, fun s ↦ ?_⟩
-  · have hβ_le : T.defectWeight i b b' ⬝ᵥ β ≤ if b = a then h else 0 := h_cone i b b' hb
-    have hσ_le : h * T.defectWeight i b b' ⬝ᵥ σ ≤ h * if b = a then -1 else 0 :=
-      mul_le_mul_of_nonneg_left (hσ_cone i b b' hb) h_factor
-    rw [dotProduct_add, dotProduct_smul, smul_eq_mul, ite_self]
-    split_ifs at hβ_le hσ_le <;> linarith
-  · obtain ⟨h_low, h_up⟩ := h_deg s
-    simp only [Pi.add_apply, sum_add_distrib]
-    constructor <;> linarith
+  refine ⟨fun i b b' hb ↦ ?_, add_nonneg (smul_nonneg h_factor hσ_nonneg) h_nonneg,
+    fun s ↦ by simpa [sum_add_distrib, add_comm d, add_sub_assoc] using h_deg s⟩
+  have hβ_le := h_cone i b b' hb
+  have hσ_le := mul_le_mul_of_nonneg_left (hσ_cone i b b' hb) h_factor
+  rw [dotProduct_add, dotProduct_smul, smul_eq_mul, ite_self]
+  split_ifs at hβ_le hσ_le <;> linarith
 
 /-! ### The count -/
 
@@ -906,10 +898,6 @@ coordinates `ν`. The index `a'` does not matter, as the bound is `0` at every r
 lemma FrobeniusCycle.permStep_mem_defectCone_iff (T : FrobeniusCycle N W K) {a' : Fin k}
     (ν : Fin k × ZMod N → ℝ) :
     permStep T.isEven T.P 1 ν ∈ T.defectCone a' 0 ↔ ν ∈ pieriCone T.isEven (T.P : ℝ) := by
-  change (∀ (i : ZMod N) (b b' : Fin k), b.val + 1 = b' →
-      T.defectWeight i b b' ⬝ᵥ permStep T.isEven T.P 1 ν ≤ if b = a' then (0 : ℝ) else 0) ↔
-    ∀ (i : ZMod N) (b b' : Fin k), b.val + 1 = b' →
-      permStep T.isEven T.P 1 ν ((if T.isEven i then b' else b), i) ≤ ν (b, i) - ν (b', i)
   refine forall₄_congr fun i b b' hb ↦ ?_
   rw [defectWeight_dotProduct_permStep, ite_self, sub_nonpos, rootVar]
 
