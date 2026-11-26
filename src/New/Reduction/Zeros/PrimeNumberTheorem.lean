@@ -120,20 +120,15 @@ for `n ≡ 1` mod `q` and `0` otherwise. The remainder `R_q = primeRemainder d q
 lemma abs_primeRemainder_sub_le {y z : ℝ} (hy : 1 ≤ y) (hyz : y ≤ z) :
     |primeRemainder d q z - primeRemainder d q y| ≤ 13 * ((z - y) / y) := by
   -- The difference is the integral over `[y, z]` of `𝓔_q(t) t⁻²`, which is at most `13 / y` there.
-  have h_bound (t : ℝ) (ht : t ∈ Set.uIoc y z) : ‖countError d q t / t ^ 2‖ ≤ 13 / y := by
-    obtain ⟨hyt, -⟩ : y < t ∧ t ≤ z := by rwa [Set.uIoc_of_le hyz] at ht
-    have ht_pos : 0 < t := by linarith
-    calc ‖countError d q t / t ^ 2‖ ≤ 13 * t / t ^ 2 := by
-          grw [norm_eq_abs, abs_div, abs_countError_le ht_pos.le, abs_of_pos (pow_pos ht_pos 2)]
-      _ ≤ 13 / y := by grw [hyt]; simp [field]
-  calc |primeRemainder d q z - primeRemainder d q y| = ‖∫ t in y..z, countError d q t / t ^ 2‖ := by
-        rw [primeRemainder_eq_integral_countError_sub hy,
-          primeRemainder_eq_integral_countError_sub (hy.trans hyz),
-          sub_sub_sub_cancel_right, intervalIntegral.integral_interval_sub_left
-            (intervalIntegrable_countError_div_sq le_rfl (hy.trans hyz))
-            (intervalIntegrable_countError_div_sq le_rfl hy), norm_eq_abs]
-    _ ≤ 13 / y * |z - y| := intervalIntegral.norm_integral_le_of_norm_le_const h_bound
-    _ = 13 * ((z - y) / y) := by rw [abs_of_nonneg (sub_nonneg.2 hyz)]; ring
+  rw [primeRemainder_eq_integral_countError_sub hy,
+    primeRemainder_eq_integral_countError_sub (hy.trans hyz), sub_sub_sub_cancel_right,
+    intervalIntegral.integral_interval_sub_left (intervalIntegrable_countError_div_sq le_rfl
+      (hy.trans hyz)) (intervalIntegrable_countError_div_sq le_rfl hy), ← norm_eq_abs,
+    ← mul_div_assoc, ← div_mul_eq_mul_div, ← abs_of_nonneg (sub_nonneg.2 hyz)]
+  refine intervalIntegral.norm_integral_le_of_norm_le_const fun t ht ↦ ?_
+  have hyt : y < t := (Set.uIoc_of_le hyz ▸ ht).1
+  grw [norm_eq_abs, abs_div, abs_countError_le (by linarith), abs_of_pos (by nlinarith), hyt]
+  simp [field]
 
 /-- Let `d` be a prime and `q ≠ 0`. In the variable `v = log y` the remainder
 `R_q = primeRemainder d q` is Lipschitz: `|R_q(e^v) - R_q(e^u)| ≤ 26 (v - u)` for

@@ -209,18 +209,12 @@ lemma lambdaKResidueClass_mul_posPart_le_ite {y : ℝ} (hy : 0 ≤ y) (hya : y �
 τ) = ∑_{1 ≤ n ≤ a} Λ_K(n) (y / n - κ(-n τ))₊` is at most `4 y log x₁`, as only `n ≤ x₁` count. -/
 lemma primeSum_le {y : ℝ} (hy : 0 ≤ y) (hya : y ≤ D.a) (τ : D.Φ) :
     D.primeSum y τ ≤ 4 * y * D.logX₁ := by
-  have h_log : log ⌊D.x₁⌋₊ ≤ D.logX₁ :=
-    (log_le_iff_le_exp (mod_cast Nat.floor_pos.2 (D.le_of_hasLogBound : 1 ≤ D.x₁))).2
-      (Nat.floor_le (exp_nonneg _))
-  calc D.primeSum y τ
-      ≤ ∑ n ∈ Icc 1 D.a,
-          if n ∈ Ioc 0 ⌊D.x₁⌋₊ then 2 * y * (ArithmeticFunction.vonMangoldt n / n) else 0 :=
-        sum_le_sum fun n hn ↦ D.lambdaKResidueClass_mul_posPart_le_ite hy hya _ (mem_Icc.1 hn).1
-    _ ≤ ∑ n ∈ Ioc 0 ⌊D.x₁⌋₊, 2 * y * (ArithmeticFunction.vonMangoldt n / n) := by
-        rw [sum_ite_mem]
-        exact sum_le_sum_of_subset_of_nonneg inter_subset_right fun n _ _ ↦ by positivity
-    _ ≤ 2 * y * (2 * D.logX₁) := by grw [← mul_sum, sum_vonMangoldt_div_le, h_log]
-    _ = 4 * y * D.logX₁ := by ring
+  refine (sum_le_sum fun n hn ↦
+    D.lambdaKResidueClass_mul_posPart_le_ite hy hya _ (mem_Icc.1 hn).1).trans ?_
+  grw [sum_ite_mem, sum_le_sum_of_subset_of_nonneg inter_subset_right fun _ _ _ ↦ by positivity,
+    ← mul_sum, sum_vonMangoldt_div_le, (log_le_iff_le_exp (mod_cast Nat.floor_pos.2
+      (D.le_of_hasLogBound : 1 ≤ D.x₁))).2 (Nat.floor_le (exp_nonneg _))]
+  exact le_of_eq (by ring)
 
 /-- For `0 ≤ y ≤ a` and every place `τ` the prime sum `D.primeSum y τ = ∑_{1 ≤ n ≤ a} Λ_K(n)
 (y / n - κ(-n τ))₊` lies between `0` and `y log b`. -/

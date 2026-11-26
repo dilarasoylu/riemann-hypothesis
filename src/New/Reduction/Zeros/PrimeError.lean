@@ -233,28 +233,22 @@ lemma LSeries_lambdaKResidueClass {s : ℂ} (hs : 2 < s.re) (r : ℕ) :
   -- Partial summation for the coefficients `f n = λ(n) n ^ (r - 1)` at `s + r - 1`, followed by
   -- the substitution `t = e ^ v`.
   let f (n : ℕ) : ℂ := lambdaKResidueClass d q n / n * n ^ r
-  have h_sum : (fun n : ℕ ↦ ∑ k ∈ Icc 1 n, ‖f k‖) =O[atTop] fun n : ℕ ↦ (n : ℝ) ^ (1 + r : ℝ) := by
-    refine .of_bound 2 ((eventually_gt_atTop 0).mono fun n hn ↦ ?_)
-    have hn_pos : (0 : ℝ) < n := mod_cast hn
-    have h_bound := abs_lambdaKSum_exp_le d q r (Real.log n)
-    rw [Real.exp_log hn_pos] at h_bound
-    simpa [f, abs_of_nonneg, lambdaKResidueClass_nonneg, lambdaKSum, hn, div_le_iff₀, abs_div,
-      rpow_add, field] using h_bound
-  have h_re : 1 + (r : ℝ) < (s + r - 1).re := by
-    linarith [show (s + r - 1).re = s.re + r - 1 by simp]
-  have h_subst (v : ℝ) :
-      rexp v • ((∑ k ∈ Icc 1 ⌊rexp v⌋₊, f k) * (rexp v : ℂ) ^ (-(s + r - 1 + 1))) =
-        lambdaKSum d q r (rexp v) * cexp ((1 - s) * v) := by
-    simp [f, lambdaKSum, field, cpow_add, cpow_neg, sub_mul, Complex.exp_sub, cpow_def _ s,
-      Complex.log_exp, mul_comm s, le_of_lt, pi_pos]
+  have h_sum : (fun n : ℕ ↦ ∑ k ∈ Icc 1 n, ‖f k‖) =O[atTop] fun n : ℕ ↦ (n : ℝ) ^ (1 + r : ℝ) :=
+    .of_bound 2 <| (eventually_gt_atTop 0).mono fun n hn ↦ by
+      simpa [f, abs_of_nonneg, lambdaKResidueClass_nonneg, lambdaKSum, hn, div_le_iff₀, abs_div,
+        rpow_add, Real.exp_log (Nat.cast_pos.2 hn), field] using
+        abs_lambdaKSum_exp_le d q r (Real.log n)
   calc
-    LSeries (fun n : ℕ ↦ lambdaKResidueClass d q n) s = LSeries f (s + r - 1) := by
-      refine tsum_congr fun n ↦ ?_
-      obtain rfl | hn := eq_or_ne n 0 <;> simp [f, cpow_sub, cpow_add, field, *]
+    LSeries (fun n : ℕ ↦ lambdaKResidueClass d q n) s = LSeries f (s + r - 1) :=
+      tsum_congr fun n ↦ by by_cases hn : n = 0 <;> simp [f, cpow_sub, cpow_add, field, hn]
     _ = (s + r - 1) * ∫ t in .Ioi (1 : ℝ), (∑ k ∈ Icc 1 ⌊t⌋₊, f k) * t ^ (-(s + r - 1 + 1)) :=
-      LSeries_eq_mul_integral' f (by positivity) h_re h_sum
+      LSeries_eq_mul_integral' f (by positivity)
+        (by linarith [show (s + r - 1).re = s.re + r - 1 by simp]) h_sum
     _ = (s + r - 1) * ∫ v : ℝ in .Ioi 0, lambdaKSum d q r (rexp v) * cexp ((1 - s) * v) := by
-      simp only [← Real.exp_zero, ← integral_comp_exp_Ioi, h_subst]
+      rw [← Real.exp_zero, ← integral_comp_exp_Ioi]
+      refine congrArg _ (setIntegral_congr_fun measurableSet_Ioi fun v _ ↦ ?_)
+      simp [f, lambdaKSum, field, cpow_add, cpow_neg, sub_mul, Complex.exp_sub, cpow_def _ s,
+        Complex.log_exp, mul_comm s, le_of_lt, pi_pos]
 
 /-- Let `d` be an odd prime coprime to `q ≥ 1`, `χ_K = (·/d)` the Legendre symbol, and
 `λ = lambdaKResidueClass d q` the weight `Λ(n) (1 - χ_K(n))` on `n ≡ 1` mod `q` and `0` elsewhere.

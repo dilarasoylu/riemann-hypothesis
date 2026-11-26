@@ -147,20 +147,13 @@ prime `p` dividing `P.q₁ s = q₀ * towerDeg s`, the Legendre symbol `chiK d p
 which is the criterion for `p` to split in `K = ℚ(√-d)`. -/
 lemma chiK_eq_one_of_dvd {p s : ℕ} (hp : p.Prime) (hp_dvd : p ∣ P.q₁ s) : chiK P.d p = 1 := by
   -- The Jacobi symbol `(p / d)` depends on `d` only modulo `4 p`, and `d ≡ -1 mod 4 p`.
-  have hp_pos : 0 < p := hp.pos
-  have h_mod_eight : P.d % 8 = 7 := PrimeSevenModEight.mod_eight
-  have h_dvd : 4 * p ∣ P.d + 1 := Nat.mul_dvd_of_dvd_div (by omega)
-    (P.dvd_d_add_one_div_four_of_dvd_q₁ hp hp_dvd)
-  have h_mod : P.d % (4 * p) = 4 * p - 1 := (Nat.mod_eq_sub_iff one_pos (by omega)).2 h_dvd
-  have h_cast : (4 * p : ℤ) = 1 + (4 * p - 1 : ℕ) := by omega
-  calc chiK P.d p = jacobiSym p (4 * p - 1) := by
-        rw [chiK_eq_legendreSym, legendreSym.to_jacobiSym,
-          mod_right' p (Nat.odd_iff.2 (by omega)), h_mod]
-    -- the factor `4` is a square prime to the odd modulus
-    _ = jacobiSym (4 * p : ℤ) (4 * p - 1) := by
-        rw [← div_four_left (a := 4 * p) (by omega) (by omega),
-          Int.mul_ediv_cancel_left _ four_ne_zero]
-    _ = 1 := by rw [h_cast, mod_left' (Int.add_emod_right 1 _), one_left]
+  have : 0 < p := hp.pos
+  have : P.d % 8 = 7 := PrimeSevenModEight.mod_eight
+  have h_mod : P.d % (4 * p) = 4 * p - 1 := (Nat.mod_eq_sub_iff one_pos (by omega)).2 <|
+    Nat.mul_dvd_of_dvd_div (by omega) (P.dvd_d_add_one_div_four_of_dvd_q₁ hp hp_dvd)
+  rw [chiK_eq_legendreSym, legendreSym.to_jacobiSym, mod_right' p (Nat.odd_iff.2 (by omega)),
+    h_mod, ← Int.mul_ediv_cancel_left (p : ℤ) four_ne_zero, div_four_left (by omega) (by omega),
+    show (4 * p : ℤ) = 1 + (4 * p - 1 : ℕ) by omega, mod_left' (Int.add_emod_right 1 _), one_left]
 
 /-- A prime that does not split in `K = ℚ(√-d)`, that is `χ_K(p) ≠ 1`, is at least `13`. -/
 lemma thirteen_le_of_chiK_ne_one {p : ℕ} (hp : p.Prime) (h_ne : chiK P.d p ≠ 1) : 13 ≤ p := by

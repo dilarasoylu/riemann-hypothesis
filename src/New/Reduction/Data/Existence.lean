@@ -125,20 +125,14 @@ lemma Parameters.exists_orderOf_placeClass_eq (P : Parameters) (s : ℕ) :
     ∃ (v : ℕ) (hv : 2 ^ (s + v) ∣ P.q₁ s),
       orderOf (P.placeClass hv (P.placeOfInt s (3 * l₀ s * P.q₀ + 1 : ℕ))) = 2 ^ s := by
   -- Write `q₀ = 2 ^ v u` with `u` odd and `v ≥ 2`; then `g = 1 + 2 ^ v (3 l₀ u)`.
-  obtain ⟨v, u, hu, hq₀⟩ : ∃ v u : ℕ, Odd u ∧ P.q₀ = 2 ^ v * u :=
-    Nat.exists_eq_two_pow_mul_odd (ne P.q₀)
-  have h_four : 2 ^ 2 ∣ 2 ^ v * u := (Nat.dvd_trans (by norm_num) P.dvd_q₀).trans hq₀.dvd
-  have h_two_le : 2 ≤ v := (Nat.pow_dvd_pow_iff_le_right one_lt_two).1
-    ((hu.coprime_two_left.pow_left 2).dvd_of_dvd_mul_right h_four)
-  set a : ℕ := 3 * l₀ s * u with ha
-  have ha_odd : Odd a := by simp [ha, l₀, Nat.odd_mul, Nat.odd_pow_iff, hu, Nat.odd_iff.2]
-  have h_order : orderOf (1 + 2 ^ v * (a : ℤ) : ZMod (2 ^ (s + v))) = 2 ^ s :=
-    ZMod.orderOf_one_add_mul_prime_pow Nat.prime_two v (by omega) a
-      (mod_cast ha_odd.not_two_dvd_nat) s
-  refine ⟨v, ⟨a, by grind [towerDeg_eq]⟩, ?_⟩
-  rw [← orderOf_units, P.placeClass_placeOfInt (by simp [isCoprime_one_left]), ← h_order, hq₀, ha]
-  push_cast
-  ring_nf
+  obtain ⟨v, u, hu, hq₀⟩ := Nat.exists_eq_two_pow_mul_odd (ne P.q₀)
+  refine ⟨v, ⟨3 * l₀ s * u, by grind [towerDeg_eq]⟩, ?_⟩
+  rw [← orderOf_units, P.placeClass_placeOfInt (by simp [isCoprime_one_left]), hq₀]
+  convert ZMod.orderOf_one_add_mul_prime_pow Nat.prime_two v
+    (by rcases v with _ | _ | v <;> grind [P.dvd_q₀]) (3 * l₀ s * u) ?_ s using 2
+  · push_cast
+    ring
+  · exact mod_cast (((by decide : Odd 3).mul (by decide : Odd 3).pow).mul hu).not_two_dvd_nat
 
 /-- Let `y` be a place whose class modulo the part of `q₁` prime to the prime `ℓ` is `± ℓ ^ i`.
 Then the square of its class modulo every divisor of `q₁` prime to `ℓ` is `ℓ ^ (2 i)`. -/
