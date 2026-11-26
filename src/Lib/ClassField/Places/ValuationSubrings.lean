@@ -611,16 +611,10 @@ lemma New.FinPlace.ncard_mul_ramificationIdx_mul_inertiaDeg :
       Module.finrank K L := by
   -- This is Mathlib's formula for the prime ideals over `w.below K`: the places over it correspond
   -- to these ideals, and all of them have the ramification index and inertia degree of `w`.
-  have h_iff (u : FinPlace L) :
-      u.below K = w.below K ↔ u.asIdeal ∣ (w.below K).asIdeal.map (algebraMap (𝓞 K) (𝓞 L)) := by
-    rw [← liesOver_iff_dvd_map u.isPrime.ne_top]
-    refine ⟨fun hu ↦ ?_, fun hu ↦ asIdeal_injective hu.over.symm⟩
-    rw [← hu]
-    infer_instance
-  have h_card : {u : FinPlace L | u.below K = w.below K}.ncard =
-      ((w.below K).asIdeal.primesOver (𝓞 L)).ncard :=
-    Set.ncard_congr' ((Equiv.subtypeEquivRight h_iff).trans (equivPrimesOver _ (ne_bot _)))
-  rw [h_card, ← IsGalois.card_aut_eq_finrank,
+  rw [Set.ncard_congr' ((Equiv.subtypeEquivRight fun u ↦
+      Iff.trans ⟨fun hu ↦ ⟨congrArg asIdeal hu.symm⟩, fun hu ↦ asIdeal_injective hu.over.symm⟩
+        (liesOver_iff_dvd_map u.isPrime.ne_top)).trans (equivPrimesOver _ (ne_bot _))),
+    ← IsGalois.card_aut_eq_finrank,
     ← (w.below K).asIdeal.ncard_primesOver_mul_ramificationIdxIn_mul_inertiaDegIn (𝓞 L),
     ramificationIdxIn_eq_ramificationIdx _ w Gal(L/K), inertiaDegIn_eq_inertiaDeg _ w Gal(L/K)]
 

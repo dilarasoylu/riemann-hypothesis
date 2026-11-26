@@ -397,21 +397,14 @@ lemma SplitTameChar.invOnUnits_mul_finPart_div_star_eq_one {u : (𝔸f E)ˣ}
     (hu : u ∈ idelesUnitOff ∅) :
     invOnUnits 𝔠.semilocalChar (evalPlaces 𝔠.ramifiedPlaces u) * 𝔠.character.baseChange.finPart u /
       invOnUnits 𝔠.semilocalChar (evalPlaces 𝔠.ramifiedPlaces (star u)) = 1 := by
-  obtain ⟨u_mem, inv_mem⟩ : u.val ∈ Ô E ∧ u⁻¹.val ∈ Ô E := idelesUnitOff_empty.le hu
-  -- The base change of `ν` at `u` is `ν` at the integral idele `u / star u`, whose archimedean
-  -- components are `1`, so it is a value of `𝔠.semilocalChar`.
-  have h_bc : 𝔠.character.baseChange.finPart u =
-      (∏ v, (1 * star 1) ^ μ v) * 𝔠.semilocalChar
-        (evalPlaces 𝔠.ramifiedPlaces (u * star u⁻¹.val)) :=
+  obtain ⟨u_mem, inv_mem⟩ := idelesUnitOff_empty.le hu
+  -- The base change of `ν` at `u` is `ν` at `u / star u`, whose archimedean components are `1`.
+  have h_bc : (𝔠.character.baseChange.finPart u : ℂ) = (∏ v, (1 * star 1) ^ μ v) *
+      𝔠.semilocalChar (evalPlaces 𝔠.ramifiedPlaces (u * star u⁻¹.val)) :=
     𝔠.character_apply_of_integral (divStar (finIdeleIncl u)) (mul_mem u_mem (star_mem_Ô inv_mem))
-  -- `u` and `star u` are units at every place, so both `invOnUnits` factors are values of `χ⁻¹`.
-  suffices (𝔠.semilocalChar (evalPlaces 𝔠.ramifiedPlaces u))⁻¹ *
-    (𝔠.semilocalChar (evalPlaces 𝔠.ramifiedPlaces u) *
-      𝔠.semilocalChar (evalPlaces 𝔠.ramifiedPlaces (star u⁻¹.val))) * 𝔠.semilocalChar
-        (evalPlaces 𝔠.ramifiedPlaces (star u.val)) = 1 by
-    simpa [h_bc, invOnUnits, isIntegralUnit_iff_v_eq_one, mem_idelesUnitOff.mp hu]
-  -- `star u⁻¹ * star u = 1`, and `χ (u_S) ≠ 0` since `u_S` is a unit.
-  simp [mul_assoc, ← map_mul, ← star_mul, MulChar.apply_eq_zero_iff, IsUnit.map]
+  -- `u` and `star u` are units at every place, and `star u⁻¹ * star u = 1`.
+  simp [h_bc, invOnUnits, isIntegralUnit_iff_v_eq_one, mem_idelesUnitOff.mp hu,
+    mul_assoc, ← map_mul, ← star_mul, MulChar.apply_eq_zero_iff, IsUnit.map]
 
 /-- There is a finite idele `c` with component `1` outside `S̄` (the conjugates of
 `S = 𝔠.ramifiedPlaces`), whose conjugate has at `S` the chosen uniformisers `ϖ` (the uniformiser

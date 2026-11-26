@@ -170,17 +170,12 @@ lemma shapiro_H1 (F : Z1 (M.funModule U).ρ) (m : M.V)
     (h_cob : ∀ u : U.toSubgroup, F.val u ⟦1⟧ = M.ρ u m - m) :
     ∃ n : (M.funModule U).V, ∀ g : Γ, F.val g = ρ (M.funModule U) g n - n := by
   -- Put `n (g U) = g m - F g (g U)`; the hypothesis makes this independent of the representative.
-  have h_cocycle (g k : Γ) : F.val (g * k) = F.val g + (M.funModule U).ρ g (F.val k) :=
-    F.prop.right g k
-  have h_well (g : Γ) (u : U.toSubgroup) :
-      M.ρ (g * u) m - F.val (g * u) ↑(g * u) = M.ρ g m - F.val g g := by
-    simp [h_cocycle, mk_mul_of_mem g u.prop, h_cob u, ← sub_sub]
   refine ⟨Quotient.lift (fun g : Γ ↦ M.ρ g m - F.val g g) ?_, fun g ↦ funext fun x ↦ ?_⟩
   · rintro _ g ⟨u, rfl⟩
-    exact h_well g ⟨_, u.prop⟩
+    simp [Subgroup.smul_def, F.prop.2, mk_mul_of_mem g u.prop, h_cob ⟨_, u.prop⟩, ← sub_sub]
   · -- Every coset is `g * k U`.
     obtain ⟨k, rfl⟩ := (mk_surjective.comp (mul_left_surjective g)) x
-    simp [h_cocycle]
+    simp [F.prop.2]
 
 /-- Shapiro's lemma in degree two, injectivity: for U open in the compact group Γ, the map
 H²(Γ, Fun(Γ/U, M)) → H²(U, M), restriction followed by evaluation at the trivial coset, is
