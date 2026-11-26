@@ -96,8 +96,7 @@ lemma mem_levelSpace {χ : K →* A} {v : W} : v ∈ levelSpace π K χ ↔ ∀ 
 `a v` satisfies the same equations: it lies in the level space of `(K, χ)`. -/
 lemma map_mem_levelSpace_of_commute {χ : K →* A} {v : W} {a : W →ₗ[A] W}
     (hv : v ∈ levelSpace π K χ) (h_comm : ∀ k : K, Commute (π k) a) :
-    a v ∈ levelSpace π K χ := by
-  intro k
+    a v ∈ levelSpace π K χ := fun k ↦ by
   rw [show π k (a v) = a (π k v) from LinearMap.congr_fun (h_comm k).eq v, hv k, map_smul]
 
 @[simp]
@@ -218,8 +217,8 @@ lemma relIndex_mul_measure_inf (hK : IsCompact (K : Set G)) (hH : IsOpen (H : Se
 lemma measure_inter_eq_inv_relIndex (hK : IsCompact (K : Set G)) (hH : IsOpen (H : Set G))
     [MeasurableSpace G] [BorelSpace G] [T2Space G] (μ : Measure G) [μ.IsMulLeftInvariant]
     (hμ : μ K = 1) : μ (H ∩ K) = (↑(H.relIndex K))⁻¹ := by
-  have h_mul : H.relIndex K * μ ↑(H ⊓ K) = 1 := (relIndex_mul_measure_inf hK hH μ).trans hμ
-  simp [ENNReal.eq_inv_of_mul_eq_one_left h_mul]
+  simpa using ENNReal.eq_inv_of_mul_eq_one_left
+    ((mul_comm _ _).trans ((relIndex_mul_measure_inf hK hH μ).trans hμ))
 
 end HeckeDefs
 
@@ -253,9 +252,8 @@ variable {K K' f}
 /-- If `f` lives on finitely many cosets, its operator is the finite sum over those cosets. -/
 lemma heckeFun_eq_sum_toFinset (h : HasFiniteCosets K f) (v : W) :
     heckeFun π K f v = ∑ q ∈ h.toFinset, f q.out • π q.out v := by
-  have h_support : support (fun q : G ⧸ K ↦ f q.out • π q.out) ⊆ h.toFinset :=
-    fun q hq ↦ by simpa using left_ne_zero_of_smul hq
-  simp [heckeFun, finsum_eq_sum_of_support_subset _ h_support]
+  simp [heckeFun, finsum_eq_sum_of_support_subset (fun q : G ⧸ K ↦ f q.out • π q.out)
+    (s := h.toFinset) fun q hq ↦ by simpa using left_ne_zero_of_smul hq]
 
 /-- Let `f` live on finitely many cosets `g K`. A linear map `L` that intertwines `π g` and `π' g`
 at `v` for all `g` intertwines the two operators of `f` at `v`. -/
@@ -273,11 +271,9 @@ lemma isHeckeFunction_doubleCoset [TopologicalSpace G] [IsTopologicalGroup G]
     IsHeckeFunction K (indicator (doubleCoset g K K) (1 : G → A)) := by
   classical
   have hK_compact : IsCompact (K : Set G) := isCompact_iff_compactSpace.2 inferInstance
-  have h_compact : IsCompact (doubleCoset g K K) :=
-    (hK_compact.mul isCompact_singleton).mul hK_compact
-  refine ⟨(finite_quotient_image_of_isCompact hK h_compact).subset fun q hq ↦ ?_,
-    fun x k hk ↦ ⟨?_, ?_⟩⟩
-  · exact ⟨q.out, support_indicator_subset hq, q.out_eq⟩
+  refine ⟨(finite_quotient_image_of_isCompact hK
+      ((hK_compact.mul (isCompact_singleton : IsCompact {g})).mul hK_compact)).subset fun q hq ↦
+    ⟨q.out, support_indicator_subset hq, q.out_eq⟩, fun x k hk ↦ ⟨?_, ?_⟩⟩
   · -- `x * k` and `x` lie in the double coset together: absorb `k` in the right factor
     simp [← inv_mul_eq_iff_eq_mul, mul_mem_cancel_right hk, indicator, mem_doubleCoset, ← mul_assoc]
   · -- likewise with the left factor
@@ -316,17 +312,14 @@ lemma heckeFun_eq_sum_pullback {J : Subgroup G'} (hf : ∀ (g : G) (k : K), f (g
     HasFiniteCosets K f ∧ heckeFun π K f v = ∑ q ∈ s, f (θ q.out) • π (θ q.out) v := by
   have h_coset (a b : G') : (θ a : G ⧸ K) = θ b ↔ (a : G' ⧸ J) = b := by
     simp [QuotientGroup.eq, h_inj]
-  have h_injOn : InjOn (fun q : G' ⧸ J ↦ (θ q.out : G ⧸ K)) (SetLike.coe s) := by
-    simp [InjOn, h_coset]
-  refine heckeFun_eq_sum hf hv h_injOn fun g hg ↦ ?_
+  refine heckeFun_eq_sum hf hv (by simp [InjOn, h_coset]) fun g hg ↦ ?_
   obtain ⟨x, hx⟩ := hθ g hg
   have h_out : (θ (x : G' ⧸ J).out : G ⧸ K) = g := by simp [← hx, h_coset]
   refine ⟨x, ?_, h_out⟩
   by_contra h_not
   -- `θ x.out = g * k` with `k ∈ K`, so `f g = f (θ x.out)`, which `hs` would make `0`
-  have h_mem : g⁻¹ * θ (x : G' ⧸ J).out ∈ K := QuotientGroup.eq.1 h_out.symm
-  apply hg
-  rw [← hf g ⟨_, h_mem⟩, mul_inv_cancel_left, hs _ h_not]
+  rw [← hf g ⟨_, QuotientGroup.eq.1 h_out.symm⟩, mul_inv_cancel_left] at hg
+  exact hg (hs _ h_not)
 
 /-- Let the homomorphism a : G' → G be surjective with a⁻¹(K) = J. Let f(gk) = f(g) and π(k)v = v
 for k ∈ K, and let F = f∘a be nonzero on finitely many cosets gJ. If ρ(g)v = π(a(g))v for all g,
@@ -338,13 +331,9 @@ lemma heckeFun_comp {J : Subgroup G'} {F : G' → A} (a : G' →* G)
     (hF_eq : ∀ g : G', F g = f (a g)) :
     heckeFun ρ J F v = heckeFun π K f v := by
   -- `a` induces a bijection of the coset spaces
-  have h_cover (g : G) (_ : f g ≠ 0) : ∃ x : G', (a x : G ⧸ K) = g :=
-    (ha g).imp fun x hx ↦ congrArg QuotientGroup.mk hx
-  have h_inj (x y : G') : (a x)⁻¹ * a y ∈ K ↔ x⁻¹ * y ∈ J := by simp [← hK]
-  have h_zero (q : G' ⧸ J) (hq : q ∉ hF.toFinset) : f (a q.out) = 0 := by
-    simpa [← hF_eq] using hq
-  obtain ⟨-, h_sum⟩ := heckeFun_eq_sum_pullback hf hv hF.toFinset a h_cover h_inj h_zero
-  rw [h_sum, heckeFun_eq_sum_toFinset hF]
+  rw [(heckeFun_eq_sum_pullback hf hv hF.toFinset a
+    (fun g _ ↦ (ha g).imp fun _ hx ↦ congrArg QuotientGroup.mk hx) (fun _ _ ↦ by simp [← hK])
+    (fun _ hq ↦ by simpa [← hF_eq] using hq)).2, heckeFun_eq_sum_toFinset hF]
   simp [hρ, hF_eq]
 
 /-- Let `f (g * k) = f g` for `k ∈ K`. If `f` lives on finitely many cosets `g K`, so does its left
@@ -353,11 +342,9 @@ lemma HasFiniteCosets.comp_inv_mul (hf_fin : HasFiniteCosets K f)
     (hf : ∀ (g : G) (k : K), f (g * k) = f g) (x : G) :
     HasFiniteCosets K (fun g : G ↦ f (x⁻¹ * g)) := by
   -- The cosets where the translate lives are carried by `x⁻¹` to cosets where `f` lives.
-  have h_value (q : G ⧸ K) : f (x⁻¹ • q).out = f (x⁻¹ * q.out) := by
-    obtain ⟨k, hk⟩ := mk_out_eq_mul K (x⁻¹ * q.out)
-    rw [← MulAction.Quotient.mk_smul_out, smul_eq_mul, hk, hf]
   refine (hf_fin.preimage (MulAction.injective x⁻¹).injOn).subset fun q hq ↦ ?_
-  simpa [h_value] using hq
+  obtain ⟨k, hk⟩ := mk_out_eq_mul K (x⁻¹ * q.out)
+  rwa [Set.mem_preimage, mem_support, ← MulAction.Quotient.mk_smul_out, smul_eq_mul, hk, hf]
 
 /-- Let `f (g * k) = f g` for `k ∈ K`, let `f` live on finitely many cosets, and let `v` be fixed by
 `K`. The operator of the left translate `g ↦ f (x⁻¹ * g)` sends `v` to `π x` of the image of `v`
@@ -366,13 +353,9 @@ lemma heckeFun_comp_inv_mul (hf_fin : HasFiniteCosets K f)
     (hf : ∀ (g : G) (k : K), f (g * k) = f g) (hv : v ∈ levelSpace (A := A) π K) (x : G) :
     heckeFun π K (fun g : G ↦ f (x⁻¹ * g)) v = π x (heckeFun π K f v) := by
   -- the representatives of the cosets for the translate are `x * q.out`
-  have h_right (g : G) (k : K) : f (x⁻¹ * (g * k)) = f (x⁻¹ * g) := by rw [← mul_assoc, hf]
-  have h_cover (g : G) (_ : f (x⁻¹ * g) ≠ 0) : ∃ y : G, ((x * y : G) : G ⧸ K) = g :=
-    ⟨x⁻¹ * g, by simp⟩
-  have h_zero (q : G ⧸ K) (hq : q ∉ hf_fin.toFinset) : f (x⁻¹ * (x * q.out)) = 0 := by
-    simpa using hq
-  obtain ⟨-, h_sum⟩ := heckeFun_eq_sum_pullback (f := fun g : G ↦ f (x⁻¹ * g)) h_right hv
-    hf_fin.toFinset (x * ·) h_cover (fun a b ↦ by simp) h_zero
+  have h_sum := (heckeFun_eq_sum_pullback (f := fun g : G ↦ f (x⁻¹ * g))
+    (fun g k ↦ by rw [← mul_assoc, hf]) hv hf_fin.toFinset (x * ·)
+    (fun g _ ↦ ⟨x⁻¹ * g, by simp⟩) (fun _ _ ↦ by simp) (fun _ hq ↦ by simpa using hq)).2
   simp [h_sum, heckeFun_eq_sum_toFinset hf_fin]
 
 /-- Let `f` and `f'` live on finitely many cosets `g K`, let `f` be right `K`-invariant, and let `v`
@@ -402,12 +385,11 @@ lemma heckeFun_mem_levelSpace (hf_fin : HasFiniteCosets K f)
     (hv : v ∈ levelSpace (A := A) π K) :
     heckeFun π K f v ∈ levelSpace π K' χ' := by
   -- `π k` replaces `f` by `f (k⁻¹ * ·)`, which is `χ' k` times `f`
-  refine mem_levelSpace.2 fun k ↦ ?_
+  intro k
   have h_translate (g : G) : f ((k : G)⁻¹ * g) = χ' k * f g := by
     simp [← hf_left ((k : G)⁻¹ * g) k]
-  have h_scale : heckeFun π K (fun g : G ↦ f ((k : G)⁻¹ * g)) = χ' k • heckeFun π K f := by
-    simp [heckeFun, h_translate, ← smul_smul, ← smul_finsum', fun_smul_left hf_fin]
-  rw [← heckeFun_comp_inv_mul hf_fin hf hv k, h_scale, LinearMap.smul_apply]
+  rw [← heckeFun_comp_inv_mul hf_fin hf hv k]
+  simp [heckeFun, h_translate, ← smul_smul, ← smul_finsum', fun_smul_left hf_fin]
 
 /-- The operator of a `K`-bi-invariant function on finitely many cosets preserves the space of
 vectors fixed by `K`. -/
