@@ -66,10 +66,9 @@ carried into `N` by a square matrix whose determinant divides `z` (this is `Cole
 `M'`, `N'` are submodules of `U` such that `f (M') ⊆ M` and every `x ∈ M'` with `f x ∈ N` lies in
 `N'`, then the same holds for `M'`, `N'` and `z`. -/
 lemma ColengthDvd.comap (hMN : ColengthDvd M N z) (f : U →ₗ[O] V) (hM : M' ≤ M.comap f)
-    (hN : ∀ x ∈ M', f x ∈ N → x ∈ N') : ColengthDvd M' N' z := by
-  intro n Φ hΦ
-  obtain ⟨m, hm_det, hm_mem⟩ := hMN n (f ∘ Φ) fun k ↦ hM (hΦ k)
-  exact ⟨m, hm_det, fun i ↦ hN _ (sum_smul_mem M' _ fun k _ ↦ hΦ k) (by simpa using hm_mem i)⟩
+    (hN : ∀ x ∈ M', f x ∈ N → x ∈ N') : ColengthDvd M' N' z :=
+  fun n Φ hΦ ↦ (hMN n (f ∘ Φ) fun k ↦ hM (hΦ k)).imp fun _ ⟨h_det, h_mem⟩ ↦
+    ⟨h_det, fun i ↦ hN _ (sum_smul_mem M' _ fun k _ ↦ hΦ k) (by simpa using h_mem i)⟩
 
 /-- Colength bounds push forward along a linear map `f : V → U`. Let every finite family in `M` be
 carried into `N` by a square matrix whose determinant divides `z` (this is `ColengthDvd M N z`). If
@@ -79,14 +78,13 @@ lemma ColengthDvd.map (hMN : ColengthDvd M N z) (f : V →ₗ[O] U) (hM' : M' �
     (hN : N.map f ≤ N') : ColengthDvd M' N' z := by
   intro n Φ hΦ
   -- Write `Φ k = f (x k) + y k` with `x k ∈ M` and `y k ∈ N'`.
-  have h_split (k : Fin n) : ∃ x ∈ M, ∃ y ∈ N', f x + y = Φ k := by
-    simpa using mem_sup.1 (hM' (hΦ k))
+  have h_split k : ∃ x ∈ M, ∃ y ∈ N', f x + y = Φ k := by simpa using mem_sup.1 (hM' (hΦ k))
   choose x hx y hy hxy using h_split
   obtain ⟨m, hm_det, hm_mem⟩ := hMN n x hx
-  refine ⟨m, hm_det, fun i ↦ ?_⟩
   -- The combination of the Φ k is f (∑ k, m i k • x k) plus a combination of the y k.
+  refine ⟨m, hm_det, fun i ↦ ?_⟩
   simpa [← hxy, sum_add_distrib] using
-    add_mem (hN (mem_map_of_mem (hm_mem i))) (sum_smul_mem N' (m i) fun k _ ↦ hy k)
+    N'.add_mem (hN (mem_map_of_mem (hm_mem i))) (sum_smul_mem N' (m i) fun k _ ↦ hy k)
 
 /-- Let `M`, `N` be submodules of `V` and let the endomorphism `f` keep `M`. If every finite family
 in `M` is carried into `f (M) + a • M` by a square matrix whose determinant divides `z`, and into
@@ -141,9 +139,7 @@ lemma colengthDvd_inf_comap_span [IsDomain O] [ValuationRing O] (M : Submodule O
   -- and multiply it by `a`.
   classical
   obtain ⟨p, -, hp⟩ := exists_max_image univ (fun k ↦ Ideal.span {f (Φ k)}) ⟨⟨0, hn⟩, mem_univ _⟩
-  replace hp (k : Fin n) : f (Φ p) ∣ f (Φ k) :=
-    Ideal.span_singleton_le_span_singleton.1 (hp k (mem_univ k))
-  choose c hc using hp
+  choose c hc using fun k ↦ Ideal.span_singleton_le_span_singleton.1 (hp k (mem_univ k))
   let m : Matrix (Fin n) (Fin n) O := updateCol 1 p fun i ↦ if i = p then a else -c i
   have h_det : m.det = a := by simp [m, ← cramer_apply, cramer_one]
   have h_comb (i : Fin n) : ∑ k, m i k • Φ k = if i = p then a • Φ p else Φ i - c i • Φ p := by
@@ -206,9 +202,7 @@ lemma colengthDvd_sup_span [IsDomain O] [ValuationRing O] (N : Submodule O V) (s
   classical
   let comb : (s → O) →ₗ[O] V := Fintype.linearCombination O fun v : s ↦ (v : V)
   have h_range : Submodule.map comb ⊤ = span O s := by simp [comb, Fintype.range_linearCombination]
-  have h_free : ColengthDvd (⊤ : Submodule O (s → O)) (z • ⊤) (z ^ #s) := by
-    simpa using colengthDvd_top_smul_top (ι := s) z
-  refine h_free.map comb (by order) ?_
+  refine (Fintype.card_coe s ▸ colengthDvd_top_smul_top (ι := s) z).map comb (by order) ?_
   grw [map_pointwise_smul, le_top (a := Submodule.map comb ⊤), ← le_sup_right]
 
 /-! ### Comparison with lengths -/
