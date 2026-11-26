@@ -130,21 +130,17 @@ lemma exists_cyclic_lower_triangular (κ : Φ → ℕ → ℕ) :
   let P : MvPolynomial ((τ : Φ) × N τ × N τ) ℂ := C ∘ r ⬝ᵥ schur κ (genericMatrixAt ℂ N) *ᵥ C ∘ v
   have hP (z : ∀ τ : Φ, Matrix (N τ) (N τ) ℂ) : evalMatrix z P = r ⬝ᵥ schur κ z *ᵥ v := by
     simp [P, Function.comp_def, map_dotProduct, map_mulVec]
-  have h_vanish (M : ∀ τ : Φ, Matrix (N τ) (N τ) ℂ) :
-      evalMatrix ((u + (1 - u • U) M) * (1 + U M)) P = 0 := by
-    obtain ⟨g, hg, hM⟩ := h_factor M
-    rw [hM, hP]
-    simp [Pi.mul_def, hr g hg, schur_mul_left, h_eigen, ← mulVec_mulVec, mulVec_smul]
-  have h_zero (z : ∀ τ : Φ, Matrix (N τ) (N τ) ℂ) : r ⬝ᵥ schur κ z *ᵥ v = 0 := by
-    rw [← hP]
-    refine eq_zero_of_submersion analyticOnNhd_evalMatrix
-      (((1 - u • U).hasStrictFDerivAt.const_add u).fun_mul' (U.hasStrictFDerivAt.const_add 1))
-      (a := 0) ?_ (.of_forall h_vanish) z
-    -- Product rule; as `U 0 = 0`, the derivative at `0` is `u * U M + (M - u * U M) = M`.
-    simp [Module.End.one_eq_id]
   -- The vectors `schur κ g *ᵥ v` span (`ext_schur_weylEval`), and `r` is orthogonal to all of them.
   refine (dotProductEquiv ℂ (WeylIndexFamily N κ)).injective (ext_schur_weylEval E fun g ↦ ?_)
-  simpa [v] using h_zero fun τ : Φ ↦ (g τ).val
+  have h_zero : evalMatrix (fun τ ↦ (g τ).val) P = 0 := by
+    -- Product rule; as `U 0 = 0`, the derivative at `0` is `u * U M + (M - u * U M) = M`.
+    refine eq_zero_of_submersion analyticOnNhd_evalMatrix
+      (((1 - u • U).hasStrictFDerivAt.const_add u).fun_mul' (U.hasStrictFDerivAt.const_add 1))
+      (a := 0) (by simp [Module.End.one_eq_id]) (.of_forall fun M ↦ ?_) _
+    obtain ⟨g', hg', hM⟩ := h_factor M
+    rw [hM, hP]
+    simp [Pi.mul_def, hr g' hg', schur_mul_left, h_eigen, ← mulVec_mulVec, mulVec_smul]
+  simpa [v, hP] using h_zero
 
 /-- The kernel of the branching map: for arrays `x` (rows `n`) and `y` (rows `N`) over a commutative
 ring `S`, the value of `branchVector S ι γ κ'` at `diag(xᵀ, 1) y`, where `xᵀ` is the transposed
@@ -200,15 +196,13 @@ private lemma branchKernel_blockScalar {S : Type} [CommRing S] (g : ∀ τ : Φ,
   -- With `a` the transposed square part of `x`, that of `gᵀ x` is `a g`. Now
   -- `diag(a, 1) diag(g, s) = diag(1, s) diag(a g, 1)`, and `diag(1, s)` scales `branchVector`.
   let a (τ : Φ) : Matrix (n τ) (n τ) S := (squarePart (rowEquivFin n) x τ)ᵀ
-  have h_square : (fun τ : Φ ↦ (squarePart (rowEquivFin n) (fun p : Sigma n × ℕ ↦
-      ∑ b : n p.1.fst, (g p.1.fst)ᵀ p.1.snd b * x (⟨p.1.fst, b⟩, p.2)) τ)ᵀ) =
-        fun τ : Φ ↦ a τ * g τ := by
+  have h_square : (fun τ ↦ (squarePart (rowEquivFin n) (fun p ↦
+      ∑ b, (g p.1.fst)ᵀ p.1.snd b * x (⟨p.1.fst, b⟩, p.2)) τ)ᵀ) = fun τ ↦ a τ * g τ := by
     ext τ i j
     simp [a, squarePart, Matrix.mul_apply, mul_comm]
-  have h_block : (fun τ : Φ ↦ blockScalar ι a 1 τ * blockScalar ι g s τ) =
-      fun τ : Φ ↦ blockScalar ι 1 s τ * blockScalar ι (fun σ : Φ ↦ a σ * g σ) 1 τ := by
-    funext τ
-    simp [blockScalar, fromBlocks_multiply]
+  have h_block : (fun τ ↦ blockScalar ι a 1 τ * blockScalar ι g s τ) =
+      fun τ ↦ blockScalar ι 1 s τ * blockScalar ι (fun σ ↦ a σ * g σ) 1 τ :=
+    funext fun τ ↦ by simp [blockScalar, fromBlocks_multiply]
   rw [branchKernel, branchKernel, h_square, ← eval_rowSubst, rowSubst_rowSubst, h_block,
     ← rowSubst_rowSubst, rowSubst_branchVector, map_smul, smul_eval]
 
@@ -396,11 +390,7 @@ lemma spansBranchingMaps_of_equivariant {c : ℤ} (hc : c ≠ 0) {e e₀ : Φ �
   set x : WeylIndexFamily n κ₀ → ℂ :=
     G₀ *ᵥ weylEval n κ₀ (permArray fun (τ : Φ) (i : n τ) ↦ (rowEquivFin n τ i : ℕ))
   let d (g : ∀ τ : Φ, Matrix (n τ) (n τ) ℂ) : ℂ := ∏ τ, (g τ).det ^ κ' τ (rankAt n τ)
-  obtain ⟨v, v_cyclic⟩ : ∃ v : WeylIndexFamily N (γ + κ') → ℂ, ∀ r : WeylIndexFamily N (γ + κ') → ℂ,
-      (∀ g : (τ : Φ) → Matrix (n τ) (n τ) ℂ, (∀ τ : Φ, (g τ)ᵀ.BlockTriangular (rowEquivFin n τ)) →
-        r ⬝ᵥ schur (γ + κ') (blockScalar ι g 1) *ᵥ v = 0) →
-      r = 0 :=
-    exists_cyclic_lower_triangular ι (γ + κ')
+  obtain ⟨v, v_cyclic⟩ := exists_cyclic_lower_triangular ι (γ + κ')
   let D {R : Type} [CommRing R] (g : (τ : Φ) → Matrix (n τ) (n τ) R) :
       Module.End R (Matrix (WeylIndexFamily n κ₀) (WeylIndexFamily N (γ + κ')) R) :=
     mulRightLinearMap _ R (schur (γ + κ') (blockScalar (R := R) ι g 1)) -
@@ -444,22 +434,16 @@ lemma spansBranchingMaps_of_equivariant {c : ℤ} (hc : c ≠ 0) {e e₀ : Φ �
         zpow_ne_zero] using congrFun₂ h_equiv i j
     rw [← h_eval]
     exact zariski_dense_unitary g _ fun z hz ↦ (h_eval z).trans (h_unitary z hz)
-  have B_defect (g : (τ : Φ) → Matrix (n τ) (n τ) ℂ) : D g (B.map (Int.cast : ℤ → ℂ)) = 0 :=
-    sub_eq_zero.mpr (B_block g)
+  have B_defect g : D g (B.map (Int.cast : ℤ → ℂ)) = 0 := sub_eq_zero.mpr (B_block g)
   -- `B ≠ 0` because `c • branchVector ℂ ι γ κ' ≠ 0`, so `x ᵥ* B ⬝ᵥ v ≠ 0`.
-  have h_kernel_ne (κ : Φ → ℕ → ℕ) (e : ∀ τ : Φ, N τ ≃ Fin (rankAt N τ)) :
-      weylKernel (R := ℂ) N κ (permArray fun (τ : Φ) (a : N τ) ↦ (e τ a : ℕ)) ≠ 0 :=
-    ne_zero_of_map (ne_zero_of_eq_one (eval_weylKernel_permArray e))
-  have value_ne : x ᵥ* B.map (↑) ⬝ᵥ v ≠ 0 := by
-    intro h
-    simpa [eq_zero _ B_defect h, branchVector, hc, h_kernel_ne] using B_top.symm
+  have value_ne : x ᵥ* B.map (↑) ⬝ᵥ v ≠ 0 := fun h ↦ by
+    have h_ne (κ : Φ → ℕ → ℕ) (e : ∀ τ, N τ ≃ Fin (rankAt N τ)) :
+        weylKernel (R := ℂ) N κ (permArray fun τ a ↦ (e τ a : ℕ)) ≠ 0 :=
+      ne_zero_of_map (ne_zero_of_eq_one (eval_weylKernel_permArray e))
+    simpa [eq_zero _ B_defect h, branchVector, hc, h_ne] using B_top.symm
   -- `T - a • B` is equivariant and `x ᵥ* (T - a • B) ⬝ᵥ v = 0`, so it is zero.
-  set a : ℂ := x ᵥ* T ⬝ᵥ v / x ᵥ* B.map (↑) ⬝ᵥ v with ha
-  refine ⟨a, sub_eq_zero.mp (eq_zero _ (fun g ↦ ?_) ?_)⟩
-  · show D g (T - a • B.map Int.cast) = 0
-    simp [T_equiv, B_defect]
-  · show x ᵥ* (T - a • B.map Int.cast) ⬝ᵥ v = 0
-    simp [ha, value_ne, vecMul_sub, vecMul_smul]
+  refine ⟨x ᵥ* T ⬝ᵥ v / x ᵥ* B.map (↑) ⬝ᵥ v, sub_eq_zero.mp (eq_zero _
+    (fun g ↦ by simp [T_equiv, B_defect]) (by simp [value_ne, vecMul_sub, vecMul_smul]))⟩
 
 /-- Branching from `GL (n + 1)` to `GL n`. Write `κ = γ + κ'`: of the `κ τ h` columns of height `h`,
 `γ τ h` lose a box and `κ' τ h` keep theirs, and `κ₀ τ h = κ' τ h + γ τ (h + 1)` for
@@ -505,14 +489,8 @@ lemma _root_.New.exists_branching_matrix (κ₀ : Φ → ℕ → ℕ) (q : ℕ) 
   refine ⟨B, fun R _ _ g s x hx ↦ ?_, fun L hL ξ ↦ ?_,
     spansBranchingMaps_of_equivariant ι c_pos.ne' he₀ B_top B_block⟩
   · -- Multiply `B_equiv` by the powers of the determinants, with `det (x τ) = det (g τ) * s τ`.
-    have h_schur : B.map (Int.cast : ℤ → R) * schur (γ + κ') (fun τ : Φ ↦ (x τ).val) =
-        (∏ τ : Φ, (s τ).val ^ diagramWeight (rankAt N) γ (τ, 0) *
-            (g τ).val.det ^ κ' τ (rankAt n τ)) •
-          (schur κ₀ (fun τ : Φ ↦ (g τ).val) * B.map (Int.cast : ℤ → R)) := by
-      rw [funext hx]
-      exact B_equiv R (fun τ : Φ ↦ (g τ).val) fun τ : Φ ↦ (s τ).val
-    have h_det (τ : Φ) : (x τ).val.det = (g τ).val.det * (s τ).val := by
-      simp [hx τ, blockScalar]
+    have h_schur := (funext hx).symm ▸ B_equiv R (fun τ ↦ (g τ).val) fun τ ↦ (s τ).val
+    have h_det (τ : Φ) : (x τ).val.det = (g τ).val.det * (s τ).val := by simp [hx τ, blockScalar]
     simp [weylRep, h_schur, h_det, he₀, Units.smul_def, mul_zpow, _root_.zpow_add, smul_smul,
       prod_mul_distrib, mul_assoc, mul_left_comm]
   · have hc_le : (c : ℝ) ≤ ((L : ℝ) ^ L) ^ 3 := by exact_mod_cast c_le L hL
