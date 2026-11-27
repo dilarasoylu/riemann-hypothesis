@@ -409,6 +409,12 @@ lemma exists_conj_modKernel_leftPair_eq {P : Parameters} (D : Data P) (i n : ℕ
   refine ⟨τ, .of_norm_sq_mul_card_pow_eq_one h_norm, fun ϑ ↦ ?_, h_swap⟩
   simpa using left_ne_zero_of_mul_eq_one (h_norm ϑ)
 
+/-- Conjugating an integral against a scaled-conjugate kernel pulls out the scalar. -/
+private lemma conj_integral_mul {α : Type*} [MeasurableSpace α] {c : ℂ} {K K' : α → ℂ}
+    (hK : ∀ a, conj (K a) = c * K' a) (μ : Measure α) (f : α → ℂ) :
+    conj (∫ a, K a * f a ∂μ) = c * ∫ a, K' a * conj (f a) ∂μ := by
+  simp [← integral_conj, hK, mul_assoc, integral_const_mul]
+
 /-- In the triangle `z = false` (the twisted one), let `Φ` make an edge along the left pair from
 `(i + 1, n)` to `(i, n + 1)` (`IsLeftPair`) and `Φ'` in the other direction (`IsReversedPair`). The
 adjoint of `triangleTransposedLift` with `Φ` and datum `Ψ`, from forms at `(i, n + 1)` to forms at
@@ -425,38 +431,24 @@ lemma exists_inner_triangleTransposedLift_eq {P : Parameters} (D : Data P) {i n 
         ⟪D.triangleTransposedLift false ϑ i n Φ Ψ x, y⟫ =
           c ϑ * ⟪x, D.triangleReversedLift false ϑ i n Φ' (D.fourierDatum false ϑ Ψ)
             (D.triangleRep false (i + 1) n (D.reversalScalar false ϑ n)⁻¹ y)⟫ := by
-  -- Reverse the kernel of the descent, and trade the transposed polynomial for `Φ'` and `κ`.
   obtain ⟨turn, h_turn_modulus, -, h_turn⟩ := D.exists_conj_modKernel_leftPair_eq i n
-  let Q : D.EdgePoly false (n + 1) n :=
-    flipPoly (D.gridSigns false (i + 1) 0 n) (D.gridSigns false i 0 (n + 1)) (Φ.map conj)
-  obtain ⟨κ, hκ⟩ := hΦ'.petersson_lift_eq_mul_inner_modTransposedLift Q
+  obtain ⟨κ, hκ⟩ := hΦ'.petersson_lift_eq_mul_inner_modTransposedLift
+    (flipPoly (D.gridSigns false (i + 1) 0 n) (D.gridSigns false i 0 (n + 1)) (Φ.map conj))
   refine ⟨turn * fun _ ↦ conj κ, by simpa using h_turn_modulus.mul (.const (conj κ)),
     fun ϑ Ψ x y ↦ ?_⟩
-  let u : Gf D.E (D.GridIndex false 0 n) := D.reversalScalar false ϑ n
-  let y' : D.TriangleForm false (i + 1) n := D.triangleRep false (i + 1) n u⁻¹ y
-  -- `L` is the lift of the conjugate of `x` along the reversed pair
-  let L : New.G D.E (D.gridSigns false (i + 1) 0 n) → ℂ := Space.lift
-    (pairThetaKer (D.gridSpace i false 0 (n + 1)) (D.gridSpace (i + 1) false 0 n)
-      (D.leftPairChar false ϑ i (D.GridIndex false 0 (n + 1)))
-      (D.leftPairChar false ϑ i (D.GridIndex false 0 n)))
-    (modDatum _ _ (triangleModulus false ϑ) (D.fourierDatum false ϑ Ψ) (Fock.polyVector _ Q))
-    (star x.val)
-  have h_conj (g : New.G D.E (D.gridSigns false (i + 1) 0 n)) :
-      conj ((D.triangleTransposedLift false ϑ i n Φ Ψ x).val g) = turn ϑ * L (g * (1, u)) := by
-    refine (congrArg conj (hΦ.modTransposedLift_apply _ _ ϑ Ψ x g)).trans ?_
-    simp [L, Q, u, lift_modDatum_apply, ← integral_conj, h_turn, mul_assoc, integral_const_mul]
-  have h_trade : (D.gridSpace (i + 1) false 0 n).petersson y'.val (star L) =
-      κ * ⟪D.triangleReversedLift false ϑ i n Φ' (D.fourierDatum false ϑ Ψ) y', x⟫ :=
-    hκ ϑ _ _ (triangleModulus false ϑ) (D.fourierDatum false ϑ Ψ) x y'
-  calc ⟪D.triangleTransposedLift false ϑ i n Φ Ψ x, y⟫
-      = ⟪formRep _ _ u⁻¹ (D.triangleTransposedLift false ϑ i n Φ Ψ x), y'⟫ :=
-        (inner_formRep u⁻¹ _ y).symm
-    _ = turn ϑ * (D.gridSpace (i + 1) false 0 n).petersson (star L) y'.val := by
-      simp [inner_eq_petersson, petersson, formRep_apply, h_conj, mul_assoc, integral_const_mul,
-        Prod.mk_one_one]
-    _ = turn ϑ * conj κ * ⟪x, D.triangleReversedLift false ϑ i n Φ' (D.fourierDatum false ϑ Ψ)
-      y'⟫ := by
-      rw [← conj_petersson, h_trade, map_mul, inner_conj_symm, mul_assoc]
+  let u := D.reversalScalar false ϑ n
+  let y' := D.triangleRep false (i + 1) n u⁻¹ y
+  rw [Pi.mul_apply, mul_assoc]
+  conv_rhs => rw [← inner_conj_symm, ← map_mul]
+  refine (inner_formRep u⁻¹ _ y).symm.trans (.trans ?_ (congrArg (fun z ↦ turn ϑ * conj z)
+    (hκ ϑ _ _ (triangleModulus false ϑ) (D.fourierDatum false ϑ Ψ) x y')))
+  rw [conj_petersson, inner_eq_petersson, petersson, petersson, ← integral_const_mul]
+  refine congrArg _ (funext fun g ↦ ?_)
+  rw [formRep_apply, ← mul_assoc]
+  refine congrArg (· * y'.val g)
+    ((congrArg conj (hΦ.modTransposedLift_apply _ _ ϑ Ψ x _)).trans ?_)
+  simp [u, lift_modDatum_apply, fun g' ↦ conj_integral_mul (h_turn ϑ Ψ Φ g'), mul_assoc,
+    Prod.mk_one_one]
 
 /-- In the triangle `z = false` (the twisted one), let `Φ` make an edge along the left pair from
 `(i + 1, n)` to `(i, n + 1)` (`IsLeftPair`) and `Φ'` in the other direction (`IsReversedPair`).
@@ -473,33 +465,20 @@ lemma exists_inner_triangleReversedLift_eq {P : Parameters} (D : Data P) {i n : 
         ⟪x, D.triangleReversedLift false ϑ i n Φ' (D.fourierDatum false ϑ Ψ)
             (D.triangleRep false (i + 1) n (D.reversalScalar false ϑ n)⁻¹ y)⟫ =
           c ϑ * ⟪D.triangleTransposedLift false ϑ i n Φ Ψ x, y⟫ := by
-  -- Write `Φ'` as the transpose of the conjugate of some `Q`, reverse the kernel, and trade `Q` for
-  -- `Φ`.
   obtain ⟨Q, hQ⟩ :=
     exists_flipPoly_map_conj_eq (D.gridSigns false (i + 1) 0 n) (D.gridSigns false i 0 (n + 1)) Φ'
   obtain ⟨turn, h_turn_modulus, h_turn_ne, h_turn⟩ := D.exists_conj_modKernel_leftPair_eq i n
   obtain ⟨κ, hκ⟩ := hΦ.petersson_lift_eq_mul_inner_modTransposedLift Q
   refine ⟨turn⁻¹ * fun _ ↦ κ, by simpa using h_turn_modulus.inv.mul (.const κ),
     fun ϑ Ψ x y ↦ ?_⟩
-  let A : D.TriangleForm false i (n + 1) :=
-    D.triangleReversedLift false ϑ i n Φ' (D.fourierDatum false ϑ Ψ)
-    (D.triangleRep false (i + 1) n (D.reversalScalar false ϑ n)⁻¹ y)
-  -- `L` is the lift of the conjugate of `y` along the left pair, with the polynomial `Q`
-  let L : New.G D.E (D.gridSigns false i 0 (n + 1)) → ℂ := Space.lift
-    (pairThetaKer (D.gridSpace (i + 1) false 0 n) (D.gridSpace i false 0 (n + 1))
-      (D.leftPairChar false ϑ i (D.GridIndex false 0 n))
-      (D.leftPairChar false ϑ i (D.GridIndex false 0 (n + 1))))
-    (modDatum _ _ (triangleModulus false ϑ) Ψ (Fock.polyVector _ Q)) (star y.val)
-  have h_conj (h : New.G D.E (D.gridSigns false i 0 (n + 1))) :
-      conj (L h) = turn ϑ * A.val h := by
-    -- write both sides as integrals, conjugate under the integral and reverse the kernel
-    refine .trans ?_ (congrArg _ (hΦ'.modTransposedLift_formRep_inv_apply _ _ ϑ _ _ y h).symm)
-    simp [L, lift_modDatum_apply, ← integral_conj, h_turn, hQ, mul_assoc, integral_const_mul]
   rw [Pi.mul_apply, Pi.inv_apply, mul_assoc, eq_inv_mul_iff_mul_eq₀ (h_turn_ne ϑ)]
-  calc turn ϑ * ⟪x, A⟫ = (D.gridSpace i false 0 (n + 1)).petersson x.val (star L) := by
-        simp [inner_eq_petersson, petersson, h_conj, mul_left_comm _ (turn ϑ), integral_const_mul]
-    _ = κ * ⟪D.triangleTransposedLift false ϑ i n Φ Ψ x, y⟫ :=
-      hκ ϑ _ _ (triangleModulus false ϑ) Ψ y x
+  refine .trans ?_ (hκ ϑ _ _ (triangleModulus false ϑ) Ψ y x)
+  rw [inner_eq_petersson, petersson, petersson, ← integral_const_mul]
+  refine congrArg _ (funext fun h ↦ ?_)
+  rw [mul_left_comm]
+  refine congrArg (_ * ·)
+    ((congrArg (turn ϑ * ·) (hΦ'.modTransposedLift_formRep_inv_apply _ _ ϑ _ _ y h)).trans ?_)
+  simp [lift_modDatum_apply, conj_integral_mul (fun g ↦ h_turn ϑ Ψ Q g h), hQ]
 
 /-- Let `i + n < D.m`, the number of lifts of the data `D`. The theta lift `triangleLift` for the
 twist `ϑ`, from forms at the node `(i, n)` of the triangle `z` to forms at `(i, n + 1)`, commutes up
